@@ -1,0 +1,127 @@
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
+<jasperReport name="ReporteDeudas" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="e115bc59-fd0f-446b-a585-04725e27d7f0">
+	<style name="Title" fontName="Arial" fontSize="26.0" bold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18.0"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12.0" bold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12.0"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="customerId" class="java.lang.Integer"/>
+	<field name="customerName" class="java.lang.String"/>
+	<field name="customerPhone" class="java.lang.String"/>
+	<field name="numSale" class="java.lang.Integer"/>
+	<field name="date" class="java.time.LocalDate"/>
+	<field name="totalSale" class="java.math.BigDecimal"/>
+	<field name="totalPaid" class="java.math.BigDecimal"/>
+	<field name="totalDebt" class="java.math.BigDecimal"/>
+	<field name="statusValue" class="java.lang.String"/>
+	<background height="575" splitType="Stretch">
+		<element kind="image" uuid="64ca4020-b604-4de9-9ed1-921b74cfd593" positionType="Float" x="-20" y="66" width="105" height="409" onErrorType="Icon" vImageAlign="Bottom">
+			<expression><![CDATA["image/waves.jpg"]]></expression>
+		</element>
+		<element kind="frame" uuid="6eb7cb61-0dd7-47a8-8475-5fa6c3a348dc" mode="Opaque" x="-20" y="475" width="105" height="100" backcolor="#666666">
+			<element kind="textField" uuid="db8457c8-99e9-434f-b439-2d400dff2bcd" x="0" y="0" width="104" height="73" forecolor="#000000" fontName="SansSerif" fontSize="58.0" bold="true" hTextAlign="Center" vTextAlign="Middle" style="Column header">
+				<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="e20c8a65-aded-41dc-a107-108a9159af99" x="0" y="77" width="104" height="20" forecolor="#000000" fontName="SansSerif" fontSize="16.0" evaluationTime="Report" bold="false" hTextAlign="Center" style="Column header">
+				<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+				<box leftPadding="4" rightPadding="4" style="Column header"/>
+			</element>
+			<element kind="line" uuid="db6d7ead-4383-4f8c-81cf-1e3064eb6924" mode="Transparent" x="42" y="73" width="20" height="1" backcolor="#FFFFFF"/>
+		</element>
+	</background>
+	<title height="104" splitType="Stretch">
+		<element kind="staticText" uuid="1dcadd54-7d50-4470-85ed-189e4d910b25" x="0" y="0" width="802" height="67" fontName="SansSerif" fontSize="54.0" bold="false" hTextAlign="Right" vTextAlign="Middle" style="Title">
+			<text><![CDATA[Papeleria]]></text>
+		</element>
+		<element kind="staticText" uuid="862cb50c-5a5e-4906-a495-226e25115fb6" x="232" y="67" width="568" height="37" fontName="SansSerif" fontSize="26.0" hTextAlign="Right" style="SubTitle">
+			<text><![CDATA[Reporte de Deudas]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader height="25" splitType="Stretch">
+		<element kind="frame" uuid="35d90a9b-bb7e-4ec4-bfa2-68be1967d6b2" mode="Opaque" x="97" y="5" width="705" height="20" backcolor="#728EA6">
+			<element kind="staticText" uuid="cecaefe6-79bb-4909-a4fa-a12b30c71896" x="0" y="0" width="70" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Cedula]]></text>
+			</element>
+			<element kind="staticText" uuid="42626234-e428-447b-8c17-cd6ffcb4a799" x="70" y="0" width="100" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Cliente]]></text>
+			</element>
+			<element kind="staticText" uuid="16ffd85c-efb7-4f64-96e1-ca73588d5296" x="170" y="0" width="70" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Telefono]]></text>
+			</element>
+			<element kind="staticText" uuid="9363a9dc-29ed-4ab0-855e-3dce0cee4bef" x="240" y="0" width="60" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Num. Venta]]></text>
+			</element>
+			<element kind="staticText" uuid="19449d02-7050-453e-8703-6a207baddbb7" x="300" y="0" width="80" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Fecha]]></text>
+			</element>
+			<element kind="staticText" uuid="9ee12f3c-4beb-4c42-aea3-ac51c2649cc0" x="380" y="0" width="80" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Total a Pagar]]></text>
+			</element>
+			<element kind="staticText" uuid="38a7c27b-5b1f-4c16-b78b-030ff2946d7e" x="460" y="0" width="80" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Cant. Pagada]]></text>
+			</element>
+			<element kind="staticText" uuid="ed3bb65c-fe4e-441f-9f2c-5ec59a726858" x="540" y="0" width="80" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Deuda Actual]]></text>
+			</element>
+			<element kind="staticText" uuid="9f9bb85f-5e3b-4d9c-aaf1-cea62d213351" x="620" y="0" width="84" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Estado]]></text>
+			</element>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<element kind="frame" uuid="89a3da05-fdde-4ffe-965f-cc476f72e3ab" x="97" y="1" width="705" height="15">
+				<element kind="textField" uuid="fa7f14b5-3e77-4cb6-9875-685d0d96c6ba" x="0" y="0" width="70" height="15">
+					<expression><![CDATA[$F{customerId}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed062bca-e488-4a90-95a3-313eef4c8737"/>
+				</element>
+				<element kind="textField" uuid="0e7caf39-f106-4eb2-9ce6-b678e5f2aa70" x="70" y="0" width="100" height="15">
+					<expression><![CDATA[$F{customerName}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8a41738f-3b81-4067-aec2-74413fa0a19a"/>
+				</element>
+				<element kind="textField" uuid="e12c20e4-1b41-414c-8313-ed1b544d4c9c" x="170" y="0" width="70" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{customerPhone}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fe0fcbbc-0024-408d-a4de-6c8f1cba34d0"/>
+				</element>
+				<element kind="textField" uuid="e2fd2378-5e40-4c0f-abc2-1e5dd46734ea" x="240" y="0" width="60" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{numSale}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="58aec871-948d-4769-97f4-34c729ed7bfd"/>
+				</element>
+				<element kind="textField" uuid="9ec22868-378d-4c28-b786-b6ad24559e16" x="300" y="0" width="80" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{date}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="10b42660-4d64-4a0d-b3d5-54d1317d1492"/>
+				</element>
+				<element kind="textField" uuid="23886a3b-4bf7-4e14-898a-94b2e880f24f" x="380" y="0" width="80" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{totalSale}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d6cecf1a-b1b2-4374-acc7-b51866abd961"/>
+				</element>
+				<element kind="textField" uuid="da31dada-26f2-4077-a4e8-769a91742767" x="460" y="0" width="80" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{totalPaid}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a01bde71-5fae-4447-9cca-29a6c4455c8e"/>
+				</element>
+				<element kind="textField" uuid="c617f8d5-01ee-4dd9-bfea-5cfd7838d8e7" x="540" y="0" width="80" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{totalDebt}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="975daa71-ccc1-45d7-b576-44f2bcd3fb33"/>
+				</element>
+				<element kind="textField" uuid="260e12f1-de0f-4c70-9f84-f3ca7a3f1f7e" x="620" y="0" width="85" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{statusValue}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8f78ae52-71d9-4699-8059-556d442107f3"/>
+				</element>
+			</element>
+			<element kind="line" uuid="e5f21b91-7f24-498e-97a1-0e93db9225a4" positionType="FixRelativeToBottom" x="97" y="16" width="705" height="1">
+				<pen lineWidth="0.5" lineColor="#999999"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="39" splitType="Stretch">
+		<element kind="textField" uuid="95484ca0-40b4-4752-95d8-1afbc33c820b" x="671" y="0" width="131" height="20" forecolor="#000000" fontName="SansSerif" fontSize="12.0" pattern="EEEEE dd MMMMM yyyy" bold="false" hTextAlign="Right" style="Column header">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="staticText" uuid="0ec52099-dcd7-42f4-8baa-f3874f05208a" x="96" y="0" width="267" height="20" fontSize="12.0">
+			<text><![CDATA[Reporte de Deudas]]></text>
+		</element>
+	</pageFooter>
+	<summary splitType="Stretch"/>
+</jasperReport>

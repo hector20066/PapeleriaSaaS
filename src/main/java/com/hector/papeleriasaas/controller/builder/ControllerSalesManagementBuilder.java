@@ -1,0 +1,60 @@
+package com.hector.papeleriasaas.controller.builder;
+
+import com.hector.papeleriasaas.controller.ControllerSalesManagement;
+import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
+import com.hector.papeleriasaas.observer.Subject;
+import com.hector.papeleriasaas.service.SaleService;
+import com.hector.papeleriasaas.view.content.panels.SalesManagement;
+
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
+public class ControllerSalesManagementBuilder {
+
+    private SalesManagement salesManagement;
+    private Subject subject;
+    private ProductsFacade daoProducts;
+    private SaleService saleService;
+
+    public ControllerSalesManagementBuilder withViewSalesManagement(SalesManagement salesManagement) {
+        this.salesManagement = salesManagement;
+        return this;
+    }
+
+    public ControllerSalesManagementBuilder withSubject(Subject subject) {
+        this.subject = subject;
+        return this;
+    }
+
+    public ControllerSalesManagementBuilder withDaoProducts(ProductsFacade daoProducts) {
+        this.daoProducts = daoProducts;
+        return this;
+    }
+
+    public ControllerSalesManagementBuilder withSaleService(SaleService saleService) {
+        this.saleService = saleService;
+        return this;
+    }
+
+    public ControllerSalesManagement build() {
+        return new ControllerSalesManagement(this);
+    }
+
+    public SalesManagement getSalesManagement() {
+        return salesManagement;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public ProductsFacade getDaoProducts() {
+        return daoProducts;
+    }
+
+    public SaleService getSaleService() {
+        return saleService;
+    }
+
+}

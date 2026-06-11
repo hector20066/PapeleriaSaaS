@@ -1,0 +1,1 @@
+SELECT * FROM reporte_ventas;

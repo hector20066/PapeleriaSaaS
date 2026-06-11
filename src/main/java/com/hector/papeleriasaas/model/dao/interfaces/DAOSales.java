@@ -1,0 +1,22 @@
+package com.hector.papeleriasaas.model.dao.interfaces;
+
+import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.model.dto.sale.*;
+
+import java.sql.Connection;
+import java.util.List;
+
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
+public interface DAOSales extends IModifiable<DTOSaleUpdate>,
+        ICountable {
+
+    int add(Connection connection, DTOSaleCreate dto) throws DAOException;
+    List<DTOSaleDetails> findById(int id) throws DAOException;
+    List<DTOSaleDetails> findById(Connection connection, int id) throws DAOException;
+    List<DTOSaleDetails> findByAll() throws DAOException;
+    void modify(DTOSaleUpdate dto) throws DAOException;
+
+}

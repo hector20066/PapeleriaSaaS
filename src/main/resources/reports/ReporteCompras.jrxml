@@ -1,0 +1,127 @@
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
+<jasperReport name="ReporteCompras" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="e115bc59-fd0f-446b-a585-04725e27d7f0">
+	<style name="Title" fontName="Arial" fontSize="26.0" bold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18.0"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12.0" bold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12.0"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="numPurchase" class="java.lang.Integer"/>
+	<field name="productDescription" class="java.lang.String"/>
+	<field name="productId" class="java.lang.Integer"/>
+	<field name="quantityPurchased" class="java.lang.Integer"/>
+	<field name="purchasePrice" class="java.math.BigDecimal"/>
+	<field name="salePrice" class="java.math.BigDecimal"/>
+	<field name="date" class="java.time.LocalDate"/>
+	<field name="supplier" class="java.lang.String"/>
+	<field name="totalPaid" class="java.math.BigDecimal"/>
+	<background height="575" splitType="Stretch">
+		<element kind="image" uuid="64ca4020-b604-4de9-9ed1-921b74cfd593" positionType="Float" x="-20" y="80" width="100" height="395" onErrorType="Icon" vImageAlign="Bottom">
+			<expression><![CDATA["image/waves.jpg"]]></expression>
+		</element>
+		<element kind="frame" uuid="6eb7cb61-0dd7-47a8-8475-5fa6c3a348dc" mode="Opaque" x="-20" y="475" width="100" height="100" backcolor="#666666">
+			<element kind="textField" uuid="db8457c8-99e9-434f-b439-2d400dff2bcd" x="0" y="0" width="100" height="73" forecolor="#000000" fontName="SansSerif" fontSize="58.0" bold="true" hTextAlign="Center" vTextAlign="Middle" style="Column header">
+				<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="e20c8a65-aded-41dc-a107-108a9159af99" x="-4" y="80" width="104" height="20" forecolor="#000000" fontName="SansSerif" fontSize="16.0" evaluationTime="Report" bold="false" hTextAlign="Center" style="Column header">
+				<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+				<box leftPadding="4" rightPadding="4" style="Column header"/>
+			</element>
+			<element kind="line" uuid="db6d7ead-4383-4f8c-81cf-1e3064eb6924" mode="Transparent" x="42" y="73" width="20" height="1" backcolor="#FFFFFF"/>
+		</element>
+	</background>
+	<title height="104" splitType="Stretch">
+		<element kind="staticText" uuid="1dcadd54-7d50-4470-85ed-189e4d910b25" x="0" y="0" width="802" height="67" fontName="SansSerif" fontSize="54.0" bold="false" hTextAlign="Right" vTextAlign="Middle" style="Title">
+			<text><![CDATA[Papeleria]]></text>
+		</element>
+		<element kind="staticText" uuid="862cb50c-5a5e-4906-a495-226e25115fb6" x="232" y="67" width="568" height="37" fontName="SansSerif" fontSize="26.0" hTextAlign="Right" style="SubTitle">
+			<text><![CDATA[Reporte de Compras]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader height="25" splitType="Stretch">
+		<element kind="frame" uuid="35d90a9b-bb7e-4ec4-bfa2-68be1967d6b2" mode="Opaque" x="90" y="5" width="712" height="20" backcolor="#728EA6">
+			<element kind="staticText" uuid="62081c2c-98d4-42aa-9c1e-7ad50bf00d8b" x="0" y="0" width="70" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Num. Compra]]></text>
+			</element>
+			<element kind="staticText" uuid="9d201015-2420-4daa-8114-c02dbc35b3c0" x="70" y="0" width="100" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Producto]]></text>
+			</element>
+			<element kind="staticText" uuid="5d8734c9-3876-4735-90bf-cf96a1c7887c" x="170" y="0" width="60" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[ID Producto]]></text>
+			</element>
+			<element kind="staticText" uuid="2a1ec8c8-fca4-4c7f-bd47-3a9d8882a740" x="230" y="0" width="80" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Cant. Comprada]]></text>
+			</element>
+			<element kind="staticText" uuid="ea72112e-fde3-4f0c-b21c-f5f69459a988" x="310" y="0" width="70" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[P. Compra]]></text>
+			</element>
+			<element kind="staticText" uuid="a80f620d-01f1-4f00-ac6f-88f8d9e9339f" x="380" y="0" width="70" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[P. Venta]]></text>
+			</element>
+			<element kind="staticText" uuid="18b49883-77a2-4305-876d-c5b9c93cbf46" x="450" y="0" width="80" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Fecha]]></text>
+			</element>
+			<element kind="staticText" uuid="ca74b9bf-dc89-4cad-b994-e6b2c9040446" x="530" y="0" width="90" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Proveedor]]></text>
+			</element>
+			<element kind="staticText" uuid="a2d6dbe8-61f2-4ef1-8e48-56bbff7bd3fe" x="620" y="0" width="92" height="20" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Total Compra]]></text>
+			</element>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<element kind="frame" uuid="89a3da05-fdde-4ffe-965f-cc476f72e3ab" x="90" y="1" width="712" height="15">
+				<element kind="textField" uuid="6ab583b9-266a-4f50-a10f-7106a1b3e671" x="0" y="0" width="70" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{numPurchase}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ee973926-d53b-441f-aa31-0967da435d45"/>
+				</element>
+				<element kind="textField" uuid="1f7aa28a-2e34-4fb5-8349-0689304f96f7" x="70" y="0" width="100" height="15">
+					<expression><![CDATA[$F{productDescription}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ba865dca-776d-4845-8264-b885119184ce"/>
+				</element>
+				<element kind="textField" uuid="7ff9ab6d-12a8-4950-800f-b26f38fc0efc" x="170" y="0" width="60" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{productId}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aaf52704-371a-496b-85f4-e121e4aff3d1"/>
+				</element>
+				<element kind="textField" uuid="cca8afee-3778-407a-8d90-f61ef8faaba5" x="230" y="0" width="80" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{quantityPurchased}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b57cad00-9773-49e3-a45e-a0964a0884c2"/>
+				</element>
+				<element kind="textField" uuid="6d93cb61-8ae7-4313-b1be-d39c84141650" x="310" y="0" width="70" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{purchasePrice}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2a7c00d0-69e9-4761-9115-de26d5c35cc3"/>
+				</element>
+				<element kind="textField" uuid="2e9af974-7165-4830-840d-2fd635a41635" x="380" y="0" width="70" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{salePrice}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffde43f9-c8ab-49ab-8e95-aa4140d26a9f"/>
+				</element>
+				<element kind="textField" uuid="63182df5-9871-4e31-ae43-f7e7c278a017" x="450" y="0" width="80" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{date}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f8b46a41-b8c3-44d7-a06b-aadf355d40a5"/>
+				</element>
+				<element kind="textField" uuid="9d6cc7bc-d539-4715-9a18-04d69929a55d" x="530" y="0" width="90" height="15">
+					<expression><![CDATA[$F{supplier}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00397bf1-d89f-4bce-a628-099a399021a8"/>
+				</element>
+				<element kind="textField" uuid="2b9c48a1-7017-47b3-b9b3-7082ddbaac49" x="620" y="0" width="92" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{totalPaid}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fc72a0bd-6db4-41c6-aff7-a2af013cbd3d"/>
+				</element>
+			</element>
+			<element kind="line" uuid="e5f21b91-7f24-498e-97a1-0e93db9225a4" positionType="FixRelativeToBottom" x="90" y="16" width="712" height="1">
+				<pen lineWidth="0.5" lineColor="#999999"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="39" splitType="Stretch">
+		<element kind="textField" uuid="95484ca0-40b4-4752-95d8-1afbc33c820b" x="671" y="0" width="131" height="20" forecolor="#000000" fontName="SansSerif" fontSize="12.0" pattern="EEEEE dd MMMMM yyyy" bold="false" hTextAlign="Right" style="Column header">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="staticText" uuid="0ec52099-dcd7-42f4-8baa-f3874f05208a" x="90" y="0" width="273" height="20" fontSize="12.0">
+			<text><![CDATA[Reporte de Compras]]></text>
+		</element>
+	</pageFooter>
+	<summary splitType="Stretch"/>
+</jasperReport>

@@ -1,0 +1,3 @@
+INSERT INTO
+proveedor
+VALUES (?, ?, ?, ?, ?);

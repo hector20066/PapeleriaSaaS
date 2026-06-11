@@ -1,0 +1,2 @@
+SELECT * FROM cliente
+WHERE LOWER(TRIM(nombre)) = LOWER(TRIM(?));

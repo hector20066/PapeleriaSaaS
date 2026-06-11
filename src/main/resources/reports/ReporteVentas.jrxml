@@ -1,0 +1,210 @@
+<!-- Created with Jaspersoft Studio version 7.0.6.final using JasperReports Library version 7.0.6-5d2a603fdc6b3db8f842a83383e594f41891534d  -->
+<jasperReport name="ReporteVentas2" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="e9bb1a27-f975-4aa4-98f9-75524c5daafa">
+	<style name="Title" fontName="Arial" fontSize="26.0" bold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18.0"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12.0" bold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12.0"/>
+	<dataset name="dsVentasMensuales" uuid="818e0e79-79cf-43de-acba-e48737b4a435">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<query language="sql"><![CDATA[]]></query>
+		<field name="month" class="java.lang.String"/>
+		<field name="sales" class="java.lang.Integer"/>
+	</dataset>
+	<parameter name="totalPurchases" class="java.lang.Float"/>
+	<parameter name="totalSales" class="java.lang.Float"/>
+	<parameter name="totalProfits" class="java.lang.Float"/>
+	<parameter name="amountProduct" class="java.lang.Integer"/>
+	<parameter name="productName" class="java.lang.String"/>
+	<parameter name="chartData" class="java.util.Collection"/>
+	<query language="sql"><![CDATA[]]></query>
+	<field name="numSale" class="java.lang.Integer"/>
+	<field name="productDescription" class="java.lang.String"/>
+	<field name="quantitySold" class="java.lang.Integer"/>
+	<field name="date" class="java.time.LocalDate"/>
+	<field name="customer" class="java.lang.String"/>
+	<field name="totalSale" class="java.math.BigDecimal"/>
+	<background height="822" splitType="Stretch">
+		<element kind="image" uuid="6be67a9c-1fb8-44ea-93c5-22c7de2c74ad" positionType="Float" mode="Transparent" x="-20" y="313" width="90" height="409" onErrorType="Icon" vImageAlign="Bottom">
+			<expression><![CDATA["image/waves.jpg"]]></expression>
+		</element>
+		<element kind="frame" uuid="58048a65-569d-454e-b6dd-f3bb46c94ee3" mode="Opaque" x="-20" y="722" width="90" height="100" forecolor="#666666" backcolor="#666666">
+			<element kind="textField" uuid="0f40ce36-78f2-49e5-adf5-8855d6516e74" x="0" y="0" width="90" height="73" forecolor="#000000" fontName="SansSerif" fontSize="58.0" blankWhenNull="true" bold="true" hTextAlign="Center" vTextAlign="Middle" style="Column header">
+				<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="e06a687c-0f3f-4451-a45e-f88c505ba589" x="0" y="77" width="90" height="20" forecolor="#000000" fontName="SansSerif" fontSize="16.0" evaluationTime="Report" bold="false" hTextAlign="Center" style="Column header">
+				<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
+				<box leftPadding="4" rightPadding="4" style="Column header"/>
+			</element>
+			<element kind="line" uuid="ab96a4b0-8a0d-4ae2-8695-16868926ec2b" mode="Transparent" x="30" y="73" width="30" height="1"/>
+			<box>
+				<pen lineWidth="0.0"/>
+				<topPen lineWidth="0.0"/>
+				<leftPen lineWidth="0.0"/>
+				<bottomPen lineWidth="0.0"/>
+				<rightPen lineWidth="0.0"/>
+			</box>
+		</element>
+	</background>
+	<title height="482" splitType="Stretch">
+		<element kind="staticText" uuid="524767a9-e7e5-4041-9b08-5a7210b38e22" x="0" y="0" width="555" height="100" fontName="SansSerif" fontSize="54.0" bold="false" hTextAlign="Right" vTextAlign="Middle" style="Title">
+			<text><![CDATA[Papeleria]]></text>
+		</element>
+		<element kind="staticText" uuid="bd605e96-6228-492c-9dd6-f33258081a5a" x="234" y="100" width="321" height="37" fontName="SansSerif" fontSize="26.0" hTextAlign="Right" style="SubTitle">
+			<text><![CDATA[Reporte de Ventas]]></text>
+		</element>
+		<element kind="frame" uuid="a275d797-48c4-4d29-b474-203e1fb85c3f" mode="Opaque" x="-11" y="150" width="138" height="100" backcolor="#4F6BDC">
+			<element kind="staticText" uuid="b6cd9c40-0422-4129-b974-d9c22bf50ce9" x="10" y="45" width="100" height="15" forecolor="#FFFFFF" fontSize="12.0" bold="true">
+				<text><![CDATA[Stock]]></text>
+			</element>
+			<element kind="image" uuid="9849f13f-fb65-4c19-8026-9a01afad2eb8" x="10" y="10" width="30" height="30" onErrorType="Icon">
+				<expression><![CDATA["image/stock.png"]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="6e4ccd14-20f7-453e-96fc-7ab41aac407b" x="10" y="62" width="120" height="15" forecolor="#FFFFFF" fontSize="10.0">
+				<expression><![CDATA[$P{totalPurchases}]]></expression>
+			</element>
+			<element kind="staticText" uuid="e1dbd835-eafe-4f41-9829-8f6dd6064b44" x="10" y="81" width="120" height="14" forecolor="#FFFFFF" fontSize="10.0">
+				<text><![CDATA[Total Dinero en Inventario]]></text>
+			</element>
+		</element>
+		<element kind="frame" uuid="5d5c9e18-71b6-4760-8d48-a0ddb0d18118" mode="Opaque" x="134" y="150" width="138" height="100" backcolor="#1D9E75">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<element kind="staticText" uuid="8568d027-4ec5-469f-ae44-51d6c0f74b4b" x="10" y="45" width="100" height="15" forecolor="#FFFFFF" fontSize="12.0" bold="true">
+				<text><![CDATA[Ventas]]></text>
+			</element>
+			<element kind="image" uuid="c92cc2ad-531b-4ba7-bb0b-feb24dbef309" x="10" y="10" width="30" height="30" onErrorType="Icon">
+				<expression><![CDATA["image/profit.png"]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="b515bb78-b7c9-4805-896d-398e996faa8e" x="10" y="62" width="110" height="15" forecolor="#FFFFFF" fontSize="10.0">
+				<expression><![CDATA[$P{totalSales}]]></expression>
+			</element>
+			<element kind="staticText" uuid="e38f9334-2add-4784-9648-3bb24d6cb6ae" x="10" y="81" width="120" height="14" forecolor="#FFFFFF" fontSize="10.0">
+				<text><![CDATA[Total en Ventas]]></text>
+			</element>
+		</element>
+		<element kind="frame" uuid="eea20d62-e3a8-4467-8e43-325293df2e79" mode="Opaque" x="280" y="150" width="138" height="100" backcolor="#7F77DD">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<element kind="staticText" uuid="7548b517-d034-48d3-820a-99eb25694e43" x="10" y="45" width="100" height="15" forecolor="#FFFFFF" fontSize="12.0" bold="true">
+				<text><![CDATA[Ganancias]]></text>
+			</element>
+			<element kind="image" uuid="0492f7f6-49a1-43c9-837c-5b51380a0d24" x="10" y="10" width="30" height="30" onErrorType="Icon">
+				<expression><![CDATA["image/flag.png"]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="c37dee30-be96-4315-ab33-5890be44e9de" x="10" y="62" width="100" height="15" forecolor="#FFFFFF" fontSize="10.0">
+				<expression><![CDATA[$P{totalProfits}]]></expression>
+			</element>
+			<element kind="staticText" uuid="228f7cab-c8fd-4d01-b775-969ba43e2a32" x="10" y="81" width="100" height="14" forecolor="#FFFFFF" fontSize="10.0">
+				<text><![CDATA[Ganancias Totales]]></text>
+			</element>
+		</element>
+		<element kind="frame" uuid="8c16528f-f229-471e-a2a1-01158f39abc2" mode="Opaque" x="425" y="150" width="138" height="100" backcolor="#D85A30">
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<element kind="staticText" uuid="393b8a7f-f1ef-4ea6-b3cb-b1ec805ae1f1" x="10" y="81" width="120" height="14" forecolor="#FFFFFF" fontSize="10.0" bold="false">
+				<text><![CDATA[Producto Mas Vendido]]></text>
+			</element>
+			<element kind="image" uuid="543c2f1c-50be-42e1-a125-520252436af7" x="10" y="10" width="30" height="30" onErrorType="Icon">
+				<expression><![CDATA["image/productBestSelling.png"]]></expression>
+				<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="47bd36f9-049f-4180-a40e-8b4fa1ae1f60" x="10" y="62" width="120" height="15" forecolor="#FFFFFF" fontSize="10.0">
+				<expression><![CDATA[$P{amountProduct}]]></expression>
+			</element>
+			<element kind="textField" uuid="956426e9-0a48-4ae0-b3d2-54f509f16614" x="10" y="45" width="120" height="15" forecolor="#FFFFFF" fontSize="12.0" bold="true">
+				<expression><![CDATA[$P{productName}]]></expression>
+			</element>
+		</element>
+		<element kind="chart" chartType="line" uuid="8e8e2a95-85a2-4a11-ba27-88fabd103b29" x="80" y="281" width="480" height="169" evaluationTime="Report">
+			<dataset kind="category">
+				<datasetRun uuid="735bd9af-16c9-4c8a-a8db-a9d775855e51" subDataset="dsVentasMensuales">
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{chartData})]]></dataSourceExpression>
+				</datasetRun>
+				<series>
+					<seriesExpression><![CDATA["Ventas Mensuales"]]></seriesExpression>
+					<categoryExpression><![CDATA[$F{month}]]></categoryExpression>
+					<valueExpression><![CDATA[$F{sales}]]></valueExpression>
+					<labelExpression><![CDATA[String.valueOf($F{sales})]]></labelExpression>
+					<itemHyperlink linkType="None" linkTarget="Self"/>
+				</series>
+			</dataset>
+			<plot categoryAxisLabelColor="#000000" categoryAxisTickLabelColor="#000000" categoryAxisLineColor="#000000" valueAxisLabelColor="#000000" valueAxisTickLabelColor="#000000" valueAxisLineColor="#000000"/>
+		</element>
+		<element kind="staticText" uuid="8bc8a686-0221-4c56-afaf-c3f2eba7a571" x="80" y="261" width="239" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Ventas Mensuales (Ultimos 5 meses)]]></text>
+		</element>
+		<element kind="staticText" uuid="6c44d659-40a7-41f9-a1bf-aede539dace9" x="80" y="460" width="166" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Informacion de las Ventas]]></text>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader height="25" splitType="Stretch">
+		<element kind="frame" uuid="0698ebfd-44c8-4147-90b9-1a6a2c1ba972" mode="Opaque" x="80" y="5" width="480" height="20" backcolor="#728EA6">
+			<element kind="staticText" uuid="06c2a013-c61e-4a5e-b39d-e753034e974f" x="0" y="0" width="58" height="20" fontSize="10.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Num. Venta]]></text>
+			</element>
+			<element kind="staticText" uuid="da4f5eec-b1c8-4022-99dc-80096f92db84" x="58" y="0" width="122" height="20" fontSize="10.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Producto]]></text>
+			</element>
+			<element kind="staticText" uuid="e547b4a1-c299-4ef9-a3f0-aed81ad7127c" x="180" y="0" width="70" height="20" fontSize="10.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Cant. Vendida]]></text>
+			</element>
+			<element kind="staticText" uuid="e4087ed1-d76f-4c37-9862-61db4acc4c9c" x="250" y="0" width="70" height="20" fontSize="10.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Fecha]]></text>
+			</element>
+			<element kind="staticText" uuid="5bcaecb4-7458-4cb6-a0c1-bf14e1e9a6f3" x="320" y="0" width="90" height="20" fontSize="10.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Cliente]]></text>
+			</element>
+			<element kind="staticText" uuid="7c4aa658-401b-4e54-859f-f67d86fbbbf2" x="410" y="0" width="70" height="20" fontSize="10.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[Total Venta]]></text>
+			</element>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<element kind="frame" uuid="5d75be3e-ea39-4b96-baf8-b49497315044" x="80" y="1" width="480" height="15">
+				<element kind="textField" uuid="f76df409-2a53-42e5-8dd0-47a54a03cf4b" x="0" y="0" width="58" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{numSale}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="275dc1e1-5c94-4cc4-aebe-ca62de2d87f2"/>
+				</element>
+				<element kind="textField" uuid="b89c53d2-0c91-45e8-8bd8-0a7e1961c52b" x="58" y="0" width="122" height="15">
+					<expression><![CDATA[$F{productDescription}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3589e145-9285-47b2-b4be-40a40787bf8d"/>
+				</element>
+				<element kind="textField" uuid="3762c964-509b-407a-981d-82caddc03067" x="180" y="0" width="70" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{quantitySold}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a5aff63a-8e98-4a22-ae85-fb08214982f4"/>
+				</element>
+				<element kind="textField" uuid="5cb1eb52-926e-4eb0-a298-9e394f9b8297" x="250" y="0" width="70" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{date}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1cf18219-da75-409f-9223-0490f77324a1"/>
+				</element>
+				<element kind="textField" uuid="26fb544c-a987-4454-9244-8777ea0a028b" x="320" y="0" width="90" height="15">
+					<expression><![CDATA[$F{customer}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3883487e-9140-48ea-9262-373faa696a4a"/>
+				</element>
+				<element kind="textField" uuid="314f5605-0c2b-4ba5-870e-fc8fdc9f8324" x="410" y="0" width="70" height="15" hTextAlign="Center">
+					<expression><![CDATA[$F{totalSale}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4d84bc8-de2a-4ee9-99b2-2aa21334a5c7"/>
+				</element>
+			</element>
+			<element kind="line" uuid="2b97af27-2a1e-491f-a0f4-b2549a3510ee" positionType="FixRelativeToBottom" x="80" y="16" width="480" height="1">
+				<pen lineWidth="0.5" lineColor="#999999"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="100" splitType="Stretch">
+		<element kind="textField" uuid="f8570c2f-4404-4725-885a-4eb3c26abb4a" x="429" y="0" width="131" height="20" forecolor="#000000" fontName="SansSerif" fontSize="12.0" pattern="EEEEE dd MMMMM yyyy" bold="false" hTextAlign="Right" style="Column header">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="staticText" uuid="fce324aa-31f5-453a-a957-28bc6f740c75" x="80" y="0" width="267" height="20" forecolor="#000000" fontName="SansSerif" fontSize="12.0" bold="false" style="Column header">
+			<text><![CDATA[Reporte de Ventas]]></text>
+		</element>
+	</pageFooter>
+	<summary splitType="Stretch"/>
+</jasperReport>

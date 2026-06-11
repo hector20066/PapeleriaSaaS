@@ -1,0 +1,26 @@
+PAPELERIA LA ESQUINA
+
+Don gustavo necesecita un sistema de gestion basico para su papeleria, con el cual pueda llevar un registro de productos y deudas de clientes, registro de ventas y otras necesidades.
+
+Requerimientos
+	-Gestion de productos (Productos.txt)
+		-Registrar productos: nombre, precio, cantidad, cantidad en stock
+		-Consultar los productos registrados.
+		-Actualizar stock al vender un producto (restar la cantidad vendida)
+		-Notificar si el stock baja de 5 unidades disponibles.
+	-Registro de ventas y clientes.
+		-Registrar las ventas (Ventas.txt)
+		-Si el cliente no paga completo, registrar la deuda.
+		-Consultar deudas pendientes.
+		-consultar historial de ventas.
+
+	Las deudas van en un archivo llamado Deudas.txt
+	
+	-Reporte Basico
+		-Mostrar inventario actual.
+		-Mostrar clientes con deudas.
+		-Mostrar las ventas totales del dia.
+
+Requisitos importantes
+	-Buscador de productos por nombre.
+	-Una forma de pagar una deuda (Cuando se paga se debe eliminar dicho registro del archivo de deudas).
