@@ -1,79 +1,79 @@
-CREATE DATABASE IF NOT EXISTS db_papeleria;
+CREATE DATABASE IF NOT EXISTS db_papeleria_saas;
 
 USE db_papeleria;
 
-CREATE TABLE producto (
+CREATE TABLE products (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(100) NOT NULL,
-    cantidad INT NOT NULL DEFAULT 0 CHECK (cantidad >= 0),
-    precio_compra DECIMAL(10,2) CHECK (precio_compra >= 0),
-    precio_venta DECIMAL(10,2) CHECK (precio_venta >= 0)
+    description VARCHAR(100) NOT NULL,
+    amount INT NOT NULL DEFAULT 0 CHECK (amount >= 0),
+    purchase_price DECIMAL(10, 2) CHECK (purchase_price >= 0),
+    sale_price DECIMAL(10, 2) CHECK (sale_price >= 0)
 );
 
-CREATE TABLE cliente (
+CREATE TABLE customers (
     id INT PRIMARY KEY NOT NULL,
-    nombre VARCHAR(30) NOT NULL,
-    telefono VARCHAR(15)
+    name VARCHAR(30) NOT NULL,
+    phone VARCHAR(15)
 );
 
-CREATE TABLE proveedor (
+CREATE TABLE providers (
     nit INT PRIMARY KEY NOT NULL,
     rSocial VARCHAR(100) NOT NULL,
-    direccion VARCHAR(50),
-    telefono VARCHAR(15),
-    correo VARCHAR(50)
+    address VARCHAR(50),
+    phone VARCHAR(15),
+    email VARCHAR(50)
 );
 
-CREATE TABLE compra (
-    num_compra INT PRIMARY KEY AUTO_INCREMENT,
-    nit_proveedor INT,
-    fecha DATE,
-    total_pagado DECIMAL(10,2) CHECK (total_pagado >= 0),
-    FOREIGN KEY (nit_proveedor) REFERENCES proveedor(nit) ON DELETE SET NULL
+CREATE TABLE purchases (
+    num_purchase INT PRIMARY KEY AUTO_INCREMENT,
+    provider_nit INT,
+    purchase_date DATE,
+    total_paid DECIMAL(10, 2) CHECK (total_paid >= 0),
+    FOREIGN KEY (provider_nit) REFERENCES providers (nit) ON DELETE SET NULL
 );
 
-CREATE TABLE venta (
-    num_venta INT PRIMARY KEY AUTO_INCREMENT,
-    id_cliente INT NULL,
-    fecha DATE,
-    total_pagado DECIMAL(10,2) CHECK (total_pagado >= 0),
-    total_venta DECIMAL(10,2) CHECK (total_venta >= 0),
-    FOREIGN KEY (id_cliente) REFERENCES cliente(id) ON DELETE SET NULL
+CREATE TABLE sales (
+    num_sale INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT NULL,
+    sale_date DATE,
+    total_paid DECIMAL(10, 2) CHECK (total_paid >= 0),
+    total_sale DECIMAL(10, 2) CHECK (total_sale >= 0),
+    FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE SET NULL
 );
 
-CREATE TABLE deuda (
-    num_deuda INT PRIMARY KEY AUTO_INCREMENT,
-    num_venta INT,
-    total_deuda DECIMAL(10,2) CHECK (total_deuda >= 0),
-    estado VARCHAR(15),
-    FOREIGN KEY (num_venta) REFERENCES venta(num_venta) ON DELETE CASCADE
+CREATE TABLE debts (
+    num_debt INT PRIMARY KEY AUTO_INCREMENT,
+    num_sale INT,
+    total_debt DECIMAL(10, 2) CHECK (total_debt >= 0),
+    status VARCHAR(15),
+    FOREIGN KEY (num_sale) REFERENCES sales (num_sale) ON DELETE CASCADE
 );
 
-CREATE TABLE detalle_compra (
-    id_detalle INT PRIMARY KEY AUTO_INCREMENT,
-    num_compra INT,
-    id_producto INT,
-    cantidad INT NOT NULL CHECK (cantidad > 0),
-    precio_unitario DECIMAL(10,2) CHECK (precio_unitario >= 0),
-    FOREIGN KEY (num_compra) REFERENCES compra(num_compra) ON DELETE CASCADE,
-    FOREIGN KEY (id_producto) REFERENCES producto(id) ON DELETE SET NULL
+CREATE TABLE purchases_details (
+    id_details INT PRIMARY KEY AUTO_INCREMENT,
+    num_purchase INT,
+    product_id INT,
+    amount INT NOT NULL CHECK (amount > 0),
+    unit_price DECIMAL(10, 2) CHECK (unit_price >= 0),
+    FOREIGN KEY (num_purchase) REFERENCES purchases (num_purchase) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE SET NULL
 );
 
-CREATE TABLE detalle_venta (
-    id_detalle INT PRIMARY KEY AUTO_INCREMENT,
-    num_venta INT,
-    id_producto INT,
-    cantidad INT NOT NULL CHECK (cantidad > 0),
-    precio_unitario_producto DECIMAL(10,2) CHECK (precio_unitario_producto >= 0),
-    FOREIGN KEY (num_venta) REFERENCES venta(num_venta) ON DELETE CASCADE,
-    FOREIGN KEY (id_producto) REFERENCES producto(id) ON DELETE SET NULL
+CREATE TABLE sales_details (
+    id_details INT PRIMARY KEY AUTO_INCREMENT,
+    num_sale INT,
+    product_id INT,
+    amount INT NOT NULL CHECK (amount > 0),
+    unit_price DECIMAL(10, 2) CHECK (unit_price >= 0),
+    FOREIGN KEY (num_sale) REFERENCES sales (num_sale) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products (id) ON DELETE SET NULL
 );
 
-CREATE TABLE factura (
-    num_factura INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    num_venta INT NOT NULL,
-    fecha_emision DATE,
-    FOREIGN KEY (num_venta) REFERENCES venta(num_venta) ON DELETE CASCADE
+CREATE TABLE invoices (
+    num_invoice INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    num_sale INT NOT NULL,
+    issue_date DATE,
+    FOREIGN KEY (num_sale) REFERENCES sales (num_sale) ON DELETE CASCADE
 );
 
 -- TRIGGERS
@@ -81,16 +81,17 @@ CREATE TABLE factura (
 -- Evita ventas con cantidades inválidas o stock insuficiente
 DELIMITER $$
 
-CREATE TRIGGER validar_stock_detalle_venta
-BEFORE INSERT ON detalle_venta
-FOR EACH ROW
+CREATE TRIGGER trg_validate_stock_sales_details
+    BEFORE INSERT
+    ON sales_details
+    FOR EACH ROW
 BEGIN
     DECLARE v_stock INT;
 
-    SELECT cantidad
+    SELECT amount
     INTO v_stock
-    FROM producto
-    WHERE id = NEW.id_producto
+    FROM products
+    WHERE id = NEW.product_id
     FOR UPDATE;
 
     IF v_stock IS NULL THEN
@@ -98,7 +99,7 @@ BEGIN
             SET MESSAGE_TEXT = 'El producto no existe';
     END IF;
 
-    IF v_stock < NEW.cantidad THEN
+    IF v_stock < NEW.amount THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'No hay stock suficiente para vender este producto';
     END IF;
@@ -109,13 +110,14 @@ DELIMITER ;
 -- Reducir la cantidad disponible de un producto cuando se registra un detalle de venta
 DELIMITER $$
 
-CREATE TRIGGER reducir_stock_detalle_venta
-AFTER INSERT ON detalle_venta
-FOR EACH ROW
+CREATE TRIGGER trg_reduce_stock_sales_details
+    AFTER INSERT
+    ON sales_details
+    FOR EACH ROW
 BEGIN
-    UPDATE producto
-    SET cantidad = cantidad - NEW.cantidad
-    WHERE id = NEW.id_producto;
+    UPDATE products
+    SET amount = amount - NEW.amount
+    WHERE id = NEW.product_id;
 END $$
 
 DELIMITER ;
@@ -123,13 +125,14 @@ DELIMITER ;
 -- Devolver al inventario la cantidad de productos cuando se elimina un detalle venta
 DELIMITER $$
 
-CREATE TRIGGER devolver_stock_detalle_venta
-AFTER DELETE ON detalle_venta
-FOR EACH ROW
+CREATE TRIGGER trg_return_stock_sales_details
+    AFTER DELETE
+    ON sales_details
+    FOR EACH ROW
 BEGIN
-    UPDATE producto
-    SET cantidad = cantidad + OLD.cantidad
-    WHERE id = OLD.id_producto;
+    UPDATE products
+    SET amount = amount + OLD.amount
+    WHERE id = OLD.product_id;
 END $$
 
 DELIMITER ;
@@ -137,13 +140,14 @@ DELIMITER ;
 -- Incrementar el stock del producto cuando se registra un detalle de compra
 DELIMITER $$
 
-CREATE TRIGGER incrementar_stock_detalle_compra
-AFTER INSERT ON detalle_compra
-FOR EACH ROW
+CREATE TRIGGER trg_increase_stock_purchases_details
+    AFTER INSERT
+    ON purchases_details
+    FOR EACH ROW
 BEGIN
-    UPDATE producto
-    SET cantidad = cantidad + NEW.cantidad
-    WHERE id = NEW.id_producto;
+    UPDATE products
+    SET amount = amount + NEW.amount
+    WHERE id = NEW.product_id;
 END $$
 
 DELIMITER ;
@@ -151,13 +155,14 @@ DELIMITER ;
 -- Disminuye el stock cuando se elimina un detalle de compra previamente registrado
 DELIMITER $$
 
-CREATE TRIGGER disminuir_stock_detalle_compra
-AFTER DELETE ON detalle_compra
-FOR EACH ROW
+CREATE TRIGGER trg_decrease_stock_purchases_details
+    AFTER DELETE
+    ON purchases_details
+    FOR EACH ROW
 BEGIN
-    UPDATE producto
-    SET cantidad = cantidad - OLD.cantidad
-    WHERE id = OLD.id_producto;
+    UPDATE products
+    SET amount = amount - OLD.amount
+    WHERE id = OLD.product_id;
 END $$
 
 DELIMITER ;
@@ -165,20 +170,14 @@ DELIMITER ;
 -- Crea una deuda cuando no se paga completo en la venta
 DELIMITER $$
 
-CREATE TRIGGER generar_deuda
-AFTER INSERT ON venta
-FOR EACH ROW
+CREATE TRIGGER trg_generate_debt
+    AFTER INSERT
+    ON sales
+    FOR EACH ROW
 BEGIN
-    IF NEW.total_pagado < NEW.total_venta THEN
-        INSERT INTO deuda (
-            num_venta,
-            total_deuda,
-            estado
-        ) VALUES (
-            NEW.num_venta,
-            NEW.total_venta - NEW.total_pagado,
-            'PENDING'
-        );
+    IF NEW.total_paid < NEW.total_sale THEN
+        INSERT INTO debts (num_sale, total_debt, status)
+        VALUES (NEW.num_sale, NEW.total_sale - NEW.total_paid, 'PENDING');
     END IF;
 END $$
 
@@ -187,19 +186,19 @@ DELIMITER ;
 -- Actualizar el estado de una deuda cuando se realizan pagos de dicha deuda
 DELIMITER $$
 
-CREATE TRIGGER trg_after_update_venta_actualizar_deuda
-    AFTER UPDATE ON venta
+CREATE TRIGGER trg_update_debt
+    AFTER UPDATE
+    ON sales
     FOR EACH ROW
 BEGIN
     DECLARE v_saldo DECIMAL(10,2);
 
-    SET v_saldo = NEW.total_venta - NEW.total_pagado;
+    SET v_saldo = NEW.total_sale - NEW.total_paid;
 
-    UPDATE deuda
-    SET
-        total_deuda = IF(v_saldo <= 0, 0, v_saldo),
-        estado = IF(v_saldo <= 0, 'PAID', 'PENDING')
-    WHERE num_venta = NEW.num_venta;
+    UPDATE debts
+    SET total_debt = IF(v_saldo <= 0, 0, v_saldo),
+        status = IF(v_saldo <= 0, 'PAID', 'PENDING')
+    WHERE num_sale = NEW.num_sale;
 END $$
 
 DELIMITER ;
@@ -207,87 +206,87 @@ DELIMITER ;
 -- VISTAS
 
 -- Muestra las deudas asociadas a cada cliente con la venta correspondiente
-CREATE VIEW deudas_clientes AS
-SELECT
-    d.num_deuda,
-    c.id AS id_cliente,
-    c.nombre AS nombre_cliente,
-    c.telefono,
-    v.num_venta,
-    v.fecha,
-    v.total_venta,
-    v.total_pagado,
-    d.total_deuda AS deuda_actual,
-    d.estado
-FROM deuda d
-JOIN venta v ON d.num_venta = v.num_venta
-LEFT JOIN cliente c ON v.id_cliente = c.id;
+CREATE VIEW vw_customers_debts AS
+SELECT 
+    d.num_debt,
+    c.id AS customer_id,
+    c.name AS customer_name,
+    c.phone,
+    v.num_sale,
+    v.sale_date,
+    v.total_sale,
+    v.total_paid,
+    d.total_debt AS current_debt,
+    d.status
+FROM debts d 
+    JOIN sales v ON d.num_sale = v.num_sale
+    LEFT JOIN customers c ON v.customer_id = c.id;
 
 -- Muestra los productos vendidos en cada venta con sus cantidades y precios
-CREATE VIEW reporte_ventas AS
-SELECT
-    v.num_venta,
-    p.id AS id_producto,
-    p.descripcion AS producto,
-    d.cantidad AS cantidad_vendida,
-    v.fecha,
-    c.nombre AS cliente,
-    v.total_venta
-FROM detalle_venta d
-JOIN venta v ON d.num_venta = v.num_venta
-LEFT JOIN producto p ON d.id_producto = p.id
-LEFT JOIN cliente c ON v.id_cliente = c.id;
+CREATE VIEW vw_sales_report AS
+SELECT 
+    v.num_sale,
+    p.id AS product_id,
+    p.description AS product,
+    d.amount AS quantity_sold,
+    v.sale_date,
+    c.name AS customer,
+    v.total_sale
+FROM sales_details d
+    JOIN sales v ON d.num_sale = v.num_sale
+    LEFT JOIN products p ON d.product_id = p.id
+    LEFT JOIN customers c ON v.customer_id = c.id;
 
 -- Muestra el estado actual del inventario de productos
-CREATE VIEW inventario AS
+CREATE VIEW vw_inventory AS
 SELECT
     p.id,
-    p.descripcion,
-    p.cantidad AS cantidad_disponible,
-    p.precio_compra,
-    p.precio_venta,
-    COALESCE(GROUP_CONCAT(DISTINCT pr.rSocial SEPARATOR ', '), 'Sin Proveedor') AS proveedor,
-    ((p.precio_venta * p.cantidad) - (p.precio_compra * p.cantidad)) AS ganancias
-FROM producto p
-         LEFT JOIN detalle_compra d ON p.id = d.id_producto
-         LEFT JOIN compra c ON d.num_compra = c.num_compra
-         LEFT JOIN proveedor pr ON c.nit_proveedor = pr.nit
-GROUP BY p.id, p.descripcion, p.cantidad, p.precio_compra, p.precio_venta;
+    p.description,
+    p.amount AS available_quantity,
+    p.purchase_price,
+    p.sale_price,
+    COALESCE(GROUP_CONCAT(DISTINCT pr.rSocial SEPARATOR ', '), 'Sin Proveedor') AS provider,
+    ((p.sale_price * p.amount) - (p.purchase_price * p.amount)) AS earnings
+FROM products p
+    LEFT JOIN purchases_details d ON p.id = d.product_id
+    LEFT JOIN purchases c ON d.num_purchase = c.num_purchase
+    LEFT JOIN providers pr ON c.provider_nit = pr.nit
+GROUP BY p.id, p.description, p.amount, p.purchase_price, p.sale_price;
 
 -- Lista las compras realizadas con sus proveedores y productos adquiridos
-CREATE VIEW reporte_compras AS
-SELECT
-    c.num_compra,
-    p.descripcion AS producto,
-    p.id AS id_producto,
-    d.cantidad AS cant_comprada,
-    p.precio_compra,
-    p.precio_venta,
-    c.fecha,
-    pr.rSocial AS proveedor,
-    pr.nit AS nit_proveedor,
-    c.total_pagado AS total_compra,
-    ((p.precio_venta * d.cantidad) - (p.precio_compra * d.cantidad)) AS ganancias
-FROM detalle_compra d
-JOIN compra c ON d.num_compra = c.num_compra
-LEFT JOIN producto p ON d.id_producto = p.id
-LEFT JOIN proveedor pr ON c.nit_proveedor = pr.nit;
+CREATE VIEW vw_purchasing_report AS
+SELECT 
+    c.num_purchase,
+    p.description AS product,
+    p.id AS product_id,
+    d.amount AS quantity_purchased,
+    p.purchase_price,
+    p.sale_price,
+    c.purchase_date,
+    pr.rSocial AS provider,
+    pr.nit AS provider_nit,
+    c.total_paid AS total_purchase,
+    ((p.sale_price * d.amount) - (p.purchase_price * d.amount)) AS earnings
+FROM purchases_details d
+    JOIN purchases c ON d.num_purchase = c.num_purchase
+    LEFT JOIN products p ON d.product_id = p.id
+    LEFT JOIN providers pr ON c.provider_nit = pr.nit;
 
 -- STORED PROCEDURES
 
 -- Inserta una venta y retorna el número de la venta
 DELIMITER $$
 
-CREATE PROCEDURE sp_crear_venta (
-    IN p_id_cliente INT,
-    IN p_total_venta DECIMAL(10,2),
-    IN p_total_pagado DECIMAL(10,2)
+CREATE PROCEDURE sp_create_sale(
+    IN p_customer_id INT,
+    IN p_total_sale DECIMAL(10, 2),
+    IN p_total_paid DECIMAL(10, 2)
 )
 BEGIN
-    INSERT INTO venta (id_cliente, fecha, total_venta, total_pagado)
-    VALUES (p_id_cliente, CURDATE(), p_total_venta, p_total_pagado);
+    INSERT INTO sales (customer_id, sale_date, total_sale, total_paid)
+    VALUES (p_customer_id, CURDATE(), p_total_sale, p_total_paid);
 
-    SELECT LAST_INSERT_ID() AS num_venta;
+    SELECT LAST_INSERT_ID() AS num_sale;
 END $$
 
 DELIMITER ;
@@ -295,46 +294,46 @@ DELIMITER ;
 -- Inserta una compra y retorna el numero de la compra
 DELIMITER $$
 
-CREATE PROCEDURE sp_crear_compra (
-    IN p_nit_proveedor INT,
-    IN p_total_pagado DECIMAL(10,2)
+CREATE PROCEDURE sp_create_purchase(
+    IN p_provider_nit INT,
+    IN p_total_paid DECIMAL(10, 2)
 )
 BEGIN
-    INSERT INTO compra (nit_proveedor, fecha, total_pagado)
-    VALUES (p_nit_proveedor, CURDATE(), p_total_pagado);
+    INSERT INTO purchases (provider_nit, purchase_date, total_paid)
+    VALUES (p_provider_nit, CURDATE(), p_total_paid);
 
-    SELECT LAST_INSERT_ID() AS num_compra;
+    SELECT LAST_INSERT_ID() AS num_purchase;
 END $$
 
 DELIMITER ;
 
--- Insertar la informacion de una factura y devolver el numero de la factura
+-- Insertar la información de una factura y devolver el número de la factura
 DELIMITER $$
 
-CREATE PROCEDURE sp_crear_factura (IN p_num_venta INT)
+CREATE PROCEDURE sp_create_invoice(IN p_num_sale INT)
 BEGIN
-    INSERT INTO factura (num_venta, fecha_emision)
-    VALUES (p_num_venta, CURDATE());
+    INSERT INTO invoices (num_sale, issue_date)
+    VALUES (p_num_sale, CURDATE());
 
-    SELECT LAST_INSERT_ID() AS last_num_factura;
+    SELECT LAST_INSERT_ID() AS last_invoice_num;
 END $$
 
 DELIMITER ;
 
 -- Índices en búsquedas frecuentes
-CREATE INDEX idx_producto_descripcion ON producto(descripcion);
-CREATE INDEX idx_cliente_nombre ON cliente(nombre);
-CREATE INDEX idx_proveedor_rSocial ON proveedor(rSocial);
+CREATE INDEX idx_product_description ON products (description);
+CREATE INDEX idx_customer_name ON customers (name);
+CREATE INDEX idx_provider_rSocial ON providers (rSocial);
 
 -- Índices en foreign keys para joins más rápidos
-CREATE INDEX idx_compra_nit_proveedor ON compra(nit_proveedor);
-CREATE INDEX idx_venta_id_cliente ON venta(id_cliente);
-CREATE INDEX idx_deuda_num_venta ON deuda(num_venta);
-CREATE INDEX idx_detalle_compra_num_compra ON detalle_compra(num_compra);
-CREATE INDEX idx_detalle_compra_id_producto ON detalle_compra(id_producto);
-CREATE INDEX idx_detalle_venta_num_venta ON detalle_venta(num_venta);
-CREATE INDEX idx_detalle_venta_id_producto ON detalle_venta(id_producto);
+CREATE INDEX idx_provider_nit_purchase ON purchases (provider_nit);
+CREATE INDEX idx_sale_customer_id ON sales (customer_id);
+CREATE INDEX idx_debt_num_sale ON debts (num_sale);
+CREATE INDEX idx_purchase_details_num_purchase ON purchases_details (num_purchase);
+CREATE INDEX idx_purchase_detail_product_id ON purchases_details (product_id);
+CREATE INDEX idx_sale_detail_num_sale ON sales_details (num_sale);
+CREATE INDEX idx_sale_details_product_id ON sales_details (product_id);
 
 -- Índices para reportes y búsquedas por fecha
-CREATE INDEX idx_compra_fecha ON compra(fecha);
-CREATE INDEX idx_venta_fecha ON venta(fecha);
+CREATE INDEX idx_purchase_date ON purchases (purchase_date);
+CREATE INDEX idx_sale_date ON sales (sale_date);
