@@ -12,7 +12,7 @@ import java.util.List;
 public class Purchase {
 
     private int purchaseNumber;
-    private Supplier supplier;
+    private Provider provider;
     private LocalDate date;
     private BigDecimal total;
     private List<PurchaseDetail> purchaseDetails;
@@ -29,12 +29,12 @@ public class Purchase {
         this.purchaseNumber = purchaseNumber;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public Provider getProvider() {
+        return provider;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
     public LocalDate getDate() {

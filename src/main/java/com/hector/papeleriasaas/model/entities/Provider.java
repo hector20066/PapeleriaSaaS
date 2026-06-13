@@ -4,7 +4,7 @@ package com.hector.papeleriasaas.model.entities;
  *
  * @author Ing. Hector Acevedo
  */
-public class Supplier {
+public class Provider {
 
     private int nit;
     private String rSocial;
@@ -12,7 +12,7 @@ public class Supplier {
     private String phone;
     private String email;
 
-    public Supplier() {
+    public Provider() {
 
     }
 
