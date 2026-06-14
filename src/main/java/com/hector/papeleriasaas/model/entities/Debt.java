@@ -10,21 +10,20 @@ import java.math.BigDecimal;
  */
 public class Debt {
 
-    private Sale sale;
+    private int id;
     private BigDecimal totalDebt;
-    private BigDecimal totalAmountPay;
     private StatusDebt status;
 
     public Debt() {
 
     }
 
-    public Sale getSale() {
-        return sale;
+    public int getId() {
+        return id;
     }
 
-    public void setSale(Sale sale) {
-        this.sale = sale;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public BigDecimal getTotalDebt() {
@@ -33,14 +32,6 @@ public class Debt {
 
     public void setTotalDebt(BigDecimal totalDebt) {
         this.totalDebt = totalDebt;
-    }
-
-    public BigDecimal getTotalAmountPay() {
-        return totalAmountPay;
-    }
-
-    public void setTotalAmountPay(BigDecimal totalAmountPay) {
-        this.totalAmountPay = totalAmountPay;
     }
 
     public StatusDebt getStatus() {

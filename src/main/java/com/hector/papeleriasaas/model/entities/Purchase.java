@@ -11,14 +11,23 @@ import java.util.List;
  */
 public class Purchase {
 
+    private int id;
     private int purchaseNumber;
-    private Provider provider;
     private LocalDate date;
     private BigDecimal total;
-    private List<PurchaseDetail> purchaseDetails;
+    private Provider provider;
+    private final List<PurchaseDetail> details;
 
     public Purchase() {
-        this.purchaseDetails = new ArrayList<>();
+        this.details = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPurchaseNumber() {
@@ -27,14 +36,6 @@ public class Purchase {
 
     public void setPurchaseNumber(int purchaseNumber) {
         this.purchaseNumber = purchaseNumber;
-    }
-
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public void setProvider(Provider provider) {
-        this.provider = provider;
     }
 
     public LocalDate getDate() {
@@ -53,16 +54,21 @@ public class Purchase {
         this.total = total;
     }
 
-    public void addPurchaseDetails(PurchaseDetail purchaseDetail) {
-        this.purchaseDetails.add(purchaseDetail);
+    public Provider getProvider() {
+        return provider;
     }
 
-    public List<PurchaseDetail> getPurchaseDetails() {
-        return purchaseDetails;
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
-    public void setPurchaseDetails(List<PurchaseDetail> purchaseDetails) {
-        this.purchaseDetails = purchaseDetails;
+    public List<PurchaseDetail> getDetails() {
+        return details;
+    }
+
+    public Purchase addPurchaseDetails(PurchaseDetail detail) {
+        this.details.add(detail);
+        return this;
     }
 
 }

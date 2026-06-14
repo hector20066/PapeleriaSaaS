@@ -11,15 +11,26 @@ import java.util.List;
  */
 public class Sale {
 
+    private int id;
     private int numSale;
     private Customer customer;
     private LocalDate date;
-    private BigDecimal total;
+    private BigDecimal totalPaid;
+    private BigDecimal totalSale;
     private List<SaleDetail> saleDetails;
     private Invoice invoice;
+    private Debt debt;
 
     public Sale() {
         this.saleDetails = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getNumSale() {
@@ -46,24 +57,24 @@ public class Sale {
         this.date = date;
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public BigDecimal getTotalPaid() {
+        return totalPaid;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public void setTotalPaid(BigDecimal totalPaid) {
+        this.totalPaid = totalPaid;
     }
 
-    public void addSaleDetails(SaleDetail saleDetail) {
-        this.saleDetails.add(saleDetail);
+    public BigDecimal getTotalSale() {
+        return totalSale;
+    }
+
+    public void setTotalSale(BigDecimal totalSale) {
+        this.totalSale = totalSale;
     }
 
     public List<SaleDetail> getSaleDetails() {
         return saleDetails;
-    }
-
-    public void setSaleDetails(List<SaleDetail> saleDetails) {
-        this.saleDetails = saleDetails;
     }
 
     public Invoice getInvoice() {
@@ -72,6 +83,19 @@ public class Sale {
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
+    }
+
+    public Debt getDebt() {
+        return debt;
+    }
+
+    public void setDebt(Debt debt) {
+        this.debt = debt;
+    }
+
+    public Sale setSaleDetails(SaleDetail saleDetail) {
+        this.saleDetails.add(saleDetail);
+        return this;
     }
 
 }

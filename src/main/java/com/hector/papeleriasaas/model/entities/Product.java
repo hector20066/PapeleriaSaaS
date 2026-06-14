@@ -1,6 +1,8 @@
 package com.hector.papeleriasaas.model.entities;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,9 +15,10 @@ public class Product {
     private int amount;
     private BigDecimal salePrice;
     private BigDecimal purchasePrice;
+    private final List<Provider> providers;
 
     public Product() {
-
+        this.providers = new ArrayList<>();
     }
 
     public int getId() {
@@ -56,6 +59,15 @@ public class Product {
 
     public void setPurchasePrice(BigDecimal purchasePrice) {
         this.purchasePrice = purchasePrice;
+    }
+
+    public List<Provider> getProviders() {
+        return providers;
+    }
+
+    public Product addProvider(Provider provider) {
+        this.providers.add(provider);
+        return this;
     }
 
 }

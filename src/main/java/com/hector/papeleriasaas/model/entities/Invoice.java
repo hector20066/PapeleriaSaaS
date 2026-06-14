@@ -4,16 +4,20 @@ import java.time.LocalDate;
 
 public class Invoice {
 
+    private int id;
     private int numInvoice;
-    private LocalDate date;
+    private LocalDate issueDate;
 
     public Invoice() {
 
     }
 
-    public Invoice(int numInvoice, LocalDate date) {
-        this.numInvoice = numInvoice;
-        this.date = date;
+    public LocalDate getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        this.issueDate = issueDate;
     }
 
     public int getNumInvoice() {
@@ -24,12 +28,12 @@ public class Invoice {
         this.numInvoice = numInvoice;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public int getId() {
+        return id;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
