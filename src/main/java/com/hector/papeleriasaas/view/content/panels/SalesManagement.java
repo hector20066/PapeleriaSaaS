@@ -203,11 +203,11 @@ public class SalesManagement extends javax.swing.JPanel {
                                     .addGroup(roundedPanel2Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_customerName, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                                            .addComponent(txt_customerName, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                                             .addGroup(roundedPanel2Layout.createSequentialGroup()
-                                                .addComponent(txt_customerId, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                                .addComponent(txt_customerId, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txt_customerPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                                .addComponent(txt_customerPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                                                 .addGap(4, 4, 4)))))))
                         .addGap(22, 22, 22))
                     .addGroup(roundedPanel2Layout.createSequentialGroup()
@@ -286,11 +286,11 @@ public class SalesManagement extends javax.swing.JPanel {
         jpl_content.setLayout(jpl_contentLayout);
         jpl_contentLayout.setHorizontalGroup(
             jpl_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 703, Short.MAX_VALUE)
+            .addGap(0, 709, Short.MAX_VALUE)
         );
         jpl_contentLayout.setVerticalGroup(
             jpl_contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 399, Short.MAX_VALUE)
+            .addGap(0, 403, Short.MAX_VALUE)
         );
 
         scrollProducts.setViewportView(jpl_content);

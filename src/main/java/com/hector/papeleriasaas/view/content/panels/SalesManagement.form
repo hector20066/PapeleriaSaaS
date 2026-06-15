@@ -221,11 +221,11 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txt_customerName" pref="309" max="32767" attributes="0"/>
+                                                  <Component id="txt_customerName" pref="314" max="32767" attributes="0"/>
                                                   <Group type="102" attributes="0">
-                                                      <Component id="txt_customerId" pref="146" max="32767" attributes="0"/>
+                                                      <Component id="txt_customerId" pref="149" max="32767" attributes="0"/>
                                                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="txt_customerPhone" pref="147" max="32767" attributes="0"/>
+                                                      <Component id="txt_customerPhone" pref="149" max="32767" attributes="0"/>
                                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -515,12 +515,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="703" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="709" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="399" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="403" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

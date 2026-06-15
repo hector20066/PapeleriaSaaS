@@ -1,7 +1,6 @@
 package com.hector.papeleriasaas.view.content.panels;
 
 import com.hector.papeleriasaas.model.dto.DTOCustomer;
-import com.hector.papeleriasaas.view.swing.TableHeader;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 
 import javax.swing.*;
@@ -17,35 +16,47 @@ import java.awt.event.FocusListener;
  */
 public class Customers extends javax.swing.JPanel {
 
-    DefaultTableModel model = new DefaultTableModel();
+    DefaultTableModel model;
 
     public Customers() {
         initComponents();
 
-        String[] titles = new String[] {"Cedula", "Nombre", "Teléfono"};
-        model.setColumnIdentifiers(titles);
-        jtbl_customers.setModel(model);
-
-        jtbl_customers.setTableHeader(TableHeader.getTableHeader(jtbl_customers));
+        model = (DefaultTableModel) jtbl_customers.getModel();
+        configureTableScrollPane();
         
         txt_search.setText("Buscar Cliente");
         txt_search.setForeground(new Color(114, 142, 166));
     }
 
+    private void configureTableScrollPane() {
+        Color background = new Color(242, 242, 242);
+        jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
+        jScrollPane1.setViewportBorder(BorderFactory.createEmptyBorder());
+        jScrollPane1.setBackground(background);
+        jScrollPane1.getViewport().setBackground(background);
+        jScrollPane1.getViewport().setBorder(null);
+        jScrollPane1.setFocusable(false);
+        jScrollPane1.getViewport().setFocusable(false);
+
+        scrollBar1.setModel(jScrollPane1.getVerticalScrollBar().getModel());
+        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbl_customers = new javax.swing.JTable();
         roundedPanel1 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
         txt_search = new javax.swing.JTextField();
         btn_search = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txt_totalRecords = new javax.swing.JTextField();
         btn_export = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbl_customers = new com.hector.papeleriasaas.view.swing.tables.tabledefault.TableColumn();
+        scrollBar1 = new com.hector.papeleriasaas.view.swing.scroll.ScrollBar();
 
         jPanel1.setBackground(new java.awt.Color(242, 242, 242));
 
@@ -56,20 +67,6 @@ public class Customers extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(42, 49, 64));
         jLabel2.setText("Registro completo de clientes de la papeleria");
-
-        jtbl_customers.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jtbl_customers.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jtbl_customers);
 
         roundedPanel1.setBackground(new java.awt.Color(242, 242, 242));
         roundedPanel1.setBorderColor(new java.awt.Color(153, 153, 153));
@@ -122,6 +119,27 @@ public class Customers extends javax.swing.JPanel {
         btn_export.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btn_export.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jtbl_customers.setBackground(new java.awt.Color(242, 242, 242));
+        jtbl_customers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cedula", "Nombre", "Telefono"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtbl_customers);
+
+        scrollBar1.setBackground(new java.awt.Color(242, 242, 242));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -130,26 +148,29 @@ public class Customers extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(701, 701, 701))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel2)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(315, 315, 315)
                         .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txt_totalRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_totalRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14)))))
+                                .addComponent(scrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(28, 28, 28))
         );
         jPanel1Layout.setVerticalGroup(
@@ -161,14 +182,19 @@ public class Customers extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(scrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txt_totalRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -240,8 +266,9 @@ public class Customers extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtbl_customers;
+    private com.hector.papeleriasaas.view.swing.tables.tabledefault.TableColumn jtbl_customers;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel1;
+    private com.hector.papeleriasaas.view.swing.scroll.ScrollBar scrollBar1;
     private javax.swing.JTextField txt_search;
     private javax.swing.JTextField txt_totalRecords;
     // End of variables declaration//GEN-END:variables

@@ -20,20 +20,30 @@ import java.time.LocalDate;
  */
 public class SalesReport extends javax.swing.JPanel {
 
-    DefaultTableModel salesList = new DefaultTableModel();
+    DefaultTableModel salesList;
 
     public SalesReport() {
         initComponents();
-    
-        String[] titles = new String[]{"Num. Venta", "Producto", "ID producto", "Cant. Vendida", "Fecha", "Cliente",
-                "Total venta"};
-        salesList.setColumnIdentifiers(titles);
-        jtbl_sales.setModel(salesList);
-
-        jtbl_sales.setTableHeader(TableHeader.getTableHeader(jtbl_sales));
+        
+        salesList = (DefaultTableModel) jtbl_sales.getModel();
+        configureTableScrollPane();
         
         txt_search.setText("Buscar Venta");
         txt_search.setForeground(new Color(114, 142, 166));
+    }
+    
+    private void configureTableScrollPane() {
+        Color background = new Color(242, 242, 242);
+        jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
+        jScrollPane1.setViewportBorder(BorderFactory.createEmptyBorder());
+        jScrollPane1.setBackground(background);
+        jScrollPane1.getViewport().setBackground(background);
+        jScrollPane1.getViewport().setBorder(null);
+        jScrollPane1.setFocusable(false);
+        jScrollPane1.getViewport().setFocusable(false);
+
+        scrollBar1.setModel(jScrollPane1.getVerticalScrollBar().getModel());
+        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,13 +51,14 @@ public class SalesReport extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbl_sales = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         roundedPanel1 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
         txt_search = new javax.swing.JTextField();
         btn_search = new javax.swing.JButton();
         btn_export = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbl_sales = new com.hector.papeleriasaas.view.swing.tables.tabledefault.TableColumn();
+        scrollBar1 = new com.hector.papeleriasaas.view.swing.scroll.ScrollBar();
 
         jPanel1.setBackground(new java.awt.Color(242, 242, 242));
         jPanel1.setForeground(new java.awt.Color(242, 242, 242));
@@ -55,23 +66,6 @@ public class SalesReport extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(42, 49, 64));
         jLabel1.setText("Registro Total de Ventas");
-
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 1, 2, new java.awt.Color(114, 142, 166)));
-
-        jtbl_sales.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jtbl_sales.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jtbl_sales.setSelectionBackground(new java.awt.Color(174, 183, 191));
-        jScrollPane1.setViewportView(jtbl_sales);
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(42, 49, 64));
@@ -99,7 +93,7 @@ public class SalesReport extends javax.swing.JPanel {
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(txt_search)
+                .addComponent(txt_search, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -120,31 +114,55 @@ public class SalesReport extends javax.swing.JPanel {
         btn_export.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btn_export.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jtbl_sales.setBackground(new java.awt.Color(242, 242, 242));
+        jtbl_sales.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Num. Venta", "Producto", "ID Producto", "Cant. Vendida", "Fecha", "Cliente", "Total Venta"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtbl_sales);
+
+        scrollBar1.setBackground(new java.awt.Color(242, 242, 242));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1044, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(295, 295, 295)
                         .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(39, 39, 39))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1029, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,9 +173,14 @@ public class SalesReport extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(4, 4, 4)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(scrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(87, 87, 87))
         );
@@ -238,8 +261,9 @@ public class SalesReport extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtbl_sales;
+    private com.hector.papeleriasaas.view.swing.tables.tabledefault.TableColumn jtbl_sales;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel1;
+    private com.hector.papeleriasaas.view.swing.scroll.ScrollBar scrollBar1;
     private javax.swing.JTextField txt_search;
     // End of variables declaration//GEN-END:variables
 }

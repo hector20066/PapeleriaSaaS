@@ -3,6 +3,7 @@ package com.hector.papeleriasaas.view.content.panels;
 import com.hector.papeleriasaas.view.swing.TableHeader;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.panels.RoundedPanel;
+import java.awt.Color;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -15,16 +16,27 @@ import java.awt.event.FocusListener;
  */
 public class PurchaseProducts extends javax.swing.JPanel {
 
-    DefaultTableModel productList = new DefaultTableModel();
+    DefaultTableModel productList;
 
     public PurchaseProducts() {
         initComponents();
 
-        String[] titles = new String[]{"Producto", "Cantidad", "Precio Compra", "Precio Venta", "Total a pagar"};
-        productList.setColumnIdentifiers(titles);
-        jtbl_products.setModel(productList);
+        productList = (DefaultTableModel) jtbl_products.getModel();
+        configureTableScrollPane();
+    }
+    
+    private void configureTableScrollPane() {
+        Color background = new Color(242, 242, 242);
+        jScrollPane2.setBorder(BorderFactory.createEmptyBorder());
+        jScrollPane2.setViewportBorder(BorderFactory.createEmptyBorder());
+        jScrollPane2.setBackground(background);
+        jScrollPane2.getViewport().setBackground(background);
+        jScrollPane2.getViewport().setBorder(null);
+        jScrollPane2.setFocusable(false);
+        jScrollPane2.getViewport().setFocusable(false);
 
-        jtbl_products.setTableHeader(TableHeader.getTableHeader(jtbl_products));
+        scrollBar1.setModel(jScrollPane2.getVerticalScrollBar().getModel());
+        jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -40,8 +52,6 @@ public class PurchaseProducts extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         txt_salePrice = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbl_products = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txt_purchasePrice = new javax.swing.JTextField();
         roundedPanel1 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
@@ -59,6 +69,9 @@ public class PurchaseProducts extends javax.swing.JPanel {
         btn_showInventory = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_deleteOrder = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_addProduct = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtbl_products = new com.hector.papeleriasaas.view.swing.tables.tabledefault.TableColumn();
+        scrollBar1 = new com.hector.papeleriasaas.view.swing.scroll.ScrollBar();
 
         jPanel1.setBackground(new java.awt.Color(242, 242, 242));
         jPanel1.setForeground(new java.awt.Color(242, 242, 242));
@@ -98,23 +111,6 @@ public class PurchaseProducts extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(42, 49, 64));
         jLabel5.setText("Productos en el pedido");
-
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 1, 2, new java.awt.Color(114, 142, 166)));
-
-        jtbl_products.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jtbl_products.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jtbl_products.setSelectionBackground(new java.awt.Color(174, 183, 191));
-        jScrollPane1.setViewportView(jtbl_products);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(42, 49, 64));
@@ -195,7 +191,7 @@ public class PurchaseProducts extends javax.swing.JPanel {
                         .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(roundedPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jlb_totalPurchases, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -240,7 +236,7 @@ public class PurchaseProducts extends javax.swing.JPanel {
                 .addComponent(btn_registerSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_cancelPurchase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         btn_showInventory.setBackground(new java.awt.Color(65, 90, 119));
@@ -259,6 +255,27 @@ public class PurchaseProducts extends javax.swing.JPanel {
         btn_addProduct.setText("Agregar Producto al Pedido");
         btn_addProduct.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         btn_addProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jtbl_products.setBackground(new java.awt.Color(242, 242, 242));
+        jtbl_products.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Producto", "Cantidad", "Precio Compra", "Precio Venta", "Total a pagar"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jtbl_products);
+
+        scrollBar1.setBackground(new java.awt.Color(242, 242, 242));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -280,29 +297,22 @@ public class PurchaseProducts extends javax.swing.JPanel {
                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txt_salePrice, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                                                .addComponent(txt_salePrice, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel3)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(txt_amount, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 75, Short.MAX_VALUE)))
+                                                .addGap(0, 76, Short.MAX_VALUE)))
                                         .addGap(49, 49, 49)
                                         .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt_purchasePrice, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                        .addComponent(txt_purchasePrice, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                                         .addGap(106, 106, 106))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane1))))
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(46, 46, 46))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_deleteOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -313,7 +323,15 @@ public class PurchaseProducts extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btn_addProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_deleteOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_showInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -352,8 +370,10 @@ public class PurchaseProducts extends javax.swing.JPanel {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(scrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_deleteOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(54, 54, 54))))
         );
@@ -501,12 +521,13 @@ public class PurchaseProducts extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jlb_subtitle;
     private javax.swing.JLabel jlb_title;
     private javax.swing.JLabel jlb_totalPurchases;
-    private javax.swing.JTable jtbl_products;
+    private com.hector.papeleriasaas.view.swing.tables.tabledefault.TableColumn jtbl_products;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel1;
+    private com.hector.papeleriasaas.view.swing.scroll.ScrollBar scrollBar1;
     private javax.swing.JTextField txt_address;
     private javax.swing.JTextField txt_amount;
     private javax.swing.JTextField txt_email;

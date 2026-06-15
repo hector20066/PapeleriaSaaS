@@ -2,8 +2,9 @@ package com.hector.papeleriasaas.view.content.panels;
 
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
 import com.hector.papeleriasaas.model.enums.StatusDebt;
-import com.hector.papeleriasaas.view.swing.TableHeader;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
+import com.hector.papeleriasaas.view.swing.scroll.ScrollBar;
+import com.hector.papeleriasaas.view.swing.tables.tablestatus.debts.Table;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -20,20 +21,36 @@ import java.time.LocalDate;
  */
 public class DebtReport extends javax.swing.JPanel {
 
-    DefaultTableModel debtList = new DefaultTableModel();
+    DefaultTableModel debtList;
 
     public DebtReport() {
         initComponents();
 
-        String[] titles = new String[]{"ID Cliente", "Cliente", "Teléfono", "Num. Venta", "Fecha", "Total a pagar",
-                "Cant. Pagada", "Deuda actual", "Estado"};
-        debtList.setColumnIdentifiers(titles);
-        jtbl_debts.setModel(debtList);
+        this.debtList = (DefaultTableModel) jtbl_debts.getModel();
+        configureTableScrollPane();
+
+        spTable.setVerticalScrollBar(new ScrollBar());
+        spTable.getVerticalScrollBar().setBackground(new Color(223, 229, 234));
+        JPanel p = new JPanel();
+        p.setBackground(Color.WHITE);
+        spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
         
-        jtbl_debts.setTableHeader(TableHeader.getTableHeader(jtbl_debts)); 
-        
+        debtList.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal(54000.00), new BigDecimal(50000.00), new BigDecimal("4000.00"), StatusDebt.PENDING});
+        debtList.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal(54000.00), new BigDecimal(50000.00), new BigDecimal("4000.00"), StatusDebt.PENDING});
         txt_search.setText("Buscar Cliente");
         txt_search.setForeground(new Color(114, 142, 166));
+    }
+
+    private void configureTableScrollPane() {
+        Color background = new Color(223, 229, 234);
+        spTable.setBorder(BorderFactory.createEmptyBorder());
+        spTable.setViewportBorder(BorderFactory.createEmptyBorder());
+        spTable.setBackground(background);
+        spTable.getViewport().setBackground(background);
+        spTable.getViewport().setBorder(null);
+        spTable.setFocusable(false);
+        spTable.getViewport().setFocusable(false);
+        spTable.setColumnHeaderView(jtbl_debts.getTableHeader());
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -42,8 +59,6 @@ public class DebtReport extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbl_debts = new javax.swing.JTable();
         roundedPanel1 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
         txt_search = new javax.swing.JTextField();
         btn_search = new javax.swing.JButton();
@@ -51,6 +66,9 @@ public class DebtReport extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         btn_pay = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_export = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        roundedPanel2 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
+        spTable = new javax.swing.JScrollPane();
+        jtbl_debts = new com.hector.papeleriasaas.view.swing.tables.tablestatus.debts.Table();
 
         jPanel1.setBackground(new java.awt.Color(242, 242, 242));
         jPanel1.setForeground(new java.awt.Color(242, 242, 242));
@@ -62,22 +80,6 @@ public class DebtReport extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(42, 49, 64));
         jLabel2.setText("Clientes con deudas");
-
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 1, 2, new java.awt.Color(114, 142, 166)));
-
-        jtbl_debts.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jtbl_debts.setSelectionBackground(new java.awt.Color(174, 183, 191));
-        jScrollPane1.setViewportView(jtbl_debts);
 
         roundedPanel1.setBackground(new java.awt.Color(242, 242, 242));
         roundedPanel1.setBorderColor(new java.awt.Color(153, 153, 153));
@@ -135,6 +137,48 @@ public class DebtReport extends javax.swing.JPanel {
         btn_export.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btn_export.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        roundedPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        roundedPanel2.setDrawBorder(false);
+
+        spTable.setBorder(null);
+
+        jtbl_debts.setBackground(new java.awt.Color(255, 255, 255));
+        jtbl_debts.setBorder(null);
+        jtbl_debts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Cliente", "Cliente", "Telefono", "Num. Venta", "Fecha", "Total a pagar", "Cant. Pagada", "Deuda actual", "Estado"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        spTable.setViewportView(jtbl_debts);
+
+        javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
+        roundedPanel2.setLayout(roundedPanel2Layout);
+        roundedPanel2Layout.setHorizontalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(spTable)
+                .addContainerGap())
+        );
+        roundedPanel2Layout.setVerticalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -146,18 +190,18 @@ public class DebtReport extends javax.swing.JPanel {
                         .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1071, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addComponent(cbo_status, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 485, Short.MAX_VALUE)
                                 .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btn_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(20, 20, 20))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,20 +222,18 @@ public class DebtReport extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(9, 9, 9)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(12, 12, 12)
                         .addComponent(cbo_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(85, 85, 85))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -219,7 +261,8 @@ public class DebtReport extends javax.swing.JPanel {
 
         Object[] data = new Object[]{customerId, customerName, customerPhone, numSale, date, totalSale, totalPaid,
                 totalDebt, status};
-        debtList.addRow(data);
+        //debtList.addRow(data);
+        jtbl_debts.addRow(data);
     }
 
     public void setControllerSearch(ActionListener action){
@@ -250,7 +293,11 @@ public class DebtReport extends javax.swing.JPanel {
         return txt_search;
     }
 
-    public JTable getJtbl_debts(){
+    public JScrollPane getSpTable() {
+        return spTable;
+    }
+
+    public Table getJtbl_debts() {
         return jtbl_debts;
     }
 
@@ -287,9 +334,10 @@ public class DebtReport extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtbl_debts;
+    private com.hector.papeleriasaas.view.swing.tables.tablestatus.debts.Table jtbl_debts;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel1;
+    private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel2;
+    private javax.swing.JScrollPane spTable;
     private javax.swing.JTextField txt_search;
     // End of variables declaration//GEN-END:variables
 }
