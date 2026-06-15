@@ -52,7 +52,7 @@ public class Coordinator {
         EventQueue.invokeLater(() -> {
             content.setVisible(true);
             content.setLocationRelativeTo(null);
-            loadData();
+            // loadData();
             NavigatorUtils.showPanels(dashboard);
         });
     }
