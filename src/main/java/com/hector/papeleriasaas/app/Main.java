@@ -18,11 +18,11 @@ public class Main {
 
             UIManager.put("ComboBox.selectionBackground", new Color(0xAEB7BF));
             UIManager.put("ComboBox.selectionForeground", Color.WHITE);
-            UIManager.put("Component.focusColor", new Color(0xAEB7BF));
-            UIManager.put("Component.focusedBorderColor", new Color(0xAEB7BF));
+            //UIManager.put("Component.focusColor", new Color(0xAEB7BF));
+            //UIManager.put("Component.focusedBorderColor", new Color(0xAEB7BF));
 
-            UIManager.put("Table.selectionBackground", new Color(0xAEB7BF));
-            UIManager.put("Table.selectionForeground", Color.WHITE);
+            //UIManager.put("Table.selectionBackground", new Color(0xAEB7BF));
+            //UIManager.put("Table.selectionForeground", Color.WHITE);
 
             new Coordinator().startApp();
         } catch (Exception e) {
