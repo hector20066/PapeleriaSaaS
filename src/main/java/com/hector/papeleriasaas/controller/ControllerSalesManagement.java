@@ -103,8 +103,8 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 List<DTOProductDetails> dto = daoProducts.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(dto));
             } catch (DAOException e) {
-                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los productos. "
-                        + MessageUtils.userMessage(e), salesManagement));
+                /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los productos. "
+                        + MessageUtils.userMessage(e), salesManagement));*/
             }
         });
     }

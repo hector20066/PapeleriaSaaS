@@ -82,8 +82,8 @@ public class ControllerPurchasingReport implements Observer {
                 List<DTOPurchaseDetails> list = daoPurchases.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
             } catch (DAOException e) {
-                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de compras. "
-                        + MessageUtils.userMessage(e), purchasingReport));
+                /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de compras. "
+                        + MessageUtils.userMessage(e), purchasingReport));*/
             }
         });
     }

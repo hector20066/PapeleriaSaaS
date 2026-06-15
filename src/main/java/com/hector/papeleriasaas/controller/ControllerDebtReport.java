@@ -87,8 +87,8 @@ public class ControllerDebtReport implements Observer {
                 List<DTODebtDetails> list = daoDebts.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
             } catch (DAOException e) {
-                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de deudas. "
-                        + MessageUtils.userMessage(e), debtReport));
+                /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de deudas. "
+                        + MessageUtils.userMessage(e), debtReport));*/
             }
         });
     }

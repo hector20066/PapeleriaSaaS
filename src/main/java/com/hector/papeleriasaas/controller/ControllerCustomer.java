@@ -74,8 +74,8 @@ public class ControllerCustomer implements Observer {
 
                 SwingUtilities.invokeLater(() -> loadData(customersList, totalRecords));
             } catch (DAOException e) {
-                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los clientes. "
-                        + MessageUtils.userMessage(e), customers));
+                /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los clientes. "
+                        + MessageUtils.userMessage(e), customers));*/
             }
         });
     }

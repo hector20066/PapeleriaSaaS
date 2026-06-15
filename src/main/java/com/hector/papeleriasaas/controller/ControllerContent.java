@@ -134,7 +134,7 @@ public class ControllerContent {
         content.getBtn_customers().setBackground(color2);
 
         NavigatorUtils.showPanels(dashboard);
-        coordinator.loadData();
+        //coordinator.loadData();
     }
 
     private void showPurchaseProducts() {

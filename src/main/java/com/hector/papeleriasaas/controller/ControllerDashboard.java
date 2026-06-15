@@ -72,8 +72,8 @@ public class ControllerDashboard implements Observer {
                         dto.getAmountProduct(), dto.getProductName());
                 loadGraphicInfo(salesList);
             } catch (DAOException e) {
-                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el dashboard. "
-                        + MessageUtils.userMessage(e), dashboard));
+                /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el dashboard. "
+                        + MessageUtils.userMessage(e), dashboard));*/
             }
         });
     }
