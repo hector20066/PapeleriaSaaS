@@ -34,9 +34,9 @@ public class DebtReport extends javax.swing.JPanel {
         JPanel p = new JPanel();
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
-        
-        debtList.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal(54000.00), new BigDecimal(50000.00), new BigDecimal("4000.00"), StatusDebt.PENDING});
-        debtList.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal(54000.00), new BigDecimal(50000.00), new BigDecimal("4000.00"), StatusDebt.PENDING});
+
+        debtList.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("54000.00"), new BigDecimal("50000.00"), new BigDecimal("4000.00"), StatusDebt.PENDING});
+        debtList.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("524000.00"), new BigDecimal("50000.00"), new BigDecimal("5000.00"), StatusDebt.PENDING});
         txt_search.setText("Buscar Cliente");
         txt_search.setForeground(new Color(114, 142, 166));
     }
