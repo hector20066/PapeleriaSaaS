@@ -8,7 +8,7 @@ import com.hector.papeleriasaas.model.dto.DTOCustomer;
 import com.hector.papeleriasaas.observer.*;
 import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.*;
-import com.hector.papeleriasaas.view.content.panels.Customers;
+import com.hector.papeleriasaas.view.content.panels.companies.Customers;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;

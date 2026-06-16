@@ -11,8 +11,8 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.PurchaseService;
 import com.hector.papeleriasaas.utils.*;
-import com.hector.papeleriasaas.view.content.panels.Inventory;
-import com.hector.papeleriasaas.view.content.panels.PurchaseProducts;
+import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
+import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
 
 import javax.swing.*;
 import java.math.BigDecimal;

@@ -5,7 +5,7 @@ import com.hector.papeleriasaas.executor.*;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.view.content.Content;
-import com.hector.papeleriasaas.view.content.panels.*;
+import com.hector.papeleriasaas.view.content.panels.companies.*;
 
 import javax.swing.*;
 import java.awt.*;

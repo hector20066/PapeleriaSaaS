@@ -7,8 +7,8 @@ import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.utils.*;
-import com.hector.papeleriasaas.view.content.panels.Inventory;
-import com.hector.papeleriasaas.view.content.panels.ModifyProduct;
+import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
+import com.hector.papeleriasaas.view.content.panels.companies.ModifyProduct;
 
 import javax.swing.*;
 import java.math.BigDecimal;

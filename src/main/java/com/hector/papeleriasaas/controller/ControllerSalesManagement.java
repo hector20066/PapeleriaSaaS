@@ -20,7 +20,7 @@ import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
-import com.hector.papeleriasaas.view.content.panels.SalesManagement;
+import com.hector.papeleriasaas.view.content.panels.companies.SalesManagement;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;

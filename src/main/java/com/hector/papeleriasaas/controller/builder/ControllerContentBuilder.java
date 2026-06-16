@@ -3,7 +3,7 @@ package com.hector.papeleriasaas.controller.builder;
 import com.hector.papeleriasaas.controller.ControllerContent;
 import com.hector.papeleriasaas.controller.Coordinator;
 import com.hector.papeleriasaas.view.content.Content;
-import com.hector.papeleriasaas.view.content.panels.*;
+import com.hector.papeleriasaas.view.content.panels.companies.*;
 
 /**
  *

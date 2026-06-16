@@ -15,7 +15,7 @@ import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
-import com.hector.papeleriasaas.view.content.panels.PurchasingReport;
+import com.hector.papeleriasaas.view.content.panels.companies.PurchasingReport;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;

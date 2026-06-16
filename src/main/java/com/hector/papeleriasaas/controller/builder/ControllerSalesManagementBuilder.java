@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.controller.ControllerSalesManagement;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.SaleService;
-import com.hector.papeleriasaas.view.content.panels.SalesManagement;
+import com.hector.papeleriasaas.view.content.panels.companies.SalesManagement;
 
 /**
  *

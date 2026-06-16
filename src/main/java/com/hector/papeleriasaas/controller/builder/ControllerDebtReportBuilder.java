@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.controller.ControllerDebtReport;
 import com.hector.papeleriasaas.facade.interfaces.DebtsFacade;
 import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
 import com.hector.papeleriasaas.observer.Subject;
-import com.hector.papeleriasaas.view.content.panels.DebtReport;
+import com.hector.papeleriasaas.view.content.panels.companies.DebtReport;
 
 /**
  *

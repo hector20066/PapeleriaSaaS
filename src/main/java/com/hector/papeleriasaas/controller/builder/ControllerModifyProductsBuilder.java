@@ -3,8 +3,8 @@ package com.hector.papeleriasaas.controller.builder;
 import com.hector.papeleriasaas.controller.ControllerModifyProducts;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.observer.Subject;
-import com.hector.papeleriasaas.view.content.panels.Inventory;
-import com.hector.papeleriasaas.view.content.panels.ModifyProduct;
+import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
+import com.hector.papeleriasaas.view.content.panels.companies.ModifyProduct;
 
 /**
  *
