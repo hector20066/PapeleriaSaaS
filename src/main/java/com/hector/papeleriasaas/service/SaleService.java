@@ -15,7 +15,7 @@ import com.hector.papeleriasaas.facade.interfaces.CustomerFacade;
 import com.hector.papeleriasaas.facade.interfaces.InvoiceFacade;
 import com.hector.papeleriasaas.facade.interfaces.SaleDetailsFacade;
 import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
-import com.hector.papeleriasaas.model.dto.DTOInvoiceCreate;
+import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.model.dto.DTOPurchaseDetailsCreate;
 
 /**

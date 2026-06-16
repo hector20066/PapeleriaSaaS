@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.interfaces.InvoiceFacade;
 import com.hector.papeleriasaas.model.dao.impl.DAOInvoiceImpl;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOInvoice;
-import com.hector.papeleriasaas.model.dto.DTOInvoiceCreate;
+import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 
 import java.sql.Connection;
 
