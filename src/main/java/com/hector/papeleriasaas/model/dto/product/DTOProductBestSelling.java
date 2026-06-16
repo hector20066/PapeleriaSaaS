@@ -3,7 +3,6 @@ package com.hector.papeleriasaas.model.dto.product;
 import java.util.Objects;
 
 /**
- * DTO para el producto más vendido
  *
  * @author Ing. Hector Acevedo
  */

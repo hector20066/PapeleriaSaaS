@@ -12,7 +12,8 @@ import java.util.Optional;
  */
 public interface DAOCustomers extends IModifiable<DTOCustomer>,
         IListable<DTOCustomer>,
-        ICountable {
+        ICountable,
+        IRemovable {
 
     void add(Connection connection, DTOCustomer dto) throws DAOException;
     Optional<DTOCustomer> findByName(String name) throws DAOException;

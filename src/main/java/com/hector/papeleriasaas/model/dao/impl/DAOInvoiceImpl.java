@@ -3,7 +3,7 @@ package com.hector.papeleriasaas.model.dao.impl;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.SalePersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOInvoice;
-import com.hector.papeleriasaas.model.dto.DTOInvoiceCreate;
+import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
 import java.sql.CallableStatement;

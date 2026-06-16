@@ -144,6 +144,11 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
+    public void delete(int id) throws DAOException {
+
+    }
+
+    @Override
     public int countRecords() throws DAOException {
         String sql = SQLRepository.get("sql/customer/countRecords.sql");
 
