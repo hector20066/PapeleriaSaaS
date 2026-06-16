@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.controller;
+package com.hector.papeleriasaas.controller.company;
 
 import com.hector.papeleriasaas.controller.builder.ControllerPurchaseProductsBuilder;
 import com.hector.papeleriasaas.exception.dao.DAOException;

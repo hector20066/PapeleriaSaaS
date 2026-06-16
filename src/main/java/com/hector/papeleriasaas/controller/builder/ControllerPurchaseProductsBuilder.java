@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.controller.builder;
 
-import com.hector.papeleriasaas.controller.ControllerPurchaseProducts;
+import com.hector.papeleriasaas.controller.company.ControllerPurchaseProducts;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.PurchaseService;
 import com.hector.papeleriasaas.view.content.panels.companies.Inventory;

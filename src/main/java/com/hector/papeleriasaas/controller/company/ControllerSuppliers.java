@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.controller;
+package com.hector.papeleriasaas.controller.company;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;

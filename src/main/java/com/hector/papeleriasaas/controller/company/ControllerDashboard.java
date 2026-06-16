@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.controller;
+package com.hector.papeleriasaas.controller.company;
 
 import com.hector.papeleriasaas.controller.builder.ControllerDashboardBuilder;
 import com.hector.papeleriasaas.controller.dto.DTOChartSales;
@@ -16,7 +16,6 @@ import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
 import com.hector.papeleriasaas.view.swing.model.ModelChart;
 
-import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;

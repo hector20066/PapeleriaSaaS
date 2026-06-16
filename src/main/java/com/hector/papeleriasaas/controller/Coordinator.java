@@ -1,6 +1,9 @@
 package com.hector.papeleriasaas.controller;
 
 import com.hector.papeleriasaas.controller.builder.*;
+import com.hector.papeleriasaas.controller.company.ControllerCustomer;
+import com.hector.papeleriasaas.controller.company.ControllerPurchasingReport;
+import com.hector.papeleriasaas.controller.company.ControllerSuppliers;
 import com.hector.papeleriasaas.facade.impl.*;
 import com.hector.papeleriasaas.facade.interfaces.*;
 import com.hector.papeleriasaas.observer.ConcreteSubject;

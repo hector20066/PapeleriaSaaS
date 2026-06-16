@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.controller.builder;
 
-import com.hector.papeleriasaas.controller.ControllerInventory;
+import com.hector.papeleriasaas.controller.company.ControllerInventory;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.view.content.panels.companies.Inventory;

@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.controller.builder;
 
-import com.hector.papeleriasaas.controller.ControllerDebtReport;
+import com.hector.papeleriasaas.controller.company.ControllerDebtReport;
 import com.hector.papeleriasaas.facade.interfaces.DebtsFacade;
 import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
 import com.hector.papeleriasaas.observer.Subject;

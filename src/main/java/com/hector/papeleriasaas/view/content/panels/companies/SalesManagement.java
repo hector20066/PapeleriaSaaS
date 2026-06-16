@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.hector.papeleriasaas.controller.ProductPanelListener;
+import com.hector.papeleriasaas.controller.company.ProductPanelListener;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.view.swing.buttons.Button;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;

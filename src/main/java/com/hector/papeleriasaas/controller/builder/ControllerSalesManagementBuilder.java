@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.controller.builder;
 
-import com.hector.papeleriasaas.controller.ControllerSalesManagement;
+import com.hector.papeleriasaas.controller.company.ControllerSalesManagement;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.SaleService;
