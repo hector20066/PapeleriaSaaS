@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.view.content.panels;
+package com.hector.papeleriasaas.view.content.panels.companies;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.hector.papeleriasaas.controller.ProductPanelListener;

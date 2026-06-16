@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.view.content.panels;
+package com.hector.papeleriasaas.view.content.panels.companies;
 
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
 import com.hector.papeleriasaas.model.enums.StatusDebt;

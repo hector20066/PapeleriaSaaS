@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.view.content.panels;
+package com.hector.papeleriasaas.view.content.panels.companies;
 
 import com.hector.papeleriasaas.view.chart.LineChart;
 import com.hector.papeleriasaas.view.swing.model.CartModel;
