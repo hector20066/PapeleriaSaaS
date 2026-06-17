@@ -2,6 +2,14 @@ CREATE DATABASE IF NOT EXISTS db_papeleria_saas;
 
 USE db_papeleria_saas;
 
+CREATE TABLE plans (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    amount DECIMAL(12,2) NOT NULL,
+    description VARCHAR(500),
+    billing_cycle VARCHAR(10) NOT NULL -- MONTHLY, YEARLY
+);
+
 CREATE TABLE companies (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nit INT UNIQUE NULL,
@@ -10,7 +18,23 @@ CREATE TABLE companies (
     phone VARCHAR(15) NULL,
     email VARCHAR(60) NULL,
     registration_date DATE,
-    status VARCHAR(30)
+    status VARCHAR(30),
+    plan_id INT,
+    FOREIGN KEY (plan_id) REFERENCES plans(id)
+);
+
+CREATE TABLE company_payments (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    company_id INT NOT NULL,
+    plan_id INT NOT NULL,
+    amount_paid DECIMAL(12,2) NOT NULL,
+    payment_date DATE NOT NULL,
+    expiration_date DATE NOT NULL,
+    payment_reference VARCHAR(100),
+    observations VARCHAR(255),
+    status VARCHAR(20),
+    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE,
+    FOREIGN KEY (plan_id) REFERENCES plans(id)
 );
 
 CREATE TABLE company_sequences (
