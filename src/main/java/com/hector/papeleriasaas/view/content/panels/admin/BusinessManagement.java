@@ -41,8 +41,8 @@ public class BusinessManagement extends javax.swing.JPanel {
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
 
-        companiesList.addRow(new Object[]{12345, 4555353, "Papeleria Blue", "Tr 25", "31377762626", LocalDate.now(), "2026-06-20", Status.ACTIVE, new BigDecimal("45000.00")});
-        companiesList.addRow(new Object[]{12345, 5325352, "Papeleria Geys", "TR 24 16", "3137763545", LocalDate.now(), "2026-06-13", Status.INACTIVE, new BigDecimal("50000.00")});
+        table.addRow(new Object[]{12345, 4555353, "Papeleria Blue", "Tr 25", "31377762626", LocalDate.now(), "2026-06-20", new BigDecimal("45000.00"), Status.ACTIVE});
+        table.addRow(new Object[]{12345, 5325352, "Papeleria Geys", "TR 24 16", "3137763545", LocalDate.now(), "2026-06-13", new BigDecimal("50000.00"), Status.INACTIVE});
 
     }
 
@@ -71,6 +71,10 @@ public class BusinessManagement extends javax.swing.JPanel {
         roundedPanel1 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
         spTable = new javax.swing.JScrollPane();
         table = new com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table();
+        jLabel1 = new javax.swing.JLabel();
+        roundedPanel2 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
+        txt_search = new javax.swing.JTextField();
+        btn_search = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(242, 242, 242));
 
@@ -83,7 +87,7 @@ public class BusinessManagement extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "NIT", "Nombre", "Direccion", "Telefono", "Fecha Registro", "Ultimo Pago", "Estado", "Cant. a Pagar"
+                "ID", "Nombre", "NIT", "Direccion", "Telefono", "Fecha Registro", "Plan", "Ultimo Pago", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -102,15 +106,57 @@ public class BusinessManagement extends javax.swing.JPanel {
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1022, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE)
+                .addContainerGap())
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(42, 49, 64));
+        jLabel1.setText("Empresas Registradas");
+
+        roundedPanel2.setBackground(new java.awt.Color(242, 242, 242));
+        roundedPanel2.setBorderColor(new java.awt.Color(153, 153, 153));
+        roundedPanel2.setDoubleBuffered(false);
+
+        txt_search.setBackground(new java.awt.Color(242, 242, 242));
+        txt_search.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txt_search.setForeground(new java.awt.Color(114, 142, 166));
+        txt_search.setText("Buscar Cliente");
+        txt_search.setBorder(null);
+
+        btn_search.setBackground(new java.awt.Color(242, 242, 242));
+        btn_search.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_search.setForeground(new java.awt.Color(42, 49, 64));
+        btn_search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search.png"))); // NOI18N
+        btn_search.setBorder(null);
+        btn_search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
+        roundedPanel2.setLayout(roundedPanel2Layout);
+        roundedPanel2Layout.setHorizontalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(txt_search, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        roundedPanel2Layout.setVerticalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_search)
+                    .addComponent(txt_search, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -118,16 +164,28 @@ public class BusinessManagement extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(338, 338, 338)
+                        .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(118, 118, 118)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(42, 42, 42)
+                .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -142,27 +200,15 @@ public class BusinessManagement extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String[] args) {
-        try {
-            FlatIntelliJLaf.setup();
-            JFrame frame = new JFrame();
-            BusinessManagement panel = new BusinessManagement();
-            frame.add(panel);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            frame.pack();
-
-            frame.setLocationRelativeTo(null);
-            frame.setResizable(false);
-            frame.setVisible(true);
-        } catch (Exception e) {
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_search;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel1;
+    private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel2;
     private javax.swing.JScrollPane spTable;
     private com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table table;
+    private javax.swing.JTextField txt_search;
     // End of variables declaration//GEN-END:variables
 }

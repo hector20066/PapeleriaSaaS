@@ -35,8 +35,8 @@ public class DebtReport extends javax.swing.JPanel {
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
 
-        debtList.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("54000.00"), new BigDecimal("50000.00"), new BigDecimal("4000.00"), StatusDebt.PENDING});
-        debtList.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("524000.00"), new BigDecimal("50000.00"), new BigDecimal("5000.00"), StatusDebt.PENDING});
+        jtbl_debts.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("54000.00"), new BigDecimal("50000.00"), new BigDecimal("4000.00"), StatusDebt.PENDING});
+        jtbl_debts.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("524000.00"), new BigDecimal("50000.00"), new BigDecimal("5000.00"), StatusDebt.PENDING});
         txt_search.setText("Buscar Cliente");
         txt_search.setForeground(new Color(114, 142, 166));
     }
@@ -175,7 +175,7 @@ public class DebtReport extends javax.swing.JPanel {
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                .addComponent(spTable, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
 
@@ -197,7 +197,7 @@ public class DebtReport extends javax.swing.JPanel {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addComponent(cbo_status, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 485, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 495, Short.MAX_VALUE)
                                 .addComponent(btn_export, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btn_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))

@@ -62,7 +62,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jlb_date" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lineChart" pref="1078" max="32767" attributes="0"/>
+                                  <Component id="lineChart" pref="1083" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                               </Group>
                               <Component id="panel" pref="0" max="32767" attributes="0"/>

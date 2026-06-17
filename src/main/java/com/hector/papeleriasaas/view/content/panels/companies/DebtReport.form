@@ -56,7 +56,7 @@
                                           <Component id="cbo_status" min="-2" pref="201" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="485" max="32767" attributes="0"/>
+                                  <EmptySpace pref="495" max="32767" attributes="0"/>
                                   <Component id="btn_export" min="-2" pref="172" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btn_pay" min="-2" pref="190" max="-2" attributes="0"/>
@@ -288,7 +288,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="spTable" pref="384" max="32767" attributes="0"/>
+                      <Component id="spTable" pref="397" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
               </Group>
