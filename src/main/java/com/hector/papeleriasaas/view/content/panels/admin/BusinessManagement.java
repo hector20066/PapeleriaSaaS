@@ -4,17 +4,58 @@
  */
 package com.hector.papeleriasaas.view.content.panels.admin;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.hector.papeleriasaas.model.enums.Status;
+import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.view.swing.scroll.ScrollBar;
+import java.awt.Color;
+import java.awt.Component;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hlacevedo
  */
 public class BusinessManagement extends javax.swing.JPanel {
 
+    DefaultTableModel companiesList;
+
     /**
      * Creates new form BusinessManagement
      */
     public BusinessManagement() {
         initComponents();
+
+        this.companiesList = (DefaultTableModel) table.getModel();
+        configureTableScrollPane();
+
+        spTable.setVerticalScrollBar(new ScrollBar());
+        spTable.getVerticalScrollBar().setBackground(new Color(223, 229, 234));
+        JPanel p = new JPanel();
+        p.setBackground(Color.WHITE);
+        spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
+
+        companiesList.addRow(new Object[]{12345, 4555353, "Papeleria Blue", "Tr 25", "31377762626", LocalDate.now(), "2026-06-20", Status.ACTIVE, new BigDecimal("45000.00")});
+        companiesList.addRow(new Object[]{12345, 5325352, "Papeleria Geys", "TR 24 16", "3137763545", LocalDate.now(), "2026-06-13", Status.INACTIVE, new BigDecimal("50000.00")});
+
+    }
+
+    private void configureTableScrollPane() {
+        Color background = new Color(223, 229, 234);
+        spTable.setBorder(BorderFactory.createEmptyBorder());
+        spTable.setViewportBorder(BorderFactory.createEmptyBorder());
+        spTable.setBackground(background);
+        spTable.getViewport().setBackground(background);
+        spTable.getViewport().setBorder(null);
+        spTable.setFocusable(false);
+        spTable.getViewport().setFocusable(false);
+        spTable.setColumnHeaderView(table.getTableHeader());
     }
 
     /**
@@ -27,16 +68,66 @@ public class BusinessManagement extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        roundedPanel1 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
+        spTable = new javax.swing.JScrollPane();
+        table = new com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table();
+
+        jPanel1.setBackground(new java.awt.Color(242, 242, 242));
+
+        roundedPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        roundedPanel1.setDrawBorder(false);
+
+        table.setBackground(new java.awt.Color(255, 255, 255));
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "NIT", "Nombre", "Direccion", "Telefono", "Fecha Registro", "Ultimo Pago", "Estado", "Cant. a Pagar"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        spTable.setViewportView(table);
+
+        javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
+        roundedPanel1.setLayout(roundedPanel1Layout);
+        roundedPanel1Layout.setHorizontalGroup(
+            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1022, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        roundedPanel1Layout.setVerticalGroup(
+            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(spTable, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1112, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 633, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -51,8 +142,27 @@ public class BusinessManagement extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public static void main(String[] args) {
+        try {
+            FlatIntelliJLaf.setup();
+            JFrame frame = new JFrame();
+            BusinessManagement panel = new BusinessManagement();
+            frame.add(panel);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            frame.pack();
+
+            frame.setLocationRelativeTo(null);
+            frame.setResizable(false);
+            frame.setVisible(true);
+        } catch (Exception e) {
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel1;
+    private javax.swing.JScrollPane spTable;
+    private com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table table;
     // End of variables declaration//GEN-END:variables
 }
