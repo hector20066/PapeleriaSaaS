@@ -16,6 +16,7 @@ public class Company {
     private String email;
     private LocalDate registrationDate;
     private Status status;
+    private Plan plan;
     private final List<User> users;
     private final List<Product> products;
     private final List<Provider> providers;
@@ -24,6 +25,7 @@ public class Company {
     private final List<Sale> sales;
     private final List<Debt> debts;
     private final List<Invoice> invoices;
+    private final List<CompanyPayment> companyPayments;
 
     public Company() {
         this.users = new ArrayList<>();
@@ -34,6 +36,7 @@ public class Company {
         this.sales = new ArrayList<>();
         this.debts = new ArrayList<>();
         this.invoices = new ArrayList<>();
+        this.companyPayments = new ArrayList<>();
     }
 
     public int getId() {
@@ -100,6 +103,14 @@ public class Company {
         this.status = status;
     }
 
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
+
     public List<User> getUsers() {
         return users;
     }
@@ -130,6 +141,10 @@ public class Company {
 
     public List<Invoice> getInvoices() {
         return invoices;
+    }
+
+    public List<CompanyPayment> getCompanyPayments() {
+        return companyPayments;
     }
 
     public Company addUser(User user) {
@@ -169,6 +184,11 @@ public class Company {
 
     public Company addInvoice(Invoice invoice) {
         this.invoices.add(invoice);
+        return this;
+    }
+
+    public Company addCompanyPayments(CompanyPayment companyPayment) {
+        this.companyPayments.add(companyPayment);
         return this;
     }
 
