@@ -3,7 +3,7 @@ package com.hector.papeleriasaas.model.dao.impl;
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.SupplierPersistenceException;
-import com.hector.papeleriasaas.model.dao.interfaces.DAOSuppliers;
+import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
 import com.hector.papeleriasaas.model.dto.DTOSupplier;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
@@ -19,9 +19,9 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class DAOSuppliersImpl implements DAOSuppliers {
+public class DAOProvidersImpl implements DAOProviders {
 
-    public DAOSuppliersImpl() {
+    public DAOProvidersImpl() {
 
     }
 

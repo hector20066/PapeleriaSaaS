@@ -5,7 +5,7 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.facade.interfaces.SupplierFacade;
+import com.hector.papeleriasaas.facade.interfaces.ProvidersFacade;
 import com.hector.papeleriasaas.model.dto.DTOSupplier;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
@@ -35,9 +35,9 @@ public class ControllerSuppliers implements Observer {
     private final Suppliers suppliers;
     private final Subject subject;
 
-    private final SupplierFacade daoSupplier;
+    private final ProvidersFacade daoSupplier;
 
-    public ControllerSuppliers(Suppliers suppliers, Subject subject, SupplierFacade daoSupplier) {
+    public ControllerSuppliers(Suppliers suppliers, Subject subject, ProvidersFacade daoSupplier) {
         this.suppliers = suppliers;
         this.subject = subject;
 

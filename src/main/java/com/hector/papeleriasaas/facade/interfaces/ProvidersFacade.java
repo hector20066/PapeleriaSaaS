@@ -13,7 +13,7 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public interface SupplierFacade extends IListable<DTOSupplier>,
+public interface ProvidersFacade extends IListable<DTOSupplier>,
         IRemovable,
         ICountable {
 

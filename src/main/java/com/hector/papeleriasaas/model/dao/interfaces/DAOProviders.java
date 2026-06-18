@@ -10,7 +10,7 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public interface DAOSuppliers extends IListable<DTOSupplier>,
+public interface DAOProviders extends IListable<DTOSupplier>,
         IModifiable<DTOSupplier>,
         IRemovable,
         ICountable {

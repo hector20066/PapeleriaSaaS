@@ -20,13 +20,13 @@ import java.util.Optional;
  */
 public class PurchaseService {
 
-    private final SupplierFacade supplierFacade;
+    private final ProvidersFacade supplierFacade;
     private final ProductsFacade productsFacade;
     private final PurchaseFacade purchaseFacade;
     private final PurchaseDetailsFacade purchaseDetailsFacade;
 
     public PurchaseService() {
-        this.supplierFacade = new SupplierImplFacade();
+        this.supplierFacade = new ProvidersImplFacade();
         this.productsFacade = new ProductImplFacade();
         this.purchaseFacade = new PurchaseImplFacade();
         this.purchaseDetailsFacade = new PurchaseDetailsImplFacade();

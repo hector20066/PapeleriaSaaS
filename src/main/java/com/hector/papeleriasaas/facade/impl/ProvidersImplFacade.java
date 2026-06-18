@@ -1,9 +1,9 @@
 package com.hector.papeleriasaas.facade.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.interfaces.SupplierFacade;
-import com.hector.papeleriasaas.model.dao.impl.DAOSuppliersImpl;
-import com.hector.papeleriasaas.model.dao.interfaces.DAOSuppliers;
+import com.hector.papeleriasaas.facade.interfaces.ProvidersFacade;
+import com.hector.papeleriasaas.model.dao.impl.DAOProvidersImpl;
+import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
 import com.hector.papeleriasaas.model.dto.DTOSupplier;
 
 import java.sql.Connection;
@@ -14,12 +14,12 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class SupplierImplFacade implements SupplierFacade {
+public class ProvidersImplFacade implements ProvidersFacade {
 
-    private final DAOSuppliers daoSuppliers;
+    private final DAOProviders daoSuppliers;
 
-    public SupplierImplFacade() {
-        this.daoSuppliers = new DAOSuppliersImpl();
+    public ProvidersImplFacade() {
+        this.daoSuppliers = new DAOProvidersImpl();
     }
 
     @Override

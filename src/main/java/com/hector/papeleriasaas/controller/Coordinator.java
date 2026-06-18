@@ -42,7 +42,7 @@ public class Coordinator {
     private final DebtsFacade daoDebts = new DebtsImplFacade();
     private final PurchaseFacade daoPurchases = new PurchaseImplFacade();
     private final CustomerFacade daoCustomer = new CustomerImplFacade();
-    private final SupplierFacade daoSupplier = new SupplierImplFacade();
+    private final ProvidersFacade daoSupplier = new ProvidersImplFacade();
 
     private final SaleService saleService = new SaleService();
     private final PurchaseService purchaseService = new PurchaseService();
