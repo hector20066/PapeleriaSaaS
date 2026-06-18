@@ -9,7 +9,7 @@ import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.facade.interfaces.DebtsFacade;
 import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportService;
@@ -106,7 +106,7 @@ public class ControllerDebtReport implements Observer {
                 throw new InvalidInputException("Seleccione la deuda que desea abonar.");
             }
 
-            if (debtReport.getJtbl_debts().getValueAt(row, 8) == StatusDebt.PAID) {
+            if (debtReport.getJtbl_debts().getValueAt(row, 8) == PaymentStatus.PAID) {
                 throw new InvalidInputException("Esta deuda ya está pagada.");
             }
 
@@ -223,8 +223,8 @@ public class ControllerDebtReport implements Observer {
             try {
                 List<DTODebtDetails> listDebts = switch (parameter) {
                     case "Todas" -> daoDebts.findByAll();
-                    case "Pendientes" -> daoDebts.findByStatus(StatusDebt.PENDING);
-                    case "Pagadas" -> daoDebts.findByStatus(StatusDebt.PAID);
+                    case "Pendientes" -> daoDebts.findByStatus(PaymentStatus.PENDING);
+                    case "Pagadas" -> daoDebts.findByStatus(PaymentStatus.PAID);
                     default -> throw new IllegalStateException("Unexpected value: " + parameter);
                 };
 

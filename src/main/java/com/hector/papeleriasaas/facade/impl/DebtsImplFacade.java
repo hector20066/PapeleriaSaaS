@@ -5,7 +5,7 @@ import com.hector.papeleriasaas.facade.interfaces.DebtsFacade;
 import com.hector.papeleriasaas.model.dao.impl.DAODebtsImpl;
 import com.hector.papeleriasaas.model.dao.interfaces.DAODebts;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 
 import java.sql.Connection;
 import java.util.List;
@@ -29,7 +29,7 @@ public class DebtsImplFacade implements DebtsFacade {
     }
 
     @Override
-    public List<DTODebtDetails> findByStatus(StatusDebt status) throws DAOException {
+    public List<DTODebtDetails> findByStatus(PaymentStatus status) throws DAOException {
         return daoDebts.findByStatus(status);
     }
 

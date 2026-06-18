@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.scroll.ScrollBar;
 import com.hector.papeleriasaas.view.swing.tables.tablestatus.debts.Table;
@@ -35,8 +35,8 @@ public class DebtReport extends javax.swing.JPanel {
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
 
-        jtbl_debts.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("54000.00"), new BigDecimal("50000.00"), new BigDecimal("4000.00"), StatusDebt.PENDING});
-        jtbl_debts.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("524000.00"), new BigDecimal("50000.00"), new BigDecimal("5000.00"), StatusDebt.PENDING});
+        jtbl_debts.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("54000.00"), new BigDecimal("50000.00"), new BigDecimal("4000.00"), PaymentStatus.PENDING});
+        jtbl_debts.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("524000.00"), new BigDecimal("50000.00"), new BigDecimal("5000.00"), PaymentStatus.PENDING});
         txt_search.setText("Buscar Cliente");
         txt_search.setForeground(new Color(114, 142, 166));
     }
@@ -257,7 +257,7 @@ public class DebtReport extends javax.swing.JPanel {
         BigDecimal totalSale = dto.getTotalSale();
         BigDecimal totalPaid = dto.getTotalPaid();
         BigDecimal totalDebt = dto.getTotalDebt();
-        StatusDebt status = dto.getStatus();
+        PaymentStatus status = dto.getStatus();
 
         Object[] data = new Object[]{customerId, customerName, customerPhone, numSale, date, totalSale, totalPaid,
                 totalDebt, status};

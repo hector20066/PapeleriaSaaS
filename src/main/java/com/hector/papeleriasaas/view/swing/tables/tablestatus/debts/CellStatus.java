@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.view.swing.tables.tablestatus.debts;
 
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 
 /**
  *
@@ -8,7 +8,7 @@ import com.hector.papeleriasaas.model.enums.StatusDebt;
  */
 public class CellStatus extends javax.swing.JPanel {
 
-    public CellStatus(StatusDebt type) {
+    public CellStatus(PaymentStatus type) {
         initComponents();
         status.setType(type);
     }

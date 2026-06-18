@@ -2,7 +2,7 @@ package com.hector.papeleriasaas.model.dao.interfaces;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface DAODebts extends IListable<DTODebtDetails>,
         ICountable {
 
     List<DTODebtDetails> findByCustomer(String customer) throws DAOException;
-    List<DTODebtDetails> findByStatus(StatusDebt status) throws DAOException;
+    List<DTODebtDetails> findByStatus(PaymentStatus status) throws DAOException;
 
 }

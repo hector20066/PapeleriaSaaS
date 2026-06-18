@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.model.entities;
 
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 
@@ -12,7 +12,7 @@ public class Debt {
 
     private int id;
     private BigDecimal totalDebt;
-    private StatusDebt status;
+    private PaymentStatus status;
 
     public Debt() {
 
@@ -34,11 +34,11 @@ public class Debt {
         this.totalDebt = totalDebt;
     }
 
-    public StatusDebt getStatus() {
+    public PaymentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(StatusDebt status) {
+    public void setStatus(PaymentStatus status) {
         this.status = status;
     }
 

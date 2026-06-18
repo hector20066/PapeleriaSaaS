@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.view.swing.tables.tablestatus.debts;
 
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class TableStatus extends JLabel {
     
-    public StatusDebt getType() {
+    public PaymentStatus getType() {
         return type;
     }
 
@@ -19,9 +19,9 @@ public class TableStatus extends JLabel {
         setForeground(Color.WHITE);
     }
 
-    private StatusDebt type;
+    private PaymentStatus type;
 
-    public void setType(StatusDebt type) {
+    public void setType(PaymentStatus type) {
         this.type = type;
         setText(type.toString());
         repaint();
@@ -34,9 +34,9 @@ public class TableStatus extends JLabel {
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             GradientPaint g = null;
             
-            if (type == StatusDebt.PENDING) {
+            if (type == PaymentStatus.PENDING) {
                 g = new GradientPaint(0, 0, new Color(186, 123, 247), 0, getHeight(), new Color(167, 94, 236));
-            } else if (type == StatusDebt.PAID) {
+            } else if (type == PaymentStatus.PAID) {
                 g = new GradientPaint(0, 0, new Color(142, 142, 250), 0, getHeight(), new Color(123, 123, 245));
             }
             

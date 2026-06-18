@@ -5,7 +5,7 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.DebtPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAODebts;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
 import java.sql.Connection;
@@ -98,7 +98,7 @@ public class DAODebtsImpl implements DAODebts {
     }
 
     @Override
-    public List<DTODebtDetails> findByStatus(StatusDebt status) throws DAOException {
+    public List<DTODebtDetails> findByStatus(PaymentStatus status) throws DAOException {
         String sql = SQLRepository.get("sql/debt/findByStatus.sql");
         List<DTODebtDetails> list = new ArrayList<>();
 
@@ -134,7 +134,7 @@ public class DAODebtsImpl implements DAODebts {
                 .totalSale(rs.getBigDecimal("total_venta"))
                 .totalPaid(rs.getBigDecimal("total_pagado"))
                 .totalDebt(rs.getBigDecimal("deuda_actual"))
-                .status(StatusDebt.valueOf(rs.getString("estado")))
+                .status(PaymentStatus.valueOf(rs.getString("estado")))
                 .build();
     }
 

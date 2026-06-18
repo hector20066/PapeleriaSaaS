@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.model.dto;
 
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,7 +20,7 @@ public class DTODebtDetails {
     private BigDecimal totalSale;
     private BigDecimal totalPaid;
     private BigDecimal totalDebt;
-    private StatusDebt status;
+    private PaymentStatus status;
 
     public DTODebtDetails() {
 
@@ -75,7 +75,7 @@ public class DTODebtDetails {
         return totalDebt;
     }
 
-    public StatusDebt getStatus() {
+    public PaymentStatus getStatus() {
         return status;
     }
 
@@ -94,7 +94,7 @@ public class DTODebtDetails {
         private BigDecimal totalSale;
         private BigDecimal totalPaid;
         private BigDecimal totalDebt;
-        private StatusDebt status;
+        private PaymentStatus status;
 
         public Builder numDebt(int numDebt) {
             this.numDebt = numDebt;
@@ -141,7 +141,7 @@ public class DTODebtDetails {
             return this;
         }
 
-        public Builder status(StatusDebt status) {
+        public Builder status(PaymentStatus status) {
             this.status = status;
             return this;
         }

@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.view.swing.tables.tablestatus.debts;
 
-import com.hector.papeleriasaas.model.enums.StatusDebt;
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import com.hector.papeleriasaas.view.swing.tables.tablestatus.TableHeader;
 
 import javax.swing.*;
@@ -55,7 +55,7 @@ public class Table extends JTable {
         setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean bln1, int i, int i1) {
-                if (!isStatusColumn(i1) || !(o instanceof StatusDebt type)) {
+                if (!isStatusColumn(i1) || !(o instanceof PaymentStatus type)) {
                     Component com = super.getTableCellRendererComponent(jtable, o, selected, bln1, i, i1);
                     com.setBackground(ROW_BACKGROUND);
 

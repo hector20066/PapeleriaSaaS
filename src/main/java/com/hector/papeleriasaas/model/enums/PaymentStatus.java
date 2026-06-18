@@ -4,15 +4,15 @@ package com.hector.papeleriasaas.model.enums;
  *
  * @author Ing. Hector Acevedo
  */
-public enum StatusDebt {
+public enum PaymentStatus {
 
-    PENDING("Pendiente", "Deuda sin pagar."),
-    PAID("Pagado", "Pago de la deuda completo");
+    PENDING("Pendiente", "Sin pagar."),
+    PAID("Pagado", "Pago completo");
 
     private final String value;
     private final String description;
 
-    StatusDebt(String value, String description) {
+    PaymentStatus(String value, String description) {
         this.value = value;
         this.description = description;
     }
