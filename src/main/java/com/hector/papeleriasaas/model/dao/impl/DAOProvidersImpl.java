@@ -26,7 +26,7 @@ public class DAOProvidersImpl implements DAOProviders {
     }
 
     @Override
-    public void add(Connection connection, DTOSupplier dto) throws DAOException {
+    public int add(Connection connection, DTOSupplier dto) throws DAOException {
         String sql = SQLRepository.get("sql/supplier/insert.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -39,6 +39,8 @@ public class DAOProvidersImpl implements DAOProviders {
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al agregar proveedor", e);
         }
+
+        return 0;
     }
 
     @Override

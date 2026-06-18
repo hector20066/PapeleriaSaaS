@@ -26,7 +26,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public void add(Connection connection, DTOCustomer dto) throws DAOException {
+    public int add(Connection connection, DTOCustomer dto) throws DAOException {
         String sql = SQLRepository.get("sql/customer/add.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -37,6 +37,7 @@ public class DAOCustomersImpl implements DAOCustomers {
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al agregar cliente", e);
         }
+        return 0;
     }
 
     @Override

@@ -15,7 +15,7 @@ public interface DAOProviders extends IListable<DTOSupplier>,
         IRemovable,
         ICountable {
 
-    void add(Connection connection, DTOSupplier dto) throws DAOException;
+    int add(Connection connection, DTOSupplier dto) throws DAOException;
     Optional<DTOSupplier> findByName(String name) throws DAOException;
 
 }

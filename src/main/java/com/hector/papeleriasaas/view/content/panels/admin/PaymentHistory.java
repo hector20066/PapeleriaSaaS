@@ -46,11 +46,11 @@ public class PaymentHistory extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Empresa", "Id empresa", "Plan", "Cantidad Pagada", "Fecha Pago", "Fecha Expiracion", "Stado"
+                "ID", "Empresa", "Plan", "Cantidad Pagada", "Fecha Pago", "Fecha Expiracion", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
