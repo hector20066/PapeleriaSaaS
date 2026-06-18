@@ -2,7 +2,7 @@ package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerSalesReport;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
+import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.view.content.panels.companies.SalesReport;
 
@@ -14,7 +14,7 @@ public class ControllerSalesReportBuilder {
 
     private SalesReport salesReport;
     private Subject subject;
-    private SaleFacade daoSales;
+    private SalesFacade daoSales;
     private ProductsFacade daoProducts;
 
     public ControllerSalesReportBuilder withViewSalesReport(SalesReport salesReport) {
@@ -27,7 +27,7 @@ public class ControllerSalesReportBuilder {
         return this;
     }
 
-    public ControllerSalesReportBuilder withDaoSales(SaleFacade daoSales) {
+    public ControllerSalesReportBuilder withDaoSales(SalesFacade daoSales) {
         this.daoSales = daoSales;
         return this;
     }
@@ -49,7 +49,7 @@ public class ControllerSalesReportBuilder {
         return subject;
     }
 
-    public SaleFacade getDaoSales() {
+    public SalesFacade getDaoSales() {
         return daoSales;
     }
 

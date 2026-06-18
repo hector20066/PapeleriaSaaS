@@ -7,7 +7,7 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
+import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
@@ -33,7 +33,7 @@ public class ControllerDashboard implements Observer {
     private final Dashboard dashboard;
 
     private final ProductsFacade daoProducts;
-    private final SaleFacade daoSales;
+    private final SalesFacade daoSales;
 
     public ControllerDashboard(ControllerDashboardBuilder builder) {
         this.dashboard = builder.getDashboard();

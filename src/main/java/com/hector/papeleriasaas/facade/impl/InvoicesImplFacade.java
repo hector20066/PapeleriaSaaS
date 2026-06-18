@@ -1,19 +1,19 @@
 package com.hector.papeleriasaas.facade.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.interfaces.InvoiceFacade;
-import com.hector.papeleriasaas.model.dao.impl.DAOInvoiceImpl;
-import com.hector.papeleriasaas.model.dao.interfaces.DAOInvoice;
+import com.hector.papeleriasaas.facade.interfaces.InvoicesFacade;
+import com.hector.papeleriasaas.model.dao.impl.DAOInvoicesImpl;
+import com.hector.papeleriasaas.model.dao.interfaces.DAOInvoices;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 
 import java.sql.Connection;
 
-public class InvoiceImplFacade implements InvoiceFacade {
+public class InvoicesImplFacade implements InvoicesFacade {
 
-    private final DAOInvoice daoInvoice;
+    private final DAOInvoices daoInvoice;
 
-    public InvoiceImplFacade() {
-        this.daoInvoice = new DAOInvoiceImpl();
+    public InvoicesImplFacade() {
+        this.daoInvoice = new DAOInvoicesImpl();
     }
 
     @Override

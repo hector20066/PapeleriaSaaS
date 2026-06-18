@@ -12,7 +12,7 @@ import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
  *
  * @author Ing. Hector Acevedo
  */
-public interface SaleFacade extends ICountable {
+public interface SalesFacade extends ICountable {
 
     int add(Connection connection, Integer customerId, BigDecimal totalPaid, BigDecimal totalSale) throws DAOException;
     List<DTOSaleDetails> findById(int id) throws DAOException;

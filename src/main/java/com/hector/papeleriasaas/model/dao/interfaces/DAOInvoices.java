@@ -6,7 +6,7 @@ import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import java.sql.Connection;
 
 @FunctionalInterface
-public interface DAOInvoice {
+public interface DAOInvoices {
 
     int add(Connection connection, DTOInvoiceCreate dto) throws DAOException;
 

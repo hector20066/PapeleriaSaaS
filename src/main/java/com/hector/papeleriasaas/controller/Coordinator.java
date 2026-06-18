@@ -38,10 +38,10 @@ public class Coordinator {
     private ModifyProduct modifyProduct;
 
     private final ProductsFacade daoProducts = new ProductImplFacade();
-    private final SaleFacade daoSales = new SaleImplFacade();
+    private final SalesFacade daoSales = new SalesImplFacade();
     private final DebtsFacade daoDebts = new DebtsImplFacade();
-    private final PurchaseFacade daoPurchases = new PurchaseImplFacade();
-    private final CustomerFacade daoCustomer = new CustomerImplFacade();
+    private final PurchasesFacade daoPurchases = new PurchasesImplFacade();
+    private final CustomersFacade daoCustomer = new CustomersImplFacade();
     private final ProvidersFacade daoSupplier = new ProvidersImplFacade();
 
     private final SaleService saleService = new SaleService();

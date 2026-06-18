@@ -12,7 +12,7 @@ import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
+import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
@@ -44,7 +44,7 @@ public class ControllerSalesReport implements Observer {
     private final SalesReport salesReport;
     private final Subject subject;
 
-    private final SaleFacade daoSales;
+    private final SalesFacade daoSales;
     private final ProductsFacade daoProducts;
 
     public ControllerSalesReport(ControllerSalesReportBuilder builder) {

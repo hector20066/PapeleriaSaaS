@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
+import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
 import com.hector.papeleriasaas.model.dao.impl.DAOSalesImpl;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOSales;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
@@ -16,11 +16,11 @@ import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
  *
  * @author Ing. Hector Acevedo
  */
-public class SaleImplFacade implements SaleFacade {
+public class SalesImplFacade implements SalesFacade {
 
     private final DAOSales daoSales;
 
-    public SaleImplFacade() {
+    public SalesImplFacade() {
         this.daoSales = new DAOSalesImpl();
     }
 

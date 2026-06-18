@@ -22,13 +22,13 @@ public class PurchaseService {
 
     private final ProvidersFacade supplierFacade;
     private final ProductsFacade productsFacade;
-    private final PurchaseFacade purchaseFacade;
+    private final PurchasesFacade purchaseFacade;
     private final PurchaseDetailsFacade purchaseDetailsFacade;
 
     public PurchaseService() {
         this.supplierFacade = new ProvidersImplFacade();
         this.productsFacade = new ProductImplFacade();
-        this.purchaseFacade = new PurchaseImplFacade();
+        this.purchaseFacade = new PurchasesImplFacade();
         this.purchaseDetailsFacade = new PurchaseDetailsImplFacade();
     }
 

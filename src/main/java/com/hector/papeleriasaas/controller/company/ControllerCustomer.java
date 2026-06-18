@@ -3,7 +3,7 @@ package com.hector.papeleriasaas.controller.company;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.*;
-import com.hector.papeleriasaas.facade.interfaces.CustomerFacade;
+import com.hector.papeleriasaas.facade.interfaces.CustomersFacade;
 import com.hector.papeleriasaas.model.dto.DTOCustomer;
 import com.hector.papeleriasaas.observer.*;
 import com.hector.papeleriasaas.service.ReportService;
@@ -30,9 +30,9 @@ public class ControllerCustomer implements Observer {
     private final Customers customers;
     private final Subject subject;
 
-    private final CustomerFacade daoCustomer;
+    private final CustomersFacade daoCustomer;
 
-    public ControllerCustomer(Customers customers, Subject subject, CustomerFacade daoCustomer) {
+    public ControllerCustomer(Customers customers, Subject subject, CustomersFacade daoCustomer) {
         this.customers = customers;
         this.subject = subject;
 

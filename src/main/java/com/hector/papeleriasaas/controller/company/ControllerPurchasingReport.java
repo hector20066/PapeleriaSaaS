@@ -7,7 +7,7 @@ import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.facade.interfaces.PurchaseFacade;
+import com.hector.papeleriasaas.facade.interfaces.PurchasesFacade;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
@@ -36,9 +36,9 @@ public class ControllerPurchasingReport implements Observer {
     private final PurchasingReport purchasingReport;
     private final Subject subject;
 
-    private final PurchaseFacade daoPurchases;
+    private final PurchasesFacade daoPurchases;
 
-    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchaseFacade daoPurchases) {
+    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchasesFacade daoPurchases) {
         this.purchasingReport = purchasingReport;
         this.subject = subject;
         this.daoPurchases = daoPurchases;

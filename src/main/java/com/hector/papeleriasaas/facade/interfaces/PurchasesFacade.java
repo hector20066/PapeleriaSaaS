@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Ing. Hector Acevedo
  */
-public interface PurchaseFacade extends IRemovable,
+public interface PurchasesFacade extends IRemovable,
         ICountable {
 
     int add(Connection connection, int supplierNit, BigDecimal totalPaid) throws DAOException;

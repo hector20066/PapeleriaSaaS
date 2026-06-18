@@ -7,7 +7,7 @@ import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.facade.interfaces.DebtsFacade;
-import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
+import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
 import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import com.hector.papeleriasaas.observer.Observer;
@@ -40,7 +40,7 @@ public class ControllerDebtReport implements Observer {
     private final Subject subject;
 
     private final DebtsFacade daoDebts;
-    private final SaleFacade daoSales;
+    private final SalesFacade daoSales;
 
     public ControllerDebtReport(ControllerDebtReportBuilder builder) {
         this.debtReport = builder.getDebtReport();

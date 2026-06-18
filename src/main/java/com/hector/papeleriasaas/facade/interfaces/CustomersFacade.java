@@ -12,7 +12,7 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public interface CustomerFacade extends IListable<DTOCustomer>,
+public interface CustomersFacade extends IListable<DTOCustomer>,
         ICountable {
 
     void add(Connection connection, int id, String name, String phone) throws DAOException;

@@ -7,14 +7,14 @@ import java.util.List;
 
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.impl.CustomerImplFacade;
-import com.hector.papeleriasaas.facade.impl.InvoiceImplFacade;
+import com.hector.papeleriasaas.facade.impl.CustomersImplFacade;
+import com.hector.papeleriasaas.facade.impl.InvoicesImplFacade;
 import com.hector.papeleriasaas.facade.impl.SaleDetailsImplFacade;
-import com.hector.papeleriasaas.facade.impl.SaleImplFacade;
-import com.hector.papeleriasaas.facade.interfaces.CustomerFacade;
-import com.hector.papeleriasaas.facade.interfaces.InvoiceFacade;
+import com.hector.papeleriasaas.facade.impl.SalesImplFacade;
+import com.hector.papeleriasaas.facade.interfaces.CustomersFacade;
+import com.hector.papeleriasaas.facade.interfaces.InvoicesFacade;
 import com.hector.papeleriasaas.facade.interfaces.SaleDetailsFacade;
-import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
+import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.model.dto.DTOPurchaseDetailsCreate;
 
@@ -24,16 +24,16 @@ import com.hector.papeleriasaas.model.dto.DTOPurchaseDetailsCreate;
  */
 public class SaleService {
 
-    private final CustomerFacade customerFacade;
-    private final SaleFacade saleFacade;
+    private final CustomersFacade customerFacade;
+    private final SalesFacade saleFacade;
     private final SaleDetailsFacade saleDetailsFacade;
-    private final InvoiceFacade invoiceFacade;
+    private final InvoicesFacade invoiceFacade;
 
     public SaleService() {
-        this.customerFacade = new CustomerImplFacade();
-        this.saleFacade = new SaleImplFacade();
+        this.customerFacade = new CustomersImplFacade();
+        this.saleFacade = new SalesImplFacade();
         this.saleDetailsFacade = new SaleDetailsImplFacade();
-        this.invoiceFacade = new InvoiceImplFacade();
+        this.invoiceFacade = new InvoicesImplFacade();
     }
 
     public int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,

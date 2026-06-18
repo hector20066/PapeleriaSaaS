@@ -2,7 +2,7 @@ package com.hector.papeleriasaas.model.dao.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.SalePersistenceException;
-import com.hector.papeleriasaas.model.dao.interfaces.DAOInvoice;
+import com.hector.papeleriasaas.model.dao.interfaces.DAOInvoices;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DAOInvoiceImpl implements DAOInvoice {
+public class DAOInvoicesImpl implements DAOInvoices {
 
     @Override
     public int add(Connection connection, DTOInvoiceCreate dto) throws DAOException {

@@ -2,7 +2,7 @@ package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerDashboard;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.facade.interfaces.SaleFacade;
+import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
 
@@ -15,7 +15,7 @@ public class ControllerDashboardBuilder {
     private Dashboard dashboard;
     private Subject subject;
     private ProductsFacade daoProducts;
-    private SaleFacade daoSales;
+    private SalesFacade daoSales;
 
     public ControllerDashboardBuilder withViewDashboard(Dashboard dashboard) {
         this.dashboard = dashboard;
@@ -32,7 +32,7 @@ public class ControllerDashboardBuilder {
         return this;
     }
 
-    public ControllerDashboardBuilder withDaoSales(SaleFacade daoSales) {
+    public ControllerDashboardBuilder withDaoSales(SalesFacade daoSales) {
         this.daoSales = daoSales;
         return this;
     }
@@ -53,7 +53,7 @@ public class ControllerDashboardBuilder {
         return daoProducts;
     }
 
-    public SaleFacade getDaoSales() {
+    public SalesFacade getDaoSales() {
         return daoSales;
     }
 

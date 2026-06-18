@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.facade.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.interfaces.PurchaseFacade;
+import com.hector.papeleriasaas.facade.interfaces.PurchasesFacade;
 import com.hector.papeleriasaas.model.dao.impl.DAOPurchasesImpl;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOPurchases;
 import com.hector.papeleriasaas.model.dto.purchase.*;
@@ -14,11 +14,11 @@ import java.util.List;
  *
  * @author Ing. Hector Acevedo
  */
-public class PurchaseImplFacade implements PurchaseFacade {
+public class PurchasesImplFacade implements PurchasesFacade {
 
     private final DAOPurchases daoPurchases;
 
-    public PurchaseImplFacade() {
+    public PurchasesImplFacade() {
         this.daoPurchases = new DAOPurchasesImpl();
     }
 
