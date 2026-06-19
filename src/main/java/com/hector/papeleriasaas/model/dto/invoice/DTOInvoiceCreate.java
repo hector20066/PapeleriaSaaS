@@ -2,22 +2,32 @@ package com.hector.papeleriasaas.model.dto.invoice;
 
 public class DTOInvoiceCreate {
 
-    private int numSale;
+    private Integer saleId;
+    private Integer companyId;
 
     public DTOInvoiceCreate() {
 
     }
 
-    public DTOInvoiceCreate(int numSale) {
-        this.numSale = numSale;
+    public DTOInvoiceCreate(Integer saleId, Integer companyId) {
+        this.saleId = saleId;
+        this.companyId = companyId;
     }
 
-    public int getNumSale() {
-        return numSale;
+    public Integer getSaleId() {
+        return saleId;
     }
 
-    public void setNumSale(int numSale) {
-        this.numSale = numSale;
+    public void setSaleId(Integer saleId) {
+        this.saleId = saleId;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
 }
