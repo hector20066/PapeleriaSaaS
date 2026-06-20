@@ -8,24 +8,26 @@ import java.math.BigDecimal;
  */
 public class DTOPurchaseCreate {
 
-    private int supplierNit;
+    private Integer providerId;
     private BigDecimal totalPaid;
+    private Integer companyId;
 
     public DTOPurchaseCreate() {
 
     }
 
-    public DTOPurchaseCreate(int supplierNit, BigDecimal totalPaid) {
-        this.supplierNit = supplierNit;
+    public DTOPurchaseCreate(Integer providerId, BigDecimal totalPaid, Integer companyId) {
+        this.providerId = providerId;
         this.totalPaid = totalPaid;
+        this.companyId = companyId;
     }
 
-    public int getSupplierNit() {
-        return supplierNit;
+    public int getProviderId() {
+        return providerId;
     }
 
-    public void setSupplierNit(int supplierNit) {
-        this.supplierNit = supplierNit;
+    public void setProviderNit(Integer providerId) {
+        this.providerId = providerId;
     }
 
     public BigDecimal getTotalPaid() {
@@ -34,6 +36,14 @@ public class DTOPurchaseCreate {
 
     public void setTotalPaid(BigDecimal totalPaid) {
         this.totalPaid = totalPaid;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
 }

@@ -8,9 +8,9 @@ import java.util.Objects;
  */
 public class DTOProductBestSelling {
 
-    private int id;
+    private Integer id;
     private String description;
-    private int timesSold;
+    private Integer timesSold;
 
     public DTOProductBestSelling() {
     }
@@ -21,7 +21,7 @@ public class DTOProductBestSelling {
         timesSold = builder.timesSold;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -29,7 +29,7 @@ public class DTOProductBestSelling {
         return description;
     }
 
-    public int getTimesSold() {
+    public Integer getTimesSold() {
         return timesSold;
     }
 
@@ -56,11 +56,11 @@ public class DTOProductBestSelling {
 
     public static class Builder {
 
-        private int id;
+        private Integer id;
         private String description;
-        private int timesSold;
+        private Integer timesSold;
 
-        public Builder id(int id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
@@ -70,7 +70,7 @@ public class DTOProductBestSelling {
             return this;
         }
 
-        public Builder timesSold(int timesSold) {
+        public Builder timesSold(Integer timesSold) {
             this.timesSold = timesSold;
             return this;
         }

@@ -11,15 +11,17 @@ public class DTOSaleCreate {
     private Integer customerId;
     private BigDecimal totalPaid;
     private BigDecimal totalSale;
+    private Integer companyId;
 
     public DTOSaleCreate() {
 
     }
 
-    public DTOSaleCreate(Integer customerId, BigDecimal totalPaid, BigDecimal totalSale) {
+    public DTOSaleCreate(Integer customerId, BigDecimal totalPaid, BigDecimal totalSale, Integer companyId) {
         this.customerId = customerId;
         this.totalPaid = totalPaid;
         this.totalSale = totalSale;
+        this.companyId = companyId;
     }
 
     public Integer getCustomerId() {
@@ -44,6 +46,14 @@ public class DTOSaleCreate {
 
     public void setTotalSale(BigDecimal totalSale) {
         this.totalSale = totalSale;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
 }

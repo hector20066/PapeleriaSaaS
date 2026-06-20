@@ -11,11 +11,11 @@ import java.time.LocalDate;
  */
 public class DTODebtDetails {
 
-    private int numDebt;
-    private int customerId;
+    private Integer numDebt;
+    private Integer customerId;
     private String customerName;
     private String customerPhone;
-    private int numSale;
+    private Integer numSale;
     private LocalDate date;
     private BigDecimal totalSale;
     private BigDecimal totalPaid;
@@ -39,11 +39,11 @@ public class DTODebtDetails {
         this.status = builder.status;
     }
 
-    public int getNumDebt() {
+    public Integer getNumDebt() {
         return numDebt;
     }
 
-    public int getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
@@ -55,7 +55,7 @@ public class DTODebtDetails {
         return customerPhone;
     }
 
-    public int getNumSale() {
+    public Integer getNumSale() {
         return numSale;
     }
 
@@ -85,23 +85,23 @@ public class DTODebtDetails {
 
     public static class Builder {
 
-        private int numDebt;
-        private int customerId;
+        private Integer numDebt;
+        private Integer customerId;
         private String customerName;
         private String customerPhone;
-        private int numSale;
+        private Integer numSale;
         private LocalDate date;
         private BigDecimal totalSale;
         private BigDecimal totalPaid;
         private BigDecimal totalDebt;
         private PaymentStatus status;
 
-        public Builder numDebt(int numDebt) {
+        public Builder numDebt(Integer numDebt) {
             this.numDebt = numDebt;
             return this;
         }
 
-        public Builder customerId(int id) {
+        public Builder customerId(Integer id) {
             this.customerId = id;
             return this;
         }
@@ -116,7 +116,7 @@ public class DTODebtDetails {
             return this;
         }
 
-        public Builder numSale(int numSale) {
+        public Builder numSale(Integer numSale) {
             this.numSale = numSale;
             return this;
         }

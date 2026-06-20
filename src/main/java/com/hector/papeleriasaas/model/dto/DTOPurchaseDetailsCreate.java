@@ -8,43 +8,43 @@ import java.math.BigDecimal;
  */
 public class DTOPurchaseDetailsCreate {
 
-    private int purchaseNum;
-    private int productId;
-    private int amount;
+    private Integer purchaseNum;
+    private Integer productId;
+    private Integer amount;
     private BigDecimal unitPrice;
 
     public DTOPurchaseDetailsCreate() {
 
     }
 
-    public DTOPurchaseDetailsCreate(int purchaseNum, int productId, int amount, BigDecimal unitPrice) {
+    public DTOPurchaseDetailsCreate(Integer purchaseNum, Integer productId, Integer amount, BigDecimal unitPrice) {
         this.purchaseNum = purchaseNum;
         this.productId = productId;
         this.amount = amount;
         this.unitPrice = unitPrice;
     }
 
-    public int getPurchaseNum() {
+    public Integer getPurchaseNum() {
         return purchaseNum;
     }
 
-    public void setPurchaseNum(int purchaseNum) {
+    public void setPurchaseNum(Integer purchaseNum) {
         this.purchaseNum = purchaseNum;
     }
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
