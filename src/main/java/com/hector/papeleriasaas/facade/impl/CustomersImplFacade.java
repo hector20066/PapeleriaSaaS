@@ -25,7 +25,7 @@ public class CustomersImplFacade implements CustomersFacade {
     @Override
     public void add(Connection connection, int id, String name, String phone) throws DAOException {
         DTOCustomer dto = new DTOCustomer();
-        dto.setId(id);
+        dto.setIdentification(id);
         dto.setName(name);
         dto.setPhone(phone);
 
@@ -56,7 +56,7 @@ public class CustomersImplFacade implements CustomersFacade {
     public void modify(Connection connection, String phone, int id) throws DAOException {
         DTOCustomer dto = new DTOCustomer();
         dto.setPhone(phone);
-        dto.setId(id);
+        dto.setIdentification(id);
 
         daoCustomers.modify(connection, dto);
     }

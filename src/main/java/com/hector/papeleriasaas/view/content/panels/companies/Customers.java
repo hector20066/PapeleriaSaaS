@@ -210,7 +210,7 @@ public class Customers extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void updatePanel(DTOCustomer dto) {
-        int id = dto.getId();
+        int id = dto.getIdentification();
         String name = dto.getName();
         String phone = dto.getPhone();
 

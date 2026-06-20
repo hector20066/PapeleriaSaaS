@@ -30,7 +30,7 @@ public class DAOCustomersImpl implements DAOCustomers {
         String sql = SQLRepository.get("sql/customer/add.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, dto.getId());
+            st.setInt(1, dto.getIdentification());
             st.setString(2, dto.getName());
             st.setString(3, dto.getPhone());
             st.executeUpdate();
@@ -120,7 +120,7 @@ public class DAOCustomersImpl implements DAOCustomers {
 
     private DTOCustomer getDTOCustomer(ResultSet rs) throws SQLException {
         DTOCustomer dto = new DTOCustomer();
-        dto.setId(rs.getInt("id"));
+        dto.setIdentification(rs.getInt("id"));
         dto.setName(rs.getString("nombre"));
         dto.setPhone(rs.getString("telefono"));
 
@@ -133,11 +133,11 @@ public class DAOCustomersImpl implements DAOCustomers {
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, dto.getPhone());
-            st.setInt(2, dto.getId());
+            st.setInt(2, dto.getIdentification());
             int affectedRows = st.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("cliente no existe con id: " + dto.getId());
+                throw new SQLException("cliente no existe con id: " + dto.getIdentification());
             }
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al modificar cliente", e);

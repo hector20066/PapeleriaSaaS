@@ -27,7 +27,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
 
         try (CallableStatement cs = connection.prepareCall(sql)) {
             cs.setInt(1, dto.getProviderId());
-            cs.setBigDecimal(2, dto.getTotalPaid());
+            cs.setBigDecimal(2, dto.getTotalPurchase());
 
             try (ResultSet rs = cs.executeQuery()) {
                 if (rs.next()) {

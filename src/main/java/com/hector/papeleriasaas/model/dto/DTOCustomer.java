@@ -6,7 +6,7 @@ package com.hector.papeleriasaas.model.dto;
  */
 public class DTOCustomer {
 
-    private Integer id;
+    private Integer identification;
     private String name;
     private String phone;
     private String email;
@@ -17,19 +17,19 @@ public class DTOCustomer {
     }
 
     public DTOCustomer(Builder builder) {
-        this.id = builder.identification;
+        this.identification = builder.identification;
         this.name = builder.name;
         this.phone = builder.phone;
         this.email = builder.email;
         this.companyId = builder.companyId;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIdentification() {
+        return identification;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdentification(Integer identification) {
+        this.identification = identification;
     }
 
     public String getName() {

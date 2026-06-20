@@ -9,16 +9,16 @@ import java.math.BigDecimal;
 public class DTOPurchaseCreate {
 
     private Integer providerId;
-    private BigDecimal totalPaid;
+    private BigDecimal totalPurchase;
     private Integer companyId;
 
     public DTOPurchaseCreate() {
 
     }
 
-    public DTOPurchaseCreate(Integer providerId, BigDecimal totalPaid, Integer companyId) {
+    public DTOPurchaseCreate(Integer providerId, BigDecimal totalPurchase, Integer companyId) {
         this.providerId = providerId;
-        this.totalPaid = totalPaid;
+        this.totalPurchase = totalPurchase;
         this.companyId = companyId;
     }
 
@@ -30,12 +30,12 @@ public class DTOPurchaseCreate {
         this.providerId = providerId;
     }
 
-    public BigDecimal getTotalPaid() {
-        return totalPaid;
+    public BigDecimal getTotalPurchase() {
+        return totalPurchase;
     }
 
-    public void setTotalPaid(BigDecimal totalPaid) {
-        this.totalPaid = totalPaid;
+    public void setTotalPurchase(BigDecimal totalPurchase) {
+        this.totalPurchase = totalPurchase;
     }
 
     public Integer getCompanyId() {

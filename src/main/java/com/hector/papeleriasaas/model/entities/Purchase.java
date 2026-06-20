@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class Purchase {
 
-    private int id;
-    private int purchaseNumber;
+    private Integer id;
+    private Integer purchaseNumber;
     private LocalDate date;
     private BigDecimal total;
     private Provider provider;
@@ -22,19 +22,19 @@ public class Purchase {
         this.details = new ArrayList<>();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getPurchaseNumber() {
+    public Integer getPurchaseNumber() {
         return purchaseNumber;
     }
 
-    public void setPurchaseNumber(int purchaseNumber) {
+    public void setPurchaseNumber(Integer purchaseNumber) {
         this.purchaseNumber = purchaseNumber;
     }
 

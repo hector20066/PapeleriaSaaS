@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class Product {
 
-    private int id;
+    private Integer id;
     private String description;
-    private int amount;
+    private Integer amount;
     private BigDecimal salePrice;
     private BigDecimal purchasePrice;
     private final List<Provider> providers;
@@ -21,11 +21,11 @@ public class Product {
         this.providers = new ArrayList<>();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,11 +37,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 

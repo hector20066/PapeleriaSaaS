@@ -5,8 +5,8 @@ import com.hector.papeleriasaas.model.enums.Status;
 
 public class User {
 
-    private int id;
-    private int identification;
+    private Integer id;
+    private Integer identification;
     private String name;
     private String user;
     private String passwd;
@@ -17,19 +17,19 @@ public class User {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getIdentification() {
+    public Integer getIdentification() {
         return identification;
     }
 
-    public void setIdentification(int identification) {
+    public void setIdentification(Integer identification) {
         this.identification = identification;
     }
 

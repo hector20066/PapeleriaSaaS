@@ -11,8 +11,8 @@ import java.util.List;
  */
 public class Sale {
 
-    private int id;
-    private int numSale;
+    private Integer id;
+    private Integer numSale;
     private Customer customer;
     private LocalDate date;
     private BigDecimal totalPaid;
@@ -25,19 +25,19 @@ public class Sale {
         this.saleDetails = new ArrayList<>();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getNumSale() {
+    public Integer getNumSale() {
         return numSale;
     }
 
-    public void setNumSale(int numSale) {
+    public void setNumSale(Integer numSale) {
         this.numSale = numSale;
     }
 

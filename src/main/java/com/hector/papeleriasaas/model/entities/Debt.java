@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  */
 public class Debt {
 
-    private int id;
+    private Integer id;
     private BigDecimal totalDebt;
     private PaymentStatus status;
 
@@ -18,11 +18,11 @@ public class Debt {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

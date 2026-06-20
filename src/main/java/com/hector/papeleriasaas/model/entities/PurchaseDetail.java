@@ -8,20 +8,20 @@ import java.math.BigDecimal;
  */
 public class PurchaseDetail {
 
-    private int id;
+    private Integer id;
     private Product product;
-    private int amount;
+    private Integer amount;
     private BigDecimal unitPrice;
 
     public PurchaseDetail() {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,11 +33,11 @@ public class PurchaseDetail {
         this.product = product;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 

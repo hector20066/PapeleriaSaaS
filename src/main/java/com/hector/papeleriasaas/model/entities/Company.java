@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Company {
 
-    private int id;
-    private int nit;
+    private Integer id;
+    private Integer nit;
     private String name;
     private String address;
     private String phone;
@@ -39,19 +39,19 @@ public class Company {
         this.companyPayments = new ArrayList<>();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getNit() {
+    public Integer getNit() {
         return nit;
     }
 
-    public void setNit(int nit) {
+    public void setNit(Integer nit) {
         this.nit = nit;
     }
 

@@ -6,7 +6,7 @@ import com.hector.papeleriasaas.model.enums.BillingCycle;
 
 public class Plan {
 
-    private int id;
+    private Integer id;
     private String name;
     private BigDecimal amount;
     private String description;
@@ -16,11 +16,11 @@ public class Plan {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

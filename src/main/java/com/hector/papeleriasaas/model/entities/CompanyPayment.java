@@ -7,7 +7,7 @@ import com.hector.papeleriasaas.model.enums.PaymentStatus;
 
 public class CompanyPayment {
 
-    private int id;
+    private Integer id;
     private Plan plan;
     private BigDecimal amountPaid;
     private LocalDate paymentDate;
@@ -19,11 +19,11 @@ public class CompanyPayment {
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
