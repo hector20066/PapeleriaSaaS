@@ -60,7 +60,7 @@ public class SaleService {
                 saleDetailsFacade.add(connection, numSale, product.getProductId(), product.getAmount(), product.getUnitPrice());
             }
 
-            invoiceNumber = invoiceFacade.add(connection, new DTOInvoiceCreate(numSale));
+            invoiceNumber = invoiceFacade.add(connection, new DTOInvoiceCreate(numSale, 1));
 
             connection.commit();
         } catch (SQLException | DAOException e) {

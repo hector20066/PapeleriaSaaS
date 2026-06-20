@@ -23,9 +23,9 @@ public class PurchasesImplFacade implements PurchasesFacade {
     }
 
     @Override
-    public int add(Connection connection, int supplierNit, BigDecimal totalPaid) throws DAOException {
+    public int add(Connection connection, int providerId, BigDecimal totalPaid) throws DAOException {
         DTOPurchaseCreate dto = new DTOPurchaseCreate();
-        dto.setSupplierNit(supplierNit);
+        dto.setProviderId(providerId);
         dto.setTotalPaid(totalPaid);
 
         return daoPurchases.add(connection, dto);

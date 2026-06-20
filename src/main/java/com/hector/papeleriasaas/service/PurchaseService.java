@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.impl.*;
 import com.hector.papeleriasaas.facade.interfaces.*;
-import com.hector.papeleriasaas.model.dto.DTOSupplier;
+import com.hector.papeleriasaas.model.dto.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 
@@ -32,7 +32,7 @@ public class PurchaseService {
         this.purchaseDetailsFacade = new PurchaseDetailsImplFacade();
     }
 
-    public void registerPurchase(DTOSupplier dtoSupplier, BigDecimal totalPaid,
+    public void registerPurchase(DTOProvider dtoSupplier, BigDecimal totalPaid,
                                  List<DTOProductCreate> products) throws SQLException, DAOException {
         Connection connection = null;
 

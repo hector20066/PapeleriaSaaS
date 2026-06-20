@@ -1,7 +1,6 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
-import com.hector.papeleriasaas.model.dto.DTOSupplier;
-import com.hector.papeleriasaas.view.swing.TableHeader;
+import com.hector.papeleriasaas.model.dto.DTOProvider;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.panels.RoundedPanel;
 
@@ -194,7 +193,7 @@ public class Suppliers extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void updatePanel(DTOSupplier dto) {
+    public void updatePanel(DTOProvider dto) {
         int nit = dto.getNit();
         String rSocial = dto.getRSocial();
         String address = dto.getAddress();

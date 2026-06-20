@@ -6,7 +6,7 @@ import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.facade.interfaces.ProvidersFacade;
-import com.hector.papeleriasaas.model.dto.DTOSupplier;
+import com.hector.papeleriasaas.model.dto.DTOProvider;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportService;
@@ -74,7 +74,7 @@ public class ControllerSuppliers implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOSupplier> suppliersList = daoSupplier.findByAll();
+                List<DTOProvider> suppliersList = daoSupplier.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(suppliersList));
             } catch (DAOException e) {
                 /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los proveedores. "
@@ -83,7 +83,7 @@ public class ControllerSuppliers implements Observer {
         });
     }
 
-    private void loadData(List<DTOSupplier> suppliersList) {
+    private void loadData(List<DTOProvider> suppliersList) {
         suppliers.getModel().setRowCount(0);
         suppliersList.forEach(suppliers::updatePanel);
     }
@@ -102,7 +102,7 @@ public class ControllerSuppliers implements Observer {
     private void doInBackgroundSearch(String param) {
         BackgroundExecutor.execute(() -> {
             try {
-                Optional<DTOSupplier> supplier = ValidationUtils.isNumeric(param)
+                Optional<DTOProvider> supplier = ValidationUtils.isNumeric(param)
                         ? daoSupplier.findById(Integer.parseInt(param))
                         : daoSupplier.findByName(param);
 
@@ -134,7 +134,7 @@ public class ControllerSuppliers implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOSupplier> suppliersList = daoSupplier.findByAll();
+                List<DTOProvider> suppliersList = daoSupplier.findByAll();
                 String compileReport = "/reports/Proveedores.jrxml";
                 Map<String, Object> params = new HashMap<>();
 

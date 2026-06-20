@@ -4,24 +4,26 @@ package com.hector.papeleriasaas.model.dto;
  *
  * @author Ing. Hector Acevedo
  */
-public class DTOSupplier {
+public class DTOProvider {
 
     private Integer nit;
     private String rSocial;
     private String address;
     private String phone;
     private String email;
+    private Integer companyId;
 
-    public DTOSupplier() {
+    public DTOProvider() {
 
     }
 
-    public DTOSupplier(Builder builder) {
+    public DTOProvider(Builder builder) {
         this.nit = builder.nit;
         this.rSocial = builder.rSocial;
         this.address = builder.address;
         this.phone = builder.phone;
         this.email = builder.email;
+        this.companyId = builder.companyId;
     }
 
     public Integer getNit() {
@@ -44,6 +46,10 @@ public class DTOSupplier {
         return email;
     }
 
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
     public static class Builder {
 
         private Integer nit;
@@ -51,6 +57,7 @@ public class DTOSupplier {
         private String address;
         private String phone;
         private String email;
+        private Integer companyId;
 
         public Builder nit(Integer nit) {
             this.nit = nit;
@@ -77,8 +84,13 @@ public class DTOSupplier {
             return this;
         }
 
-        public DTOSupplier build() {
-            return new DTOSupplier(this);
+        public Builder companyId(Integer companyId) {
+            this.companyId = companyId;
+            return this;
+        }
+
+        public DTOProvider build() {
+            return new DTOProvider(this);
         }
 
     }

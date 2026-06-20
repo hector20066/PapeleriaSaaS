@@ -18,7 +18,7 @@ public class DAOInvoicesImpl implements DAOInvoices {
         String sql = SQLRepository.get("sql/invoice/insert.sql");
 
         try (CallableStatement cs = connection.prepareCall(sql)) {
-            cs.setInt(1, dto.getNumSale());
+            cs.setInt(1, dto.getSaleId());
 
             try (ResultSet rs = cs.executeQuery()) {
                 if (rs.next()) {

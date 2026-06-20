@@ -26,7 +26,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
         String sql = SQLRepository.get("sql/purchase/insert.sql");
 
         try (CallableStatement cs = connection.prepareCall(sql)) {
-            cs.setInt(1, dto.getSupplierNit());
+            cs.setInt(1, dto.getProviderId());
             cs.setBigDecimal(2, dto.getTotalPaid());
 
             try (ResultSet rs = cs.executeQuery()) {

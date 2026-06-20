@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.interfaces.ProvidersFacade;
 import com.hector.papeleriasaas.model.dao.impl.DAOProvidersImpl;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
-import com.hector.papeleriasaas.model.dto.DTOSupplier;
+import com.hector.papeleriasaas.model.dto.DTOProvider;
 
 import java.sql.Connection;
 import java.util.List;
@@ -24,7 +24,7 @@ public class ProvidersImplFacade implements ProvidersFacade {
 
     @Override
     public void add(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException {
-        DTOSupplier dto = new DTOSupplier.Builder()
+        DTOProvider dto = new DTOProvider.Builder()
                 .nit(nit)
                 .rSocial(rSocial)
                 .address(address)
@@ -36,28 +36,28 @@ public class ProvidersImplFacade implements ProvidersFacade {
     }
 
     @Override
-    public Optional<DTOSupplier> findByName(String name) throws DAOException {
+    public Optional<DTOProvider> findByName(String name) throws DAOException {
         return daoSuppliers.findByName(name);
     }
 
     @Override
-    public Optional<DTOSupplier> findById(int id) throws DAOException {
+    public Optional<DTOProvider> findById(int id) throws DAOException {
         return daoSuppliers.findById(id);
     }
 
     @Override
-    public Optional<DTOSupplier> findById(Connection connection, int id) throws DAOException {
+    public Optional<DTOProvider> findById(Connection connection, int id) throws DAOException {
         return daoSuppliers.findById(connection, id);
     }
 
     @Override
-    public List<DTOSupplier> findByAll() throws DAOException {
+    public List<DTOProvider> findByAll() throws DAOException {
         return daoSuppliers.findByAll();
     }
 
     @Override
     public void modify(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException {
-        DTOSupplier dto = new DTOSupplier.Builder()
+        DTOProvider dto = new DTOProvider.Builder()
                 .nit(nit)
                 .rSocial(rSocial)
                 .address(address)

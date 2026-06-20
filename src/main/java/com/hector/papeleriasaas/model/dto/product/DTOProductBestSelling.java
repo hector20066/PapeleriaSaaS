@@ -16,9 +16,9 @@ public class DTOProductBestSelling {
     }
 
     public DTOProductBestSelling(Builder builder) {
-        id = builder.id;
-        description = builder.description;
-        timesSold = builder.timesSold;
+        this.id = builder.id;
+        this.description = builder.description;
+        this.timesSold = builder.timesSold;
     }
 
     public Integer getId() {

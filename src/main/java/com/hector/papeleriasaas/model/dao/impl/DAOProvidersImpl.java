@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.SupplierPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
-import com.hector.papeleriasaas.model.dto.DTOSupplier;
+import com.hector.papeleriasaas.model.dto.DTOProvider;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
 import java.sql.Connection;
@@ -26,7 +26,7 @@ public class DAOProvidersImpl implements DAOProviders {
     }
 
     @Override
-    public int add(Connection connection, DTOSupplier dto) throws DAOException {
+    public int add(Connection connection, DTOProvider dto) throws DAOException {
         String sql = SQLRepository.get("sql/supplier/insert.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -44,7 +44,7 @@ public class DAOProvidersImpl implements DAOProviders {
     }
 
     @Override
-    public Optional<DTOSupplier> findByName(String name) throws DAOException {
+    public Optional<DTOProvider> findByName(String name) throws DAOException {
         String sql = SQLRepository.get("sql/supplier/findByName.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -64,7 +64,7 @@ public class DAOProvidersImpl implements DAOProviders {
     }
 
     @Override
-    public Optional<DTOSupplier> findById(int id) throws DAOException {
+    public Optional<DTOProvider> findById(int id) throws DAOException {
         String sql = SQLRepository.get("sql/supplier/findById.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -84,7 +84,7 @@ public class DAOProvidersImpl implements DAOProviders {
     }
 
     @Override
-    public Optional<DTOSupplier> findById(Connection connection, int id) throws DAOException {
+    public Optional<DTOProvider> findById(Connection connection, int id) throws DAOException {
         String sql = SQLRepository.get("sql/supplier/findById.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -103,16 +103,16 @@ public class DAOProvidersImpl implements DAOProviders {
     }
 
     @Override
-    public List<DTOSupplier> findByAll() throws DAOException {
+    public List<DTOProvider> findByAll() throws DAOException {
         String sql = SQLRepository.get("sql/supplier/findByAll.sql");
-        List<DTOSupplier> list = new ArrayList<>();
+        List<DTOProvider> list = new ArrayList<>();
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
             while (rs.next()) {
-                DTOSupplier dto = getDTOSupplier(rs);
+                DTOProvider dto = getDTOSupplier(rs);
                 list.add(dto);
             }
         } catch (SQLException e) {
@@ -122,8 +122,8 @@ public class DAOProvidersImpl implements DAOProviders {
         return list;
     }
 
-    private DTOSupplier getDTOSupplier(ResultSet rs) throws SQLException {
-        return new DTOSupplier.Builder()
+    private DTOProvider getDTOSupplier(ResultSet rs) throws SQLException {
+        return new DTOProvider.Builder()
                 .nit(rs.getInt("nit"))
                 .rSocial(rs.getString("rSocial"))
                 .address(rs.getString("direccion"))
@@ -133,7 +133,7 @@ public class DAOProvidersImpl implements DAOProviders {
     }
 
     @Override
-    public void modify(Connection connection, DTOSupplier dto) throws DAOException {
+    public void modify(Connection connection, DTOProvider dto) throws DAOException {
         String sql = SQLRepository.get("sql/supplier/modify.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {

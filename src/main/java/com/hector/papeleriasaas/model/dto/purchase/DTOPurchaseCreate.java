@@ -26,7 +26,7 @@ public class DTOPurchaseCreate {
         return providerId;
     }
 
-    public void setProviderNit(Integer providerId) {
+    public void setProviderId(Integer providerId) {
         this.providerId = providerId;
     }
 

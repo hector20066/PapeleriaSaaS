@@ -6,7 +6,7 @@ import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
-import com.hector.papeleriasaas.model.dto.DTOSupplier;
+import com.hector.papeleriasaas.model.dto.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.PurchaseService;
@@ -58,7 +58,7 @@ public class ControllerPurchaseProducts {
 
     private void registerPurchase() {
         try {
-            DTOSupplier dtoSupplier = getDTOSupplier();
+            DTOProvider dtoSupplier = getDTOSupplier();
             List<DTOProductCreate> listProducts = getProductsList();
             BigDecimal totalPaid = ParserUtils.parseBigDecimal(productManagement.getJlb_totalPurchases().getText().trim(),
                     "cantidad pagada");
@@ -70,7 +70,7 @@ public class ControllerPurchaseProducts {
         }
     }
 
-    private DTOSupplier getDTOSupplier() throws InvalidInputException {
+    private DTOProvider getDTOSupplier() throws InvalidInputException {
         String nit = productManagement.getTxt_nit().getText().trim();
         String rSocial = productManagement.getTxt_rSocial().getText().trim();
         String address = productManagement.getTxt_address().getText().trim();
@@ -101,7 +101,7 @@ public class ControllerPurchaseProducts {
             throw new InvalidNumberInputException("NIT del proveedor");
         }
 
-        return new DTOSupplier.Builder()
+        return new DTOProvider.Builder()
                 .nit(ParserUtils.parseInteger(nit, "nit del proveedor"))
                 .rSocial(rSocial)
                 .address(address)
@@ -144,7 +144,7 @@ public class ControllerPurchaseProducts {
         productManagement.getBtn_addProduct().setEnabled(false);
     }
 
-    private void doInBackground(DTOSupplier dtoSupplier, List<DTOProductCreate> listProducts, BigDecimal totalPaid) {
+    private void doInBackground(DTOProvider dtoSupplier, List<DTOProductCreate> listProducts, BigDecimal totalPaid) {
         BackgroundExecutor.execute(() -> {
             try {
                 purchaseService.registerPurchase(dtoSupplier, totalPaid, listProducts);
