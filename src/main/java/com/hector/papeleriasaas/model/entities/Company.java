@@ -39,6 +39,19 @@ public class Company {
         this.companyPayments = new ArrayList<>();
     }
 
+    public Company(Builder builder) {
+        this();
+        this.id = builder.id;
+        this.nit = builder.nit;
+        this.name = builder.name;
+        this.address = builder.address;
+        this.phone = builder.phone;
+        this.email = builder.email;
+        this.registrationDate = builder.registrationDate;
+        this.status = builder.status;
+        this.plan = builder.plan;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -190,6 +203,69 @@ public class Company {
     public Company addCompanyPayments(CompanyPayment companyPayment) {
         this.companyPayments.add(companyPayment);
         return this;
+    }
+
+    public static class Builder {
+
+        private Integer id;
+        private Integer nit;
+        private String name;
+        private String address;
+        private String phone;
+        private String email;
+        private LocalDate registrationDate;
+        private Status status;
+        private Plan plan;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder nit(Integer nit) {
+            this.nit = nit;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder address(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder registrationDate(LocalDate registrationDate) {
+            this.registrationDate = registrationDate;
+            return this;
+        }
+
+        public Builder status(Status status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder plan(Plan plan) {
+            this.plan = plan;
+            return this;
+        }
+
+        public Company build() {
+            return new Company(this);
+        }
+
     }
 
 }

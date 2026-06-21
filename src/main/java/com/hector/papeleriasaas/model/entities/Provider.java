@@ -21,6 +21,16 @@ public class Provider {
         this.products = new ArrayList<>();
     }
 
+    public Provider(Builder builder) {
+        this();
+        this.id = builder.id;
+        this.nit = builder.nit;
+        this.rSocial = builder.rSocial;
+        this.address = builder.address;
+        this.phone = builder.phone;
+        this.email = builder.email;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -76,6 +86,51 @@ public class Provider {
     public Provider addProduct(Product product) {
         this.products.add(product);
         return this;
+    }
+
+    public static class Builder {
+        
+        private Integer id;
+        private Integer nit;
+        private String rSocial;
+        private String address;
+        private String phone;
+        private String email;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder nit(Integer nit) {
+            this.nit = nit;
+            return this;
+        }
+
+        public Builder rSocial(String rSocial) {
+            this.rSocial = rSocial;
+            return this;
+        }
+
+        public Builder address(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Provider build() {
+            return new Provider(this);
+        }
+
     }
 
 }

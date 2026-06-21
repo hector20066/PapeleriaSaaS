@@ -20,6 +20,15 @@ public class Customer {
         this.sales = new ArrayList<>();
     }
 
+    public Customer(Builder builder) {
+        this();
+        this.id = builder.id;
+        this.identification = builder.identification;
+        this.name = builder.name;
+        this.phone = builder.phone;
+        this.email = builder.email;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -67,6 +76,45 @@ public class Customer {
     public Customer addSale(Sale sale) {
         this.sales.add(sale);
         return this;
+    }
+
+    public static class Builder {
+
+        private Integer id;
+        private Integer identification;
+        private String name;
+        private String phone;
+        private String email;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder identification(Integer identification) {
+            this.identification = identification;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Customer build() {
+            return new Customer(this);
+        }
+
     }
 
 }

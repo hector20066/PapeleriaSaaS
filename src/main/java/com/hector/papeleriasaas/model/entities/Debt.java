@@ -18,6 +18,12 @@ public class Debt {
 
     }
 
+    public Debt(Integer id, BigDecimal totalDebt, PaymentStatus status) {
+        this.id = id;
+        this.totalDebt = totalDebt;
+        this.status = status;
+    }
+
     public Integer getId() {
         return id;
     }

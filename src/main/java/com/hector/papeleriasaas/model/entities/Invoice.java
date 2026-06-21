@@ -12,6 +12,12 @@ public class Invoice {
 
     }
 
+    public Invoice(Integer id, Integer numInvoice, LocalDate issueDate) {
+        this.id = id;
+        this.numInvoice = numInvoice;
+        this.issueDate = issueDate;
+    }
+
     public Integer getId() {
         return id;
     }
