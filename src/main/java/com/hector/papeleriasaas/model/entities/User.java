@@ -3,11 +3,8 @@ package com.hector.papeleriasaas.model.entities;
 import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.model.enums.Status;
 
-public class User {
+public class User extends Person {
 
-    private Integer id;
-    private Integer identification;
-    private String name;
     private String user;
     private String passwd;
     private Roles role;
@@ -18,38 +15,12 @@ public class User {
     }
 
     public User(Builder builder) {
-        this.id = builder.id;
-        this.identification = builder.identification;
-        this.name = builder.name;
+        super(builder.id, builder.identification, builder.name);
         this.user = builder.user;
         this.passwd = builder.passwd;
         this.role = builder.role;
         this.status = builder.status;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getIdentification() {
-        return identification;
-    }
-
-    public void setIdentification(Integer identification) {
-        this.identification = identification;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    } 
 
     public String getUser() {
         return user;

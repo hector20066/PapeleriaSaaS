@@ -2,9 +2,9 @@ package com.hector.papeleriasaas.model.entities;
 
 public class Person {
 
-    private Integer id;
-    private Integer identification;
-    private String name;
+    protected Integer id;
+    protected Integer identification;
+    protected String name;
     
     public Person() {
         
