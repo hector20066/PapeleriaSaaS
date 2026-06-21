@@ -17,6 +17,13 @@ public class SaleDetail {
 
     }
 
+    public SaleDetail(Integer id, Product product, Integer amount, BigDecimal unitPrice) {
+        this.id = id;
+        this.product = product;
+        this.amount = amount;
+        this.unitPrice = unitPrice;
+    }
+
     public Integer getId() {
         return id;
     }

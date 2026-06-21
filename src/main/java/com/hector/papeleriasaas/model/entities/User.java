@@ -17,6 +17,16 @@ public class User {
 
     }
 
+    public User(Builder builder) {
+        this.id = builder.id;
+        this.identification = builder.identification;
+        this.name = builder.name;
+        this.user = builder.user;
+        this.passwd = builder.passwd;
+        this.role = builder.role;
+        this.status = builder.status;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -71,6 +81,57 @@ public class User {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public static class Builder {
+
+        private Integer id;
+        private Integer identification;
+        private String name;
+        private String user;
+        private String passwd;
+        private Roles role;
+        private Status status;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder identification(Integer identification) {
+            this.identification = identification;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder user(String user) {
+            this.user = user;
+            return this;
+        }
+
+        public Builder passwd(String passwd) {
+            this.passwd = passwd;
+            return this;
+        }
+
+        public Builder role(Roles role) {
+            this.role = role;
+            return this;
+        }
+
+        public Builder status(Status status) {
+            this.status = status;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
+
     }
 
 }

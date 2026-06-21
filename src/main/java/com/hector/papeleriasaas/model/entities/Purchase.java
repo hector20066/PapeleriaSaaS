@@ -22,6 +22,15 @@ public class Purchase {
         this.details = new ArrayList<>();
     }
 
+    public Purchase(Builder builder) {
+        this();
+        this.id = builder.id;
+        this.purchaseNumber = builder.purchaseNumber;
+        this.date = builder.date;
+        this.total = builder.total;
+        this.provider = builder.provider;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -69,6 +78,45 @@ public class Purchase {
     public Purchase addPurchaseDetails(PurchaseDetail detail) {
         this.details.add(detail);
         return this;
+    }
+
+    public static class Builder {
+
+        private Integer id;
+        private Integer purchaseNumber;
+        private LocalDate date;
+        private BigDecimal total;
+        private Provider provider;
+        
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder purchaseNumber(Integer purchaseNumber) {
+            this.purchaseNumber = purchaseNumber;
+            return this;
+        }
+
+        public Builder date(LocalDate date) {
+            this.date = date;
+            return this;
+        }
+
+        public Builder total(BigDecimal total) {
+            this.total = total;
+            return this;
+        }
+
+        public Builder provider(Provider provider) {
+            this.provider = provider;
+            return this;
+        }
+
+        public Purchase build() {
+            return new Purchase(this);
+        }
+
     }
 
 }
