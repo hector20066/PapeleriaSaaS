@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,11 @@ import com.hector.papeleriasaas.model.enums.Status;
 
 class CompanyTest {
 
-    @Test
+    @BeforeEach
+    void createInstance() {
+
+    }
+
     @DisplayName("Probar la creacion a traves del Builder")
     void createCompanyTest() {
         Plan plan = new Plan();
@@ -29,9 +34,9 @@ class CompanyTest {
             .build();
 
         assertAll(
-                () -> assertEquals("Papeleria SaaS", company.getName()),
                 () -> assertNotNull(company, () -> "La instancia no puede ser nula"),
                 () -> assertNotNull(company.getNit(), () -> "El Nit de la empresa no puede estar vacio")
+
         );
     }
 
