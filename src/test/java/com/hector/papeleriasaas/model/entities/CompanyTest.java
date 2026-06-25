@@ -59,8 +59,9 @@ class CompanyTest {
     @DisplayName("Validar los datos recibidos")
     void testValidateData() {
         assertAll(
-                () -> assertEquals(1066726477, this.company.getId()),
-                () -> assertEquals(12345, company.getNit())
+                () -> assertEquals(1066726477, this.company.getId(), () -> "El id con coincide con el esperado"),
+                () -> assertEquals(12345, company.getNit(), () -> "El Nit no coincide con el valor esperado"),
+                () -> assertEquals("Papeleria SaaS", company.getName(), () -> "El nombre no coincide")
         );
     }
 
