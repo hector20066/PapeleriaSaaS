@@ -18,7 +18,7 @@ CREATE TABLE companies (
     phone VARCHAR(15) NULL,
     email VARCHAR(60) NULL,
     registration_date DATE,
-    status VARCHAR(30),
+    status VARCHAR(30), -- ACTIVE, INACTIVE
     plan_id INT,
     FOREIGN KEY (plan_id) REFERENCES plans(id)
 );
@@ -32,7 +32,7 @@ CREATE TABLE company_payments (
     expiration_date DATE NOT NULL,
     payment_reference VARCHAR(100),
     observations VARCHAR(255),
-    status VARCHAR(20),
+    status VARCHAR(20), -- PAID, PENDING
     FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE,
     FOREIGN KEY (plan_id) REFERENCES plans(id)
 );
@@ -52,7 +52,7 @@ CREATE TABLE users (
     user VARCHAR(20),
     password VARCHAR(400),
     role VARCHAR(20),
-    status VARCHAR(20),
+    status VARCHAR(20), -- ACTIVE, INACTIVE
     id_company INT,
     FOREIGN KEY (id_company) REFERENCES companies(id) ON DELETE CASCADE,
     UNIQUE (id_company, user)
@@ -148,7 +148,7 @@ CREATE TABLE debts (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     sale_id INT NOT NULL UNIQUE,
     total_debt DECIMAL(12, 2) CHECK (total_debt >= 0),
-    status VARCHAR(15),
+    status VARCHAR(15), -- PAID, PENDING
     id_company INT,
     FOREIGN KEY (sale_id) REFERENCES sales(id) ON DELETE CASCADE,
     FOREIGN KEY (id_company) REFERENCES companies(id) ON DELETE CASCADE
