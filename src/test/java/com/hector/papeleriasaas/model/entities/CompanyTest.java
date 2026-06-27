@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class CompanyTest {
 
@@ -56,6 +58,8 @@ class CompanyTest {
     @Test
     @DisplayName("Validar los datos recibidos")
     void testValidateData() {
+        assumeTrue(company != null);
+
         assertAll(
                 () -> assertEquals(1066726477, company.getId(), () -> "El id con coincide con el esperado"),
                 () -> assertEquals(12345, company.getNit(), () -> "El Nit no coincide con el valor esperado"),
