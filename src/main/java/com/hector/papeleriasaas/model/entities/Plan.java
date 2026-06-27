@@ -17,7 +17,11 @@ public class Plan {
     }
 
     public Plan(Builder builder) {
-
+        this.id = builder.id;
+        this.name = builder.name;
+        this.amount = builder.amount;
+        this.description = builder.description;
+        this.billingCycle = builder.billingCycle;
     }
 
     public Integer getId() {
