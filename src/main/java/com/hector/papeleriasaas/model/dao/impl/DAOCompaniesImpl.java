@@ -5,6 +5,7 @@ import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanies;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyCreate;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyDetails;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyUpdate;
+import com.hector.papeleriasaas.utils.SQLRepository;
 
 import java.sql.Connection;
 import java.util.List;
@@ -14,6 +15,7 @@ public class DAOCompaniesImpl implements DAOCompanies {
 
     @Override
     public int add(DTOCompanyCreate dto) throws DAOException {
+        String sql = SQLRepository.get("");
         return 0;
     }
 

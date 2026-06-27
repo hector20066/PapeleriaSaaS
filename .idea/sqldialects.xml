@@ -23,6 +23,13 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/findByName.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/insert.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/modify.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/provider/countRecords.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/provider/delete.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/provider/findByAll.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/provider/findById.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/provider/findByName.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/provider/insert.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/provider/modify.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/purchase/countRecords.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/purchase/delete.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/purchase/findByAll.sql" dialect="GenericSQL" />
@@ -35,12 +42,5 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/sale/insert.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/sale/modify.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/saledetails/insert.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/supplier/countRecords.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/supplier/delete.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/supplier/findByAll.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/supplier/findById.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/supplier/findByName.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/supplier/insert.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/supplier/modify.sql" dialect="GenericSQL" />
   </component>
 </project>

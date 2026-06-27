@@ -27,7 +27,7 @@ public class DAOProvidersImpl implements DAOProviders {
 
     @Override
     public int add(Connection connection, DTOProvider dto) throws DAOException {
-        String sql = SQLRepository.get("sql/supplier/insert.sql");
+        String sql = SQLRepository.get("sql/provider/insert.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, dto.getNit());
@@ -45,7 +45,7 @@ public class DAOProvidersImpl implements DAOProviders {
 
     @Override
     public Optional<DTOProvider> findByName(String name) throws DAOException {
-        String sql = SQLRepository.get("sql/supplier/findByName.sql");
+        String sql = SQLRepository.get("sql/provider/findByName.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
@@ -65,7 +65,7 @@ public class DAOProvidersImpl implements DAOProviders {
 
     @Override
     public Optional<DTOProvider> findById(int id) throws DAOException {
-        String sql = SQLRepository.get("sql/supplier/findById.sql");
+        String sql = SQLRepository.get("sql/provider/findById.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
@@ -85,7 +85,7 @@ public class DAOProvidersImpl implements DAOProviders {
 
     @Override
     public Optional<DTOProvider> findById(Connection connection, int id) throws DAOException {
-        String sql = SQLRepository.get("sql/supplier/findById.sql");
+        String sql = SQLRepository.get("sql/provider/findById.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
@@ -104,7 +104,7 @@ public class DAOProvidersImpl implements DAOProviders {
 
     @Override
     public List<DTOProvider> findByAll() throws DAOException {
-        String sql = SQLRepository.get("sql/supplier/findByAll.sql");
+        String sql = SQLRepository.get("sql/provider/findByAll.sql");
         List<DTOProvider> list = new ArrayList<>();
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -134,7 +134,7 @@ public class DAOProvidersImpl implements DAOProviders {
 
     @Override
     public void modify(Connection connection, DTOProvider dto) throws DAOException {
-        String sql = SQLRepository.get("sql/supplier/modify.sql");
+        String sql = SQLRepository.get("sql/provider/modify.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, dto.getRSocial());
@@ -154,7 +154,7 @@ public class DAOProvidersImpl implements DAOProviders {
 
     @Override
     public void delete(int id) throws DAOException {
-        String sql = SQLRepository.get("sql/supplier/delete.sql");
+        String sql = SQLRepository.get("sql/provider/delete.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -177,7 +177,7 @@ public class DAOProvidersImpl implements DAOProviders {
 
     @Override
     public int countRecords() throws DAOException {
-        String sql = SQLRepository.get("sql/supplier/countRecords.sql");
+        String sql = SQLRepository.get("sql/provider/countRecords.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
