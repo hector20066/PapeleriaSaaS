@@ -210,19 +210,11 @@ public class ControllerPurchaseProducts {
                 throw new InvalidInputException("Los precios no pueden ser negativos.");
             }
 
-            BigDecimal totalAmountPaid = BigDecimal.ZERO;
             BigDecimal totalPaid = purchasePriceValue.multiply(new BigDecimal(amount));
 
             Object[] data = new Object[]{product, amount, purchasePrice, salePrice, totalPaid};
             productManagement.getProductList().addRow(data);
-
-            for (int i = 0; i < productManagement.getProductList().getRowCount(); i++) {
-                totalPaid = ParserUtils.parseBigDecimal(productManagement.getProductList().getValueAt(i, 4).toString(),
-                        "total pagado");
-                totalAmountPaid = totalAmountPaid.add(totalPaid);
-            }
-
-            productManagement.getJlb_totalPurchases().setText(totalAmountPaid.toString());
+            productManagement.getJlb_totalPurchases().setText(totalAmountPaid(productManagement.getJtbl_products()).toString());
             cleanFieldsProducts();
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(MessageUtils.userMessage(e), productManagement);
@@ -247,21 +239,26 @@ public class ControllerPurchaseProducts {
 
             if (row >= 0) {
                 productManagement.getProductList().removeRow(row);
-                BigDecimal totalAmountPaid = BigDecimal.ZERO;
-
-                for (int i = 0; i < productManagement.getJtbl_products().getRowCount(); i++) {
-                    BigDecimal totalPaid = ParserUtils.parseBigDecimal(productManagement.getJtbl_products().getModel()
-                                .getValueAt(i, 4).toString(), "total pagado");
-                    totalAmountPaid = totalAmountPaid.add(totalPaid);
-                }
-
-                productManagement.getJlb_totalPurchases().setText(totalAmountPaid.toString());
+                productManagement.getJlb_totalPurchases().setText(totalAmountPaid(productManagement.getJtbl_products())
+                        .toString());
             } else {
                 MessageUtils.warningMessage("Seleccione el producto que desea quitar de la compra.", productManagement);
             }
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(MessageUtils.userMessage(e), productManagement);
         }
+    }
+
+    private BigDecimal totalAmountPaid(JTable jTable) throws InvalidInputException {
+        BigDecimal totalAmountPaid = BigDecimal.ZERO;
+
+        for (int i = 0; i < jTable.getRowCount(); i++) {
+            BigDecimal totalPaid = ParserUtils.parseBigDecimal(productManagement.getJtbl_products().getModel()
+                    .getValueAt(i, 4).toString(), "total pagado");
+            totalAmountPaid = totalAmountPaid.add(totalPaid);
+        }
+
+        return totalAmountPaid;
     }
 
 }
