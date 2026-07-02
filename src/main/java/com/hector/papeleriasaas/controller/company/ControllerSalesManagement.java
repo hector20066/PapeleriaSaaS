@@ -167,14 +167,14 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         updateTotalSale();
     }
 
+    private void updateTotalSale() {
+        salesManagement.getJlb_totalSale().setText(String.valueOf(getTotalSale()));
+    }
+
     private BigDecimal getTotalSale() {
         return this.orderList.stream()
                 .map(dto -> dto.getUnitPrice().multiply(new BigDecimal(dto.getAmount())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    private void updateTotalSale() {
-        salesManagement.getJlb_totalSale().setText(String.valueOf(getTotalSale()));
     }
 
     private void registerSale() {
@@ -270,7 +270,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         BackgroundExecutor.execute(() -> {
             try {
                 int invoiceNumber = saleService.registerSale(customerId, customerName, customerPhone, amountPaid, totalSale, list);
-                String lowStock = checkLowStock();
+                String lowStock = saleService.checkLowStock();
 
                 SwingUtilities.invokeLater(() -> generateInvoice(invoiceNumber, customerName, customerId, totalSale, lowStock, amountPaid));
             } catch (DAOException | SQLException e) {
@@ -280,23 +280,6 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 });
             }
         });
-    }
-
-    private String checkLowStock() throws DAOException {
-        StringBuilder productsOutOfStock = new StringBuilder();
-        List<DTOProductDetails> products = daoProducts.findByAll();
-
-        products.stream()
-                .filter(product -> product.getAmount() < 5)
-                .map(DTOProductDetails::getDescription)
-                .distinct()
-                .forEach(p -> productsOutOfStock.append(p).append(", "));
-
-        if (!productsOutOfStock.isEmpty()) {
-            productsOutOfStock.setLength(productsOutOfStock.length() - 2);
-        }
-
-        return productsOutOfStock.toString();
     }
 
     private void generateInvoice(int invoiceNumber, String customerName, Integer customerId, BigDecimal totalSale,
