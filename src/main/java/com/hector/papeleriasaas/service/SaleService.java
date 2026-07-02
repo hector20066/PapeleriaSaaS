@@ -7,16 +7,11 @@ import java.util.List;
 
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.impl.CustomersImplFacade;
-import com.hector.papeleriasaas.facade.impl.InvoicesImplFacade;
-import com.hector.papeleriasaas.facade.impl.SaleDetailsImplFacade;
-import com.hector.papeleriasaas.facade.impl.SalesImplFacade;
-import com.hector.papeleriasaas.facade.interfaces.CustomersFacade;
-import com.hector.papeleriasaas.facade.interfaces.InvoicesFacade;
-import com.hector.papeleriasaas.facade.interfaces.SaleDetailsFacade;
-import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
+import com.hector.papeleriasaas.facade.impl.*;
+import com.hector.papeleriasaas.facade.interfaces.*;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.model.dto.DTOPurchaseDetailsCreate;
+import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 
 /**
  *
@@ -28,12 +23,14 @@ public class SaleService {
     private final SalesFacade saleFacade;
     private final SaleDetailsFacade saleDetailsFacade;
     private final InvoicesFacade invoiceFacade;
+    private final ProductsFacade productsFacade;
 
     public SaleService() {
         this.customerFacade = new CustomersImplFacade();
         this.saleFacade = new SalesImplFacade();
         this.saleDetailsFacade = new SaleDetailsImplFacade();
         this.invoiceFacade = new InvoicesImplFacade();
+        this.productsFacade = new ProductImplFacade();
     }
 
     public int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
@@ -76,6 +73,23 @@ public class SaleService {
         }
 
         return invoiceNumber;
+    }
+
+    public String checkLowStock() throws DAOException {
+        StringBuilder productsOutOfStock = new StringBuilder();
+        List<DTOProductDetails> products = productsFacade.findByAll();
+
+        products.stream()
+                .filter(product -> product.getAmount() < 5)
+                .map(DTOProductDetails::getDescription)
+                .distinct()
+                .forEach(p -> productsOutOfStock.append(p).append(", "));
+
+        if (!productsOutOfStock.isEmpty()) {
+            productsOutOfStock.setLength(productsOutOfStock.length() - 2);
+        }
+
+        return productsOutOfStock.toString();
     }
 
 }
