@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.controller.company;
 
+import com.hector.papeleriasaas.business.CalculateDashboardData;
 import com.hector.papeleriasaas.controller.builder.ControllerDashboardBuilder;
 import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
@@ -43,17 +44,6 @@ public class ControllerDashboard implements Observer {
         builder.getSubject().register(this);
     }
 
-    public static DTOReportSummary getReportSummary(List<DTOProductDetails> productsList, List<DTOSaleDetails> salesList,
-                                                    DTOProductBestSelling bestSelling) {
-        return new DTOReportSummary.Builder()
-                .totalPurchases(totalPurchases(productsList).floatValue())
-                .totalSales(totalSales(salesList).floatValue())
-                .totalProfits(totalProfits(productsList).floatValue())
-                .productName(bestSelling.getDescription())
-                .amountProduct(bestSelling.getTimesSold())
-                .build();
-    }
-
     @Override
     public void update() {
         ObserverExecutor.execute(() -> {
@@ -77,28 +67,15 @@ public class ControllerDashboard implements Observer {
         });
     }
 
-    private static BigDecimal totalPurchases(List<DTOProductDetails> productsList) {
-        return productsList.stream()
-                .map(dto -> dto.getSalePrice().multiply(BigDecimal.valueOf(dto.getAmount())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    private static BigDecimal totalSales(List<DTOSaleDetails> list) {
-        return list.stream()
-                .filter(distinctByNumSale())
-                .map(DTOSaleDetails::getTotalSale)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    private static Predicate<DTOSaleDetails> distinctByNumSale() {
-        Set<Integer> processed = new HashSet<>();
-        return dto -> processed.add(dto.getNumSale());
-    }
-
-    private static BigDecimal totalProfits(List<DTOProductDetails> productsList) {
-        return productsList.stream()
-                .map(DTOProductDetails::getEarnings)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    public static DTOReportSummary getReportSummary(List<DTOProductDetails> productsList, List<DTOSaleDetails> salesList,
+                                                    DTOProductBestSelling bestSelling) {
+        return new DTOReportSummary.Builder()
+                .totalPurchases(CalculateDashboardData.totalPurchases(productsList).floatValue())
+                .totalSales(CalculateDashboardData.totalSales(salesList).floatValue())
+                .totalProfits(CalculateDashboardData.totalProfits(productsList).floatValue())
+                .productName(bestSelling.getDescription())
+                .amountProduct(bestSelling.getTimesSold())
+                .build();
     }
 
     private void loadGraphicInfo(List<DTOSaleDetails> listSales) {
