@@ -1,0 +1,92 @@
+package com.hector.papeleriasaas.business;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+
+import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+
+class CalculateDashboardDataTest {
+
+    private List<DTOProductDetails> productsList;
+    private List<DTOSaleDetails> salesList;
+
+    @BeforeEach
+    void beforeEach() {
+        this.productsList = new ArrayList<>();
+        this.salesList = new ArrayList<>();
+
+        productsList.add(new DTOProductDetails.Builder()
+                .id(12345)
+                .description("Cuaderno Norma")
+                .purchasePrice(new BigDecimal("4500.00"))
+                .salePrice(new BigDecimal("5000.00"))
+                .amount(50)
+                .earnings(new BigDecimal("25000.00"))
+                .build());
+
+        productsList.add(new DTOProductDetails.Builder()
+                .id(12354)
+                .description("Lapicero Offiesco Negro")
+                .purchasePrice(new BigDecimal("1500.00"))
+                .salePrice(new BigDecimal("2000.00"))
+                .amount(20)
+                .earnings(new BigDecimal("10000.00"))
+                .build());
+
+        salesList.add(new DTOSaleDetails.Builder()
+                .numSale(122)
+                .productId(12345)
+                .quantitySold(20)
+                .totalSale(new BigDecimal("100000.00"))
+                .build());
+
+        salesList.add(new DTOSaleDetails.Builder()
+                .numSale(123)
+                .productId(12354)
+                .quantitySold(3)
+                .totalSale(new BigDecimal("6000.00"))
+                .build());
+    }
+
+    @Test
+    @DisplayName("Testear el calculo del total de dinero en las compras.")
+    void testTotalPurchases() {
+        BigDecimal totalPurchases = CalculateDashboardData.totalPurchases(productsList);
+        
+        assertNotNull(totalPurchases, () -> "El total de la compra es nulo");
+        assertNotEquals(BigDecimal.ZERO, totalPurchases, () -> "El total de compras es 0");
+        assertEquals(new BigDecimal("255000.00"), totalPurchases, () -> "El total de la compra no coincide");
+    }
+
+    @Test
+    @DisplayName("Testear el calculo de ganancias de las ventas")
+    void testTotalProfits() {
+        BigDecimal totalProfits = CalculateDashboardData.totalProfits(salesList, productsList);
+
+        assertNotNull(totalProfits, () -> "Las ganancias son nulas");
+        assertNotEquals(BigDecimal.ZERO, totalProfits, () -> "Las ganancias son 0");
+        assertEquals(new BigDecimal("11500.00"), totalProfits, () -> "Las ganancias no coinciden");
+    }
+
+    @Test
+    @DisplayName("Testear el calculo del total de las ventas")
+    void testTotalSales() {
+        BigDecimal totalSales = CalculateDashboardData.totalSales(salesList);
+
+        assertNotNull(totalSales, () -> "El total de las ventas es nul");
+        assertNotEquals(BigDecimal.ZERO, totalSales, () -> "El total de las ventas es 0");
+        assertEquals(new BigDecimal("106000.00"), totalSales);
+    }
+
+}
+
