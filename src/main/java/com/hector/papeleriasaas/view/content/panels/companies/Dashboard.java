@@ -117,7 +117,7 @@ public class Dashboard extends javax.swing.JPanel {
     
     public void updatePanel(float totalPurchases, float totalSales, float totalDebts, int amountProduct, String product){
         card1.setData(new CartModel(new ImageIcon(getClass().getResource("/image/stock.png")),
-                "Stock", String.valueOf(totalPurchases), "Total dinero en productos disponibles"));
+                "Stock", String.valueOf(totalPurchases), "Total dinero invertido en stock"));
         card2.setData(new CartModel(new ImageIcon(getClass().getResource("/image/profit.png")),
                 "Ventas", String.valueOf(totalSales), "Total ventas"));
         card3.setData(new CartModel(new ImageIcon(getClass().getResource("/image/flag.png")),
