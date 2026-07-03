@@ -79,11 +79,10 @@ class ControllerDashboardTest {
     }
 
     @Test
+    @DisplayName("Testear los datos que se mostraran en el dashboard")
     void testChartSalesData() {
         LocalDate today = LocalDate.of(2026, 6, 30);
-
-        List<DTOChartSales> chartList =
-                ControllerDashboard.getChartSalesData(salesList, today);
+        List<DTOChartSales> chartList = ControllerDashboard.getChartSalesData(salesList, today);
 
         assertAll(
                 () -> assertEquals("febrero", chartList.getFirst().getMonth()),
