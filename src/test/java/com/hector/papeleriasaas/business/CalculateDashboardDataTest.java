@@ -1,7 +1,6 @@
 package com.hector.papeleriasaas.business;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
 
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
@@ -63,9 +62,11 @@ class CalculateDashboardDataTest {
     void testTotalPurchases() {
         BigDecimal totalPurchases = CalculateDashboardData.totalPurchases(productsList);
         
-        assertNotNull(totalPurchases, () -> "El total de la compra es nulo");
-        assertNotEquals(BigDecimal.ZERO, totalPurchases, () -> "El total de compras es 0");
-        assertEquals(new BigDecimal("255000.00"), totalPurchases, () -> "El total de la compra no coincide");
+        assertAll(
+                () -> assertNotNull(totalPurchases, () -> "El total de la compra es nulo"),
+                () -> assertNotEquals(BigDecimal.ZERO, totalPurchases, () -> "El total de compras es 0"),
+                () -> assertEquals(new BigDecimal("255000.00"), totalPurchases, () -> "El total de la compra no coincide con el valor esperado")
+        );
     }
 
     @Test
@@ -73,9 +74,11 @@ class CalculateDashboardDataTest {
     void testTotalProfits() {
         BigDecimal totalProfits = CalculateDashboardData.totalProfits(salesList, productsList);
 
-        assertNotNull(totalProfits, () -> "Las ganancias son nulas");
-        assertNotEquals(BigDecimal.ZERO, totalProfits, () -> "Las ganancias son 0");
-        assertEquals(new BigDecimal("11500.00"), totalProfits, () -> "Las ganancias no coinciden");
+        assertAll(
+                () -> assertNotNull(totalProfits, () -> "Las ganancias son nulas"),
+                () -> assertNotEquals(BigDecimal.ZERO, totalProfits, () -> "Las ganancias son 0"),
+                () -> assertEquals(new BigDecimal("11500.00"), totalProfits, () -> "Las ganancias no coinciden con el valor esperado")
+        );
     }
 
     @Test
@@ -83,9 +86,11 @@ class CalculateDashboardDataTest {
     void testTotalSales() {
         BigDecimal totalSales = CalculateDashboardData.totalSales(salesList);
 
-        assertNotNull(totalSales, () -> "El total de las ventas es nul");
-        assertNotEquals(BigDecimal.ZERO, totalSales, () -> "El total de las ventas es 0");
-        assertEquals(new BigDecimal("106000.00"), totalSales);
+        assertAll(
+                () -> assertNotNull(totalSales, () -> "El total de las ventas es nul"),
+                () -> assertNotEquals(BigDecimal.ZERO, totalSales, () -> "El total de las ventas es 0"),
+                () -> assertEquals(new BigDecimal("106000.00"), totalSales, () -> "El total de las ventas no coincide con el valor esperado")
+        );
     }
 
 }
