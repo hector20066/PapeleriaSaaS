@@ -80,7 +80,7 @@ public class ControllerDashboard implements Observer {
 
     private void loadGraphicInfo(List<DTOSaleDetails> listSales) {
         try {
-            List<DTOChartSales> chartData = getChartSalesData(listSales);
+            List<DTOChartSales> chartData = getChartSalesData(listSales, LocalDate.now());
             dashboard.getLineChart().clear();
             dashboard.getLineChart().addLegend("Ventas Mensuales", new Color(174, 183, 191),
                     new Color(60, 73, 89));
@@ -95,10 +95,9 @@ public class ControllerDashboard implements Observer {
         }
     }
 
-    public static List<DTOChartSales> getChartSalesData(List<DTOSaleDetails> listSales) {
+    public static List<DTOChartSales> getChartSalesData(List<DTOSaleDetails> listSales, LocalDate today) {
         Set<Integer> processedSales = new HashSet<>();
 
-        LocalDate today = LocalDate.now();
         int currentYear = today.getYear();
         int currentMonth = today.getMonthValue();
 

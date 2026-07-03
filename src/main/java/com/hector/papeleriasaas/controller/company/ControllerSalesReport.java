@@ -30,6 +30,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,7 +158,7 @@ public class ControllerSalesReport implements Observer {
                 }
 
                 DTOReportSummary dtoSummary = ControllerDashboard.getReportSummary(productsList, salesList, bestSelling.get());
-                List<DTOChartSales> listChartData = ControllerDashboard.getChartSalesData(salesList);
+                List<DTOChartSales> listChartData = ControllerDashboard.getChartSalesData(salesList, LocalDate.now());
 
                 String compileReport = "/reports/ReporteVentas.jrxml";
 
