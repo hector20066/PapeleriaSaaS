@@ -239,7 +239,7 @@ public class Inventory extends javax.swing.JPanel {
         int amount = dto.getAmount();
         BigDecimal purchasePrice = dto.getPurchasePrice();
         BigDecimal salePrice = dto.getSalePrice();
-        String supplierName = dto.getSupplier();
+        String supplierName = dto.getProvider();
         BigDecimal earnings = dto.getEarnings();
 
         Object[] data = new Object[]{productId, description, amount, purchasePrice, salePrice, supplierName, earnings};

@@ -14,7 +14,7 @@ public class DTOProductDetails {
     private int amount;
     private BigDecimal purchasePrice;
     private BigDecimal salePrice;
-    private String supplier;
+    private String provider;
     private BigDecimal earnings;
 
     public DTOProductDetails() {
@@ -27,7 +27,7 @@ public class DTOProductDetails {
         amount = builder.amount;
         purchasePrice = builder.purchasePrice;
         salePrice = builder.salePrice;
-        supplier = builder.supplier;
+        provider = builder.provider;
         earnings = builder.earnings;
     }
 
@@ -51,8 +51,8 @@ public class DTOProductDetails {
         return salePrice;
     }
 
-    public String getSupplier() {
-        return supplier;
+    public String getProvider() {
+        return provider;
     }
 
     public BigDecimal getEarnings() {
@@ -67,12 +67,12 @@ public class DTOProductDetails {
         return id == that.id && Objects.equals(description, that.description)
                 && Objects.equals(purchasePrice, that.purchasePrice)
                 && Objects.equals(salePrice, that.salePrice)
-                && Objects.equals(supplier, that.supplier);
+                && Objects.equals(provider, that.provider);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, purchasePrice, salePrice, supplier);
+        return Objects.hash(id, description, purchasePrice, salePrice, provider);
     }
 
     public static class Builder {
@@ -82,7 +82,7 @@ public class DTOProductDetails {
         private int amount;
         private BigDecimal purchasePrice;
         private BigDecimal salePrice;
-        private String supplier;
+        private String provider;
         private BigDecimal earnings;
 
         public Builder id(int id) {
@@ -110,8 +110,8 @@ public class DTOProductDetails {
             return this;
         }
 
-        public Builder supplier(String supplier) {
-            this.supplier = supplier;
+        public Builder provider(String supplier) {
+            this.provider = supplier;
             return this;
         }
 

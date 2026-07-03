@@ -188,7 +188,7 @@ public class DAOProductsImpl implements DAOProducts {
                 .amount(rs.getInt("cantidad_disponible"))
                 .purchasePrice(rs.getBigDecimal("precio_compra"))
                 .salePrice(rs.getBigDecimal("precio_venta"))
-                .supplier(rs.getString("proveedor"))
+                .provider(rs.getString("proveedor"))
                 .earnings(rs.getBigDecimal("ganancias"))
                 .build();
     }
