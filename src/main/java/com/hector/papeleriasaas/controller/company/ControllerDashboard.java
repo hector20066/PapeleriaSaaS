@@ -72,7 +72,7 @@ public class ControllerDashboard implements Observer {
         return new DTOReportSummary.Builder()
                 .totalPurchases(CalculateDashboardData.totalPurchases(productsList).floatValue())
                 .totalSales(CalculateDashboardData.totalSales(salesList).floatValue())
-                .totalProfits(CalculateDashboardData.totalProfits(productsList).floatValue())
+                .totalProfits(CalculateDashboardData.totalProfits(salesList, productsList).floatValue())
                 .productName(bestSelling.getDescription())
                 .amountProduct(bestSelling.getTimesSold())
                 .build();
