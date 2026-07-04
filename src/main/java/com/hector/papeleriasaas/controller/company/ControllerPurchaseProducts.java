@@ -15,10 +15,13 @@ import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  *
@@ -59,7 +62,7 @@ public class ControllerPurchaseProducts {
     private void registerPurchase() {
         try {
             DTOProvider dtoSupplier = getDTOSupplier();
-            List<DTOProductCreate> listProducts = getProductsList();
+            List<DTOProductCreate> listProducts = getProductsList(productManagement.getProductList());
             BigDecimal totalPaid = ParserUtils.parseBigDecimal(productManagement.getJlb_totalPurchases().getText().trim(),
                     "cantidad pagada");
 
@@ -68,6 +71,56 @@ public class ControllerPurchaseProducts {
         } catch (InvalidInputException e) {
             MessageUtils.errorMessage(MessageUtils.userMessage(e), productManagement);
         }
+    }
+
+    public DTOProvider getDTOSupplier(JTextField... fields) throws InvalidInputException {
+        String nit = "";
+        String rSocial = "";
+        String address = "";
+        String phone = "";
+        String email = "";
+
+        for (JTextField field : fields) {
+            switch (field.getName()) {
+                case "txt_nit" -> nit = field.getText().trim();
+                case "txt_rSocial" -> rSocial = field.getText().trim();
+                case "txt_address" -> address = field.getText().trim();
+                case "txt_phone" -> phone = field.getText().trim();
+                case "txt_email" -> email = field.getText().trim();
+            }
+        }
+
+        if (ValidationUtils.isInvalidInput(nit, "Nit")) {
+            throw new EmptyFieldException("NIT del proveedor");
+        }
+
+        if (ValidationUtils.isInvalidInput(rSocial, "R. Social")) {
+            throw new EmptyFieldException("razón social del proveedor");
+        }
+
+        if (ValidationUtils.isInvalidInput(address, "Direccion")) {
+            throw new EmptyFieldException("dirección del proveedor");
+        }
+
+        if (ValidationUtils.isInvalidInput(phone, "Telefono")) {
+            throw new EmptyFieldException("teléfono del proveedor");
+        }
+
+        if (ValidationUtils.isInvalidInput(email, "Correo")) {
+            throw new EmptyFieldException("correo del proveedor");
+        }
+
+        if (!ValidationUtils.isNumeric(nit)) {
+            throw new InvalidNumberInputException("NIT del proveedor");
+        }
+
+        return new DTOProvider.Builder()
+                .nit(ParserUtils.parseInteger(nit, "nit del proveedor"))
+                .rSocial(rSocial)
+                .address(address)
+                .phone(phone)
+                .email(email)
+                .build();
     }
 
     private DTOProvider getDTOSupplier() throws InvalidInputException {
@@ -110,17 +163,16 @@ public class ControllerPurchaseProducts {
                 .build();
     }
 
-    private List<DTOProductCreate> getProductsList() throws InvalidInputException {
+    public List<DTOProductCreate> getProductsList(DefaultTableModel tbl_model) throws InvalidInputException {
         List<DTOProductCreate> list = new ArrayList<>();
 
-        for (int i = 0; i < productManagement.getProductList().getRowCount(); i++) {
-            String product = productManagement.getProductList().getValueAt(i, 0).toString();
-            int amount = ParserUtils.parseInteger(productManagement.getProductList().getValueAt(i, 1).toString(),
-                    "cantidad");
-            BigDecimal purchasePrice = ParserUtils.parseBigDecimal(productManagement.getProductList().getValueAt(i, 2)
-                            .toString(), "precio de compra");
-            BigDecimal salePrice = ParserUtils.parseBigDecimal(productManagement.getProductList().getValueAt(i, 3)
-                            .toString(), "precio de venta");
+        for (int i = 0; i < tbl_model.getRowCount(); i++) {
+            String product = tbl_model.getValueAt(i, 0).toString();
+            int amount = ParserUtils.parseInteger(tbl_model.getValueAt(i, 1).toString(), "cantidad");
+            BigDecimal purchasePrice = ParserUtils.parseBigDecimal(tbl_model.getValueAt(i, 2).toString(),
+                    "precio de compra");
+            BigDecimal salePrice = ParserUtils.parseBigDecimal(tbl_model.getValueAt(i, 3).toString(),
+                    "precio de venta");
 
             DTOProductCreate dto = new DTOProductCreate();
             dto.setDescription(product);
@@ -249,11 +301,11 @@ public class ControllerPurchaseProducts {
         }
     }
 
-    private BigDecimal totalAmountPaid(JTable jTable) throws InvalidInputException {
+    public BigDecimal totalAmountPaid(JTable jTable) throws InvalidInputException {
         BigDecimal totalAmountPaid = BigDecimal.ZERO;
 
         for (int i = 0; i < jTable.getRowCount(); i++) {
-            BigDecimal totalPaid = ParserUtils.parseBigDecimal(productManagement.getJtbl_products().getModel()
+            BigDecimal totalPaid = ParserUtils.parseBigDecimal(jTable
                     .getValueAt(i, 4).toString(), "total pagado");
             totalAmountPaid = totalAmountPaid.add(totalPaid);
         }

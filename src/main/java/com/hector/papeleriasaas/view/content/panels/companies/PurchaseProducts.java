@@ -132,26 +132,31 @@ public class PurchaseProducts extends javax.swing.JPanel {
         txt_nit.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txt_nit.setForeground(new java.awt.Color(119, 141, 169));
         txt_nit.setText("Nit");
+        txt_nit.setName("txt_nit"); // NOI18N
 
         txt_rSocial.setBackground(new java.awt.Color(223, 229, 234));
         txt_rSocial.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txt_rSocial.setForeground(new java.awt.Color(119, 141, 169));
         txt_rSocial.setText("R. Social");
+        txt_rSocial.setName("txt_rSocial"); // NOI18N
 
         txt_phone.setBackground(new java.awt.Color(223, 229, 234));
         txt_phone.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txt_phone.setForeground(new java.awt.Color(119, 141, 169));
         txt_phone.setText("Telefono");
+        txt_phone.setName("txt_phone"); // NOI18N
 
         txt_address.setBackground(new java.awt.Color(223, 229, 234));
         txt_address.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txt_address.setForeground(new java.awt.Color(119, 141, 169));
         txt_address.setText("Direccion");
+        txt_address.setName("txt_address"); // NOI18N
 
         txt_email.setBackground(new java.awt.Color(223, 229, 234));
         txt_email.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         txt_email.setForeground(new java.awt.Color(119, 141, 169));
         txt_email.setText("Correo");
+        txt_email.setName("txt_email"); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(42, 49, 64));

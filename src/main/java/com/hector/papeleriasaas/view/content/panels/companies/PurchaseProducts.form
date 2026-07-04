@@ -423,6 +423,7 @@
                   <Color blue="a9" green="8d" red="77" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nit"/>
+                <Property name="name" type="java.lang.String" value="txt_nit" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_rSocial">
@@ -437,6 +438,7 @@
                   <Color blue="a9" green="8d" red="77" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="R. Social"/>
+                <Property name="name" type="java.lang.String" value="txt_rSocial" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_phone">
@@ -451,6 +453,7 @@
                   <Color blue="a9" green="8d" red="77" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Telefono"/>
+                <Property name="name" type="java.lang.String" value="txt_phone" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_address">
@@ -465,6 +468,7 @@
                   <Color blue="a9" green="8d" red="77" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Direccion"/>
+                <Property name="name" type="java.lang.String" value="txt_address" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_email">
@@ -479,6 +483,7 @@
                   <Color blue="a9" green="8d" red="77" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Correo"/>
+                <Property name="name" type="java.lang.String" value="txt_email" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
