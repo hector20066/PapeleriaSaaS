@@ -1,4 +1,4 @@
-SELECT 
+SELECT
     id,
     nit,
     name,
@@ -8,4 +8,3 @@ SELECT
     status,
     plan
 FROM companies;
-

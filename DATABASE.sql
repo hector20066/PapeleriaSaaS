@@ -389,6 +389,28 @@ FROM purchases_details pd
     LEFT JOIN products p ON pd.product_id = p.id
     LEFT JOIN providers pr ON ps.provider_id = pr.id;
 
+CREATE VIEW vw_payments_report AS
+SELECT
+    c.id,
+    c.nit,
+    c.name,
+    c.address,
+    c.phone,
+    c.registration_date,
+    p.name as plan_name,
+    cp.payment_date AS last_payment,
+    cp.expiration_date AS next_payment,
+    c.status
+FROM companies c
+    JOIN plans p ON p.id = c.plan_id
+    LEFT JOIN company_payments cp ON cp.id = (
+        SELECT id
+        FROM company_payments
+        WHERE company_id = c.id
+        ORDER BY payment_date DESC
+        LIMIT 1
+    );
+
 -- STORED PROCEDURES
 
 -- Inserta una venta y retorna el número de la venta
@@ -488,3 +510,5 @@ CREATE INDEX idx_products_company ON products(id_company);
 CREATE INDEX idx_customers_company ON customers(id_company);
 CREATE INDEX idx_providers_company ON providers(id_company);
 CREATE INDEX idx_users_company ON users(id_company);
+
+CREATE INDEX idx_company_payment ON company_payments(company_id, payment_date DESC);
