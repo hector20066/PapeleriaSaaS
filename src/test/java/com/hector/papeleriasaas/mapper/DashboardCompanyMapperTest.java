@@ -1,7 +1,6 @@
-package com.hector.papeleriasaas.controller.company;
+package com.hector.papeleriasaas.mapper;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import com.hector.papeleriasaas.controller.company.ControllerDashboard;
 import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
@@ -16,7 +15,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-class ControllerDashboardTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class DashboardCompanyMapperTest {
 
     List<DTOProductDetails> productList;
     List<DTOSaleDetails> salesList;
@@ -66,7 +67,7 @@ class ControllerDashboardTest {
     @Test
     @DisplayName("Testear la creación del DTOReportSummary")
     void testCreateReportSummary() {
-        DTOReportSummary dto = ControllerDashboard.getReportSummary(this.productList, this.salesList, this.bestSelling);
+        DTOReportSummary dto = DashboardCompanyMapper.getReportSummary(this.productList, this.salesList, this.bestSelling);
 
         assertAll(
                 () -> assertNotNull(dto, () -> "La instancia no puede ser nula"),
@@ -82,7 +83,7 @@ class ControllerDashboardTest {
     @DisplayName("Testear los datos que se mostraran en el dashboard")
     void testChartSalesData() {
         LocalDate today = LocalDate.of(2026, 6, 30);
-        List<DTOChartSales> chartList = ControllerDashboard.getChartSalesData(salesList, today);
+        List<DTOChartSales> chartList = DashboardCompanyMapper.getChartSalesData(salesList, today);
 
         assertAll(
                 () -> assertEquals("febrero", chartList.getFirst().getMonth()),
