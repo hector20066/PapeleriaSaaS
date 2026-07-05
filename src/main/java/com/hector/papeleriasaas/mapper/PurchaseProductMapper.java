@@ -16,23 +16,7 @@ import java.util.List;
 
 public class ControllerPurchaseProductBusiness {
 
-    public static DTOProvider getDTOProvider(JTextField... fields) throws InvalidInputException {
-        String nit = "";
-        String rSocial = "";
-        String address = "";
-        String phone = "";
-        String email = "";
-
-        for (JTextField field : fields) {
-            switch (field.getName()) {
-                case "txt_nit" -> nit = field.getText().trim();
-                case "txt_rSocial" -> rSocial = field.getText().trim();
-                case "txt_address" -> address = field.getText().trim();
-                case "txt_phone" -> phone = field.getText().trim();
-                case "txt_email" -> email = field.getText().trim();
-            }
-        }
-
+    public static DTOProvider getDTOProvider(String nit, String rSocial, String address, String phone, String email) throws InvalidInputException {
         validations(nit, rSocial, address, phone, email);
 
         return new DTOProvider.Builder()
