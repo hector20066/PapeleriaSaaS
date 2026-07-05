@@ -13,6 +13,7 @@ import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
+import com.hector.papeleriasaas.mapper.DashboardCompanyMapper;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
@@ -157,8 +158,8 @@ public class ControllerSalesReport implements Observer {
                     throw new ProductNotFoundException();
                 }
 
-                DTOReportSummary dtoSummary = ControllerDashboard.getReportSummary(productsList, salesList, bestSelling.get());
-                List<DTOChartSales> listChartData = ControllerDashboard.getChartSalesData(salesList, LocalDate.now());
+                DTOReportSummary dtoSummary = DashboardCompanyMapper.getReportSummary(productsList, salesList, bestSelling.get());
+                List<DTOChartSales> listChartData = DashboardCompanyMapper.getChartSalesData(salesList, LocalDate.now());
 
                 String compileReport = "/reports/ReporteVentas.jrxml";
 
