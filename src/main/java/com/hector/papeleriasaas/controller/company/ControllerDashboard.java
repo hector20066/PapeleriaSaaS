@@ -17,6 +17,7 @@ import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
 import com.hector.papeleriasaas.view.swing.model.ModelChart;
 
+import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -58,8 +59,8 @@ public class ControllerDashboard implements Observer {
                         dto.getAmountProduct(), dto.getProductName());
                 loadGraphicInfo(salesList);
             } catch (DAOException e) {
-                /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el dashboard. "
-                        + MessageUtils.userMessage(e), dashboard));*/
+                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el dashboard. "
+                        + MessageUtils.userMessage(e), dashboard));
             }
         });
     }

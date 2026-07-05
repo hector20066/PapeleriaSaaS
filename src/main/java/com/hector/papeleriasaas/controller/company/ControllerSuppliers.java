@@ -77,8 +77,8 @@ public class ControllerSuppliers implements Observer {
                 List<DTOProvider> suppliersList = daoSupplier.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(suppliersList));
             } catch (DAOException e) {
-                /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los proveedores. "
-                        + MessageUtils.userMessage(e), suppliers));*/
+                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los proveedores. "
+                        + MessageUtils.userMessage(e), suppliers));
             }
         });
     }

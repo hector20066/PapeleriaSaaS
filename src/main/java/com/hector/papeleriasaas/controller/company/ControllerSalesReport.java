@@ -91,8 +91,8 @@ public class ControllerSalesReport implements Observer {
                 List<DTOSaleDetails> list = daoSales.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
             } catch (DAOException e) {
-                /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de ventas. "
-                        + MessageUtils.userMessage(e), salesReport));*/
+                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de ventas. "
+                        + MessageUtils.userMessage(e), salesReport));
             }
         });
     }

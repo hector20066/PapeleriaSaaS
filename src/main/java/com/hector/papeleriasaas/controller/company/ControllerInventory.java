@@ -88,8 +88,8 @@ public class ControllerInventory implements Observer {
                 List<DTOProductDetails> productList = daoProducts.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(productList));
             } catch (DAOException e) {
-                /*SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el inventario. "
-                        + MessageUtils.userMessage(e), inventory));*/
+                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el inventario. "
+                        + MessageUtils.userMessage(e), inventory));
             }
         });
     }
