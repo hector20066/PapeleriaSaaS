@@ -1,17 +1,20 @@
 package com.hector.papeleriasaas.business;
 
 import com.hector.papeleriasaas.controller.dto.OrderItemSaleDTO;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class SalesManagementCalculatorTest {
 
     @Test
+    @DisplayName("Testear el calculo del total de la venta")
     void testCalculateTotalSale() {
         List<OrderItemSaleDTO> orderList = new ArrayList<>();
         orderList.add(new OrderItemSaleDTO("Cuaderno Norma", 12345, 2, new BigDecimal("5000.00")));

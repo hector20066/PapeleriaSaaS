@@ -1,18 +1,16 @@
 package com.hector.papeleriasaas.business;
 
-import org.junit.jupiter.api.Test;
-
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DashboardDataCalculatorTest {
 
@@ -20,7 +18,7 @@ class DashboardDataCalculatorTest {
     private List<DTOSaleDetails> salesList;
 
     @BeforeEach
-    void beforeEach() {
+    void setUp() {
         this.productsList = new ArrayList<>();
         this.salesList = new ArrayList<>();
 

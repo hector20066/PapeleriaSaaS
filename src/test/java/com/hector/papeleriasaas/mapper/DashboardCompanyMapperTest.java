@@ -1,6 +1,5 @@
 package com.hector.papeleriasaas.mapper;
 
-import com.hector.papeleriasaas.controller.company.ControllerDashboard;
 import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
@@ -24,7 +23,7 @@ class DashboardCompanyMapperTest {
     DTOProductBestSelling bestSelling;
 
     @BeforeEach
-    void beforeEach() {
+    void setUp() {
         this.productList = new ArrayList<>();
         this.salesList = new ArrayList<>();
 

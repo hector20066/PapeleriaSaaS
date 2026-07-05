@@ -1,16 +1,19 @@
 package com.hector.papeleriasaas.business;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class PurchaseProductCalculatorTest {
 
     @Test
+    @DisplayName("Testear el calculo del total a pagar")
     void testCalculateAmountPaid() {
         List<BigDecimal> listTotalPaid = new ArrayList<>();
         listTotalPaid.add(new BigDecimal("25000.00"));

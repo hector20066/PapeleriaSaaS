@@ -29,6 +29,7 @@ class PurchaseProductMapperTest {
     }
 
     @Test
+    @DisplayName("Testear la creación del DTOProvider")
     void testCreateDtoProvider() throws InvalidInputException {
         DTOProvider dto = PurchaseProductMapper.getDTOProvider(nit, rSocial, address, phone, email);
 
@@ -43,6 +44,7 @@ class PurchaseProductMapperTest {
     }
 
     @Test
+    @DisplayName("Testear la creación del DTOProductCreate")
     void testCreateDtoProductCreate() {
         String description = "Cuaderno Norma";
         int amount = 5;
