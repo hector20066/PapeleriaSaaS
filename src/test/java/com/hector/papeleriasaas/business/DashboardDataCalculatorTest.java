@@ -14,7 +14,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
-class CalculateDashboardDataTest {
+class DashboardDataCalculatorTest {
 
     private List<DTOProductDetails> productsList;
     private List<DTOSaleDetails> salesList;
@@ -60,7 +60,7 @@ class CalculateDashboardDataTest {
     @Test
     @DisplayName("Testear el calculo del total de dinero en las compras.")
     void testTotalPurchases() {
-        BigDecimal totalPurchases = CalculateDashboardData.totalPurchases(productsList);
+        BigDecimal totalPurchases = DashboardDataCalculator.totalPurchases(productsList);
         
         assertAll(
                 () -> assertNotNull(totalPurchases, () -> "El total de la compra es nulo"),
@@ -72,7 +72,7 @@ class CalculateDashboardDataTest {
     @Test
     @DisplayName("Testear el calculo de ganancias de las ventas")
     void testTotalProfits() {
-        BigDecimal totalProfits = CalculateDashboardData.totalProfits(salesList, productsList);
+        BigDecimal totalProfits = DashboardDataCalculator.totalProfits(salesList, productsList);
 
         assertAll(
                 () -> assertNotNull(totalProfits, () -> "Las ganancias son nulas"),
@@ -84,7 +84,7 @@ class CalculateDashboardDataTest {
     @Test
     @DisplayName("Testear el calculo del total de las ventas")
     void testTotalSales() {
-        BigDecimal totalSales = CalculateDashboardData.totalSales(salesList);
+        BigDecimal totalSales = DashboardDataCalculator.totalSales(salesList);
 
         assertAll(
                 () -> assertNotNull(totalSales, () -> "El total de las ventas es nul"),

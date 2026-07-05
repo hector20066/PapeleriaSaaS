@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class CalculateDashboardData {
+public class DashboardDataCalculator {
 
     public static BigDecimal totalPurchases(List<DTOProductDetails> productsList) {
         return productsList.stream()

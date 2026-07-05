@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.controller.company;
 
-import com.hector.papeleriasaas.business.CalculateDashboardData;
+import com.hector.papeleriasaas.business.DashboardDataCalculator;
 import com.hector.papeleriasaas.controller.builder.ControllerDashboardBuilder;
 import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
@@ -18,12 +18,10 @@ import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
 import com.hector.papeleriasaas.view.swing.model.ModelChart;
 
 import java.awt.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 import java.util.List;
-import java.util.function.Predicate;
 
 /**
  *
@@ -70,9 +68,9 @@ public class ControllerDashboard implements Observer {
     public static DTOReportSummary getReportSummary(List<DTOProductDetails> productsList, List<DTOSaleDetails> salesList,
                                                     DTOProductBestSelling bestSelling) {
         return new DTOReportSummary.Builder()
-                .totalPurchases(CalculateDashboardData.totalPurchases(productsList).floatValue())
-                .totalSales(CalculateDashboardData.totalSales(salesList).floatValue())
-                .totalProfits(CalculateDashboardData.totalProfits(salesList, productsList).floatValue())
+                .totalPurchases(DashboardDataCalculator.totalPurchases(productsList).floatValue())
+                .totalSales(DashboardDataCalculator.totalSales(salesList).floatValue())
+                .totalProfits(DashboardDataCalculator.totalProfits(salesList, productsList).floatValue())
                 .productName(bestSelling.getDescription())
                 .amountProduct(bestSelling.getTimesSold())
                 .build();
