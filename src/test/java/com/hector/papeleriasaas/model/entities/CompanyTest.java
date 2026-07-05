@@ -47,11 +47,11 @@ class CompanyTest {
     void testDataNotNull() {
         assertAll(
                 () -> assertNotNull(company, () -> "La instancia no puede ser nula"),
-                () -> assertNotNull(company.getNit(), () -> "El Nit de la empresa no puede estar vacio"),
+                () -> assertNotNull(company.getNit(), () -> "El Nit de la empresa no puede estar vacío"),
                 () -> assertNotNull(company.getId(), () -> "El id de la empresa no puede ser null"),
-                () -> assertNotNull(company.getName(), () -> "El nombre de la empresa no puede estar vacio"),
+                () -> assertNotNull(company.getName(), () -> "El nombre de la empresa no puede estar vacío"),
                 () -> assertNotNull(company.getStatus(), () -> "El estatus no puede ser nul"),
-                () -> assertNotNull(company.getRegistrationDate(), () -> "La fecha de registro no puede estar vacia o ser nula"),
+                () -> assertNotNull(company.getRegistrationDate(), () -> "La fecha de registro no puede estar vacía o ser nula"),
                 () -> assertNotNull(company.getPlan(), () -> "El plan no puede ser nulo")
         );
     }
