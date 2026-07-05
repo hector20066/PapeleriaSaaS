@@ -9,8 +9,8 @@ import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.impl.*;
 import com.hector.papeleriasaas.facade.interfaces.*;
+import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
-import com.hector.papeleriasaas.model.dto.DTOPurchaseDetailsCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 
 /**
@@ -34,7 +34,7 @@ public class SaleService {
     }
 
     public int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
-                             BigDecimal totalSale, List<DTOPurchaseDetailsCreate> products) throws SQLException, DAOException {
+                             BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws SQLException, DAOException {
         Connection connection = null;
         int invoiceNumber = 0;
 
@@ -53,7 +53,7 @@ public class SaleService {
 
             int numSale = saleFacade.add(connection, customerId, amountPaid, totalSale);
 
-            for (DTOPurchaseDetailsCreate product : products) {
+            for (DTOSaleDetailsCreate product : products) {
                 saleDetailsFacade.add(connection, numSale, product.getProductId(), product.getAmount(), product.getUnitPrice());
             }
 

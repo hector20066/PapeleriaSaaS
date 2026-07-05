@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.controller.company;
 
+import com.hector.papeleriasaas.business.SalesManagementCalculator;
 import com.hector.papeleriasaas.controller.builder.ControllerSalesManagementBuilder;
 import com.hector.papeleriasaas.controller.dto.OrderItemSaleDTO;
 import com.hector.papeleriasaas.exception.dao.DAOException;
@@ -10,7 +11,8 @@ import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.model.dto.DTOPurchaseDetailsCreate;
+import com.hector.papeleriasaas.mapper.SalesManagementMapper;
+import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
@@ -168,13 +170,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     }
 
     private void updateTotalSale() {
-        salesManagement.getJlb_totalSale().setText(String.valueOf(getTotalSale()));
-    }
-
-    private BigDecimal getTotalSale() {
-        return this.orderList.stream()
-                .map(dto -> dto.getUnitPrice().multiply(new BigDecimal(dto.getAmount())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        salesManagement.getJlb_totalSale().setText(String.valueOf(SalesManagementCalculator.getTotalSale(this.orderList)));
     }
 
     private void registerSale() {
@@ -184,7 +180,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
             String customerId = salesManagement.getTxt_customerId().getText().trim();
             String totalSale = salesManagement.getJlb_totalSale().getText().trim();
             String amountPaid = salesManagement.getTxt_amountPaid().getText().trim();
-            List<DTOPurchaseDetailsCreate> list = listProductDetails();
+            List<DTOSaleDetailsCreate> list = SalesManagementMapper.listProductDetails(this.orderList);
 
             if (ValidationUtils.isEmptyFields(amountPaid)) {
                 throw new EmptyFieldException("valor pagado");
@@ -227,25 +223,6 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         }
     }
 
-    private List<DTOPurchaseDetailsCreate> listProductDetails() throws InvalidInputException {
-        List<DTOPurchaseDetailsCreate> list = this.orderList.stream()
-                .map(orderDto -> {
-                    DTOPurchaseDetailsCreate dto = new DTOPurchaseDetailsCreate();
-                    dto.setProductId(orderDto.getProductId());
-                    dto.setAmount(orderDto.getAmount());
-                    dto.setUnitPrice(orderDto.getUnitPrice());
-
-                    return dto;
-                })
-                .toList();
-
-        if (list.isEmpty()) {
-            throw new InvalidInputException("Agregue al menos un producto al carrito antes de registrar la venta.");
-        }
-
-        return list;
-    }
-
     private void validationsDebts(String customerId, String customerName) throws InvalidInputException {
         if (ValidationUtils.isInvalidInput(customerId, "Cedula")) {
             throw new EmptyFieldException("cédula del cliente (requerida para ventas con deuda)");
@@ -266,7 +243,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     }
 
     private void doInBackground(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
-                                BigDecimal totalSale, List<DTOPurchaseDetailsCreate> list) {
+                                BigDecimal totalSale, List<DTOSaleDetailsCreate> list) {
         BackgroundExecutor.execute(() -> {
             try {
                 int invoiceNumber = saleService.registerSale(customerId, customerName, customerPhone, amountPaid, totalSale, list);
