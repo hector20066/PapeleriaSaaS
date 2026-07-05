@@ -28,4 +28,22 @@ class SalesManagementCalculatorTest {
         assertEquals(new BigDecimal("36000.00"), totalSale, () -> "El total de la venta no coincide");
     }
 
+    @Test
+    void testCalculateTotalSaleSingleItem() {
+        List<OrderItemSaleDTO> orderList = new ArrayList<>();
+        orderList.add(new OrderItemSaleDTO("Cuaderno Norma", 12345, 2, new BigDecimal("5000.00")));
+
+        BigDecimal totalSale = SalesManagementCalculator.getTotalSale(orderList);
+
+        assertNotEquals(BigDecimal.ZERO, totalSale, () -> "El total calculado es 0");
+        assertEquals(new BigDecimal("10000.00"), totalSale, () -> "El total a pagar no es el esperado");
+    }
+
+    @Test
+    @DisplayName("Testear con listas vacías")
+    void testAmountPaidEmpty() {
+        BigDecimal result = SalesManagementCalculator.getTotalSale(new ArrayList<>());
+        assertEquals(BigDecimal.ZERO, result, () -> "Listas vacías deben retornar ZERO");
+    }
+
 }

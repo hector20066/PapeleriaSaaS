@@ -91,5 +91,32 @@ class DashboardDataCalculatorTest {
         );
     }
 
+    @Test
+    @DisplayName("Testear con listas vacías")
+    void testTotalPurchasesEmpty() {
+        BigDecimal result = DashboardDataCalculator.totalPurchases(new ArrayList<>());
+        assertEquals(BigDecimal.ZERO, result, () -> "Listas vacías deben retornar ZERO");
+    }
+
+    @Test
+    @DisplayName("Testear con listas nulas")
+    void testTotalPurchasesNull() {
+        assertThrows(NullPointerException.class, () -> DashboardDataCalculator.totalPurchases(null));
+    }
+
+    @Test
+    @DisplayName("Testear con un solo producto")
+    void testTotalPurchasesSingleItem() {
+        List<DTOProductDetails> singleProduct = List.of(
+                new DTOProductDetails.Builder()
+                        .id(1)
+                        .purchasePrice(new BigDecimal("1000.00"))
+                        .amount(5)
+                        .build()
+        );
+
+        assertEquals(new BigDecimal("5000.00"), DashboardDataCalculator.totalPurchases(singleProduct));
+    }
+
 }
 

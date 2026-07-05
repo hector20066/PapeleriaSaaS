@@ -27,4 +27,22 @@ class PurchaseProductCalculatorTest {
         assertEquals(new BigDecimal("73000.99"), totalAmountPaid, () -> "El total a pagar no es el esperado");
     }
 
+    @Test
+    void testCalculateAmountPaidSingleItem() {
+        List<BigDecimal> listTotalPaid = new ArrayList<>();
+        listTotalPaid.add(new BigDecimal("25000.00"));
+
+        BigDecimal totalAmountPaid = PurchaseProductCalculator.totalAmountPaid(listTotalPaid);
+
+        assertNotEquals(BigDecimal.ZERO, totalAmountPaid, () -> "El total calculado es 0");
+        assertEquals(new BigDecimal("25000.00"), totalAmountPaid, () -> "El total a pagar no es el esperado");
+    }
+
+    @Test
+    @DisplayName("Testear con listas vacías")
+    void testAmountPaidEmpty() {
+        BigDecimal result = PurchaseProductCalculator.totalAmountPaid(new ArrayList<>());
+        assertEquals(BigDecimal.ZERO, result, () -> "Listas vacías deben retornar ZERO");
+    }
+
 }
