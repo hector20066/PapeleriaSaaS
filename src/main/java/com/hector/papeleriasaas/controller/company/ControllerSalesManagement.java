@@ -22,6 +22,7 @@ import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
+import com.hector.papeleriasaas.validator.SalesManagementValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.SalesManagement;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -182,19 +183,15 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
             String amountPaid = salesManagement.getTxt_amountPaid().getText().trim();
             List<DTOSaleDetailsCreate> list = SalesManagementMapper.listProductDetails(this.orderList);
 
-            if (ValidationUtils.isEmptyFields(amountPaid)) {
-                throw new EmptyFieldException("valor pagado");
-            }
+            SalesManagementValidator.amountPaidEmptyValidation(amountPaid);
 
             BigDecimal amountPaidValue = ParserUtils.parseBigDecimal(amountPaid, "valor pagado");
             BigDecimal totalSaleValue = ParserUtils.parseBigDecimal(totalSale, "total de la venta");
 
-            if (amountPaidValue.signum() < 0) {
-                throw new InvalidInputException("El valor pagado no puede ser negativo.");
-            }
+            SalesManagementValidator.amountPaidValueValidation(amountPaidValue, totalSaleValue);
 
             if (!(amountPaidValue.compareTo(totalSaleValue) >= 0)) {
-                validationsDebts(customerId, customerName);
+                SalesManagementValidator.validationsDebts(customerId, customerName);
             } else {
                 if (ValidationUtils.isInvalidInput(customerId, "Cedula")) {
                     customerId = null;
@@ -209,31 +206,14 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 }
             }
 
+            Integer customerIdInt = customerId != null
+                    ? ParserUtils.parseInteger(customerId, "id cliente")
+                    : null;
+
             prepareUI();
-
-            Integer customerIdInt = null;
-
-            if (customerId != null) {
-                customerIdInt = ParserUtils.parseInteger(customerId, "id cliente");
-            }
-            
             doInBackground(customerIdInt, customerName, customerPhone, amountPaidValue, totalSaleValue, list);
         } catch (InvalidInputException e) {
             MessageUtils.errorMessage(MessageUtils.userMessage(e), salesManagement);
-        }
-    }
-
-    private void validationsDebts(String customerId, String customerName) throws InvalidInputException {
-        if (ValidationUtils.isInvalidInput(customerId, "Cedula")) {
-            throw new EmptyFieldException("cédula del cliente (requerida para ventas con deuda)");
-        }
-
-        if (!ValidationUtils.isNumeric(customerId)) {
-            throw new InvalidNumberInputException("cédula del cliente");
-        }
-
-        if (ValidationUtils.isInvalidInput(customerName, "Nombre")) {
-            throw new EmptyFieldException("nombre del cliente (requerido para ventas con deuda)");
         }
     }
 
@@ -267,7 +247,6 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 String nit = "NIT: 12345678";
                 String address = "Direccion: TR 24 16-25";
                 String phone = "Telefono: 3137762626";
-                List<OrderItemSaleDTO> details = this.orderList;
 
                 String compileReport = "/reports/Factura80mm.jrxml";
                 Map<String, Object> params = new HashMap<>();
@@ -283,7 +262,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 params.put("subTotal", totalSale);
                 params.put("total", totalSale);
 
-                JasperPrint report = ReportService.generate(details, compileReport, params);
+                JasperPrint report = ReportService.generate(this.orderList, compileReport, params);
                 AtomicBoolean executed = new AtomicBoolean(false);
 
                 SwingUtilities.invokeLater(() -> {
@@ -331,11 +310,6 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
 
         subject.notifyObservers();
         clearFields();
-    }
-
-    private void resetUI() {
-        salesManagement.getBtn_sale().setEnabled(true);
-        salesManagement.getBtn_sale().setText("Pagar");
     }
 
     private void search() {
@@ -394,6 +368,11 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         this.orderList.clear();
 
         resetUI();
+    }
+
+    private void resetUI() {
+        salesManagement.getBtn_sale().setEnabled(true);
+        salesManagement.getBtn_sale().setText("Pagar");
     }
 
 }

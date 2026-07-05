@@ -15,6 +15,7 @@ import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
+import com.hector.papeleriasaas.validator.PurchasingReportValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchasingReport;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
@@ -96,14 +97,7 @@ public class ControllerPurchasingReport implements Observer {
     private void search() {
         try {
             String param = purchasingReport.getTxt_search().getText().trim();
-
-            if (ValidationUtils.isInvalidInput(param, "Buscar Compra")) {
-                throw new InvalidInputException("Por favor ingrese un número de compra válido.");
-            }
-
-            if (!ValidationUtils.isNumeric(param)) {
-                throw new InvalidNumberInputException("número de compra");
-            }
+            PurchasingReportValidator.searchParamValidator(param);
 
             doInBackgroundSearch(param);
         } catch (InvalidInputException e) {
@@ -117,10 +111,7 @@ public class ControllerPurchasingReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTOPurchaseDetails> list = daoPurchases.findById(Integer.parseInt(param));
-
-                if (list.isEmpty()) {
-                    throw new PurchaseDetailsNotFoundException("No se encontró ninguna compra con ese número.");
-                }
+                PurchasingReportValidator.listEmptyValidation(list);
 
                 SwingUtilities.invokeLater(() -> {
                     purchasingReport.getPurchaseList().setRowCount(0);

@@ -4,7 +4,6 @@ import com.hector.papeleriasaas.controller.builder.ControllerDashboardBuilder;
 import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.facade.interfaces.SalesFacade;
@@ -14,6 +13,7 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.utils.MessageUtils;
+import com.hector.papeleriasaas.validator.CompanyDashboardValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
 import com.hector.papeleriasaas.view.swing.model.ModelChart;
 
@@ -50,9 +50,7 @@ public class ControllerDashboard implements Observer {
                 List<DTOProductDetails> productsList = daoProducts.findByAll();
                 Optional<DTOProductBestSelling> bestSelling = daoProducts.bestSelling();
 
-                if (bestSelling.isEmpty()) {
-                    throw new ProductNotFoundException();
-                }
+                CompanyDashboardValidator.bestSellingEmptyValidation(bestSelling);
 
                 DTOReportSummary dto = DashboardCompanyMapper.getReportSummary(productsList, salesList, bestSelling.get());
                 dashboard.updatePanel(dto.getTotalPurchases(), dto.getTotalSales(), dto.getTotalProfits(),

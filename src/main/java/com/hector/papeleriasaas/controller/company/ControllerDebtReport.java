@@ -16,7 +16,7 @@ import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
-import com.hector.papeleriasaas.utils.ValidationUtils;
+import com.hector.papeleriasaas.validator.DebtReportValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.DebtReport;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
@@ -102,13 +102,8 @@ public class ControllerDebtReport implements Observer {
         try {
             int row = debtReport.getJtbl_debts().getSelectedRow();
 
-            if (row < 0) {
-                throw new InvalidInputException("Seleccione la deuda que desea abonar.");
-            }
-
-            if (debtReport.getJtbl_debts().getValueAt(row, 8) == PaymentStatus.PAID) {
-                throw new InvalidInputException("Esta deuda ya está pagada.");
-            }
+            DebtReportValidator.rowSelectedValidation(row);
+            DebtReportValidator.compareStatusValidation((PaymentStatus) debtReport.getJtbl_debts().getValueAt(row, 8));
 
             int numSale = (int) debtReport.getJtbl_debts().getValueAt(row, 3);
             BigDecimal amountPaid = ParserUtils.parseBigDecimal(debtReport.getJtbl_debts().getValueAt(row, 6).toString(),
@@ -125,13 +120,7 @@ public class ControllerDebtReport implements Observer {
 
             BigDecimal pass = ParserUtils.parseBigDecimal(strPass, "valor del abono");
 
-            if (pass.signum() <= 0) {
-                throw new InvalidInputException("El abono debe ser mayor que cero.");
-            }
-
-            if (pass.compareTo(debt) > 0) {
-                throw new InvalidInputException("El abono no puede ser mayor que la deuda actual.");
-            }
+            DebtReportValidator.passValidation(pass, debt);
 
             BigDecimal newAmountPaid = amountPaid.add(pass);
 
@@ -175,34 +164,24 @@ public class ControllerDebtReport implements Observer {
     }
 
     private void search() {
-        String customer = debtReport.getTxt_searchCustomer().getText().trim();
-
-        if (ValidationUtils.isInvalidInput(customer, "Buscar Cliente")) {
-            MessageUtils.warningMessage("Por favor ingrese un nombre de cliente válido.", debtReport);
-            return;
+        try {
+            String customer = debtReport.getTxt_searchCustomer().getText().trim();
+            DebtReportValidator.searchParamValidation(customer);
+            doInBackgroundSearch(customer);
+        } catch (InvalidInputException e) {
+            MessageUtils.warningMessage(e.getMessage(), debtReport);
         }
-        
-        doInBackgroundSearch(customer);
     }
 
     private void doInBackgroundSearch(String customer) {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTODebtDetails> list = daoDebts.findByCustomer(customer);
-
-                if (list.isEmpty()) {
-                    throw new InvalidInputException("No se encontraron deudas para este cliente.");
-                }
+                DebtReportValidator.debtListEmptyValidation(list);
 
                 SwingUtilities.invokeLater(() -> {
                     debtReport.getDebtList().setRowCount(0);
                     list.forEach(debtReport::updatePanel);
-                });
-            } catch (InvalidInputException e) {
-                SwingUtilities.invokeLater(() -> {
-                    MessageUtils.warningMessage(MessageUtils.userMessage(e), debtReport);
-                    debtReport.getTxt_search().setText("Buscar Cliente");
-                    subject.notifyObservers();
                 });
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> {

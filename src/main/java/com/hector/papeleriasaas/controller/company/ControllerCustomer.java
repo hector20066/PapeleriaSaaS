@@ -8,6 +8,7 @@ import com.hector.papeleriasaas.model.dto.DTOCustomer;
 import com.hector.papeleriasaas.observer.*;
 import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.*;
+import com.hector.papeleriasaas.validator.CustomerValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Customers;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
@@ -88,8 +89,13 @@ public class ControllerCustomer implements Observer {
     }
 
     private void search() {
-        String customer = customers.getTxt_search().getText().trim();
-        doInBackground(customer);
+        try {
+            String customer = customers.getTxt_search().getText().trim();
+            CustomerValidator.searchParamValidation(customer);
+            doInBackground(customer);
+        } catch (InvalidInputException e) {
+            MessageUtils.errorMessage(e.getMessage(), customers);
+        }
     }
 
     private void doInBackground(String customer) {
@@ -99,9 +105,7 @@ public class ControllerCustomer implements Observer {
                         ? daoCustomer.findById(ParserUtils.parseInteger(customer, "cedula"))
                         : daoCustomer.findByName(customer);
 
-                if (dtoOptional.isEmpty()) {
-                    throw new InvalidInputException("No se encontró ningún cliente con ese criterio de búsqueda.");
-                }
+                CustomerValidator.optionalEmptyValidation(dtoOptional);
 
                 SwingUtilities.invokeLater(() -> {
                     customers.getModel().setRowCount(0);

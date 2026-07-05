@@ -4,10 +4,7 @@ import com.hector.papeleriasaas.controller.builder.ControllerSalesReportBuilder;
 import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
-import com.hector.papeleriasaas.exception.dao.notfound.SaleDetailsNotFoundException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
@@ -22,7 +19,7 @@ import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
-import com.hector.papeleriasaas.utils.ValidationUtils;
+import com.hector.papeleriasaas.validator.SalesReportValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.SalesReport;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
@@ -105,15 +102,7 @@ public class ControllerSalesReport implements Observer {
     private void search() {
         try {
             String param = salesReport.getTxt_search().getText().trim();
-
-            // Validate that search field is not a placeholder
-            if (ValidationUtils.isInvalidInput(param, "Buscar Venta")) {
-                throw new InvalidInputException("Por favor ingrese un número de venta válido.");
-            }
-
-            if (!ValidationUtils.isNumeric(param)) {
-                throw new InvalidNumberInputException("número de venta");
-            }
+            SalesReportValidator.searchValidation(param);
 
             doInBackgroundSearch(param);
         } catch (InvalidInputException e) {
@@ -127,10 +116,7 @@ public class ControllerSalesReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTOSaleDetails> list = daoSales.findById(Integer.parseInt(param));
-
-                if (list.isEmpty()) {
-                    throw new SaleDetailsNotFoundException("No se encontró ninguna venta con ese número.");
-                }
+                SalesReportValidator.listEmptyValidation(list);
 
                 SwingUtilities.invokeLater(() -> {
                     salesReport.getSalesList().setRowCount(0);
@@ -154,9 +140,7 @@ public class ControllerSalesReport implements Observer {
                 List<DTOProductDetails> productsList = daoProducts.findByAll();
                 Optional<DTOProductBestSelling> bestSelling = daoProducts.bestSelling();
 
-                if (bestSelling.isEmpty()) {
-                    throw new ProductNotFoundException();
-                }
+                SalesReportValidator.bestSellingEmptyValidation(bestSelling);
 
                 DTOReportSummary dtoSummary = DashboardCompanyMapper.getReportSummary(productsList, salesList, bestSelling.get());
                 List<DTOChartSales> listChartData = DashboardCompanyMapper.getChartSalesData(salesList, LocalDate.now());

@@ -13,6 +13,7 @@ import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
+import com.hector.papeleriasaas.validator.ProvidersValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Suppliers;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
@@ -89,14 +90,13 @@ public class ControllerSuppliers implements Observer {
     }
 
     private void search() {
-        String param = suppliers.getTxt_search().getText().trim();
-
-        if (ValidationUtils.isInvalidInput(param, "Buscar proveedor")) {
-            MessageUtils.warningMessage("Por favor ingrese un término de búsqueda válido.", suppliers);
-            return;
+        try {
+            String param = suppliers.getTxt_search().getText().trim();
+            ProvidersValidator.searchParamValidation(param);
+            doInBackgroundSearch(param);
+        } catch (InvalidInputException e) {
+            MessageUtils.warningMessage(e.getMessage(), suppliers);
         }
-        
-        doInBackgroundSearch(param);
     }
 
     private void doInBackgroundSearch(String param) {
@@ -106,9 +106,7 @@ public class ControllerSuppliers implements Observer {
                         ? daoSupplier.findById(Integer.parseInt(param))
                         : daoSupplier.findByName(param);
 
-                if (supplier.isEmpty()) {
-                    throw new InvalidInputException("No se encontró ningún proveedor con ese criterio de búsqueda.");
-                }
+                ProvidersValidator.providerEmptyValidation(supplier);
 
                 SwingUtilities.invokeLater(() -> {
                     suppliers.getModel().setRowCount(0);

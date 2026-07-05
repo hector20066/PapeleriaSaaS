@@ -7,6 +7,7 @@ import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.utils.*;
+import com.hector.papeleriasaas.validator.ModifyProductValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
 import com.hector.papeleriasaas.view.content.panels.companies.ModifyProduct;
 
@@ -47,27 +48,15 @@ public class ControllerModifyProducts {
             String purchasePrice = modifyProduct.getTxt_purchasePrice().getText().trim();
             String salePrice = modifyProduct.getTxt_salePrice().getText().trim();
 
-            if (ValidationUtils.isEmptyFields(id, product, amount, purchasePrice, salePrice)) {
-                throw new EmptyFieldException("datos del producto");
-            }
-
-            if (!ValidationUtils.isNumeric(amount) || !ValidationUtils.isNumeric(id)) {
-                throw new InvalidNumberInputException("ID y cantidad");
-            }
+            ModifyProductValidator.fieldsValidation(id, product, amount, purchasePrice, salePrice);
 
             int productId = ParserUtils.parseInteger(id, "id del producto");
             int productAmount = ParserUtils.parseInteger(amount, "cantidad disponible");
 
-            if (productAmount < 0) {
-                throw new InvalidInputException("La cantidad disponible no puede ser negativa.");
-            }
-
             BigDecimal purchasePriceValue = ParserUtils.parseBigDecimal(purchasePrice, "precio de compra");
             BigDecimal salePriceValue = ParserUtils.parseBigDecimal(salePrice, "precio de venta");
 
-            if (purchasePriceValue.signum() < 0 || salePriceValue.signum() < 0) {
-                throw new InvalidInputException("Los precios no pueden ser negativos.");
-            }
+            ModifyProductValidator.productValidation(productAmount, purchasePriceValue, salePriceValue);
 
             prepareUI();
             doInBackground(productId, product, productAmount, purchasePriceValue, salePriceValue);

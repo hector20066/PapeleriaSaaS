@@ -4,15 +4,14 @@ import com.hector.papeleriasaas.business.PurchaseProductCalculator;
 import com.hector.papeleriasaas.mapper.PurchaseProductMapper;
 import com.hector.papeleriasaas.controller.builder.ControllerPurchaseProductsBuilder;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.model.dto.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.PurchaseService;
 import com.hector.papeleriasaas.utils.*;
+import com.hector.papeleriasaas.validator.PurchaseProductValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
 
@@ -92,10 +91,7 @@ public class ControllerPurchaseProducts {
             list.add(PurchaseProductMapper.toDTOProductCreate(product, amount, purchasePrice, salePrice));
         }
 
-        if (list.isEmpty()) {
-            throw new InvalidInputException("Agregue al menos un producto antes de registrar la compra.");
-        }
-
+        PurchaseProductValidator.productListEmptyValidation(list);
         return list;
     }
 
@@ -152,24 +148,12 @@ public class ControllerPurchaseProducts {
             String purchasePrice = productManagement.getTxt_purchasePrice().getText().trim();
             String salePrice = productManagement.getTxt_salePrice().getText().trim();
 
-            if (ValidationUtils.isEmptyFields(product, amount, purchasePrice, salePrice)) {
-                throw new EmptyFieldException("producto, cantidad, precio de compra y precio de venta");
-            }
-
-            if (!ValidationUtils.isNumeric(amount)) {
-                throw new InvalidNumberInputException("cantidad");
-            }
-
-            if (ParserUtils.parseInteger(amount, "cantidad") <= 0) {
-                throw new InvalidInputException("La cantidad debe ser mayor que cero.");
-            }
+            PurchaseProductValidator.addProductValidation(product, amount, purchasePrice, salePrice);
 
             BigDecimal purchasePriceValue = ParserUtils.parseBigDecimal(purchasePrice, "precio de compra");
             BigDecimal salePriceValue = ParserUtils.parseBigDecimal(salePrice, "precio de venta");
 
-            if (purchasePriceValue.signum() < 0 || salePriceValue.signum() < 0) {
-                throw new InvalidInputException("Los precios no pueden ser negativos.");
-            }
+            PurchaseProductValidator.priceValueValidation(purchasePriceValue, salePriceValue);
 
             BigDecimal totalPaid = purchasePriceValue.multiply(new BigDecimal(amount));
 
@@ -198,16 +182,13 @@ public class ControllerPurchaseProducts {
     private void deleteOrder() {
         try {
             int row = productManagement.getJtbl_products().getSelectedRow();
+            PurchaseProductValidator.rowSelectedValidation(row);
 
-            if (row >= 0) {
-                productManagement.getProductList().removeRow(row);
-                productManagement.getJlb_totalPurchases()
-                        .setText(PurchaseProductCalculator.totalAmountPaid(getPurchaseTotals()).toString());
-            } else {
-                MessageUtils.warningMessage("Seleccione el producto que desea quitar de la compra.", productManagement);
-            }
+            productManagement.getProductList().removeRow(row);
+            productManagement.getJlb_totalPurchases()
+                    .setText(PurchaseProductCalculator.totalAmountPaid(getPurchaseTotals()).toString());
         } catch (InvalidInputException e) {
-            MessageUtils.warningMessage(MessageUtils.userMessage(e), productManagement);
+            MessageUtils.warningMessage(e.getMessage(), productManagement);
         }
     }
 

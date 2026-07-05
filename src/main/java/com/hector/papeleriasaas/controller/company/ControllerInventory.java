@@ -13,6 +13,7 @@ import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.*;
+import com.hector.papeleriasaas.validator.InventoryValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
 import com.hector.papeleriasaas.view.content.panels.companies.ModifyProduct;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
@@ -100,14 +101,13 @@ public class ControllerInventory implements Observer {
     }
 
     private void search() {
-        String product = inventory.getTxt_search().getText().trim();
-
-        if (ValidationUtils.isInvalidInput(product, "Buscar Producto")) {
-            MessageUtils.warningMessage("Por favor ingrese un término de búsqueda válido.", inventory);
-            return;
+        try {
+            String product = inventory.getTxt_search().getText().trim();
+            InventoryValidator.searchParamValidation(product);
+            doInBackgroundSearch(product);
+        } catch (InvalidInputException e) {
+            MessageUtils.warningMessage(e.getMessage(), inventory);
         }
-        
-        doInBackgroundSearch(product);
     }
 
     private void doInBackgroundSearch(String product) {
@@ -117,19 +117,11 @@ public class ControllerInventory implements Observer {
                         ? daoProducts.findById(Integer.parseInt(product))
                         : daoProducts.findByName(product);
 
-                if (dtoOptional.isEmpty()) {
-                    throw new InvalidInputException("No se encontró ningún producto con ese criterio de búsqueda.");
-                }
+                InventoryValidator.dtoProductEmptyValidation(dtoOptional);
 
                 SwingUtilities.invokeLater(() -> {
                     inventory.getInventoryList().setRowCount(0);
                     inventory.updatePanel(dtoOptional.get());
-                });
-            } catch (InvalidInputException e) {
-                SwingUtilities.invokeLater(() -> {
-                    MessageUtils.warningMessage(MessageUtils.userMessage(e), inventory);
-                    inventory.getTxt_search().setText("Buscar Producto");
-                    subject.notifyObservers();
                 });
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> {
@@ -145,10 +137,7 @@ public class ControllerInventory implements Observer {
     private void modify() {
         try {
             int row = inventory.getJtbl_inventory().getSelectedRow();
-
-            if (row < 0) {
-                throw new InvalidInputException("Seleccione el producto que desea modificar.");
-            }
+            InventoryValidator.rowValidation(row);
 
             int id = (int) inventory.getJtbl_inventory().getValueAt(row, 0);
             String product = String.valueOf(inventory.getJtbl_inventory().getValueAt(row, 1));
@@ -189,15 +178,15 @@ public class ControllerInventory implements Observer {
     }
 
     private void delete() {
-        int selectedRow = inventory.getJtbl_inventory().getSelectedRow();
+        try {
+            int selectedRow = inventory.getJtbl_inventory().getSelectedRow();
+            InventoryValidator.rowValidation(selectedRow);
 
-        if (selectedRow < 0) {
-            MessageUtils.warningMessage("Seleccione el producto que desea eliminar.", inventory);
-            return;
+            int productId = (int) inventory.getJtbl_inventory().getValueAt(selectedRow, 0);
+            doInBackground(productId);
+        } catch (InvalidInputException e) {
+            MessageUtils.errorMessage(e.getMessage(), inventory);
         }
-
-        int productId = (int) inventory.getJtbl_inventory().getValueAt(selectedRow, 0);
-        doInBackground(productId);
     }
 
     private void doInBackground(int productId) {
