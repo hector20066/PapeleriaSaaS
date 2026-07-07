@@ -14,7 +14,7 @@ public final class DebtReportValidator {
 
     public static void rowSelectedValidation(int row) throws InvalidInputException {
         if (row < 0) {
-            throw new InvalidInputException("Seleccione la deuda que desea abonar.");
+            throw new InvalidInputException("Seleccione la deuda para realizar el abono.");
         }
     }
 
@@ -40,9 +40,9 @@ public final class DebtReportValidator {
         }
     }
 
-    public static void debtListEmptyValidation(List<DTODebtDetails> list) throws DAOException {
+    public static void debtListEmptyValidation(List<DTODebtDetails> list, String param) throws DAOException {
         if (list.isEmpty()) {
-            throw new DebtNotFoundException("No se encontraron deudas para este cliente.");
+            throw new DebtNotFoundException(param);
         }
     }
 

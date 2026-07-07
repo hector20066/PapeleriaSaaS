@@ -1,5 +1,7 @@
 package com.hector.papeleriasaas.validator;
 
+import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.model.dto.DTOCustomer;
@@ -10,14 +12,18 @@ import java.util.Optional;
 public final class CustomerValidator {
 
     public static void searchParamValidation(String customer) throws InvalidInputException {
-        if (ValidationUtils.isInvalidInput(customer, "Buscar Cliente")) {
+        if (ValidationUtils.isEmptyFields(customer)) {
             throw new EmptyFieldException("cédula o nombre del cliente");
+        }
+        
+        if (ValidationUtils.isInvalidInput(customer, "Buscar Cliente")) {
+            throw new InvalidInputException("Por favor ingrese el nombre o cedula del cliente");
         }
     }
 
-    public static void optionalEmptyValidation(Optional<DTOCustomer> dtoOptional) throws InvalidInputException {
+    public static void optionalEmptyValidation(Optional<DTOCustomer> dtoOptional, String param) throws DAOException {
         if (dtoOptional.isEmpty()) {
-            throw new InvalidInputException("No se encontró ningún cliente con ese criterio de búsqueda.");
+            throw new CustomerNotFoundException(param);
         }
     }
 

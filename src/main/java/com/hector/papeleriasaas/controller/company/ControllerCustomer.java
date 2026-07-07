@@ -105,7 +105,7 @@ public class ControllerCustomer implements Observer {
                         ? daoCustomer.findById(ParserUtils.parseInteger(customer, "cedula"))
                         : daoCustomer.findByName(customer);
 
-                CustomerValidator.optionalEmptyValidation(dtoOptional);
+                CustomerValidator.optionalEmptyValidation(dtoOptional, customer);
 
                 SwingUtilities.invokeLater(() -> {
                     customers.getModel().setRowCount(0);

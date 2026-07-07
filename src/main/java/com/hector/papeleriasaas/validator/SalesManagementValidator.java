@@ -1,11 +1,14 @@
 package com.hector.papeleriasaas.validator;
 
+import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
+import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public final class SalesManagementValidator {
 
@@ -36,6 +39,18 @@ public final class SalesManagementValidator {
 
         if (totalSaleValue.signum() <= 0) {
             throw new InvalidInputException("El total de la venta no puede ser menor o igual a 0");
+        }
+    }
+
+    public static void searchInvalidParamValidation(String param) throws InvalidInputException {
+        if (ValidationUtils.isInvalidInput(param, "Buscar Producto")) {
+            throw new InvalidInputException("No se encontró el producto, por favor ingrese el nombre.");
+        }
+    }
+
+    public static void emptyProductValidation(Optional<DTOProductDetails> product, String param) throws ProductNotFoundException {
+        if (product.isEmpty()) {
+            throw new ProductNotFoundException(param);
         }
     }
 

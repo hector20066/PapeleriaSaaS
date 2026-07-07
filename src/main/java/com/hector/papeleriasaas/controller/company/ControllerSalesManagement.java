@@ -4,6 +4,7 @@ import com.hector.papeleriasaas.business.SalesManagementCalculator;
 import com.hector.papeleriasaas.controller.builder.ControllerSalesManagementBuilder;
 import com.hector.papeleriasaas.controller.dto.OrderItemSaleDTO;
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
@@ -26,6 +27,7 @@ import com.hector.papeleriasaas.validator.SalesManagementValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.SalesManagement;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.util.MessageUtil;
 import net.sf.jasperreports.view.JasperViewer;
 
 import javax.swing.*;
@@ -81,22 +83,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         salesManagement.setControllerTxt_customerPhoneFocus(SwingUtils.addFocusListener(salesManagement.getTxt_customerPhone(),
                 "Telefono"));
         salesManagement.setControllerTxt_amountPaidFocus(SwingUtils.addFocusListener(salesManagement.getTxt_amountPaid(), "0.00"));
-        salesManagement.setControllerTxt_searchDocument(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent documentEvent) {
-                filterProducts();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent documentEvent) {
-                filterProducts();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent documentEvent) {
-                filterProducts();
-            }
-        });
+        salesManagement.setControllerTxt_searchDocument(documentListenerEvent());
     }
 
     @Override
@@ -265,36 +252,39 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 JasperPrint report = ReportService.generate(this.orderList, compileReport, params);
                 AtomicBoolean executed = new AtomicBoolean(false);
 
-                SwingUtilities.invokeLater(() -> {
-                    JasperViewer viewer = new JasperViewer(report, false);
-                    viewer.setLocationRelativeTo(null);
-                    viewer.setResizable(false);
-
-                    viewer.addWindowListener(new WindowAdapter() {
-                        private void finishSale() {
-                            if (executed.compareAndSet(false, true)) {
-                                handleSaleResult(lowStock, amountPaid, totalSale, customerName);
-                            }
-                        }
-
-                        @Override
-                        public void windowClosing(WindowEvent e) {
-                            finishSale();
-                        }
-
-                        @Override
-                        public void windowClosed(WindowEvent e) {
-                            finishSale();
-                        }
-                    });
-
-                    viewer.setVisible(true);
-                });
+                SwingUtilities.invokeLater(() -> doInBackgroundReport(customerName, totalSale, lowStock, amountPaid, report, executed));
             } catch (JRException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("Ha ocurrido un error al generar la "
                         + "factura de la venta.", salesManagement));
             }
         });
+    }
+
+    private void doInBackgroundReport(String customerName, BigDecimal totalSale, String lowStock, BigDecimal amountPaid,
+                                      JasperPrint report, AtomicBoolean executed) {
+        JasperViewer viewer = new JasperViewer(report, false);
+        viewer.setLocationRelativeTo(null);
+        viewer.setResizable(false);
+
+        viewer.addWindowListener(new WindowAdapter() {
+            private void finishSale() {
+                if (executed.compareAndSet(false, true)) {
+                    handleSaleResult(lowStock, amountPaid, totalSale, customerName);
+                }
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                finishSale();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                finishSale();
+            }
+        });
+
+        viewer.setVisible(true);
     }
 
     private void handleSaleResult(String lowStock, BigDecimal amountPaid, BigDecimal totalSale, String customer) {
@@ -313,16 +303,21 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     }
 
     private void search() {
-        List<DTOProductDetails> listProducts = daoProducts.getProductList();
-        String searchParameter = salesManagement.getTxt_search().getText().trim();
+        try {
+            List<DTOProductDetails> listProducts = daoProducts.getProductList();
+            String searchParameter = salesManagement.getTxt_search().getText().trim();
+            SalesManagementValidator.searchInvalidParamValidation(searchParameter);
 
-        Optional<DTOProductDetails> product = listProducts.stream()
-                .filter(dto -> dto.getDescription().equalsIgnoreCase(searchParameter))
-                .findFirst();
+            Optional<DTOProductDetails> product = listProducts.stream()
+                    .filter(dto -> dto.getDescription().equalsIgnoreCase(searchParameter))
+                    .findFirst();
 
-        if (product.isPresent()) {
+            SalesManagementValidator.emptyProductValidation(product, searchParameter);
+
             salesManagement.clearPanel();
             salesManagement.addProductPanel(product.get(), this);
+        } catch (InvalidInputException | DAOException e) {
+            MessageUtils.warningMessage(e.getMessage(), salesManagement);
         }
     }
 
@@ -373,6 +368,25 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     private void resetUI() {
         salesManagement.getBtn_sale().setEnabled(true);
         salesManagement.getBtn_sale().setText("Pagar");
+    }
+
+    private DocumentListener documentListenerEvent() {
+        return new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent documentEvent) {
+                filterProducts();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent documentEvent) {
+                filterProducts();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent documentEvent) {
+                filterProducts();
+            }
+        };
     }
 
 }

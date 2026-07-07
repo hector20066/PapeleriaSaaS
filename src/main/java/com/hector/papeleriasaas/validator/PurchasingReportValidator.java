@@ -21,9 +21,9 @@ public final class PurchasingReportValidator {
         }
     }
 
-    public static void listEmptyValidation(List<DTOPurchaseDetails> list) throws DAOException {
+    public static void listEmptyValidation(List<DTOPurchaseDetails> list, String param) throws DAOException {
         if (list.isEmpty()) {
-            throw new PurchaseDetailsNotFoundException("No se encontró ninguna compra con ese número.");
+            throw new PurchaseDetailsNotFoundException(param);
         }
     }
 

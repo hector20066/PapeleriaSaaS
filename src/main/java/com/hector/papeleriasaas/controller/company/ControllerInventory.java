@@ -117,7 +117,7 @@ public class ControllerInventory implements Observer {
                         ? daoProducts.findById(Integer.parseInt(product))
                         : daoProducts.findByName(product);
 
-                InventoryValidator.dtoProductEmptyValidation(dtoOptional);
+                InventoryValidator.dtoProductEmptyValidation(dtoOptional, product);
 
                 SwingUtilities.invokeLater(() -> {
                     inventory.getInventoryList().setRowCount(0);
@@ -142,10 +142,10 @@ public class ControllerInventory implements Observer {
             int id = (int) inventory.getJtbl_inventory().getValueAt(row, 0);
             String product = String.valueOf(inventory.getJtbl_inventory().getValueAt(row, 1));
             int amount = (int) inventory.getJtbl_inventory().getValueAt(row, 2);
-            BigDecimal purchasePrice = ParserUtils.parseBigDecimal(inventory.getJtbl_inventory().getValueAt(row, 3)
-                    .toString(), "precio de compra");
-            BigDecimal salePrice = ParserUtils.parseBigDecimal(inventory.getJtbl_inventory().getValueAt(row, 4)
-                    .toString(), "precio de venta");
+            BigDecimal purchasePrice = ParserUtils.parseBigDecimal(inventory.getJtbl_inventory()
+                    .getValueAt(row, 3).toString(), "precio de compra");
+            BigDecimal salePrice = ParserUtils.parseBigDecimal(inventory.getJtbl_inventory()
+                    .getValueAt(row, 4).toString(), "precio de venta");
 
             modifyProduct.loadDataModify(new DTOProductUpdate.Builder()
                     .id(id)

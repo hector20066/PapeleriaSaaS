@@ -24,9 +24,9 @@ public final class SalesReportValidator {
         }
     }
 
-    public static void listEmptyValidation(List<DTOSaleDetails> list) throws DAOException {
+    public static void listEmptyValidation(List<DTOSaleDetails> list, String param) throws DAOException {
         if (list.isEmpty()) {
-            throw new SaleDetailsNotFoundException("No se encontró ninguna venta con ese número.");
+            throw new SaleDetailsNotFoundException(param);
         }
     }
 

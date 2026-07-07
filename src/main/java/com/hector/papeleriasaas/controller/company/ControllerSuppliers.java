@@ -53,22 +53,7 @@ public class ControllerSuppliers implements Observer {
         suppliers.setControllerExport(e -> export());
 
         suppliers.setControllerTxt_searchFocusListener(SwingUtils.addFocusListener(suppliers.getTxt_search(), "Buscar proveedor"));
-        suppliers.setControllerTxt_searchDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent documentEvent) {
-                SwingUtils.filterTable(suppliers.getTxt_search(), suppliers.getJtbl_suppliers(), "Buscar proveedor");
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent documentEvent) {
-                SwingUtils.filterTable(suppliers.getTxt_search(), suppliers.getJtbl_suppliers(), "Buscar proveedor");
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent documentEvent) {
-                SwingUtils.filterTable(suppliers.getTxt_search(), suppliers.getJtbl_suppliers(), "Buscar proveedor");
-            }
-        });
+        suppliers.setControllerTxt_searchDocumentListener(documentListenerEvent());
     }
 
     @Override
@@ -106,17 +91,11 @@ public class ControllerSuppliers implements Observer {
                         ? daoSupplier.findById(Integer.parseInt(param))
                         : daoSupplier.findByName(param);
 
-                ProvidersValidator.providerEmptyValidation(supplier);
+                ProvidersValidator.providerEmptyValidation(supplier, param);
 
                 SwingUtilities.invokeLater(() -> {
                     suppliers.getModel().setRowCount(0);
                     suppliers.updatePanel(supplier.get());
-                });
-            } catch (InvalidInputException e) {
-                SwingUtilities.invokeLater(() -> {
-                    MessageUtils.warningMessage(MessageUtils.userMessage(e), suppliers);
-                    suppliers.getTxt_search().setText("Buscar proveedor");
-                    subject.notifyObservers();
                 });
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> {
@@ -143,6 +122,25 @@ public class ControllerSuppliers implements Observer {
                         + "reporte", suppliers));
             }
         });
+    }
+
+    private DocumentListener documentListenerEvent() {
+        return new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent documentEvent) {
+                SwingUtils.filterTable(suppliers.getTxt_search(), suppliers.getJtbl_suppliers(), "Buscar proveedor");
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent documentEvent) {
+                SwingUtils.filterTable(suppliers.getTxt_search(), suppliers.getJtbl_suppliers(), "Buscar proveedor");
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent documentEvent) {
+                SwingUtils.filterTable(suppliers.getTxt_search(), suppliers.getJtbl_suppliers(), "Buscar proveedor");
+            }
+        };
     }
 
 }

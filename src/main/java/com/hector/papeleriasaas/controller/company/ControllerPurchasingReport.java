@@ -55,25 +55,7 @@ public class ControllerPurchasingReport implements Observer {
 
         purchasingReport.setControllerTxt_searchFocus(SwingUtils.addFocusListener(purchasingReport.getTxt_search(),
                 "Buscar Compra"));
-        purchasingReport.setControllerTxt_searchDocument(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(),
-                        "Buscar Compra");
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(),
-                        "Buscar Compra");
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(),
-                        "Buscar Compra");
-            }
-        });
+        purchasingReport.setControllerTxt_searchDocument(documentListenerEvents());
     }
 
     @Override
@@ -98,7 +80,6 @@ public class ControllerPurchasingReport implements Observer {
         try {
             String param = purchasingReport.getTxt_search().getText().trim();
             PurchasingReportValidator.searchParamValidator(param);
-
             doInBackgroundSearch(param);
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(MessageUtils.userMessage(e), purchasingReport);
@@ -111,7 +92,7 @@ public class ControllerPurchasingReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTOPurchaseDetails> list = daoPurchases.findById(Integer.parseInt(param));
-                PurchasingReportValidator.listEmptyValidation(list);
+                PurchasingReportValidator.listEmptyValidation(list, param);
 
                 SwingUtilities.invokeLater(() -> {
                     purchasingReport.getPurchaseList().setRowCount(0);
@@ -142,6 +123,25 @@ public class ControllerPurchasingReport implements Observer {
                         + "reporte", purchasingReport));
             }
         });
+    }
+
+    private DocumentListener documentListenerEvents() {
+        return new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(),"Buscar Compra");
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(),"Buscar Compra");
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(),"Buscar Compra");
+            }
+        };
     }
 
 }

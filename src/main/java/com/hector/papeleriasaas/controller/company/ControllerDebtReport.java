@@ -62,22 +62,7 @@ public class ControllerDebtReport implements Observer {
 
         debtReport.setControllerTxt_searchCustomerFocus(SwingUtils.addFocusListener(debtReport.getTxt_searchCustomer(),
                 "Buscar Cliente"));
-        debtReport.setControllerTxt_searchCustomerDocument(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(debtReport.getTxt_searchCustomer(), debtReport.getJtbl_debts(), "Buscar Cliente");
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(debtReport.getTxt_searchCustomer(), debtReport.getJtbl_debts(), "Buscar Cliente");
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(debtReport.getTxt_searchCustomer(), debtReport.getJtbl_debts(), "Buscar Cliente");
-            }
-        });
+        debtReport.setControllerTxt_searchCustomerDocument(documentListenerEvent());
     }
 
     @Override
@@ -118,14 +103,11 @@ public class ControllerDebtReport implements Observer {
                 return;
             }
 
-            BigDecimal pass = ParserUtils.parseBigDecimal(strPass, "valor del abono");
-
-            DebtReportValidator.passValidation(pass, debt);
-
-            BigDecimal newAmountPaid = amountPaid.add(pass);
+            BigDecimal passDecimal = ParserUtils.parseBigDecimal(strPass, "valor del abono");
+            DebtReportValidator.passValidation(passDecimal, debt);
 
             prepareUI();
-            doInBackground(numSale, newAmountPaid);
+            doInBackground(numSale, amountPaid.add(passDecimal));
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(MessageUtils.userMessage(e), debtReport);
         }
@@ -177,7 +159,7 @@ public class ControllerDebtReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTODebtDetails> list = daoDebts.findByCustomer(customer);
-                DebtReportValidator.debtListEmptyValidation(list);
+                DebtReportValidator.debtListEmptyValidation(list, customer);
 
                 SwingUtilities.invokeLater(() -> {
                     debtReport.getDebtList().setRowCount(0);
@@ -204,7 +186,7 @@ public class ControllerDebtReport implements Observer {
                     case "Todas" -> daoDebts.findByAll();
                     case "Pendientes" -> daoDebts.findByStatus(PaymentStatus.PENDING);
                     case "Pagadas" -> daoDebts.findByStatus(PaymentStatus.PAID);
-                    default -> throw new IllegalStateException("Unexpected value: " + parameter);
+                    default -> throw new IllegalStateException("Parámetro inesperado " + parameter);
                 };
 
                 SwingUtilities.invokeLater(() -> {
@@ -236,6 +218,25 @@ public class ControllerDebtReport implements Observer {
                         + "reporte", debtReport));
             }
         });
+    }
+
+    private DocumentListener documentListenerEvent() {
+        return new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                SwingUtils.filterTable(debtReport.getTxt_searchCustomer(), debtReport.getJtbl_debts(), "Buscar Cliente");
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                SwingUtils.filterTable(debtReport.getTxt_searchCustomer(), debtReport.getJtbl_debts(), "Buscar Cliente");
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                SwingUtils.filterTable(debtReport.getTxt_searchCustomer(), debtReport.getJtbl_debts(), "Buscar Cliente");
+            }
+        };
     }
 
 }

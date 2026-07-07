@@ -3,6 +3,7 @@ package com.hector.papeleriasaas.validator;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
+import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 
 import java.math.BigDecimal;
@@ -24,7 +25,7 @@ public final class ModifyProductValidator {
             throw new InvalidInputException("La cantidad disponible no puede ser negativa.");
         }
 
-        if (purchasePriceValue.signum() < 0 || salePriceValue.signum() < 0) {
+        if (purchasePriceValue.signum() <= 0 || salePriceValue.signum() <= 0) {
             throw new InvalidInputException("Los precios no pueden ser negativos.");
         }
     }

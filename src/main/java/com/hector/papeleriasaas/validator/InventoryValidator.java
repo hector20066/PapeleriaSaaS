@@ -21,9 +21,9 @@ public final class InventoryValidator {
         }
     }
 
-    public static void dtoProductEmptyValidation(Optional<DTOProductDetails> dtoOptional) throws ProductNotFoundException {
+    public static void dtoProductEmptyValidation(Optional<DTOProductDetails> dtoOptional, String param) throws ProductNotFoundException {
         if (dtoOptional.isEmpty()) {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(param);
         }
     }
 

@@ -13,7 +13,7 @@ public class DebtNotFoundException extends DataNotFoundException {
     }
 
     public DebtNotFoundException(String param) {
-        super("Deuda no encontrada con parámetro: '" + param + "'");
+        super("No se han encontrado deudas para el parámetro de búsqueda: '" + param + "'");
     }
 
 }

@@ -63,22 +63,7 @@ public class ControllerSalesReport implements Observer {
         salesReport.setControllerExport(e -> export());
 
         salesReport.setControllerTxt_searchFocus(SwingUtils.addFocusListener(salesReport.getTxt_search(), "Buscar Venta"));
-        salesReport.setControllerTxt_search(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(salesReport.getTxt_search(), salesReport.getJtbl_sales(), "Buscar Venta");
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(salesReport.getTxt_search(), salesReport.getJtbl_sales(), "Buscar Venta");
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(salesReport.getTxt_search(), salesReport.getJtbl_sales(), "Buscar Venta");
-            }
-        });
+        salesReport.setControllerTxt_search(documentListenerEvent());
     }
 
     @Override
@@ -103,7 +88,6 @@ public class ControllerSalesReport implements Observer {
         try {
             String param = salesReport.getTxt_search().getText().trim();
             SalesReportValidator.searchValidation(param);
-
             doInBackgroundSearch(param);
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(MessageUtils.userMessage(e), salesReport);
@@ -116,7 +100,7 @@ public class ControllerSalesReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTOSaleDetails> list = daoSales.findById(Integer.parseInt(param));
-                SalesReportValidator.listEmptyValidation(list);
+                SalesReportValidator.listEmptyValidation(list, param);
 
                 SwingUtilities.invokeLater(() -> {
                     salesReport.getSalesList().setRowCount(0);
@@ -162,6 +146,25 @@ public class ControllerSalesReport implements Observer {
                         + "reporte", salesReport));
             }
         });
+    }
+
+    private DocumentListener documentListenerEvent() {
+        return new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                SwingUtils.filterTable(salesReport.getTxt_search(), salesReport.getJtbl_sales(), "Buscar Venta");
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                SwingUtils.filterTable(salesReport.getTxt_search(), salesReport.getJtbl_sales(), "Buscar Venta");
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                SwingUtils.filterTable(salesReport.getTxt_search(), salesReport.getJtbl_sales(), "Buscar Venta");
+            }
+        };
     }
 
 }
