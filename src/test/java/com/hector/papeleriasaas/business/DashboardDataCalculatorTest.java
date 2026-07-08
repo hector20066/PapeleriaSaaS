@@ -4,6 +4,7 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -100,6 +101,7 @@ class DashboardDataCalculatorTest {
 
     @Test
     @DisplayName("Testear con listas nulas")
+    @Tag("exception")
     void testTotalPurchasesNull() {
         assertThrows(NullPointerException.class, () -> DashboardDataCalculator.totalPurchases(null));
     }

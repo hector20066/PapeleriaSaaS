@@ -28,6 +28,7 @@ class PurchaseProductCalculatorTest {
     }
 
     @Test
+    @DisplayName("Testear el calculo con un solo producto")
     void testCalculateAmountPaidSingleItem() {
         List<BigDecimal> listTotalPaid = new ArrayList<>();
         listTotalPaid.add(new BigDecimal("25000.00"));

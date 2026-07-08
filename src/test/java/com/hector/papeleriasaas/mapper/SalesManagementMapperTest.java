@@ -4,6 +4,7 @@ import com.hector.papeleriasaas.controller.dto.OrderItemSaleDTO;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -44,6 +45,7 @@ class SalesManagementMapperTest {
 
     @Test
     @DisplayName("Testear la excepción lanzada al crear la lista de los detalles.")
+    @Tag("exception")
     void testProductDetailsException() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,

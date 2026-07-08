@@ -29,6 +29,7 @@ class SalesManagementCalculatorTest {
     }
 
     @Test
+    @DisplayName("Testear el calculo con un solo producto")
     void testCalculateTotalSaleSingleItem() {
         List<OrderItemSaleDTO> orderList = new ArrayList<>();
         orderList.add(new OrderItemSaleDTO("Cuaderno Norma", 12345, 2, new BigDecimal("5000.00")));
