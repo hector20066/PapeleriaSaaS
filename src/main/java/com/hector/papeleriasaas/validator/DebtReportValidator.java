@@ -24,7 +24,7 @@ public final class DebtReportValidator {
         }
     }
 
-    public static void passValidation(BigDecimal pass, BigDecimal debt) throws InvalidInputException {
+    public static void priceValueValidation(BigDecimal pass, BigDecimal debt) throws InvalidInputException {
         if (pass.signum() <= 0) {
             throw new InvalidInputException("El abono debe ser mayor que cero.");
         }

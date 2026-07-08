@@ -104,7 +104,7 @@ public class ControllerDebtReport implements Observer {
             }
 
             BigDecimal passDecimal = ParserUtils.parseBigDecimal(strPass, "valor del abono");
-            DebtReportValidator.passValidation(passDecimal, debt);
+            DebtReportValidator.priceValueValidation(passDecimal, debt);
 
             prepareUI();
             doInBackground(numSale, amountPaid.add(passDecimal));
