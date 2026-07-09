@@ -26,7 +26,7 @@ class CustomerValidatorTest {
                 () -> CustomerValidator.searchParamValidation(null),
                 () -> "La excepción lanzada no es la esperada");
 
-        assertEquals("El campo 'cédula o nombre del cliente' es requerido y no puede estar vacío", ex.getMessage(), () -> "El mensaje no es el esperado");
+        assertEquals("Los siguientes campos son requeridos: Cedula o Nombre del cliente.", ex.getMessage(), () -> "El mensaje no es el esperado");
         assertInstanceOf(InvalidInputException.class, ex, () -> "La excepción lanzada no hereda de InvalidInputException");
     }
 
@@ -39,7 +39,7 @@ class CustomerValidatorTest {
                 () -> CustomerValidator.searchParamValidation(""),
                 () -> "La excepción lanzada no es la esperada");
 
-        assertEquals("El campo 'cédula o nombre del cliente' es requerido y no puede estar vacío", ex.getMessage(), () -> "El mensaje no es el esperado");
+        assertEquals("Los siguientes campos son requeridos: Cedula o Nombre del cliente.", ex.getMessage(), () -> "El mensaje no es el esperado");
         assertInstanceOf(InvalidInputException.class, ex, () -> "La excepción lanzada no hereda de InvalidInputException");
     }
 
