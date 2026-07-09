@@ -1,6 +1,9 @@
 package com.hector.papeleriasaas.utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -26,6 +29,21 @@ public class ValidationUtils {
         }
 
         return Arrays.asList(placeholders).contains(value);
+    }
+
+    public static List<String> getEmptyFields(Map<String, String> fields) {
+
+        List<String> emptyFields = new ArrayList<>();
+
+        for (Map.Entry<String, String> field : fields.entrySet()) {
+            String value = field.getValue();
+
+            if (value == null || value.trim().isEmpty()) {
+                emptyFields.add(field.getKey());
+            }
+        }
+
+        return emptyFields;
     }
 
 }
