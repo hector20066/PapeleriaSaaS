@@ -1,13 +1,15 @@
 package com.hector.papeleriasaas.exception.validation;
 
+import java.util.Collection;
+
 /**
  *
  * @author Ing. Hector Acevedo
  */
 public class EmptyFieldException extends InvalidInputException {
 
-    public EmptyFieldException(String fieldName) {
-        super("El campo '" + fieldName + "' es requerido y no puede estar vacío");
+    public EmptyFieldException(Collection<String> fields) {
+        super("Los siguientes campos son requeridos: " + String.join(", ", fields) + ".");
     }
 
     public EmptyFieldException(String message, Throwable cause) {
