@@ -8,39 +8,66 @@ import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 
 import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class PurchaseProductValidator {
 
     public static void registerPurchaseValidation(String nit, String rSocial, String address, String phone, String email) throws InvalidInputException {
-        if (ValidationUtils.isInvalidInput(nit, "Nit")) {
-            throw new EmptyFieldException("NIT del proveedor");
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("NIT", nit);
+        fields.put("R. Social", rSocial);
+        fields.put("Dirección", address);
+        fields.put("Teléfono", phone);
+        fields.put("Correo", email);
+
+        List<String> emptyFields = ValidationUtils.getEmptyFields(fields);
+
+        if (!emptyFields.isEmpty()) {
+            throw new EmptyFieldException(emptyFields);
         }
 
-        if (ValidationUtils.isInvalidInput(rSocial, "R. Social")) {
-            throw new EmptyFieldException("razón social del proveedor");
-        }
-
-        if (ValidationUtils.isInvalidInput(address, "Direccion")) {
-            throw new EmptyFieldException("dirección del proveedor");
-        }
-
-        if (ValidationUtils.isInvalidInput(phone, "Telefono")) {
-            throw new EmptyFieldException("teléfono del proveedor");
-        }
-
-        if (ValidationUtils.isInvalidInput(email, "Correo")) {
-            throw new EmptyFieldException("correo del proveedor");
-        }
+        invalidInputValidation(nit, rSocial, address, phone, email);
 
         if (!ValidationUtils.isNumeric(nit)) {
             throw new InvalidNumberInputException("NIT del proveedor");
         }
     }
 
+    private static void invalidInputValidation(String nit, String rSocial, String address, String phone, String email) throws InvalidInputException {
+        if (ValidationUtils.isInvalidInput(nit, "Nit")) {
+            throw new InvalidInputException("El NIT del proveedor es requerido, ingrese un valor valido");
+        }
+
+        if (ValidationUtils.isInvalidInput(rSocial, "R. Social")) {
+            throw new InvalidInputException("La razón social del proveedor es requerida, ingrese un valor valido.");
+        }
+
+        if (ValidationUtils.isInvalidInput(address, "Direccion")) {
+            throw new InvalidInputException("La dirección del proveedor es requerida, ingrese un valor valido");
+        }
+
+        if (ValidationUtils.isInvalidInput(phone, "Telefono")) {
+            throw new InvalidInputException("El teléfono del proveedor es requerido, ingrese un valor valido");
+        }
+
+        if (ValidationUtils.isInvalidInput(email, "Correo")) {
+            throw new InvalidInputException("El correo del proveedor es requerido, ingrese un valor valido");
+        }
+    }
+
     public static void addProductValidation(String product, String amount, String purchasePrice, String salePrice) throws InvalidInputException {
-        if (ValidationUtils.isEmptyFields(product, amount, purchasePrice, salePrice)) {
-            throw new EmptyFieldException("producto, cantidad, precio de compra y precio de venta");
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("Producto", product);
+        fields.put("Cantidad", amount);
+        fields.put("Precio de compra", purchasePrice);
+        fields.put("Precio de venta", salePrice);
+
+        List<String> emptyFields = ValidationUtils.getEmptyFields(fields);
+
+        if (!emptyFields.isEmpty()) {
+            throw new EmptyFieldException(emptyFields);
         }
 
         if (!ValidationUtils.isNumeric(amount)) {

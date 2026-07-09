@@ -8,13 +8,23 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 
 import java.math.BigDecimal;
-import java.util.Optional;
+import java.util.*;
 
 public final class SalesManagementValidator {
 
     public static void validationsDebts(String customerId, String customerName) throws InvalidInputException {
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("ID Cliente", customerId);
+        fields.put("Nombre del Cliente", customerName);
+
+        List<String> emptyFields = ValidationUtils.getEmptyFields(fields);
+
+        if (!emptyFields.isEmpty()) {
+            throw new EmptyFieldException(emptyFields);
+        }
+
         if (ValidationUtils.isInvalidInput(customerId, "Cedula")) {
-            throw new EmptyFieldException("cédula del cliente (requerida para ventas con deuda)");
+            throw new InvalidInputException("La cédula del cliente es requerida para ventas con deudas");
         }
 
         if (!ValidationUtils.isNumeric(customerId)) {
@@ -22,13 +32,18 @@ public final class SalesManagementValidator {
         }
 
         if (ValidationUtils.isInvalidInput(customerName, "Nombre")) {
-            throw new EmptyFieldException("nombre del cliente (requerido para ventas con deuda)");
+            throw new InvalidInputException("El nombre del cliente es requerido para ventas con deudas");
         }
     }
 
     public static void amountPaidEmptyValidation(String amountPaid) throws InvalidInputException {
-        if (ValidationUtils.isEmptyFields(amountPaid)) {
-            throw new EmptyFieldException("valor pagado");
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("Cantidad Pagada", amountPaid);
+
+        List<String> emptyFields = ValidationUtils.getEmptyFields(fields);
+
+        if (!emptyFields.isEmpty()) {
+            throw new EmptyFieldException(emptyFields);
         }
     }
 
