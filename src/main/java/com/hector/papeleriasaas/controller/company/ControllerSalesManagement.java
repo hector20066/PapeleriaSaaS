@@ -104,6 +104,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
 
         list.stream()
                 .filter(Objects::nonNull)
+                .filter(p -> p.getAmount() > 0)
                 .forEach(dto -> salesManagement.addProductPanel(dto, this));
     }
 
