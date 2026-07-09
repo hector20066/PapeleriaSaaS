@@ -54,7 +54,7 @@ class ModifyProductValidatorTest {
 
         assertEquals("La cantidad disponible no puede ser negativa.", ex.getMessage(), () -> "El mensaje de error no es el esperado.");
     }
-    
+
     @Test
     void testProductPurchasePrices() {
         InvalidInputException ex = assertThrows(

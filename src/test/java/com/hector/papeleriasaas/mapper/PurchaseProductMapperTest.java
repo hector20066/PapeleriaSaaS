@@ -80,7 +80,7 @@ class PurchaseProductMapperTest {
             );
 
             assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("El campo 'NIT del proveedor' es requerido y no puede estar vacío", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
+            assertEquals("Los siguientes campos son requeridos: NIT.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
         }
 
         @Test
@@ -96,7 +96,7 @@ class PurchaseProductMapperTest {
             );
 
             assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("El campo 'razón social del proveedor' es requerido y no puede estar vacío", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
+            assertEquals("Los siguientes campos son requeridos: R. Social.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
         }
 
         @Test
@@ -112,7 +112,7 @@ class PurchaseProductMapperTest {
             );
 
             assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("El campo 'dirección del proveedor' es requerido y no puede estar vacío", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
+            assertEquals("Los siguientes campos son requeridos: Dirección.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
         }
 
         @Test
@@ -128,7 +128,7 @@ class PurchaseProductMapperTest {
             );
 
             assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("El campo 'teléfono del proveedor' es requerido y no puede estar vacío", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
+            assertEquals("Los siguientes campos son requeridos: Teléfono.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
         }
 
         @Test
@@ -144,7 +144,7 @@ class PurchaseProductMapperTest {
             );
 
             assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("El campo 'correo del proveedor' es requerido y no puede estar vacío", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
+            assertEquals("Los siguientes campos son requeridos: Correo.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
         }
 
         @Test
