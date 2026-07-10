@@ -37,7 +37,7 @@ public final class ModifyProductValidator {
         }
 
         if (purchasePriceValue.signum() <= 0 || salePriceValue.signum() <= 0) {
-            throw new InvalidInputException("Los precios no pueden ser negativos.");
+            throw new InvalidInputException("Los precios no pueden ser negativos o ceros");
         }
     }
 

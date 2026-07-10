@@ -59,22 +59,22 @@ class ModifyProductValidatorTest {
     void testProductPurchasePrices() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
-                () -> ModifyProductValidator.productValidation(6, new BigDecimal("-5000.00"), new BigDecimal("4000.00")),
+                () -> ModifyProductValidator.productValidation(6, new BigDecimal("0"), new BigDecimal("4000.00")),
                 () -> "La excepción lanzada no es la esperada"
         );
 
-        assertEquals("Los precios no pueden ser negativos.", ex.getMessage(), () -> "El mensaje de error no es el esperado.");
+        assertEquals("Los precios no pueden ser negativos o ceros", ex.getMessage(), () -> "El mensaje de error no es el esperado.");
     }
 
     @Test
     void testProductSalePrices() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
-                () -> ModifyProductValidator.productValidation(3, new BigDecimal("5000.00"), new BigDecimal("-6570.00")),
+                () -> ModifyProductValidator.productValidation(3, new BigDecimal("5000.00"), new BigDecimal("-1.00")),
                 () -> "La excepción lanzada no es la esperada"
         );
 
-        assertEquals("Los precios no pueden ser negativos.", ex.getMessage(), () -> "El mensaje de error no es el esperado.");
+        assertEquals("Los precios no pueden ser negativos o ceros", ex.getMessage(), () -> "El mensaje de error no es el esperado.");
     }
 
     @Nested
