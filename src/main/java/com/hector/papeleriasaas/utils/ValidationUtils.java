@@ -32,7 +32,6 @@ public class ValidationUtils {
     }
 
     public static List<String> getEmptyFields(Map<String, String> fields) {
-
         List<String> emptyFields = new ArrayList<>();
 
         for (Map.Entry<String, String> field : fields.entrySet()) {

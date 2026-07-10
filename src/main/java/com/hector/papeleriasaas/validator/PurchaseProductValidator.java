@@ -41,7 +41,7 @@ public final class PurchaseProductValidator {
         }
 
         if (ValidationUtils.isInvalidInput(rSocial, "R. Social")) {
-            throw new InvalidInputException("La razón social del proveedor es requerida, ingrese un valor valido.");
+            throw new InvalidInputException("La razón social del proveedor es requerida, ingrese un valor valido");
         }
 
         if (ValidationUtils.isInvalidInput(address, "Direccion")) {
