@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.service;
 
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.interfaces.*;
@@ -29,6 +30,8 @@ class SaleServiceTest {
     private SaleDetailsFacade saleDetailsFacade;
     private InvoicesFacade invoicesFacade;
     private ProductsFacade productsFacade;
+    ConnectionProvider provider;
+    Connection connection;
 
     private SaleService saleService;
 
@@ -39,14 +42,15 @@ class SaleServiceTest {
         saleDetailsFacade = mock(SaleDetailsFacade.class);
         invoicesFacade = mock(InvoicesFacade.class);
         productsFacade = mock(ProductsFacade.class);
+        provider = mock(ConnectionProvider.class);
+        connection = mock(Connection.class);
 
-        saleService = new SaleService(customersFacade, salesFacade, saleDetailsFacade, invoicesFacade, productsFacade);
+        saleService = new SaleService(customersFacade, salesFacade, saleDetailsFacade, invoicesFacade, productsFacade, provider);
     }
 
     @Test
     void testRegisterSale() throws DAOException, SQLException {
-        DataBasePool db = mock(DataBasePool.class);
-        when(db.getConnection()).thenReturn(any(Connection.class));
+        when(provider.getConnection()).thenReturn(connection);
         when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomer.Builder()
                 .identification(1066726477)
                 .phone("3137762626")

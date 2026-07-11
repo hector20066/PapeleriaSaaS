@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.DataBasePool;
+import com.hector.papeleriasaas.database.DefaultConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.impl.*;
 import com.hector.papeleriasaas.facade.interfaces.*;
@@ -24,6 +26,7 @@ public class SaleService {
     private final SaleDetailsFacade saleDetailsFacade;
     private final InvoicesFacade invoiceFacade;
     private final ProductsFacade productsFacade;
+    private final ConnectionProvider connectionProvider;
 
     public SaleService() {
         this.customerFacade = new CustomersImplFacade();
@@ -31,14 +34,16 @@ public class SaleService {
         this.saleDetailsFacade = new SaleDetailsImplFacade();
         this.invoiceFacade = new InvoicesImplFacade();
         this.productsFacade = new ProductImplFacade();
+        this.connectionProvider = new DefaultConnectionProvider();
     }
 
-    public SaleService(CustomersFacade customersFacade, SalesFacade saleFacade, SaleDetailsFacade saleDetailsFacade, InvoicesFacade invoicesFacade, ProductsFacade productsFacade) {
+    public SaleService(CustomersFacade customersFacade, SalesFacade saleFacade, SaleDetailsFacade saleDetailsFacade, InvoicesFacade invoicesFacade, ProductsFacade productsFacade, ConnectionProvider connectionProvider) {
         this.customerFacade = customersFacade;
         this.saleFacade = saleFacade;
         this.saleDetailsFacade = saleDetailsFacade;
         this.invoiceFacade = invoicesFacade;
         this.productsFacade = productsFacade;
+        this.connectionProvider = connectionProvider;
     }
 
     public int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
@@ -47,7 +52,7 @@ public class SaleService {
         int invoiceNumber = 0;
 
         try {
-            connection = DataBasePool.getInstance().getConnection();
+            connection = connectionProvider.getConnection();
             connection.setAutoCommit(false);
 
             // Only process customer info if customerId is not null (sale with debt)
