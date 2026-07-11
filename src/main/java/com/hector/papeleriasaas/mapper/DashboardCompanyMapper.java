@@ -20,7 +20,7 @@ public class DashboardCompanyMapper {
                 .totalSales(DashboardDataCalculator.totalSales(salesList).floatValue())
                 .totalProfits(DashboardDataCalculator.totalProfits(salesList, productsList).floatValue())
                 .productName(bestSelling.getDescription())
-                .amountProduct(bestSelling.getTimesSold())
+                .amountProduct(bestSelling.getQuantitySold())
                 .build();
     }
 

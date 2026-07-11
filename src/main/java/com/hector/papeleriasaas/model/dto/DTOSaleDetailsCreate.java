@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  */
 public class DTOSaleDetailsCreate {
 
-    private Integer numSale;
+    private Integer saleId;
     private Integer productId;
     private Integer amount;
     private BigDecimal unitPrice;
@@ -17,19 +17,19 @@ public class DTOSaleDetailsCreate {
 
     }
 
-    public DTOSaleDetailsCreate(Integer numSale, Integer productId, Integer amount, BigDecimal unitPrice) {
-        this.numSale = numSale;
+    public DTOSaleDetailsCreate(Integer saleId, Integer productId, Integer amount, BigDecimal unitPrice) {
+        this.saleId = saleId;
         this.productId = productId;
         this.amount = amount;
         this.unitPrice = unitPrice;
     }
 
-    public Integer getNumSale() {
-        return numSale;
+    public Integer getSaleId() {
+        return saleId;
     }
 
-    public void setNumSale(Integer numSale) {
-        this.numSale = numSale;
+    public void setSaleId(Integer saleId) {
+        this.saleId = saleId;
     }
 
     public Integer getProductId() {

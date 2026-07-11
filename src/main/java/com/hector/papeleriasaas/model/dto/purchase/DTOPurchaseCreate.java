@@ -22,7 +22,7 @@ public class DTOPurchaseCreate {
         this.companyId = companyId;
     }
 
-    public int getProviderId() {
+    public Integer getProviderId() {
         return providerId;
     }
 

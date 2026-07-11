@@ -125,7 +125,7 @@ public class DAODebtsImpl implements DAODebts {
 
     private DTODebtDetails getDTODebtDetails(ResultSet rs) throws SQLException {
         return new DTODebtDetails.Builder()
-                .numDebt(rs.getInt("num_deuda"))
+                .id(rs.getInt("num_deuda"))
                 .customerId(rs.getInt("id_cliente"))
                 .customerName(rs.getString("nombre_cliente"))
                 .customerPhone(rs.getString("telefono"))

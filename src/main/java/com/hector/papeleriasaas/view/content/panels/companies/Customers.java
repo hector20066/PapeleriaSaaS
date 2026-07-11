@@ -1,6 +1,7 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
-import com.hector.papeleriasaas.model.dto.DTOCustomer;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 
 import javax.swing.*;
@@ -209,7 +210,7 @@ public class Customers extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void updatePanel(DTOCustomer dto) {
+    public void updatePanel(DTOCustomerDetails dto) {
         int id = dto.getIdentification();
         String name = dto.getName();
         String phone = dto.getPhone();

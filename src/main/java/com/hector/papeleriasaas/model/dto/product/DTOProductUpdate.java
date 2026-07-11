@@ -8,11 +8,12 @@ import java.math.BigDecimal;
  */
 public class DTOProductUpdate {
 
-    private int id;
+    private Integer id;
     private String description;
-    private int amount;
+    private Integer amount;
     private BigDecimal salePrice;
     private BigDecimal purchasePrice;
+    private Integer companyId;
 
     public DTOProductUpdate() {
 
@@ -24,57 +25,43 @@ public class DTOProductUpdate {
         this.amount = builder.amount;
         this.salePrice = builder.salePrice;
         this.purchasePrice = builder.purchasePrice;
+        this.companyId = builder.companyId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
     }
 
     public BigDecimal getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(BigDecimal salePrice) {
-        this.salePrice = salePrice;
-    }
-
     public BigDecimal getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(BigDecimal purchasePrice) {
-        this.purchasePrice = purchasePrice;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
     public static class Builder {
 
-        private int id;
+        private Integer id;
         private String description;
-        private int amount;
+        private Integer amount;
         private BigDecimal salePrice;
         private BigDecimal purchasePrice;
+        private Integer companyId;
 
-        public Builder id(int id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
@@ -84,7 +71,7 @@ public class DTOProductUpdate {
             return this;
         }
 
-        public Builder amount(int amount) {
+        public Builder amount(Integer amount) {
             this.amount = amount;
             return this;
         }
@@ -96,6 +83,11 @@ public class DTOProductUpdate {
 
         public Builder purchasePrice(BigDecimal purchasePrice) {
             this.purchasePrice = purchasePrice;
+            return this;
+        }
+
+        public Builder companyId(Integer companyId) {
+            this.companyId = companyId;
             return this;
         }
 

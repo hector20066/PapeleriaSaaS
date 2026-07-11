@@ -24,7 +24,7 @@ public class SaleDetailsImplFacade implements SaleDetailsFacade {
     @Override
     public void add(Connection connection, int numSale, int productId, int amount, BigDecimal unitPrice) throws DAOException {
         DTOSaleDetailsCreate dto = new DTOSaleDetailsCreate();
-        dto.setNumSale(numSale);
+        dto.setSaleId(numSale);
         dto.setProductId(productId);
         dto.setAmount(amount);
         dto.setUnitPrice(unitPrice);

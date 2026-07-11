@@ -172,7 +172,7 @@ public class DAOProductsImpl implements DAOProducts {
             DTOProductBestSelling dto = new DTOProductBestSelling.Builder()
                     .id(rs.getInt("id"))
                     .description(rs.getString("descripcion"))
-                    .timesSold(rs.getInt("cantidad_vendidas"))
+                    .quantitySold(rs.getInt("cantidad_vendidas"))
                     .build();
 
             return Optional.of(dto);

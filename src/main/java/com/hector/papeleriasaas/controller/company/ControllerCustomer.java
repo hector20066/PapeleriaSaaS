@@ -4,7 +4,8 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.*;
 import com.hector.papeleriasaas.facade.interfaces.CustomersFacade;
-import com.hector.papeleriasaas.model.dto.DTOCustomer;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.observer.*;
 import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.*;
@@ -70,7 +71,7 @@ public class ControllerCustomer implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOCustomer> customersList = daoCustomer.findByAll();
+                List<DTOCustomerDetails> customersList = daoCustomer.findByAll();
                 int totalRecords = daoCustomer.countRecords();
 
                 SwingUtilities.invokeLater(() -> loadData(customersList, totalRecords));
@@ -81,7 +82,7 @@ public class ControllerCustomer implements Observer {
         });
     }
 
-    private void loadData(List<DTOCustomer> customersList, int totalRecords) {
+    private void loadData(List<DTOCustomerDetails> customersList, int totalRecords) {
         customers.getModel().setRowCount(0);
         customers.getTxt_totalRecords().setText(String.valueOf(totalRecords));
 
@@ -101,7 +102,7 @@ public class ControllerCustomer implements Observer {
     private void doInBackground(String customer) {
         BackgroundExecutor.execute(() -> {
             try {
-                Optional<DTOCustomer> dtoOptional = ValidationUtils.isNumeric(customer)
+                Optional<DTOCustomerDetails> dtoOptional = ValidationUtils.isNumeric(customer)
                         ? daoCustomer.findById(ParserUtils.parseInteger(customer, "cedula"))
                         : daoCustomer.findByName(customer);
 
@@ -131,7 +132,7 @@ public class ControllerCustomer implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOCustomer> customersList = daoCustomer.findByAll();
+                List<DTOCustomerDetails> customersList = daoCustomer.findByAll();
                 String compileReport = "/reports/Clientes.jrxml";
                 Map<String, Object> params = new HashMap<>();
 

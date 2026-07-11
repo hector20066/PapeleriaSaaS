@@ -1,10 +1,10 @@
 package com.hector.papeleriasaas.service;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
-import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.interfaces.*;
-import com.hector.papeleriasaas.model.dto.DTOCustomer;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +51,7 @@ class SaleServiceTest {
     @Test
     void testRegisterSale() throws DAOException, SQLException {
         when(provider.getConnection()).thenReturn(connection);
-        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomer.Builder()
+        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomerDetails.Builder()
                 .identification(1066726477)
                 .phone("3137762626")
                 .name("hector")

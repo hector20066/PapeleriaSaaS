@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 public class DTODebtDetails {
 
-    private Integer numDebt;
+    private Integer id;
     private Integer customerId;
     private String customerName;
     private String customerPhone;
@@ -27,7 +27,7 @@ public class DTODebtDetails {
     }
 
     public DTODebtDetails(Builder builder) {
-        this.numDebt = builder.numDebt;
+        this.id = builder.id;
         this.customerId = builder.customerId;
         this.customerName = builder.customerName;
         this.customerPhone = builder.customerPhone;
@@ -39,8 +39,8 @@ public class DTODebtDetails {
         this.status = builder.status;
     }
 
-    public Integer getNumDebt() {
-        return numDebt;
+    public Integer getId() {
+        return id;
     }
 
     public Integer getCustomerId() {
@@ -85,7 +85,7 @@ public class DTODebtDetails {
 
     public static class Builder {
 
-        private Integer numDebt;
+        private Integer id;
         private Integer customerId;
         private String customerName;
         private String customerPhone;
@@ -96,13 +96,13 @@ public class DTODebtDetails {
         private BigDecimal totalDebt;
         private PaymentStatus status;
 
-        public Builder numDebt(Integer numDebt) {
-            this.numDebt = numDebt;
+        public Builder id(Integer id) {
+            this.id = id;
             return this;
         }
 
-        public Builder customerId(Integer id) {
-            this.customerId = id;
+        public Builder customerId(Integer customerId) {
+            this.customerId = customerId;
             return this;
         }
 

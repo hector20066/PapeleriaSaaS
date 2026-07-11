@@ -1,10 +1,10 @@
-package com.hector.papeleriasaas.model.dto;
+package com.hector.papeleriasaas.model.dto.customer;
 
 /**
  *
  * @author Ing. Hector Acevedo
  */
-public class DTOCustomer {
+public class DTOCustomerCreate {
 
     private Integer identification;
     private String name;
@@ -12,11 +12,11 @@ public class DTOCustomer {
     private String email;
     private Integer companyId;
 
-    public DTOCustomer() {
+    public DTOCustomerCreate() {
 
     }
 
-    public DTOCustomer(Builder builder) {
+    public DTOCustomerCreate(Builder builder) {
         this.identification = builder.identification;
         this.name = builder.name;
         this.phone = builder.phone;
@@ -28,40 +28,20 @@ public class DTOCustomer {
         return identification;
     }
 
-    public void setIdentification(Integer identification) {
-        this.identification = identification;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Integer getCompanyId() {
         return companyId;
-    }
-
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
     }
 
     public static class Builder {
@@ -97,9 +77,10 @@ public class DTOCustomer {
             return this;
         }
 
-        public DTOCustomer build() {
-            return new DTOCustomer(this);
+        public DTOCustomerCreate build() {
+            return new DTOCustomerCreate(this);
         }
 
     }
+
 }

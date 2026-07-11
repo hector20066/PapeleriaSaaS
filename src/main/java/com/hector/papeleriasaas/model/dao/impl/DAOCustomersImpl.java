@@ -4,7 +4,8 @@ import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.CustomerPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCustomers;
-import com.hector.papeleriasaas.model.dto.DTOCustomer;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
 import java.sql.Connection;
@@ -26,7 +27,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public int add(Connection connection, DTOCustomer dto) throws DAOException {
+    public int add(Connection connection, DTOCustomerCreate dto) throws DAOException {
         String sql = SQLRepository.get("sql/customer/insert.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -41,7 +42,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public Optional<DTOCustomer> findByName(String name) throws DAOException {
+    public Optional<DTOCustomerDetails> findByName(String name) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findByName.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -61,7 +62,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public Optional<DTOCustomer> findById(int id) throws DAOException {
+    public Optional<DTOCustomerDetails> findById(int id) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findById.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -81,7 +82,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public Optional<DTOCustomer> findById(Connection connection, int id) throws DAOException {
+    public Optional<DTOCustomerDetails> findById(Connection connection, int id) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findById.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -100,9 +101,9 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public List<DTOCustomer> findByAll() throws DAOException {
+    public List<DTOCustomerDetails> findByAll() throws DAOException {
         String sql = SQLRepository.get("sql/customer/findByAllCompany.sql");
-        List<DTOCustomer> list = new ArrayList<>();
+        List<DTOCustomerDetails> list = new ArrayList<>();
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
@@ -118,17 +119,18 @@ public class DAOCustomersImpl implements DAOCustomers {
         }
     }
 
-    private DTOCustomer getDTOCustomer(ResultSet rs) throws SQLException {
-        DTOCustomer dto = new DTOCustomer();
-        dto.setIdentification(rs.getInt("id"));
-        dto.setName(rs.getString("nombre"));
-        dto.setPhone(rs.getString("telefono"));
+    private DTOCustomerDetails getDTOCustomer(ResultSet rs) throws SQLException {
+        DTOCustomerDetails dto = new DTOCustomerDetails.Builder()
+                .identification(rs.getInt("id"))
+                .name(rs.getString("nombre"))
+                .phone(rs.getString("telefono"))
+                .build();
 
         return dto;
     }
 
     @Override
-    public void modify(Connection connection, DTOCustomer dto) throws DAOException {
+    public void modify(Connection connection, DTOCustomerCreate dto) throws DAOException {
         String sql = SQLRepository.get("sql/customer/modify.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {

@@ -25,7 +25,7 @@ public class DAOPurchaseDetailsImpl implements DAOPurchaseDetails {
         String sql = SQLRepository.get("sql/purchasedetails/insert.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setInt(1, dto.getPurchaseNum());
+            st.setInt(1, dto.getPurchaseId());
             st.setInt(2, dto.getProductId());
             st.setInt(3, dto.getAmount());
             st.setBigDecimal(4, dto.getUnitPrice());

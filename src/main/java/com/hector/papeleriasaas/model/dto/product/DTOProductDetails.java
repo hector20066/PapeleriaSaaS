@@ -9,9 +9,9 @@ import java.util.Objects;
  */
 public class DTOProductDetails {
 
-    private int id;
+    private Integer id;
     private String description;
-    private int amount;
+    private Integer amount;
     private BigDecimal purchasePrice;
     private BigDecimal salePrice;
     private String provider;
@@ -31,7 +31,7 @@ public class DTOProductDetails {
         earnings = builder.earnings;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -39,7 +39,7 @@ public class DTOProductDetails {
         return description;
     }
 
-    public int getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
@@ -77,15 +77,15 @@ public class DTOProductDetails {
 
     public static class Builder {
 
-        private int id;
+        private Integer id;
         private String description;
-        private int amount;
+        private Integer amount;
         private BigDecimal purchasePrice;
         private BigDecimal salePrice;
         private String provider;
         private BigDecimal earnings;
 
-        public Builder id(int id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
@@ -95,7 +95,7 @@ public class DTOProductDetails {
             return this;
         }
 
-        public Builder amount(int amount) {
+        public Builder amount(Integer amount) {
             this.amount = amount;
             return this;
         }

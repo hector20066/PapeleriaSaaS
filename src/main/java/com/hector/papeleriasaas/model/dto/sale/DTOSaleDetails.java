@@ -9,10 +9,10 @@ import java.time.LocalDate;
  */
 public class DTOSaleDetails {
 
-    private int numSale;
-    private int productId;
+    private Integer numSale;
+    private Integer productId;
     private String productDescription;
-    private int quantitySold;
+    private Integer quantitySold;
     private LocalDate date;
     private String customer;
     private BigDecimal totalSale;
@@ -31,11 +31,11 @@ public class DTOSaleDetails {
         this.totalSale = builder.totalSale;
     }
 
-    public int getNumSale() {
+    public Integer getNumSale() {
         return numSale;
     }
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
@@ -43,7 +43,7 @@ public class DTOSaleDetails {
         return productDescription;
     }
 
-    public int getQuantitySold() {
+    public Integer getQuantitySold() {
         return quantitySold;
     }
 
@@ -61,20 +61,20 @@ public class DTOSaleDetails {
 
     public static class Builder {
 
-        private int numSale;
-        private int productId;
+        private Integer numSale;
+        private Integer productId;
         private String productDescription;
-        private int quantitySold;
+        private Integer quantitySold;
         private LocalDate date;
         private String customer;
         private BigDecimal totalSale;
 
-        public Builder numSale(int numSale) {
+        public Builder numSale(Integer numSale) {
             this.numSale = numSale;
             return this;
         }
 
-        public Builder productId(int productId) {
+        public Builder productId(Integer productId) {
             this.productId = productId;
             return this;
         }
@@ -84,7 +84,7 @@ public class DTOSaleDetails {
             return this;
         }
 
-        public Builder quantitySold(int quantitySold) {
+        public Builder quantitySold(Integer quantitySold) {
             this.quantitySold = quantitySold;
             return this;
         }

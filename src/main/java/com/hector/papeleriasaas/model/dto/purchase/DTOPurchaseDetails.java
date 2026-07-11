@@ -9,15 +9,15 @@ import java.time.LocalDate;
  */
 public class DTOPurchaseDetails {
 
-    private int numPurchase;
+    private Integer numPurchase;
     private String productDescription;
-    private int productId;
-    private int quantityPurchased;
+    private Integer productId;
+    private Integer quantityPurchased;
     private BigDecimal purchasePrice;
     private BigDecimal salePrice;
     private LocalDate date;
-    private String supplier;
-    private int supplierNit;
+    private String provider;
+    private Integer providerNit;
     private BigDecimal totalPaid;
     private BigDecimal earnings;
 
@@ -33,13 +33,13 @@ public class DTOPurchaseDetails {
         this.purchasePrice = builder.purchasePrice;
         this.salePrice = builder.salePrice;
         this.date = builder.date;
-        this.supplier = builder.supplier;
-        this.supplierNit = builder.supplierNit;
+        this.provider = builder.provider;
+        this.providerNit = builder.providerNit;
         this.totalPaid = builder.totalPaid;
         this.earnings = builder.earnings;
     }
 
-    public int getNumPurchase() {
+    public Integer getNumPurchase() {
         return numPurchase;
     }
 
@@ -47,11 +47,11 @@ public class DTOPurchaseDetails {
         return productDescription;
     }
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public int getQuantityPurchased() {
+    public Integer getQuantityPurchased() {
         return quantityPurchased;
     }
 
@@ -67,12 +67,12 @@ public class DTOPurchaseDetails {
         return date;
     }
 
-    public String getSupplier() {
-        return supplier;
+    public String getProvider() {
+        return provider;
     }
 
-    public int getSupplierNit() {
-        return supplierNit;
+    public Integer getProviderNit() {
+        return providerNit;
     }
 
     public BigDecimal getTotalPaid() {
@@ -85,19 +85,19 @@ public class DTOPurchaseDetails {
 
     public static class Builder {
 
-        private int numPurchase;
+        private Integer numPurchase;
         private String productDescription;
-        private int productId;
-        private int quantityPurchased;
+        private Integer productId;
+        private Integer quantityPurchased;
         private BigDecimal purchasePrice;
         private BigDecimal salePrice;
         private LocalDate date;
-        private String supplier;
-        private int supplierNit;
+        private String provider;
+        private Integer providerNit;
         private BigDecimal totalPaid;
         private BigDecimal earnings;
 
-        public Builder numPurchase(int numSale) {
+        public Builder numPurchase(Integer numSale) {
             this.numPurchase = numSale;
             return this;
         }
@@ -107,12 +107,12 @@ public class DTOPurchaseDetails {
             return this;
         }
 
-        public Builder productId(int productId) {
+        public Builder productId(Integer productId) {
             this.productId = productId;
             return this;
         }
 
-        public Builder quantityPurchased(int quantityPurchased) {
+        public Builder quantityPurchased(Integer quantityPurchased) {
             this.quantityPurchased = quantityPurchased;
             return this;
         }
@@ -132,13 +132,13 @@ public class DTOPurchaseDetails {
             return this;
         }
 
-        public Builder supplier(String supplier) {
-            this.supplier = supplier;
+        public Builder provider(String provider) {
+            this.provider = provider;
             return this;
         }
 
-        public Builder supplierNit(int supplierNit) {
-            this.supplierNit = supplierNit;
+        public Builder providerNit(Integer providerNit) {
+            this.providerNit = providerNit;
             return this;
         }
 

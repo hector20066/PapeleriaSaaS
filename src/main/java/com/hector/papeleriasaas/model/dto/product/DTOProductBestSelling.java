@@ -10,7 +10,7 @@ public class DTOProductBestSelling {
 
     private Integer id;
     private String description;
-    private Integer timesSold;
+    private Integer quantitySold;
 
     public DTOProductBestSelling() {
     }
@@ -18,7 +18,7 @@ public class DTOProductBestSelling {
     public DTOProductBestSelling(Builder builder) {
         this.id = builder.id;
         this.description = builder.description;
-        this.timesSold = builder.timesSold;
+        this.quantitySold = builder.quantitySold;
     }
 
     public Integer getId() {
@@ -29,8 +29,8 @@ public class DTOProductBestSelling {
         return description;
     }
 
-    public Integer getTimesSold() {
-        return timesSold;
+    public Integer getQuantitySold() {
+        return quantitySold;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class DTOProductBestSelling {
         return "DTOProductBestSelling{" +
                 "id=" + id +
                 ", description='" + description + '\'' +
-                ", timesSold=" + timesSold +
+                ", timesSold=" + quantitySold +
                 '}';
     }
 
@@ -58,7 +58,7 @@ public class DTOProductBestSelling {
 
         private Integer id;
         private String description;
-        private Integer timesSold;
+        private Integer quantitySold;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -70,8 +70,8 @@ public class DTOProductBestSelling {
             return this;
         }
 
-        public Builder timesSold(Integer timesSold) {
-            this.timesSold = timesSold;
+        public Builder quantitySold(Integer timesSold) {
+            this.quantitySold = timesSold;
             return this;
         }
 

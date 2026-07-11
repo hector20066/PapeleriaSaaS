@@ -8,23 +8,25 @@ import java.math.BigDecimal;
  */
 public class DTOSaleUpdate {
 
-    private int numSale;
+    private Integer numSale;
     private BigDecimal totalPaid;
+    private Integer companyId;
 
     public DTOSaleUpdate() {
 
     }
 
-    public DTOSaleUpdate(int numSale, BigDecimal totalPaid) {
+    public DTOSaleUpdate(int numSale, BigDecimal totalPaid, Integer companyId) {
         this.numSale = numSale;
         this.totalPaid = totalPaid;
+        this.companyId = companyId;
     }
 
-    public int getNumSale() {
+    public Integer getNumSale() {
         return numSale;
     }
 
-    public void setNumSale(int numSale) {
+    public void setNumSale(Integer numSale) {
         this.numSale = numSale;
     }
 
@@ -34,6 +36,14 @@ public class DTOSaleUpdate {
 
     public void setTotalPaid(BigDecimal totalPaid) {
         this.totalPaid = totalPaid;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
 }

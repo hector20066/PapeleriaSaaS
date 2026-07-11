@@ -29,7 +29,7 @@ class DashboardCompanyMapperTest {
 
         this.bestSelling = new DTOProductBestSelling.Builder()
                 .description("Cuaderno Norma")
-                .timesSold(50)
+                .quantitySold(50)
                 .build();
 
         this.productList.add(new DTOProductDetails.Builder()

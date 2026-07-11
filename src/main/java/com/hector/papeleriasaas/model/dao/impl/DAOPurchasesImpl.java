@@ -111,8 +111,8 @@ public class DAOPurchasesImpl implements DAOPurchases {
                 .purchasePrice(rs.getBigDecimal("precio_compra"))
                 .salePrice(rs.getBigDecimal("precio_venta"))
                 .date(rs.getDate("fecha").toLocalDate())
-                .supplier(rs.getString("proveedor"))
-                .supplierNit(rs.getInt("nit_proveedor"))
+                .provider(rs.getString("proveedor"))
+                .providerNit(rs.getInt("nit_proveedor"))
                 .totalPaid(rs.getBigDecimal("total_compra"))
                 .earnings(rs.getBigDecimal("ganancias"))
                 .build();

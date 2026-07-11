@@ -4,7 +4,8 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.model.dto.DTOCustomer;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 
 import java.util.LinkedHashMap;
@@ -29,7 +30,7 @@ public final class CustomerValidator {
         }
     }
 
-    public static void optionalEmptyValidation(Optional<DTOCustomer> dtoOptional, String param) throws DAOException {
+    public static void optionalEmptyValidation(Optional<DTOCustomerDetails> dtoOptional, String param) throws DAOException {
         if (dtoOptional.isEmpty()) {
             throw new CustomerNotFoundException(param);
         }

@@ -1,7 +1,6 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
-import com.hector.papeleriasaas.view.swing.TableHeader;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.panels.RoundedPanel;
 
@@ -203,8 +202,8 @@ public class PurchasingReport extends javax.swing.JPanel {
         BigDecimal purchasePrice = dto.getPurchasePrice();
         BigDecimal salePrice = dto.getSalePrice();
         LocalDate date = dto.getDate();
-        String supplierName = dto.getSupplier();
-        int supplierNit = dto.getSupplierNit();
+        String supplierName = dto.getProvider();
+        int supplierNit = dto.getProviderNit();
         BigDecimal totalPurchase = dto.getTotalPaid();
         BigDecimal earnings = dto.getEarnings();
 

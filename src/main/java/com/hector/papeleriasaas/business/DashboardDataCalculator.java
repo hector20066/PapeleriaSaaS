@@ -4,10 +4,7 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class DashboardDataCalculator {
@@ -36,7 +33,7 @@ public class DashboardDataCalculator {
                     int quantitySold = sale.getQuantitySold();
 
                     Optional<DTOProductDetails> productOptional = productsList.stream()
-                            .filter(p -> p.getId() == sale.getProductId())
+                            .filter(p -> Objects.equals(p.getId(), sale.getProductId()))
                             .findFirst();
 
                     BigDecimal purchasePrice = productOptional
