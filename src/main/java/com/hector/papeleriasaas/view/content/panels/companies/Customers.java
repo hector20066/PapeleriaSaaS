@@ -125,11 +125,11 @@ public class Customers extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cedula", "Nombre", "Telefono"
+                "ID", "Cedula", "Nombre", "Telefono", "Correo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
