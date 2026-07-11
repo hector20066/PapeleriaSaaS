@@ -33,6 +33,14 @@ public class SaleService {
         this.productsFacade = new ProductImplFacade();
     }
 
+    public SaleService(CustomersFacade customersFacade, SalesFacade saleFacade, SaleDetailsFacade saleDetailsFacade, InvoicesFacade invoicesFacade, ProductsFacade productsFacade) {
+        this.customerFacade = customersFacade;
+        this.saleFacade = saleFacade;
+        this.saleDetailsFacade = saleDetailsFacade;
+        this.invoiceFacade = invoicesFacade;
+        this.productsFacade = productsFacade;
+    }
+
     public int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
                              BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws SQLException, DAOException {
         Connection connection = null;
