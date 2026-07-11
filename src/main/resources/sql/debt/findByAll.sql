@@ -1,2 +1,3 @@
 SELECT *
-FROM deudas_clientes;
+FROM vw_customers_debts
+WHERE id_company = ?;

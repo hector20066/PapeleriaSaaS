@@ -1,7 +1,7 @@
 INSERT INTO
-detalle_compra (
-                num_compra,
-                id_producto,
-                cantidad,
-                precio_unitario
+purchases_details (
+                purchase_id,
+                product_id,
+                amount,
+                unit_price
 ) VALUES (?, ?, ?, ?);

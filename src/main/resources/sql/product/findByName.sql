@@ -1,3 +1,4 @@
 SELECT *
-FROM inventario
-WHERE LOWER(TRIM(descripcion)) = LOWER(TRIM(?));
+FROM vw_inventory
+WHERE LOWER(TRIM(description)) = LOWER(TRIM(?)) AND
+      id_company = ?;

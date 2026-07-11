@@ -1,3 +1,4 @@
 DELETE
-FROM compra
-WHERE num_compra = ?;
+FROM purchases
+WHERE purchase_number = ? AND
+      id_company = ?;

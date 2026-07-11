@@ -1,7 +1,8 @@
-UPDATE producto
+UPDATE products
 SET
-    descripcion = ?,
-    cantidad = ?,
-    precio_venta = ?,
-    precio_compra = ?
-WHERE id = ?;
+    description = ?,
+    amount = ?,
+    sale_price = ?,
+    purchase_price = ?
+WHERE id = ? AND
+      id_company = ?;

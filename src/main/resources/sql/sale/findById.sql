@@ -1,2 +1,4 @@
-SELECT * FROM reporte_ventas
-WHERE num_venta = ?;
+SELECT *
+FROM vw_sales_report
+WHERE sale_number = ? AND
+      id_company = ?;

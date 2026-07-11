@@ -1,3 +1,4 @@
 SELECT
-    COUNT(num_compra) AS total_records
-FROM compra;
+    COUNT(purchase_number) AS total_records
+FROM purchases
+WHERE id_company = ?;

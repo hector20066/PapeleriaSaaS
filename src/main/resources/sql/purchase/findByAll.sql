@@ -1,1 +1,3 @@
-SELECT * FROM reporte_compras;
+SELECT *
+FROM vw_purchasing_report
+WHERE id_company = ?;

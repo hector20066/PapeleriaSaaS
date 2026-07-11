@@ -1,2 +1,7 @@
-SELECT * FROM cliente
-WHERE LOWER(TRIM(nombre)) = LOWER(TRIM(?));
+SELECT
+    identification,
+    name,
+    phone,
+    email
+FROM customers
+WHERE LOWER(TRIM(name)) = LOWER(TRIM(?));

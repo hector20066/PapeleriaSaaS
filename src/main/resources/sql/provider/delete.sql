@@ -1,3 +1,4 @@
 DELETE
-FROM proveedor
-WHERE nit = ?;
+FROM providers
+WHERE id = ? AND
+      id_company = ?;

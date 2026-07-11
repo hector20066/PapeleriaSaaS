@@ -1,3 +1,4 @@
 SELECT
-    COUNT(nit) AS total_records
-FROM proveedor;
+    COUNT(rSocial) AS total_records
+FROM providers
+WHERE id_company = ?;

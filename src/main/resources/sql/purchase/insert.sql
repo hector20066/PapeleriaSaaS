@@ -1,1 +1,1 @@
-{CALL sp_crear_compra(?, ?)}
+{CALL sp_create_purchase(?, ?, ?)}

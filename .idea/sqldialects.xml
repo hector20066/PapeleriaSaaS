@@ -2,11 +2,11 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/DATABASE.sql" dialect="MariaDB" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/customer/add.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/customer/countRecords.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/customer/findByAll.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/customer/findByAllCompany.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/customer/findById.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/customer/findByName.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/customer/insert.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/customer/modify.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/debt/countRecords.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/debt/findByAll.sql" dialect="GenericSQL" />

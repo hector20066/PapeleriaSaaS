@@ -1,1 +1,1 @@
-{CALL sp_crear_venta(?, ?, ?)}
+{CALL sp_create_sale(?, ?, ?, ?)}

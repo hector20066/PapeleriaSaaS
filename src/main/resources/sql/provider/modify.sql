@@ -1,8 +1,9 @@
 UPDATE
-proveedor
+providers
 SET
     rSocial = ?,
-    direccion = ?,
-    telefono = ?,
-    correo = ?
-WHERE nit = ?;
+    address = ?,
+    phone = ?,
+    email = ?
+WHERE nit = ? AND
+      id_company = ?;

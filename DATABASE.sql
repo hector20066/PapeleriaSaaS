@@ -334,7 +334,8 @@ SELECT
     s.total_sale,
     s.total_paid,
     d.total_debt AS current_debt,
-    d.status
+    d.status,
+    d.id_company
 FROM debts d 
     JOIN sales s ON d.sale_id = s.id
     LEFT JOIN customers c ON s.customer_id = c.id;
@@ -343,12 +344,13 @@ FROM debts d
 CREATE VIEW vw_sales_report AS
 SELECT 
     s.sale_number,
-    p.id          AS product_id,
+    p.id AS product_id,
     p.description AS product,
-    sd.amount     AS quantity_sold,
+    sd.amount AS quantity_sold,
     s.sale_date,
-    c.name        AS customer,
-    s.total_sale
+    c.name AS customer,
+    s.total_sale,
+    s.id_company
 FROM sales_details sd
     JOIN sales s ON sd.sale_id = s.id
     LEFT JOIN products p ON sd.product_id = p.id
@@ -363,7 +365,8 @@ SELECT
     p.purchase_price,
     p.sale_price,
     COALESCE(GROUP_CONCAT(DISTINCT pr.rSocial SEPARATOR ', '), 'Sin Proveedor') AS provider,
-    ((p.sale_price * p.amount) - (p.purchase_price * p.amount)) AS earnings
+    ((p.sale_price * p.amount) - (p.purchase_price * p.amount)) AS earnings,
+    p.id_company
 FROM products p
     LEFT JOIN purchases_details pd ON p.id = pd.product_id
     LEFT JOIN purchases ps ON pd.purchase_id = ps.id
@@ -383,7 +386,8 @@ SELECT
     pr.rSocial AS provider,
     pr.nit AS provider_nit,
     ps.total_purchase,
-    ((p.sale_price * pd.amount) - (p.purchase_price * pd.amount)) AS earnings
+    ((p.sale_price * pd.amount) - (p.purchase_price * pd.amount)) AS earnings,
+    ps.id_company
 FROM purchases_details pd
     JOIN purchases ps ON pd.purchase_id = ps.id
     LEFT JOIN products p ON pd.product_id = p.id

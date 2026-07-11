@@ -1,4 +1,5 @@
 SELECT
-    COUNT(num_deuda) AS total_records
-FROM deuda
-WHERE status = 'PENDING';
+    COUNT(sale_id) AS total_records
+FROM debts
+WHERE status = 'PENDING' AND
+      id_company = ?;

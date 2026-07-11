@@ -1,6 +1,7 @@
 INSERT INTO
-producto (
-          descripcion,
-          precio_compra,
-          precio_venta
-) VALUES (?, ?, ?);
+products (
+          description,
+          purchase_price,
+          sale_price,
+          id_company
+) VALUES (?, ?, ?, ?);

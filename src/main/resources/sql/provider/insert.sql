@@ -1,3 +1,9 @@
 INSERT INTO
-proveedor
-VALUES (?, ?, ?, ?, ?);
+providers (
+           nit,
+           rSocial,
+           address,
+           phone,
+           email,
+           id_company
+) VALUES (?, ?, ?, ?, ?, ?);

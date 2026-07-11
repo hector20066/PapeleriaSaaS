@@ -1,3 +1,4 @@
 SELECT *
-FROM deudas_clientes
-WHERE num_deuda = ?;
+FROM vw_customers_debts
+WHERE id = ? AND
+      id_company = ?;

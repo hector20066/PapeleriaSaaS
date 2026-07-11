@@ -1,3 +1,4 @@
 DELETE
-FROM producto
-WHERE id = ?;
+FROM products
+WHERE id = ? AND
+      id_company = ?;

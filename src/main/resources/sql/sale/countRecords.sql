@@ -1,3 +1,4 @@
 SELECT
-    COUNT(num_venta) AS total_records
-FROM venta;
+    COUNT(sale_number) AS total_records
+FROM sales
+WHERE id_company = ?;

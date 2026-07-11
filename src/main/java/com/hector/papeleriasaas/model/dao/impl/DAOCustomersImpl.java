@@ -27,7 +27,7 @@ public class DAOCustomersImpl implements DAOCustomers {
 
     @Override
     public int add(Connection connection, DTOCustomer dto) throws DAOException {
-        String sql = SQLRepository.get("sql/customer/add.sql");
+        String sql = SQLRepository.get("sql/customer/insert.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, dto.getIdentification());
@@ -101,7 +101,7 @@ public class DAOCustomersImpl implements DAOCustomers {
 
     @Override
     public List<DTOCustomer> findByAll() throws DAOException {
-        String sql = SQLRepository.get("sql/customer/findByAll.sql");
+        String sql = SQLRepository.get("sql/customer/findByAllCompany.sql");
         List<DTOCustomer> list = new ArrayList<>();
 
         try (Connection connection = DataBasePool.getInstance().getConnection();

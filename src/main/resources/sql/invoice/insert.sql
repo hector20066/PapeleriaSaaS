@@ -1,1 +1,1 @@
-{CALL sp_crear_factura(?)}
+{CALL sp_create_invoice(?, ?)}

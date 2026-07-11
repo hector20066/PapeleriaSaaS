@@ -1,6 +1,7 @@
 SELECT
-    descripcion,
-    cantidad,
-    precio_venta,
-    (cantidad * precio_venta) AS total_dinero
-FROM producto;
+    description,
+    amount,
+    sale_price,
+    (amount * sale_price) AS available_funds
+FROM products
+WHERE id_company = ?;

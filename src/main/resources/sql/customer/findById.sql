@@ -1,2 +1,7 @@
-SELECT * FROM cliente
-WHERE id = ?;
+SELECT
+    identification,
+    name,
+    phone,
+    email
+FROM customers
+WHERE identification = ?;

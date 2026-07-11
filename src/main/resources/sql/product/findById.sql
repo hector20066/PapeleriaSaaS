@@ -1,3 +1,4 @@
 SELECT *
-FROM inventario
-WHERE id = ?;
+FROM vw_inventory
+WHERE id = ? AND
+      id_company = ?;

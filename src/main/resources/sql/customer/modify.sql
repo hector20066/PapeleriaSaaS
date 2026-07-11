@@ -1,3 +1,6 @@
-UPDATE cliente
-SET telefono = ?
-WHERE id = ?;
+UPDATE customers
+SET
+    name = ?,
+    phone = ?,
+    email = ?
+WHERE identification = ?;

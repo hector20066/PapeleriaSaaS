@@ -1,9 +1,10 @@
 SELECT 
     p.id,
-    p.descripcion,
-    SUM(dv.cantidad) AS cantidad_vendidas
-FROM producto p
-LEFT JOIN detalle_venta dv ON p.id = dv.id_producto
+    p.description,
+    SUM(sd.amount) AS quantity_sold
+FROM products p
+LEFT JOIN sales_details sd ON p.id = sd.id_producto
+WHERE p.id_company = ?
 GROUP BY p.id, p.descripcion
-ORDER BY cantidad_vendidas DESC
+ORDER BY quantity_sold DESC
 LIMIT 1;

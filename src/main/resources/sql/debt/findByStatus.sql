@@ -1,3 +1,4 @@
 SELECT *
 FROM deudas_clientes
-WHERE estado = ?;
+WHERE status = ? AND
+      id_company = ?;

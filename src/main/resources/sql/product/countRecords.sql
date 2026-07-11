@@ -1,3 +1,4 @@
 SELECT
-    COUNT(id) AS total_records
-FROM producto;
+    COUNT(description) AS total_records
+FROM products
+WHERE id_company = ?;
