@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.model.dao.impl;
 
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.PurchasePersistenceException;
@@ -17,8 +18,10 @@ import java.util.List;
  */
 public class DAOPurchasesImpl implements DAOPurchases {
 
-    public DAOPurchasesImpl() {
+    private final ConnectionProvider connectionProvider;
 
+    public DAOPurchasesImpl(ConnectionProvider connectionProvider) {
+        this.connectionProvider = connectionProvider;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
         List<DTOPurchaseDetails> list = new ArrayList<>();
         String sql = SQLRepository.get("sql/purchase/findById.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
 
@@ -88,7 +91,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
         String sql = SQLRepository.get("sql/purchase/findByAll.sql");
         List<DTOPurchaseDetails> list = new ArrayList<>();
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
@@ -123,7 +126,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
     public void delete(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/purchase/delete.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection()) {
+        try (Connection connection = connectionProvider.getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, id);
 
@@ -147,7 +150,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
     public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/purchase/countRecords.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 

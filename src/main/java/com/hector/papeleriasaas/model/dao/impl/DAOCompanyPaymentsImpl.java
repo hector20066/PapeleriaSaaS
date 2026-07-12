@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.model.dao.impl;
 
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanyPayments;
 import com.hector.papeleriasaas.model.dto.companypayments.DTOCompanyPaymentCreate;
@@ -11,6 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class DAOCompanyPaymentsImpl implements DAOCompanyPayments {
+
+    private final ConnectionProvider connectionProvider;
+
+    public DAOCompanyPaymentsImpl(ConnectionProvider connectionProvider) {
+        this.connectionProvider = connectionProvider;
+    }
 
     @Override
     public void add(DTOCompanyPaymentCreate dto) throws DAOException {

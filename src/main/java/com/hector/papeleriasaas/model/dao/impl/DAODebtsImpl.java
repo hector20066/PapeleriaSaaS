@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.model.dao.impl;
 
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.DebtPersistenceException;
@@ -22,15 +23,17 @@ import java.util.Optional;
  */
 public class DAODebtsImpl implements DAODebts {
 
-    public DAODebtsImpl() {
+    private final ConnectionProvider connectionProvider;
 
+    public DAODebtsImpl(ConnectionProvider connectionProvider) {
+        this.connectionProvider = connectionProvider;
     }
 
     @Override
     public Optional<DTODebtDetails> findById(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/debt/findById.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
 
@@ -70,7 +73,7 @@ public class DAODebtsImpl implements DAODebts {
         String sql = SQLRepository.get("sql/debt/findByCustomer.sql");
         List<DTODebtDetails> list = new ArrayList<>();
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, customer);
 
@@ -87,7 +90,7 @@ public class DAODebtsImpl implements DAODebts {
         String sql = SQLRepository.get("sql/debt/findByAll.sql");
         List<DTODebtDetails> list = new ArrayList<>();
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
@@ -102,7 +105,7 @@ public class DAODebtsImpl implements DAODebts {
         String sql = SQLRepository.get("sql/debt/findByStatus.sql");
         List<DTODebtDetails> list = new ArrayList<>();
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, String.valueOf(status));
 
@@ -142,7 +145,7 @@ public class DAODebtsImpl implements DAODebts {
     public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/debt/countRecords.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 

@@ -13,6 +13,10 @@ import java.sql.SQLException;
 
 public class DAOInvoicesImpl implements DAOInvoices {
 
+    public DAOInvoicesImpl() {
+
+    }
+
     @Override
     public int add(Connection connection, DTOInvoiceCreate dto) throws DAOException {
         String sql = SQLRepository.get("sql/invoice/insert.sql");

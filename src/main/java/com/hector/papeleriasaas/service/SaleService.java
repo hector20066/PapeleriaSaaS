@@ -6,8 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
-import com.hector.papeleriasaas.database.DataBasePool;
-import com.hector.papeleriasaas.database.DefaultConnectionProvider;
+import com.hector.papeleriasaas.database.ConnectionProviderImpl;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.impl.*;
 import com.hector.papeleriasaas.facade.interfaces.*;
@@ -34,7 +33,7 @@ public class SaleService {
         this.saleDetailsFacade = new SaleDetailsImplFacade();
         this.invoiceFacade = new InvoicesImplFacade();
         this.productsFacade = new ProductImplFacade();
-        this.connectionProvider = new DefaultConnectionProvider();
+        this.connectionProvider = new ConnectionProviderImpl();
     }
 
     public SaleService(CustomersFacade customersFacade, SalesFacade saleFacade, SaleDetailsFacade saleDetailsFacade, InvoicesFacade invoicesFacade, ProductsFacade productsFacade, ConnectionProvider connectionProvider) {

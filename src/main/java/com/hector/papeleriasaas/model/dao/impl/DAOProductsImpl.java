@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.model.dao.impl;
 
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.ProductPersistenceException;
@@ -19,9 +20,11 @@ import java.util.Optional;
  */
 public class DAOProductsImpl implements DAOProducts {
 
+    private final ConnectionProvider connectionProvider;
     private final List<DTOProductDetails> productList;
 
-    public DAOProductsImpl() {
+    public DAOProductsImpl(ConnectionProvider connectionProvider) {
+        this.connectionProvider = connectionProvider;
         this.productList = Collections.synchronizedList(new ArrayList<>());
     }
 
@@ -62,7 +65,7 @@ public class DAOProductsImpl implements DAOProducts {
     public Optional<DTOProductDetails> findById(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/findById.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
 
@@ -101,7 +104,7 @@ public class DAOProductsImpl implements DAOProducts {
     public Optional<DTOProductDetails> findByName(String product, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/findByName.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, product);
 
@@ -141,7 +144,7 @@ public class DAOProductsImpl implements DAOProducts {
         String sql = SQLRepository.get("sql/product/findByAll.sql");
         List<DTOProductDetails> list = new ArrayList<>();
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
             this.productList.clear();
@@ -174,7 +177,7 @@ public class DAOProductsImpl implements DAOProducts {
     public Optional<DTOProductBestSelling> bestSelling(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/bestSelling.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
@@ -198,7 +201,7 @@ public class DAOProductsImpl implements DAOProducts {
     public void modify(DTOProductUpdate dto) throws DAOException {
         String sql = SQLRepository.get("sql/product/modify.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection()) {
+        try (Connection connection = connectionProvider.getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 modifyData(st, dto);
                 connection.commit();
@@ -241,7 +244,7 @@ public class DAOProductsImpl implements DAOProducts {
     public void delete(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/delete.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection()) {
+        try (Connection connection = connectionProvider.getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, id);
                 // st.setInt(2, id_company);
@@ -265,7 +268,7 @@ public class DAOProductsImpl implements DAOProducts {
     public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/countRecords.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 

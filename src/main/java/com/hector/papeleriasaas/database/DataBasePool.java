@@ -13,7 +13,6 @@ import java.sql.SQLException;
  */
 public final class DataBasePool {
 
-    private static DataBasePool instance;
     private final HikariDataSource dataSource;
 
     private DataBasePool() {
@@ -38,14 +37,6 @@ public final class DataBasePool {
         config.setAutoCommit(false);
 
         this.dataSource = new HikariDataSource(config);
-    }
-
-    public static synchronized DataBasePool getInstance() {
-        if (instance == null) {
-            instance = new DataBasePool();
-        }
-
-        return instance;
     }
 
     public Connection getConnection() throws SQLException {

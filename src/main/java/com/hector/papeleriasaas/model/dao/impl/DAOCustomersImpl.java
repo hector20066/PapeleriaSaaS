@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.model.dao.impl;
 
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.CustomerPersistenceException;
@@ -22,8 +23,10 @@ import java.util.Optional;
  */
 public class DAOCustomersImpl implements DAOCustomers {
 
-    public DAOCustomersImpl() {
+    private final ConnectionProvider connectionProvider;
 
+    public DAOCustomersImpl(ConnectionProvider connectionProvider) {
+        this.connectionProvider = connectionProvider;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     public Optional<DTOCustomerDetails> findByName(String name, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findByName.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, name);
 
@@ -67,7 +70,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     public Optional<DTOCustomerDetails> findById(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findById.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
 
@@ -107,7 +110,7 @@ public class DAOCustomersImpl implements DAOCustomers {
         String sql = SQLRepository.get("sql/customer/findByAllCompany.sql");
         List<DTOCustomerDetails> list = new ArrayList<>();
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
@@ -158,7 +161,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/customer/countRecords.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 

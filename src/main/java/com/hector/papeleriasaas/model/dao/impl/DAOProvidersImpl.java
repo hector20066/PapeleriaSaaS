@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.model.dao.impl;
 
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.SupplierPersistenceException;
@@ -21,8 +22,10 @@ import java.util.Optional;
  */
 public class DAOProvidersImpl implements DAOProviders {
 
-    public DAOProvidersImpl() {
+    private final ConnectionProvider connectionProvider;
 
+    public DAOProvidersImpl(ConnectionProvider connectionProvider) {
+        this.connectionProvider = connectionProvider;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class DAOProvidersImpl implements DAOProviders {
     public Optional<DTOProvider> findByName(String name, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/provider/findByName.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, name);
 
@@ -67,7 +70,7 @@ public class DAOProvidersImpl implements DAOProviders {
     public Optional<DTOProvider> findById(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/provider/findById.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
 
@@ -107,7 +110,7 @@ public class DAOProvidersImpl implements DAOProviders {
         String sql = SQLRepository.get("sql/provider/findByAll.sql");
         List<DTOProvider> list = new ArrayList<>();
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
@@ -159,7 +162,7 @@ public class DAOProvidersImpl implements DAOProviders {
     public void delete(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/provider/delete.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection()) {
+        try (Connection connection = connectionProvider.getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, id);
                 // st.setInt(2, companyId);
@@ -184,7 +187,7 @@ public class DAOProvidersImpl implements DAOProviders {
     public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/provider/countRecords.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 

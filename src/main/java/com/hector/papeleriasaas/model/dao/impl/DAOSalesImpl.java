@@ -9,6 +9,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.SalePersistenceException;
@@ -24,8 +25,10 @@ import com.hector.papeleriasaas.utils.SQLRepository;
  */
 public class DAOSalesImpl implements DAOSales {
 
-    public DAOSalesImpl() {
+    private final ConnectionProvider connectionProvider;
 
+    public DAOSalesImpl(ConnectionProvider connectionProvider) {
+        this.connectionProvider = connectionProvider;
     }
 
     @Override
@@ -60,7 +63,7 @@ public class DAOSalesImpl implements DAOSales {
         String sql = SQLRepository.get("sql/sale/findById.sql");
         List<DTOSaleDetails> list = new ArrayList<>();
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
 
@@ -101,7 +104,7 @@ public class DAOSalesImpl implements DAOSales {
         String sql = SQLRepository.get("sql/sale/findByAll.sql");
         List<DTOSaleDetails> list = new ArrayList<>();
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
@@ -132,7 +135,7 @@ public class DAOSalesImpl implements DAOSales {
     public void modify(DTOSaleUpdate dto) throws DAOException {
         String sql = SQLRepository.get("sql/sale/modify.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection()) {
+        try (Connection connection = connectionProvider.getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 modifyData(st, dto);
                 connection.commit();
@@ -172,7 +175,7 @@ public class DAOSalesImpl implements DAOSales {
     public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/sale/countRecords.sql");
 
-        try (Connection connection = DataBasePool.getInstance().getConnection();
+        try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql);
              ResultSet rs = st.executeQuery()) {
 
