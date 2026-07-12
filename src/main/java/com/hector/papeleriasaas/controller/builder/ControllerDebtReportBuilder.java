@@ -14,8 +14,9 @@ public class ControllerDebtReportBuilder {
 
     private DebtReport debtReport;
     private Subject subject;
-    private DebtsFacade daoDebts;
-    private SalesFacade daoSales;
+
+    private DebtsFacade debtsFacade;
+    private SalesFacade salesFacade;
 
     public ControllerDebtReportBuilder withViewDebtReport(DebtReport debtReport) {
         this.debtReport = debtReport;
@@ -27,13 +28,13 @@ public class ControllerDebtReportBuilder {
         return this;
     }
 
-    public ControllerDebtReportBuilder withDaoDebts(DebtsFacade daoDebts) {
-        this.daoDebts = daoDebts;
+    public ControllerDebtReportBuilder withDebtsFacade(DebtsFacade debtsFacade) {
+        this.debtsFacade = debtsFacade;
         return this;
     }
 
-    public ControllerDebtReportBuilder withDaoSales(SalesFacade daoSales) {
-        this.daoSales = daoSales;
+    public ControllerDebtReportBuilder withSalesFacade(SalesFacade salesFacade) {
+        this.salesFacade = salesFacade;
         return this;
     }
 
@@ -49,12 +50,12 @@ public class ControllerDebtReportBuilder {
         return subject;
     }
 
-    public DebtsFacade getDaoDebts() {
-        return daoDebts;
+    public DebtsFacade getDebtsFacade() {
+        return debtsFacade;
     }
 
-    public SalesFacade getDaoSales() {
-        return daoSales;
+    public SalesFacade getSalesFacade() {
+        return salesFacade;
     }
 
 }

@@ -14,8 +14,9 @@ public class ControllerDashboardBuilder {
 
     private Dashboard dashboard;
     private Subject subject;
-    private ProductsFacade daoProducts;
-    private SalesFacade daoSales;
+
+    private ProductsFacade productsFacade;
+    private SalesFacade salesFacade;
 
     public ControllerDashboardBuilder withViewDashboard(Dashboard dashboard) {
         this.dashboard = dashboard;
@@ -27,13 +28,13 @@ public class ControllerDashboardBuilder {
         return this;
     }
 
-    public ControllerDashboardBuilder withDaoProducts(ProductsFacade daoProducts) {
-        this.daoProducts = daoProducts;
+    public ControllerDashboardBuilder withProductsFacade(ProductsFacade productsFacade) {
+        this.productsFacade = productsFacade;
         return this;
     }
 
-    public ControllerDashboardBuilder withDaoSales(SalesFacade daoSales) {
-        this.daoSales = daoSales;
+    public ControllerDashboardBuilder withSalesFacade(SalesFacade salesFacade) {
+        this.salesFacade = salesFacade;
         return this;
     }
 
@@ -49,12 +50,12 @@ public class ControllerDashboardBuilder {
         return subject;
     }
 
-    public ProductsFacade getDaoProducts() {
-        return daoProducts;
+    public ProductsFacade getProductsFacade() {
+        return productsFacade;
     }
 
-    public SalesFacade getDaoSales() {
-        return daoSales;
+    public SalesFacade getSalesFacade() {
+        return salesFacade;
     }
 
 }

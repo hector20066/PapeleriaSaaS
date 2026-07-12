@@ -14,7 +14,8 @@ public class ControllerSalesManagementBuilder {
 
     private SalesManagement salesManagement;
     private Subject subject;
-    private ProductsFacade daoProducts;
+
+    private ProductsFacade productsFacade;
     private SaleService saleService;
 
     public ControllerSalesManagementBuilder withViewSalesManagement(SalesManagement salesManagement) {
@@ -27,8 +28,8 @@ public class ControllerSalesManagementBuilder {
         return this;
     }
 
-    public ControllerSalesManagementBuilder withDaoProducts(ProductsFacade daoProducts) {
-        this.daoProducts = daoProducts;
+    public ControllerSalesManagementBuilder withProductsFacade(ProductsFacade productsFacade) {
+        this.productsFacade = productsFacade;
         return this;
     }
 
@@ -49,8 +50,8 @@ public class ControllerSalesManagementBuilder {
         return subject;
     }
 
-    public ProductsFacade getDaoProducts() {
-        return daoProducts;
+    public ProductsFacade getProductsFacade() {
+        return productsFacade;
     }
 
     public SaleService getSaleService() {

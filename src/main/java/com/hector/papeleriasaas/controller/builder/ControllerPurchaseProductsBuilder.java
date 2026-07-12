@@ -15,6 +15,7 @@ public class ControllerPurchaseProductsBuilder {
     private PurchaseProducts productManagement;
     private Inventory inventory;
     private Subject subject;
+
     private PurchaseService purchaseService;
 
     public ControllerPurchaseProductsBuilder withViewProductManagement(PurchaseProducts productManagement) {

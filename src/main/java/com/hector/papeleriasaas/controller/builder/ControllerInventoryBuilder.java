@@ -17,7 +17,8 @@ public class ControllerInventoryBuilder {
     private PurchaseProducts purchaseProducts;
     private ModifyProduct modifyProduct;
     private Subject subject;
-    private ProductsFacade daoProducts;
+
+    private ProductsFacade productsFacade;
 
     public ControllerInventoryBuilder withViewInventory(Inventory inventory) {
         this.inventory = inventory;
@@ -39,8 +40,8 @@ public class ControllerInventoryBuilder {
         return this;
     }
 
-    public ControllerInventoryBuilder withDaoProducts(ProductsFacade daoProducts) {
-        this.daoProducts = daoProducts;
+    public ControllerInventoryBuilder withProductsFacade(ProductsFacade productsFacade) {
+        this.productsFacade = productsFacade;
         return this;
     }
 
@@ -64,8 +65,8 @@ public class ControllerInventoryBuilder {
         return modifyProduct;
     }
 
-    public ProductsFacade getDaoProducts() {
-        return daoProducts;
+    public ProductsFacade getProductsFacade() {
+        return productsFacade;
     }
 
 }

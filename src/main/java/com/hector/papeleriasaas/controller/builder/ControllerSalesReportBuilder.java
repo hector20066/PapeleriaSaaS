@@ -14,8 +14,9 @@ public class ControllerSalesReportBuilder {
 
     private SalesReport salesReport;
     private Subject subject;
-    private SalesFacade daoSales;
-    private ProductsFacade daoProducts;
+
+    private SalesFacade salesFacade;
+    private ProductsFacade productsFacade;
 
     public ControllerSalesReportBuilder withViewSalesReport(SalesReport salesReport) {
         this.salesReport = salesReport;
@@ -27,13 +28,13 @@ public class ControllerSalesReportBuilder {
         return this;
     }
 
-    public ControllerSalesReportBuilder withDaoSales(SalesFacade daoSales) {
-        this.daoSales = daoSales;
+    public ControllerSalesReportBuilder withSalesFacade(SalesFacade salesFacade) {
+        this.salesFacade = salesFacade;
         return this;
     }
 
-    public ControllerSalesReportBuilder withDaoProducts(ProductsFacade daoProducts) {
-        this.daoProducts = daoProducts;
+    public ControllerSalesReportBuilder withProductsFacade(ProductsFacade productsFacade) {
+        this.productsFacade = productsFacade;
         return this;
     }
 
@@ -49,12 +50,12 @@ public class ControllerSalesReportBuilder {
         return subject;
     }
 
-    public SalesFacade getDaoSales() {
-        return daoSales;
+    public SalesFacade getSalesFacade() {
+        return salesFacade;
     }
 
-    public ProductsFacade getDaoProducts() {
-        return daoProducts;
+    public ProductsFacade getProductsFacade() {
+        return productsFacade;
     }
 
 }
