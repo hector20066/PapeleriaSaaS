@@ -17,6 +17,7 @@ import java.util.List;
 public class PurchasesImplFacade implements PurchasesFacade {
 
     private final DAOPurchases daoPurchases;
+    private int companyId = 0;
 
     public PurchasesImplFacade() {
         this.daoPurchases = new DAOPurchasesImpl();
@@ -27,33 +28,34 @@ public class PurchasesImplFacade implements PurchasesFacade {
         DTOPurchaseCreate dto = new DTOPurchaseCreate();
         dto.setProviderId(providerId);
         dto.setTotalPurchase(totalPaid);
+        dto.setCompanyId(companyId);
 
         return daoPurchases.add(connection, dto);
     }
 
     @Override
     public List<DTOPurchaseDetails> findById(int id) throws DAOException {
-        return daoPurchases.findById(id);
+        return daoPurchases.findById(id, companyId);
     }
 
     @Override
     public List<DTOPurchaseDetails> findById(Connection connection, int id) throws DAOException {
-        return daoPurchases.findById(connection, id);
+        return daoPurchases.findById(connection, id, companyId);
     }
 
     @Override
     public List<DTOPurchaseDetails> findByAll() throws DAOException {
-        return daoPurchases.findByAll();
+        return daoPurchases.findByAll(companyId);
     }
 
     @Override
     public void delete(int id) throws DAOException {
-        daoPurchases.delete(id);
+        daoPurchases.delete(id, companyId);
     }
 
     @Override
     public int countRecords() throws DAOException {
-        return daoPurchases.countRecords();
+        return daoPurchases.countRecords(companyId);
     }
 
 }

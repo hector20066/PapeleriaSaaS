@@ -19,6 +19,7 @@ import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
 public class SalesImplFacade implements SalesFacade {
 
     private final DAOSales daoSales;
+    private int companyId = 0;
 
     public SalesImplFacade() {
         this.daoSales = new DAOSalesImpl();
@@ -30,23 +31,24 @@ public class SalesImplFacade implements SalesFacade {
         dto.setCustomerId(customerId);
         dto.setTotalPaid(totalPaid);
         dto.setTotalSale(totalSale);
+        dto.setCompanyId(companyId);
 
         return daoSales.add(connection, dto);
     }
 
     @Override
     public List<DTOSaleDetails> findById(int id) throws DAOException {
-        return daoSales.findById(id);
+        return daoSales.findById(id, companyId);
     }
 
     @Override
     public List<DTOSaleDetails> findById(Connection connection, int id) throws DAOException {
-        return daoSales.findById(connection, id);
+        return daoSales.findById(connection, id, companyId);
     }
 
     @Override
     public List<DTOSaleDetails> findByAll() throws DAOException {
-        return daoSales.findByAll();
+        return daoSales.findByAll(companyId);
     }
 
     @Override
@@ -69,7 +71,7 @@ public class SalesImplFacade implements SalesFacade {
 
     @Override
     public int countRecords() throws DAOException {
-        return daoSales.countRecords();
+        return daoSales.countRecords(companyId);
     }
 
 }

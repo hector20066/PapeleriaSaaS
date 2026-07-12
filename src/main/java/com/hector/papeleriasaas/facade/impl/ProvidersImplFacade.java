@@ -17,6 +17,7 @@ import java.util.Optional;
 public class ProvidersImplFacade implements ProvidersFacade {
 
     private final DAOProviders daoSuppliers;
+    private int companyId = 0;
 
     public ProvidersImplFacade() {
         this.daoSuppliers = new DAOProvidersImpl();
@@ -30,6 +31,7 @@ public class ProvidersImplFacade implements ProvidersFacade {
                 .address(address)
                 .phone(phone)
                 .email(email)
+                .companyId(companyId)
                 .build();
 
         daoSuppliers.add(connection, dto);
@@ -37,22 +39,22 @@ public class ProvidersImplFacade implements ProvidersFacade {
 
     @Override
     public Optional<DTOProvider> findByName(String name) throws DAOException {
-        return daoSuppliers.findByName(name);
+        return daoSuppliers.findByName(name, companyId);
     }
 
     @Override
     public Optional<DTOProvider> findById(int id) throws DAOException {
-        return daoSuppliers.findById(id);
+        return daoSuppliers.findById(id, companyId);
     }
 
     @Override
     public Optional<DTOProvider> findById(Connection connection, int id) throws DAOException {
-        return daoSuppliers.findById(connection, id);
+        return daoSuppliers.findById(connection, id, companyId);
     }
 
     @Override
     public List<DTOProvider> findByAll() throws DAOException {
-        return daoSuppliers.findByAll();
+        return daoSuppliers.findByAll(companyId);
     }
 
     @Override
@@ -63,6 +65,7 @@ public class ProvidersImplFacade implements ProvidersFacade {
                 .address(address)
                 .phone(phone)
                 .email(email)
+                .companyId(companyId)
                 .build();
 
         daoSuppliers.modify(connection, dto);
@@ -70,12 +73,12 @@ public class ProvidersImplFacade implements ProvidersFacade {
 
     @Override
     public void delete(int id) throws DAOException {
-        daoSuppliers.delete(id);
+        daoSuppliers.delete(id, companyId);
     }
 
     @Override
     public int countRecords() throws DAOException {
-        return daoSuppliers.countRecords();
+        return daoSuppliers.countRecords(companyId);
     }
 
 }

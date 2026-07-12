@@ -13,9 +13,9 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public interface ProvidersFacade extends IListable<DTOProvider>,
-        IRemovable,
-        ICountable {
+public interface ProvidersFacade extends IListableFacade<DTOProvider>,
+        IRemovableFacade,
+        ICountableFacade {
 
     void add(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException;
     Optional<DTOProvider> findByName(String name) throws DAOException;

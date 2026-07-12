@@ -18,6 +18,7 @@ import java.util.Optional;
 public class ProductImplFacade implements ProductsFacade {
 
     private final DAOProducts daoProducts;
+    private int companyId = 0; // se debe obtener
 
     public ProductImplFacade() {
         this.daoProducts = new DAOProductsImpl();
@@ -34,38 +35,39 @@ public class ProductImplFacade implements ProductsFacade {
         dto.setDescription(description);
         dto.setPurchasePrice(purchasePrice);
         dto.setSalePrice(salePrice);
+        dto.setCompanyId(companyId);
 
         return daoProducts.add(connection, dto);
     }
 
     @Override
     public Optional<DTOProductDetails> findByName(String product) throws DAOException {
-        return daoProducts.findByName(product);
+        return daoProducts.findByName(product, companyId);
     }
 
     @Override
     public Optional<DTOProductDetails> findByName(Connection connection, String product) throws DAOException {
-        return daoProducts.findByName(connection, product);
+        return daoProducts.findByName(connection, product, companyId);
     }
 
     @Override
     public Optional<DTOProductDetails> findById(int id) throws DAOException {
-        return daoProducts.findById(id);
+        return daoProducts.findById(id, companyId);
     }
 
     @Override
     public Optional<DTOProductDetails> findById(Connection connection, int id) throws DAOException {
-        return daoProducts.findById(connection, id);
+        return daoProducts.findById(connection, id, companyId);
     }
 
     @Override
     public Optional<DTOProductBestSelling> bestSelling() throws DAOException {
-        return daoProducts.bestSelling();
+        return daoProducts.bestSelling(companyId);
     }
 
     @Override
     public List<DTOProductDetails> findByAll() throws DAOException {
-        return daoProducts.findByAll();
+        return daoProducts.findByAll(companyId);
     }
 
     @Override
@@ -76,6 +78,7 @@ public class ProductImplFacade implements ProductsFacade {
                 .salePrice(salePrice)
                 .purchasePrice(purchasePrice)
                 .id(id)
+                .companyId(companyId)
                 .build();
 
         daoProducts.modify(dto);
@@ -90,6 +93,7 @@ public class ProductImplFacade implements ProductsFacade {
                 .salePrice(salePrice)
                 .purchasePrice(purchasePrice)
                 .id(id)
+                .companyId(companyId)
                 .build();
 
         daoProducts.modify(connection, dto);
@@ -97,12 +101,12 @@ public class ProductImplFacade implements ProductsFacade {
 
     @Override
     public void delete(int id) throws DAOException {
-        daoProducts.delete(id);
+        daoProducts.delete(id, companyId);
     }
 
     @Override
     public int countRecords() throws DAOException {
-        return daoProducts.countRecords();
+        return daoProducts.countRecords(companyId);
     }
 
 }

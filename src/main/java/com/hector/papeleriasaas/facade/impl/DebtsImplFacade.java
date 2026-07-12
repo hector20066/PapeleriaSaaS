@@ -18,6 +18,7 @@ import java.util.Optional;
 public class DebtsImplFacade implements DebtsFacade {
 
     private final DAODebts daoDebts;
+    private int companyId = 0; // Se debe obtener
 
     public DebtsImplFacade() {
         this.daoDebts = new DAODebtsImpl();
@@ -25,32 +26,32 @@ public class DebtsImplFacade implements DebtsFacade {
 
     @Override
     public List<DTODebtDetails> findByCustomer(String customer) throws DAOException {
-        return daoDebts.findByCustomer(customer);
+        return daoDebts.findByCustomer(customer, companyId);
     }
 
     @Override
     public List<DTODebtDetails> findByStatus(PaymentStatus status) throws DAOException {
-        return daoDebts.findByStatus(status);
+        return daoDebts.findByStatus(status, 1);
     }
 
     @Override
     public Optional<DTODebtDetails> findById(int id) throws DAOException {
-        return daoDebts.findById(id);
+        return daoDebts.findById(id, companyId);
     }
 
     @Override
     public Optional<DTODebtDetails> findById(Connection connection, int id) throws DAOException {
-        return daoDebts.findById(connection, id);
+        return daoDebts.findById(connection, id, companyId);
     }
 
     @Override
     public List<DTODebtDetails> findByAll() throws DAOException {
-        return daoDebts.findByAll();
+        return daoDebts.findByAll(companyId);
     }
 
     @Override
     public int countRecords() throws DAOException {
-        return daoDebts.countRecords();
+        return daoDebts.countRecords(companyId);
     }
 
 }

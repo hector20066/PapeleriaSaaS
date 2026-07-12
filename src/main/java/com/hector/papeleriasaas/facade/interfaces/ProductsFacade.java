@@ -1,8 +1,6 @@
 package com.hector.papeleriasaas.facade.interfaces;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.model.dao.interfaces.ICountable;
-import com.hector.papeleriasaas.model.dao.interfaces.IListable;
 import com.hector.papeleriasaas.model.dao.interfaces.IRemovable;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
@@ -16,9 +14,9 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public interface ProductsFacade extends IListable<DTOProductDetails>,
-        IRemovable,
-        ICountable {
+public interface ProductsFacade extends IListableFacade<DTOProductDetails>,
+        IRemovableFacade,
+        ICountableFacade {
 
     int add(Connection connection, String description, BigDecimal purchasePrice, BigDecimal salePrice) throws DAOException;
     Optional<DTOProductDetails> findByName(String product) throws DAOException;

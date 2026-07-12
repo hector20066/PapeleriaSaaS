@@ -18,6 +18,7 @@ import java.util.Optional;
 public class CustomersImplFacade implements CustomersFacade {
 
     private final DAOCustomers daoCustomers;
+    private int companyId = 0; // Se debe obtener
 
     public CustomersImplFacade() {
         this.daoCustomers = new DAOCustomersImpl();
@@ -29,6 +30,7 @@ public class CustomersImplFacade implements CustomersFacade {
                 .identification(id)
                 .name(name)
                 .phone(phone)
+                .companyId(companyId)
                 .build();
 
         daoCustomers.add(connection, dto);
@@ -36,22 +38,22 @@ public class CustomersImplFacade implements CustomersFacade {
 
     @Override
     public Optional<DTOCustomerDetails> findByName(String name) throws DAOException {
-        return daoCustomers.findByName(name);
+        return daoCustomers.findByName(name, companyId);
     }
 
     @Override
     public Optional<DTOCustomerDetails> findById(int id) throws DAOException {
-        return daoCustomers.findById(id);
+        return daoCustomers.findById(id, companyId);
     }
 
     @Override
     public Optional<DTOCustomerDetails> findById(Connection connection, int id) throws DAOException {
-        return daoCustomers.findById(connection, id);
+        return daoCustomers.findById(connection, id, companyId);
     }
 
     @Override
     public List<DTOCustomerDetails> findByAll() throws DAOException {
-        return daoCustomers.findByAll();
+        return daoCustomers.findByAll(companyId);
     }
 
     @Override
@@ -59,6 +61,7 @@ public class CustomersImplFacade implements CustomersFacade {
         DTOCustomerCreate dto = new DTOCustomerCreate.Builder()
                 .phone(phone)
                 .identification(id)
+                .companyId(companyId)
                 .build();
 
         daoCustomers.modify(connection, dto);
@@ -66,7 +69,7 @@ public class CustomersImplFacade implements CustomersFacade {
 
     @Override
     public int countRecords() throws DAOException {
-        return daoCustomers.countRecords();
+        return daoCustomers.countRecords(companyId);
     }
 
 }

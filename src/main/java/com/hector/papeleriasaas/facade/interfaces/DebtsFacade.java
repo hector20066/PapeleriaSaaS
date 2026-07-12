@@ -12,8 +12,8 @@ import java.util.List;
  *
  * @author Ing. Hector Acevedo
  */
-public interface DebtsFacade extends IListable<DTODebtDetails>,
-        ICountable {
+public interface DebtsFacade extends IListableFacade<DTODebtDetails>,
+        ICountableFacade {
 
     List<DTODebtDetails> findByCustomer(String customer) throws DAOException;
     List<DTODebtDetails> findByStatus(PaymentStatus status) throws DAOException;
