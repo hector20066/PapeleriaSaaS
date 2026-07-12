@@ -1,9 +1,7 @@
 package com.hector.papeleriasaas.controller.company;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.exception.dao.notfound.PurchaseDetailsNotFoundException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
@@ -14,7 +12,6 @@ import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
-import com.hector.papeleriasaas.utils.ValidationUtils;
 import com.hector.papeleriasaas.validator.PurchasingReportValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchasingReport;
 import com.hector.papeleriasaas.view.report.ReportViewer;
@@ -37,12 +34,12 @@ public class ControllerPurchasingReport implements Observer {
     private final PurchasingReport purchasingReport;
     private final Subject subject;
 
-    private final PurchasesFacade daoPurchases;
+    private final PurchasesFacade purchasesFacade;
 
-    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchasesFacade daoPurchases) {
+    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchasesFacade purchasesFacade) {
         this.purchasingReport = purchasingReport;
         this.subject = subject;
-        this.daoPurchases = daoPurchases;
+        this.purchasesFacade = purchasesFacade;
 
         this.subject.register(this);
 
@@ -62,7 +59,7 @@ public class ControllerPurchasingReport implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOPurchaseDetails> list = daoPurchases.findByAll();
+                List<DTOPurchaseDetails> list = purchasesFacade.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de compras. "
@@ -91,7 +88,7 @@ public class ControllerPurchasingReport implements Observer {
     private void doInBackgroundSearch(String param) {
         BackgroundExecutor.execute(() -> {
             try {
-                List<DTOPurchaseDetails> list = daoPurchases.findById(Integer.parseInt(param));
+                List<DTOPurchaseDetails> list = purchasesFacade.findById(Integer.parseInt(param));
                 PurchasingReportValidator.listEmptyValidation(list, param);
 
                 SwingUtilities.invokeLater(() -> {
@@ -112,7 +109,7 @@ public class ControllerPurchasingReport implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOPurchaseDetails> purchasesList = daoPurchases.findByAll();
+                List<DTOPurchaseDetails> purchasesList = purchasesFacade.findByAll();
                 String compileReport = "/reports/ReporteCompras.jrxml";
                 Map<String, Object> params = new HashMap<>();
 

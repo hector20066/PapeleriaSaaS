@@ -39,15 +39,15 @@ public class ControllerDebtReport implements Observer {
     private final DebtReport debtReport;
     private final Subject subject;
 
-    private final DebtsFacade daoDebts;
-    private final SalesFacade daoSales;
+    private final DebtsFacade debtsFacade;
+    private final SalesFacade salesFacade;
 
     public ControllerDebtReport(ControllerDebtReportBuilder builder) {
         this.debtReport = builder.getDebtReport();
         this.subject = builder.getSubject();
 
-        this.daoDebts = builder.getDaoDebts();
-        this.daoSales = builder.getDaoSales();
+        this.debtsFacade = builder.getDaoDebts();
+        this.salesFacade = builder.getDaoSales();
 
         this.subject.register(this);
 
@@ -69,7 +69,7 @@ public class ControllerDebtReport implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTODebtDetails> list = daoDebts.findByAll();
+                List<DTODebtDetails> list = debtsFacade.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de deudas. "
@@ -122,7 +122,7 @@ public class ControllerDebtReport implements Observer {
     private void doInBackground(int numSale, BigDecimal newAmountPaid) {
         BackgroundExecutor.execute(() -> {
             try {
-                daoSales.modify(newAmountPaid, numSale);
+                salesFacade.modify(newAmountPaid, numSale);
 
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.informationMessage("Abono registrado correctamente.", debtReport);
@@ -158,7 +158,7 @@ public class ControllerDebtReport implements Observer {
     private void doInBackgroundSearch(String customer) {
         BackgroundExecutor.execute(() -> {
             try {
-                List<DTODebtDetails> list = daoDebts.findByCustomer(customer);
+                List<DTODebtDetails> list = debtsFacade.findByCustomer(customer);
                 DebtReportValidator.debtListEmptyValidation(list, customer);
 
                 SwingUtilities.invokeLater(() -> {
@@ -183,9 +183,9 @@ public class ControllerDebtReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTODebtDetails> listDebts = switch (parameter) {
-                    case "Todas" -> daoDebts.findByAll();
-                    case "Pendientes" -> daoDebts.findByStatus(PaymentStatus.PENDING);
-                    case "Pagadas" -> daoDebts.findByStatus(PaymentStatus.PAID);
+                    case "Todas" -> debtsFacade.findByAll();
+                    case "Pendientes" -> debtsFacade.findByStatus(PaymentStatus.PENDING);
+                    case "Pagadas" -> debtsFacade.findByStatus(PaymentStatus.PAID);
                     default -> throw new IllegalStateException("Parámetro inesperado " + parameter);
                 };
 
@@ -207,7 +207,7 @@ public class ControllerDebtReport implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTODebtDetails> debtDetails = daoDebts.findByAll();
+                List<DTODebtDetails> debtDetails = debtsFacade.findByAll();
                 String compileReport = "/reports/ReporteDeudas.jrxml";
                 Map<String, Object> params = new HashMap<>();
 

@@ -24,14 +24,14 @@ public class ControllerModifyProducts {
     private final Inventory inventory;
     private final Subject subject;
 
-    private final ProductsFacade daoProducts;
+    private final ProductsFacade productsFacade;
 
     public ControllerModifyProducts(ControllerModifyProductsBuilder builder) {
         this.modifyProduct = builder.getModifyProduct();
         this.inventory = builder.getInventory();
         this.subject = builder.getSubject();
 
-        this.daoProducts = builder.getDaoProducts();
+        this.productsFacade = builder.getDaoProducts();
 
         connectEvents();
     }
@@ -73,7 +73,7 @@ public class ControllerModifyProducts {
     private void doInBackground(int id, String product, int amount, BigDecimal purchasePrice, BigDecimal salePrice) {
         BackgroundExecutor.execute(() -> {
             try {
-                daoProducts.modify(product, amount, salePrice, purchasePrice, id);
+                productsFacade.modify(product, amount, salePrice, purchasePrice, id);
 
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.informationMessage("Producto actualizado correctamente.", modifyProduct);

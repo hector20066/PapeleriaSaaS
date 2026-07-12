@@ -41,7 +41,7 @@ public class ControllerInventory implements Observer {
     private final ModifyProduct modifyProduct;
     private final Subject subject;
 
-    private final ProductsFacade daoProducts;
+    private final ProductsFacade productsFacade;
 
     public ControllerInventory(ControllerInventoryBuilder builder) {
         this.inventory = builder.getInventory();
@@ -49,7 +49,7 @@ public class ControllerInventory implements Observer {
         this.modifyProduct = builder.getModifyProduct();
         this.subject = builder.getSubject();
 
-        this.daoProducts = builder.getDaoProducts();
+        this.productsFacade = builder.getDaoProducts();
 
         this.subject.register(this);
 
@@ -86,7 +86,7 @@ public class ControllerInventory implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOProductDetails> productList = daoProducts.findByAll();
+                List<DTOProductDetails> productList = productsFacade.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(productList));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el inventario. "
@@ -114,8 +114,8 @@ public class ControllerInventory implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 Optional<DTOProductDetails> dtoOptional = ValidationUtils.isNumeric(product)
-                        ? daoProducts.findById(Integer.parseInt(product))
-                        : daoProducts.findByName(product);
+                        ? productsFacade.findById(Integer.parseInt(product))
+                        : productsFacade.findByName(product);
 
                 InventoryValidator.dtoProductEmptyValidation(dtoOptional, product);
 
@@ -164,7 +164,7 @@ public class ControllerInventory implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOProductDetails> productList = daoProducts.findByAll();
+                List<DTOProductDetails> productList = productsFacade.findByAll();
                 String compileReport = "/reports/Inventario.jrxml";
                 Map<String, Object> params = new HashMap<>();
 
@@ -192,7 +192,7 @@ public class ControllerInventory implements Observer {
     private void doInBackground(int productId) {
         BackgroundExecutor.execute(() -> {
             try {
-                daoProducts.delete(productId);
+                productsFacade.delete(productId);
 
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.informationMessage("Producto eliminado correctamente.", inventory);

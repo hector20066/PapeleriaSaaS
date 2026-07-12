@@ -31,13 +31,13 @@ public class ControllerDashboard implements Observer {
 
     private final Dashboard dashboard;
 
-    private final ProductsFacade daoProducts;
-    private final SalesFacade daoSales;
+    private final ProductsFacade productsFacade;
+    private final SalesFacade salesFacade;
 
     public ControllerDashboard(ControllerDashboardBuilder builder) {
         this.dashboard = builder.getDashboard();
-        this.daoProducts = builder.getDaoProducts();
-        this.daoSales = builder.getDaoSales();
+        this.productsFacade = builder.getDaoProducts();
+        this.salesFacade = builder.getDaoSales();
 
         builder.getSubject().register(this);
     }
@@ -46,9 +46,9 @@ public class ControllerDashboard implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOSaleDetails> salesList = daoSales.findByAll();
-                List<DTOProductDetails> productsList = daoProducts.findByAll();
-                Optional<DTOProductBestSelling> bestSelling = daoProducts.bestSelling();
+                List<DTOSaleDetails> salesList = salesFacade.findByAll();
+                List<DTOProductDetails> productsList = productsFacade.findByAll();
+                Optional<DTOProductBestSelling> bestSelling = productsFacade.bestSelling();
 
                 CompanyDashboardValidator.bestSellingEmptyValidation(bestSelling);
 

@@ -4,10 +4,7 @@ import com.hector.papeleriasaas.business.SalesManagementCalculator;
 import com.hector.papeleriasaas.controller.builder.ControllerSalesManagementBuilder;
 import com.hector.papeleriasaas.controller.dto.OrderItemSaleDTO;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
-import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
@@ -27,7 +24,6 @@ import com.hector.papeleriasaas.validator.SalesManagementValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.SalesManagement;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.util.MessageUtil;
 import net.sf.jasperreports.view.JasperViewer;
 
 import javax.swing.*;
@@ -50,7 +46,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     private final SalesManagement salesManagement;
     private final Subject subject;
 
-    private final ProductsFacade daoProducts;
+    private final ProductsFacade productsFacade;
     private final SaleService saleService;
 
     private final List<OrderItemSaleDTO> orderList;
@@ -59,7 +55,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         this.salesManagement = builder.getSalesManagement();
         this.subject = builder.getSubject();
 
-        this.daoProducts = builder.getDaoProducts();
+        this.productsFacade = builder.getDaoProducts();
         this.saleService = builder.getSaleService();
 
         this.orderList = new ArrayList<>();
@@ -90,7 +86,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOProductDetails> dto = daoProducts.findByAll();
+                List<DTOProductDetails> dto = productsFacade.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(dto));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los productos. "
@@ -305,7 +301,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
 
     private void search() {
         try {
-            List<DTOProductDetails> listProducts = daoProducts.getProductList();
+            List<DTOProductDetails> listProducts = productsFacade.getProductList();
             String searchParameter = salesManagement.getTxt_search().getText().trim();
             SalesManagementValidator.searchInvalidParamValidation(searchParameter);
 
@@ -323,7 +319,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     }
 
     private void filterProducts() {
-        List<DTOProductDetails> listProducts = daoProducts.getProductList();
+        List<DTOProductDetails> listProducts = productsFacade.getProductList();
         String searchParameter = salesManagement.getTxt_search().getText().trim();
         salesManagement.getJpl_content().removeAll();
 
@@ -344,7 +340,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         salesManagement.clearPanel();
 
         BackgroundExecutor.execute(() -> {
-            List<DTOProductDetails> list = daoProducts.getProductList();
+            List<DTOProductDetails> list = productsFacade.getProductList();
 
             SwingUtilities.invokeLater(() -> list.stream()
                         .filter(Objects::nonNull)

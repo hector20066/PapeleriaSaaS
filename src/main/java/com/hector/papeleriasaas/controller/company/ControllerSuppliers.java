@@ -36,13 +36,13 @@ public class ControllerSuppliers implements Observer {
     private final Suppliers suppliers;
     private final Subject subject;
 
-    private final ProvidersFacade daoSupplier;
+    private final ProvidersFacade providersFacade;
 
-    public ControllerSuppliers(Suppliers suppliers, Subject subject, ProvidersFacade daoSupplier) {
+    public ControllerSuppliers(Suppliers suppliers, Subject subject, ProvidersFacade providersFacade) {
         this.suppliers = suppliers;
         this.subject = subject;
 
-        this.daoSupplier = daoSupplier;
+        this.providersFacade = providersFacade;
         this.subject.register(this);
 
         connectEvents();
@@ -60,7 +60,7 @@ public class ControllerSuppliers implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOProvider> suppliersList = daoSupplier.findByAll();
+                List<DTOProvider> suppliersList = providersFacade.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(suppliersList));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los proveedores. "
@@ -88,8 +88,8 @@ public class ControllerSuppliers implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 Optional<DTOProvider> supplier = ValidationUtils.isNumeric(param)
-                        ? daoSupplier.findById(Integer.parseInt(param))
-                        : daoSupplier.findByName(param);
+                        ? providersFacade.findById(Integer.parseInt(param))
+                        : providersFacade.findByName(param);
 
                 ProvidersValidator.providerEmptyValidation(supplier, param);
 
@@ -111,7 +111,7 @@ public class ControllerSuppliers implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOProvider> suppliersList = daoSupplier.findByAll();
+                List<DTOProvider> suppliersList = providersFacade.findByAll();
                 String compileReport = "/reports/Proveedores.jrxml";
                 Map<String, Object> params = new HashMap<>();
 

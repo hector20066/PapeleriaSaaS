@@ -4,7 +4,6 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.*;
 import com.hector.papeleriasaas.facade.interfaces.CustomersFacade;
-import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.observer.*;
 import com.hector.papeleriasaas.service.ReportService;
@@ -32,13 +31,13 @@ public class ControllerCustomer implements Observer {
     private final Customers customers;
     private final Subject subject;
 
-    private final CustomersFacade daoCustomer;
+    private final CustomersFacade customersFacade;
 
-    public ControllerCustomer(Customers customers, Subject subject, CustomersFacade daoCustomer) {
+    public ControllerCustomer(Customers customers, Subject subject, CustomersFacade customersFacade) {
         this.customers = customers;
         this.subject = subject;
 
-        this.daoCustomer = daoCustomer;
+        this.customersFacade = customersFacade;
         this.subject.register(this);
 
         connectEvents();
@@ -71,8 +70,8 @@ public class ControllerCustomer implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOCustomerDetails> customersList = daoCustomer.findByAll();
-                int totalRecords = daoCustomer.countRecords();
+                List<DTOCustomerDetails> customersList = customersFacade.findByAll();
+                int totalRecords = customersFacade.countRecords();
 
                 SwingUtilities.invokeLater(() -> loadData(customersList, totalRecords));
             } catch (DAOException e) {
@@ -103,8 +102,8 @@ public class ControllerCustomer implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 Optional<DTOCustomerDetails> dtoOptional = ValidationUtils.isNumeric(customer)
-                        ? daoCustomer.findById(ParserUtils.parseInteger(customer, "cedula"))
-                        : daoCustomer.findByName(customer);
+                        ? customersFacade.findById(ParserUtils.parseInteger(customer, "cedula"))
+                        : customersFacade.findByName(customer);
 
                 CustomerValidator.optionalEmptyValidation(dtoOptional, customer);
 
@@ -132,7 +131,7 @@ public class ControllerCustomer implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOCustomerDetails> customersList = daoCustomer.findByAll();
+                List<DTOCustomerDetails> customersList = customersFacade.findByAll();
                 String compileReport = "/reports/Clientes.jrxml";
                 Map<String, Object> params = new HashMap<>();
 

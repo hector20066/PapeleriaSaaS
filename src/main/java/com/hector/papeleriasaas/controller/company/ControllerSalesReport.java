@@ -43,15 +43,15 @@ public class ControllerSalesReport implements Observer {
     private final SalesReport salesReport;
     private final Subject subject;
 
-    private final SalesFacade daoSales;
-    private final ProductsFacade daoProducts;
+    private final SalesFacade salesFacade;
+    private final ProductsFacade productsFacade;
 
     public ControllerSalesReport(ControllerSalesReportBuilder builder) {
         this.salesReport = builder.getSalesReport();
         this.subject = builder.getSubject();
 
-        this.daoSales = builder.getDaoSales();
-        this.daoProducts = builder.getDaoProducts();
+        this.salesFacade = builder.getDaoSales();
+        this.productsFacade = builder.getDaoProducts();
 
         this.subject.register(this);
 
@@ -70,7 +70,7 @@ public class ControllerSalesReport implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOSaleDetails> list = daoSales.findByAll();
+                List<DTOSaleDetails> list = salesFacade.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de ventas. "
@@ -99,7 +99,7 @@ public class ControllerSalesReport implements Observer {
     private void doInBackgroundSearch(String param) {
         BackgroundExecutor.execute(() -> {
             try {
-                List<DTOSaleDetails> list = daoSales.findById(Integer.parseInt(param));
+                List<DTOSaleDetails> list = salesFacade.findById(Integer.parseInt(param));
                 SalesReportValidator.listEmptyValidation(list, param);
 
                 SwingUtilities.invokeLater(() -> {
@@ -120,9 +120,9 @@ public class ControllerSalesReport implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOSaleDetails> salesList = daoSales.findByAll();
-                List<DTOProductDetails> productsList = daoProducts.findByAll();
-                Optional<DTOProductBestSelling> bestSelling = daoProducts.bestSelling();
+                List<DTOSaleDetails> salesList = salesFacade.findByAll();
+                List<DTOProductDetails> productsList = productsFacade.findByAll();
+                Optional<DTOProductBestSelling> bestSelling = productsFacade.bestSelling();
 
                 SalesReportValidator.bestSellingEmptyValidation(bestSelling);
 
