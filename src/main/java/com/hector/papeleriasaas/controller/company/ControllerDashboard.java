@@ -20,8 +20,8 @@ import com.hector.papeleriasaas.view.swing.model.ModelChart;
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.*;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *

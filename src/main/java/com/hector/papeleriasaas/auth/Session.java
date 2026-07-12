@@ -8,7 +8,8 @@ public class Session {
     private static DTOUserDetails user;
     private static DTOCompanyDetails company;
 
-    private Session() {}
+    private Session() {
+    }
 
     public static void login(DTOUserDetails user, DTOCompanyDetails company) {
         Session.user = user;

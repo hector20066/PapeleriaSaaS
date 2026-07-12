@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
-import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.SalePersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOSales;

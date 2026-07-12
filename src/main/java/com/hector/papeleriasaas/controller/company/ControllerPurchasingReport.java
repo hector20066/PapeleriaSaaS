@@ -126,17 +126,17 @@ public class ControllerPurchasingReport implements Observer {
         return new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(),"Buscar Compra");
+                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(), "Buscar Compra");
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(),"Buscar Compra");
+                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(), "Buscar Compra");
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(),"Buscar Compra");
+                SwingUtils.filterTable(purchasingReport.getTxt_search(), purchasingReport.getJtbl_purchases(), "Buscar Compra");
             }
         };
     }

@@ -1,7 +1,6 @@
 package com.hector.papeleriasaas.model.dao.impl;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
-import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.DebtPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAODebts;

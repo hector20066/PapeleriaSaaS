@@ -343,8 +343,8 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
             List<DTOProductDetails> list = productsFacade.getProductList();
 
             SwingUtilities.invokeLater(() -> list.stream()
-                        .filter(Objects::nonNull)
-                        .forEach(dto -> salesManagement.addProductPanel(dto, this))
+                    .filter(Objects::nonNull)
+                    .forEach(dto -> salesManagement.addProductPanel(dto, this))
             );
         });
     }
