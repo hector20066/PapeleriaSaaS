@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.service;
 
-import com.hector.papeleriasaas.database.DataBasePool;
+import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.impl.*;
 import com.hector.papeleriasaas.facade.interfaces.*;
@@ -20,16 +20,18 @@ import java.util.Optional;
  */
 public class PurchaseService {
 
-    private final ProvidersFacade supplierFacade;
+    private final ProvidersFacade providersFacade;
     private final ProductsFacade productsFacade;
     private final PurchasesFacade purchaseFacade;
     private final PurchaseDetailsFacade purchaseDetailsFacade;
+    private final ConnectionProvider connectionProvider;
 
-    public PurchaseService() {
-        this.supplierFacade = new ProvidersImplFacade();
-        this.productsFacade = new ProductImplFacade();
-        this.purchaseFacade = new PurchasesImplFacade();
-        this.purchaseDetailsFacade = new PurchaseDetailsImplFacade();
+    public PurchaseService(ProvidersFacade providersFacade, ProductsFacade productsFacade, PurchasesFacade purchaseFacade, PurchaseDetailsFacade purchaseDetailsFacade, ConnectionProvider connectionProvider) {
+        this.providersFacade = providersFacade;
+        this.productsFacade = productsFacade;
+        this.purchaseFacade = purchaseFacade;
+        this.purchaseDetailsFacade = purchaseDetailsFacade;
+        this.connectionProvider = connectionProvider;
     }
 
     public void registerPurchase(DTOProvider dtoSupplier, BigDecimal totalPaid,
@@ -37,14 +39,14 @@ public class PurchaseService {
         Connection connection = null;
 
         try {
-            connection = DataBasePool.getInstance().getConnection();
+            connection = connectionProvider.getConnection();
             connection.setAutoCommit(false);
 
-            if (supplierFacade.findById(connection, dtoSupplier.getNit()).isEmpty()) {
-                supplierFacade.add(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
+            if (providersFacade.findById(connection, dtoSupplier.getNit()).isEmpty()) {
+                providersFacade.add(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
                         dtoSupplier.getPhone(), dtoSupplier.getEmail());
             } else {
-                supplierFacade.modify(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
+                providersFacade.modify(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
                         dtoSupplier.getPhone(), dtoSupplier.getEmail());
             }
 

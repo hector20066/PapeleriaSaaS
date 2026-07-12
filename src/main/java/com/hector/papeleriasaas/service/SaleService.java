@@ -27,15 +27,6 @@ public class SaleService {
     private final ProductsFacade productsFacade;
     private final ConnectionProvider connectionProvider;
 
-    public SaleService() {
-        this.customerFacade = new CustomersImplFacade();
-        this.saleFacade = new SalesImplFacade();
-        this.saleDetailsFacade = new SaleDetailsImplFacade();
-        this.invoiceFacade = new InvoicesImplFacade();
-        this.productsFacade = new ProductImplFacade();
-        this.connectionProvider = new ConnectionProviderImpl();
-    }
-
     public SaleService(CustomersFacade customersFacade, SalesFacade saleFacade, SaleDetailsFacade saleDetailsFacade, InvoicesFacade invoicesFacade, ProductsFacade productsFacade, ConnectionProvider connectionProvider) {
         this.customerFacade = customersFacade;
         this.saleFacade = saleFacade;
