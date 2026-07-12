@@ -35,12 +35,12 @@ public class DAOProvidersImpl implements DAOProviders {
             st.setString(3, dto.getAddress());
             st.setString(4, dto.getPhone());
             st.setString(5, dto.getEmail());
-            st.executeUpdate();
+            st.setInt(6, dto.getId());
+
+            return st.executeUpdate();
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al agregar proveedor", e);
         }
-
-        return 0;
     }
 
     @Override
@@ -124,11 +124,12 @@ public class DAOProvidersImpl implements DAOProviders {
 
     private DTOProvider getDTOSupplier(ResultSet rs) throws SQLException {
         return new DTOProvider.Builder()
+                .id(rs.getInt("id"))
                 .nit(rs.getInt("nit"))
                 .rSocial(rs.getString("rSocial"))
-                .address(rs.getString("direccion"))
-                .phone(rs.getString("telefono"))
-                .email(rs.getString("correo"))
+                .address(rs.getString("address"))
+                .phone(rs.getString("phone"))
+                .email(rs.getString("email"))
                 .build();
     }
 
@@ -142,6 +143,8 @@ public class DAOProvidersImpl implements DAOProviders {
             st.setString(3, dto.getPhone());
             st.setString(4, dto.getEmail());
             st.setInt(5, dto.getNit());
+            st.setInt(6, dto.getCompanyId());
+
             int affectedRows = st.executeUpdate();
 
             if (affectedRows == 0) {
@@ -159,6 +162,8 @@ public class DAOProvidersImpl implements DAOProviders {
         try (Connection connection = DataBasePool.getInstance().getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, id);
+                // st.setInt(2, companyId);
+
                 int affectedRows = st.executeUpdate();
 
                 if (affectedRows == 0) {

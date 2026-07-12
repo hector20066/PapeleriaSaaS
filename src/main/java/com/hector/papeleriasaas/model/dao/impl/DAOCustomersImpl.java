@@ -34,11 +34,13 @@ public class DAOCustomersImpl implements DAOCustomers {
             st.setInt(1, dto.getIdentification());
             st.setString(2, dto.getName());
             st.setString(3, dto.getPhone());
-            st.executeUpdate();
+            st.setString(4, dto.getEmail());
+            st.setInt(5, dto.getCompanyId());
+
+            return st.executeUpdate();
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al agregar cliente", e);
         }
-        return 0;
     }
 
     @Override
@@ -120,13 +122,12 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     private DTOCustomerDetails getDTOCustomer(ResultSet rs) throws SQLException {
-        DTOCustomerDetails dto = new DTOCustomerDetails.Builder()
-                .identification(rs.getInt("id"))
-                .name(rs.getString("nombre"))
-                .phone(rs.getString("telefono"))
+        return new DTOCustomerDetails.Builder()
+                .identification(rs.getInt("identification"))
+                .name(rs.getString("name"))
+                .phone(rs.getString("phone"))
+                .email(rs.getString("email"))
                 .build();
-
-        return dto;
     }
 
     @Override
@@ -134,8 +135,10 @@ public class DAOCustomersImpl implements DAOCustomers {
         String sql = SQLRepository.get("sql/customer/modify.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, dto.getPhone());
-            st.setInt(2, dto.getIdentification());
+            st.setString(1, dto.getName());
+            st.setString(2, dto.getPhone());
+            st.setString(3, dto.getEmail());
+            st.setInt(4, dto.getIdentification());
             int affectedRows = st.executeUpdate();
 
             if (affectedRows == 0) {

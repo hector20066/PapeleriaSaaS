@@ -38,12 +38,14 @@ public class DAOSalesImpl implements DAOSales {
             } else {
                 cs.setNull(1, Types.INTEGER);
             }
-            cs.setBigDecimal(2, dto.getTotalSale());
-            cs.setBigDecimal(3, dto.getTotalPaid());
+
+            cs.setBigDecimal(2, dto.getTotalPaid());
+            cs.setBigDecimal(3, dto.getTotalSale());
+            cs.setInt(4, dto.getCompanyId());
 
             try (ResultSet rs = cs.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("num_venta");
+                    return rs.getInt("sale_number");
                 }
 
                 throw new SQLException("No se genero la venta");
@@ -116,13 +118,13 @@ public class DAOSalesImpl implements DAOSales {
 
     private DTOSaleDetails getDTOSaleDetails(ResultSet rs) throws SQLException {
         return new DTOSaleDetails.Builder()
-                .numSale(rs.getInt("num_venta"))
-                .productId(rs.getInt("id_producto"))
-                .productDescription(rs.getString("producto"))
-                .quantitySold(rs.getInt("cantidad_vendida"))
-                .date(rs.getDate("fecha").toLocalDate())
-                .customer(rs.getString("cliente"))
-                .totalSale(rs.getBigDecimal("total_venta"))
+                .numSale(rs.getInt("sale_number"))
+                .productId(rs.getInt("product_id"))
+                .productDescription(rs.getString("product"))
+                .quantitySold(rs.getInt("quantity_sold"))
+                .date(rs.getDate("sale_date").toLocalDate())
+                .customer(rs.getString("customer"))
+                .totalSale(rs.getBigDecimal("total_sale"))
                 .build();
     }
 
@@ -132,14 +134,7 @@ public class DAOSalesImpl implements DAOSales {
 
         try (Connection connection = DataBasePool.getInstance().getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
-                st.setBigDecimal(1, dto.getTotalPaid());
-                st.setInt(2, dto.getNumSale());
-                int affectedRows = st.executeUpdate();
-
-                if (affectedRows == 0) {
-                    throw new SQLException("venta no existe con numero: " + dto.getNumSale());
-                }
-
+                modifyData(st, dto);
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();
@@ -155,15 +150,21 @@ public class DAOSalesImpl implements DAOSales {
         String sql = SQLRepository.get("sql/sale/modify.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setBigDecimal(1, dto.getTotalPaid());
-            st.setInt(2, dto.getNumSale());
-            int affectedRows = st.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("venta no existe con numero: " + dto.getNumSale());
-            }
+            modifyData(st, dto);
         } catch (SQLException e) {
             throw new SalePersistenceException("Error al modificar venta", e);
+        }
+    }
+
+    private void modifyData(PreparedStatement st, DTOSaleUpdate dto) throws SQLException {
+        st.setBigDecimal(1, dto.getTotalPaid());
+        st.setInt(2, dto.getNumSale());
+        st.setInt(3, dto.getCompanyId());
+
+        int affectedRows = st.executeUpdate();
+
+        if (affectedRows == 0) {
+            throw new SQLException("venta no existe con numero: " + dto.getNumSale());
         }
     }
 

@@ -28,10 +28,11 @@ public class DAOPurchasesImpl implements DAOPurchases {
         try (CallableStatement cs = connection.prepareCall(sql)) {
             cs.setInt(1, dto.getProviderId());
             cs.setBigDecimal(2, dto.getTotalPurchase());
+            cs.setInt(3, dto.getCompanyId());
 
             try (ResultSet rs = cs.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("num_compra");
+                    return rs.getInt("purchase_number");
                 }
 
                 throw new SQLException("No se genero la compra");
@@ -104,17 +105,17 @@ public class DAOPurchasesImpl implements DAOPurchases {
 
     private DTOPurchaseDetails getDTOPurchaseDetails(ResultSet rs) throws SQLException {
         return new DTOPurchaseDetails.Builder()
-                .numPurchase(rs.getInt("num_compra"))
-                .productDescription(rs.getString("producto"))
-                .productId(rs.getInt("id_producto"))
-                .quantityPurchased(rs.getInt("cant_comprada"))
-                .purchasePrice(rs.getBigDecimal("precio_compra"))
-                .salePrice(rs.getBigDecimal("precio_venta"))
-                .date(rs.getDate("fecha").toLocalDate())
-                .provider(rs.getString("proveedor"))
-                .providerNit(rs.getInt("nit_proveedor"))
-                .totalPaid(rs.getBigDecimal("total_compra"))
-                .earnings(rs.getBigDecimal("ganancias"))
+                .numPurchase(rs.getInt("purchase_number"))
+                .productDescription(rs.getString("product"))
+                .productId(rs.getInt("product_id"))
+                .quantityPurchased(rs.getInt("quantity_purchased"))
+                .purchasePrice(rs.getBigDecimal("purchase_price"))
+                .salePrice(rs.getBigDecimal("sale_price"))
+                .date(rs.getDate("purchase_date").toLocalDate())
+                .provider(rs.getString("provider"))
+                .providerNit(rs.getInt("provider_nit"))
+                .totalPaid(rs.getBigDecimal("total_purchase"))
+                .earnings(rs.getBigDecimal("earnings"))
                 .build();
     }
 
@@ -125,6 +126,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
         try (Connection connection = DataBasePool.getInstance().getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, id);
+
                 int affectedRows = st.executeUpdate();
 
                 if (affectedRows == 0) {

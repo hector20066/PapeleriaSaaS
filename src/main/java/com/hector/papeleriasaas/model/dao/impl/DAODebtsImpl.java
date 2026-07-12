@@ -125,16 +125,16 @@ public class DAODebtsImpl implements DAODebts {
 
     private DTODebtDetails getDTODebtDetails(ResultSet rs) throws SQLException {
         return new DTODebtDetails.Builder()
-                .id(rs.getInt("num_deuda"))
-                .customerId(rs.getInt("id_cliente"))
-                .customerName(rs.getString("nombre_cliente"))
-                .customerPhone(rs.getString("telefono"))
-                .numSale(rs.getInt("num_venta"))
-                .date(rs.getDate("fecha").toLocalDate())
-                .totalSale(rs.getBigDecimal("total_venta"))
-                .totalPaid(rs.getBigDecimal("total_pagado"))
-                .totalDebt(rs.getBigDecimal("deuda_actual"))
-                .status(PaymentStatus.valueOf(rs.getString("estado")))
+                .id(rs.getInt("id"))
+                .customerId(rs.getInt("customer_id"))
+                .customerName(rs.getString("customer_name"))
+                .customerPhone(rs.getString("phone"))
+                .numSale(rs.getInt("sale_number"))
+                .date(rs.getDate("sale_date").toLocalDate())
+                .totalSale(rs.getBigDecimal("total_sale"))
+                .totalPaid(rs.getBigDecimal("total_paid"))
+                .totalDebt(rs.getBigDecimal("current_debt"))
+                .status(PaymentStatus.valueOf(rs.getString("status")))
                 .build();
     }
 

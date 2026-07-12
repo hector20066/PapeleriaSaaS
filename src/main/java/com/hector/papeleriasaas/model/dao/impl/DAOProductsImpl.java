@@ -38,6 +38,7 @@ public class DAOProductsImpl implements DAOProducts {
             st.setString(1, dto.getDescription());
             st.setBigDecimal(2, dto.getPurchasePrice());
             st.setBigDecimal(3, dto.getSalePrice());
+            st.setInt(4, dto.getCompanyId());
 
             int affectedRows = st.executeUpdate();
 
@@ -157,6 +158,18 @@ public class DAOProductsImpl implements DAOProducts {
         }
     }
 
+    private DTOProductDetails getDTOProductDetails(ResultSet rs) throws SQLException {
+        return new DTOProductDetails.Builder()
+                .id(rs.getInt("id"))
+                .description(rs.getString("description"))
+                .amount(rs.getInt("available_quantity"))
+                .purchasePrice(rs.getBigDecimal("purchase_price"))
+                .salePrice(rs.getBigDecimal("sale_price"))
+                .provider(rs.getString("provider"))
+                .earnings(rs.getBigDecimal("earnings"))
+                .build();
+    }
+
     @Override
     public Optional<DTOProductBestSelling> bestSelling() throws DAOException {
         String sql = SQLRepository.get("sql/product/bestSelling.sql");
@@ -171,8 +184,8 @@ public class DAOProductsImpl implements DAOProducts {
 
             DTOProductBestSelling dto = new DTOProductBestSelling.Builder()
                     .id(rs.getInt("id"))
-                    .description(rs.getString("descripcion"))
-                    .quantitySold(rs.getInt("cantidad_vendidas"))
+                    .description(rs.getString("description"))
+                    .quantitySold(rs.getInt("quantity_sold"))
                     .build();
 
             return Optional.of(dto);
@@ -181,35 +194,13 @@ public class DAOProductsImpl implements DAOProducts {
         }
     }
 
-    private DTOProductDetails getDTOProductDetails(ResultSet rs) throws SQLException {
-        return new DTOProductDetails.Builder()
-                .id(rs.getInt("id"))
-                .description(rs.getString("descripcion"))
-                .amount(rs.getInt("cantidad_disponible"))
-                .purchasePrice(rs.getBigDecimal("precio_compra"))
-                .salePrice(rs.getBigDecimal("precio_venta"))
-                .provider(rs.getString("proveedor"))
-                .earnings(rs.getBigDecimal("ganancias"))
-                .build();
-    }
-
     @Override
     public void modify(DTOProductUpdate dto) throws DAOException {
         String sql = SQLRepository.get("sql/product/modify.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
-                st.setString(1, dto.getDescription());
-                st.setInt(2, dto.getAmount());
-                st.setBigDecimal(3, dto.getSalePrice());
-                st.setBigDecimal(4, dto.getPurchasePrice());
-                st.setInt(5, dto.getId());
-                int affectedRows = st.executeUpdate();
-
-                if (affectedRows == 0) {
-                    throw new SQLException("producto no existe con id: " + dto.getId());
-                }
-
+                modifyData(st, dto);
                 connection.commit();
             } catch (SQLException e) {
                 connection.rollback();
@@ -225,18 +216,24 @@ public class DAOProductsImpl implements DAOProducts {
         String sql = SQLRepository.get("sql/product/modify.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, dto.getDescription());
-            st.setInt(2, dto.getAmount());
-            st.setBigDecimal(3, dto.getSalePrice());
-            st.setBigDecimal(4, dto.getPurchasePrice());
-            st.setInt(5, dto.getId());
-            int affectedRows = st.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("producto no existe con id: " + dto.getId());
-            }
+            modifyData(st, dto);
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al modificar producto", e);
+        }
+    }
+
+    private void modifyData(PreparedStatement st, DTOProductUpdate dto) throws SQLException {
+        st.setString(1, dto.getDescription());
+        st.setInt(2, dto.getAmount());
+        st.setBigDecimal(3, dto.getSalePrice());
+        st.setBigDecimal(4, dto.getPurchasePrice());
+        st.setInt(5, dto.getId());
+        st.setInt(6, dto.getCompanyId());
+
+        int affectedRows = st.executeUpdate();
+
+        if (affectedRows == 0) {
+            throw new SQLException("producto no existe con id: " + dto.getId());
         }
     }
 
@@ -247,6 +244,7 @@ public class DAOProductsImpl implements DAOProducts {
         try (Connection connection = DataBasePool.getInstance().getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, id);
+                // st.setInt(2, id_company);
                 int affectedRows = st.executeUpdate();
 
                 if (affectedRows == 0) {

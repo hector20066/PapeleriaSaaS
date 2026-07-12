@@ -19,10 +19,11 @@ public class DAOInvoicesImpl implements DAOInvoices {
 
         try (CallableStatement cs = connection.prepareCall(sql)) {
             cs.setInt(1, dto.getSaleId());
+            cs.setInt(2, dto.getCompanyId());
 
             try (ResultSet rs = cs.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("last_num_factura");
+                    return rs.getInt("invoice_number");
                 }
 
                 throw new SQLException("No se genero la factura");

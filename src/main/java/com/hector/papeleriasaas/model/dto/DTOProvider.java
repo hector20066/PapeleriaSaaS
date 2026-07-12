@@ -6,6 +6,7 @@ package com.hector.papeleriasaas.model.dto;
  */
 public class DTOProvider {
 
+    private Integer id;
     private Integer nit;
     private String rSocial;
     private String address;
@@ -23,7 +24,12 @@ public class DTOProvider {
         this.address = builder.address;
         this.phone = builder.phone;
         this.email = builder.email;
+        this.id = builder.id;
         this.companyId = builder.companyId;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Integer getNit() {
@@ -52,12 +58,18 @@ public class DTOProvider {
 
     public static class Builder {
 
+        private Integer id;
         private Integer nit;
         private String rSocial;
         private String address;
         private String phone;
         private String email;
         private Integer companyId;
+
+        public Builder id(Integer id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder nit(Integer nit) {
             this.nit = nit;
