@@ -36,8 +36,8 @@ public class ControllerDashboard implements Observer {
 
     public ControllerDashboard(ControllerDashboardBuilder builder) {
         this.dashboard = builder.getDashboard();
-        this.productsFacade = builder.getDaoProducts();
-        this.salesFacade = builder.getDaoSales();
+        this.productsFacade = builder.getProductsFacade();
+        this.salesFacade = builder.getSalesFacade();
 
         builder.getSubject().register(this);
     }

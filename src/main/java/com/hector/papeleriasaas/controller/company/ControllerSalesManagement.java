@@ -55,7 +55,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         this.salesManagement = builder.getSalesManagement();
         this.subject = builder.getSubject();
 
-        this.productsFacade = builder.getDaoProducts();
+        this.productsFacade = builder.getProductsFacade();
         this.saleService = builder.getSaleService();
 
         this.orderList = new ArrayList<>();

@@ -46,8 +46,8 @@ public class ControllerDebtReport implements Observer {
         this.debtReport = builder.getDebtReport();
         this.subject = builder.getSubject();
 
-        this.debtsFacade = builder.getDaoDebts();
-        this.salesFacade = builder.getDaoSales();
+        this.debtsFacade = builder.getDebtsFacade();
+        this.salesFacade = builder.getSalesFacade();
 
         this.subject.register(this);
 

@@ -31,7 +31,7 @@ public class ControllerModifyProducts {
         this.inventory = builder.getInventory();
         this.subject = builder.getSubject();
 
-        this.productsFacade = builder.getDaoProducts();
+        this.productsFacade = builder.getProductsFacade();
 
         connectEvents();
     }

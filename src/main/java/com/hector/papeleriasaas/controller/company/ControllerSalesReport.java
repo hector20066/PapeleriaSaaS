@@ -50,8 +50,8 @@ public class ControllerSalesReport implements Observer {
         this.salesReport = builder.getSalesReport();
         this.subject = builder.getSubject();
 
-        this.salesFacade = builder.getDaoSales();
-        this.productsFacade = builder.getDaoProducts();
+        this.salesFacade = builder.getSalesFacade();
+        this.productsFacade = builder.getProductsFacade();
 
         this.subject.register(this);
 

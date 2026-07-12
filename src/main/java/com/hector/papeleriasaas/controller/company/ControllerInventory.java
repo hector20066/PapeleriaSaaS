@@ -49,7 +49,7 @@ public class ControllerInventory implements Observer {
         this.modifyProduct = builder.getModifyProduct();
         this.subject = builder.getSubject();
 
-        this.productsFacade = builder.getDaoProducts();
+        this.productsFacade = builder.getProductsFacade();
 
         this.subject.register(this);
 
