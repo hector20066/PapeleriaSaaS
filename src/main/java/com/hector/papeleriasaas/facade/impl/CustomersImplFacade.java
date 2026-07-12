@@ -20,8 +20,8 @@ public class CustomersImplFacade implements CustomersFacade {
     private final DAOCustomers daoCustomers;
     private int companyId = 0; // Se debe obtener
 
-    public CustomersImplFacade() {
-        this.daoCustomers = new DAOCustomersImpl();
+    public CustomersImplFacade(DAOCustomers daoCustomers) {
+        this.daoCustomers = daoCustomers;
     }
 
     @Override

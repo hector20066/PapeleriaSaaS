@@ -10,15 +10,15 @@ import java.sql.Connection;
 
 public class InvoicesImplFacade implements InvoicesFacade {
 
-    private final DAOInvoices daoInvoice;
+    private final DAOInvoices daoInvoices;
 
-    public InvoicesImplFacade() {
-        this.daoInvoice = new DAOInvoicesImpl();
+    public InvoicesImplFacade(DAOInvoices daoInvoices) {
+        this.daoInvoices = daoInvoices;
     }
 
     @Override
     public int add(Connection connection, DTOInvoiceCreate dto) throws DAOException {
-        return daoInvoice.add(connection, dto);
+        return daoInvoices.add(connection, dto);
     }
 
 }

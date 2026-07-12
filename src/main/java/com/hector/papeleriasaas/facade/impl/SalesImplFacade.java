@@ -21,8 +21,8 @@ public class SalesImplFacade implements SalesFacade {
     private final DAOSales daoSales;
     private int companyId = 0;
 
-    public SalesImplFacade() {
-        this.daoSales = new DAOSalesImpl();
+    public SalesImplFacade(DAOSales daoSales) {
+        this.daoSales = daoSales;
     }
 
     @Override

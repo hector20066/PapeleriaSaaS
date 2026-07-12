@@ -17,8 +17,8 @@ public class PurchaseDetailsImplFacade implements PurchaseDetailsFacade {
 
     public final DAOPurchaseDetails daoPurchaseDetails;
 
-    public PurchaseDetailsImplFacade() {
-        this.daoPurchaseDetails = new DAOPurchaseDetailsImpl();
+    public PurchaseDetailsImplFacade(DAOPurchaseDetails daoPurchaseDetails) {
+        this.daoPurchaseDetails = daoPurchaseDetails;
     }
 
     @Override

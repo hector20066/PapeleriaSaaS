@@ -20,8 +20,8 @@ public class DebtsImplFacade implements DebtsFacade {
     private final DAODebts daoDebts;
     private int companyId = 0; // Se debe obtener
 
-    public DebtsImplFacade() {
-        this.daoDebts = new DAODebtsImpl();
+    public DebtsImplFacade(DAODebts daoDebts) {
+        this.daoDebts = daoDebts;
     }
 
     @Override

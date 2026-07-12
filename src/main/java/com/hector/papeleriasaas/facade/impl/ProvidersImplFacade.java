@@ -16,11 +16,11 @@ import java.util.Optional;
  */
 public class ProvidersImplFacade implements ProvidersFacade {
 
-    private final DAOProviders daoSuppliers;
+    private final DAOProviders daoProviders;
     private int companyId = 0;
 
-    public ProvidersImplFacade() {
-        this.daoSuppliers = new DAOProvidersImpl();
+    public ProvidersImplFacade(DAOProviders daoProviders) {
+        this.daoProviders = daoProviders;
     }
 
     @Override
@@ -34,27 +34,27 @@ public class ProvidersImplFacade implements ProvidersFacade {
                 .companyId(companyId)
                 .build();
 
-        daoSuppliers.add(connection, dto);
+        daoProviders.add(connection, dto);
     }
 
     @Override
     public Optional<DTOProvider> findByName(String name) throws DAOException {
-        return daoSuppliers.findByName(name, companyId);
+        return daoProviders.findByName(name, companyId);
     }
 
     @Override
     public Optional<DTOProvider> findById(int id) throws DAOException {
-        return daoSuppliers.findById(id, companyId);
+        return daoProviders.findById(id, companyId);
     }
 
     @Override
     public Optional<DTOProvider> findById(Connection connection, int id) throws DAOException {
-        return daoSuppliers.findById(connection, id, companyId);
+        return daoProviders.findById(connection, id, companyId);
     }
 
     @Override
     public List<DTOProvider> findByAll() throws DAOException {
-        return daoSuppliers.findByAll(companyId);
+        return daoProviders.findByAll(companyId);
     }
 
     @Override
@@ -68,17 +68,17 @@ public class ProvidersImplFacade implements ProvidersFacade {
                 .companyId(companyId)
                 .build();
 
-        daoSuppliers.modify(connection, dto);
+        daoProviders.modify(connection, dto);
     }
 
     @Override
     public void delete(int id) throws DAOException {
-        daoSuppliers.delete(id, companyId);
+        daoProviders.delete(id, companyId);
     }
 
     @Override
     public int countRecords() throws DAOException {
-        return daoSuppliers.countRecords(companyId);
+        return daoProviders.countRecords(companyId);
     }
 
 }

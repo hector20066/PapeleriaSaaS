@@ -20,8 +20,8 @@ public class ProductImplFacade implements ProductsFacade {
     private final DAOProducts daoProducts;
     private int companyId = 0; // se debe obtener
 
-    public ProductImplFacade() {
-        this.daoProducts = new DAOProductsImpl();
+    public ProductImplFacade(DAOProducts daoProducts) {
+        this.daoProducts = daoProducts;
     }
 
     @Override

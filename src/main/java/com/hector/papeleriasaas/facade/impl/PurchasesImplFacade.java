@@ -19,8 +19,8 @@ public class PurchasesImplFacade implements PurchasesFacade {
     private final DAOPurchases daoPurchases;
     private int companyId = 0;
 
-    public PurchasesImplFacade() {
-        this.daoPurchases = new DAOPurchasesImpl();
+    public PurchasesImplFacade(DAOPurchases daoPurchases) {
+        this.daoPurchases = daoPurchases;
     }
 
     @Override
