@@ -3,13 +3,13 @@ package com.hector.papeleriasaas.service;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.facade.interfaces.*;
-import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -25,54 +25,70 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class SaleServiceTest {
 
+    @Mock
     private CustomersFacade customersFacade;
+
+    @Mock
     private SalesFacade salesFacade;
+
+    @Mock
     private SaleDetailsFacade saleDetailsFacade;
+
+    @Mock
     private InvoicesFacade invoicesFacade;
+
+    @Mock
     private ProductsFacade productsFacade;
-    ConnectionProvider provider;
-    Connection connection;
 
+    @Mock
+    private ConnectionProvider provider;
+
+    @Mock
+    private Connection connection;
+
+    @InjectMocks
     private SaleService saleService;
-
-    @BeforeEach
-    void setUp() {
-        customersFacade = mock(CustomersFacade.class);
-        salesFacade = mock(SalesFacade.class);
-        saleDetailsFacade = mock(SaleDetailsFacade.class);
-        invoicesFacade = mock(InvoicesFacade.class);
-        productsFacade = mock(ProductsFacade.class);
-        provider = mock(ConnectionProvider.class);
-        connection = mock(Connection.class);
-
-        saleService = new SaleService(customersFacade, salesFacade, saleDetailsFacade, invoicesFacade, productsFacade, provider);
-    }
 
     @Test
     void testRegisterSale() throws DAOException, SQLException {
         when(provider.getConnection()).thenReturn(connection);
-        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomerDetails.Builder()
-                .identification(1066726477)
-                .phone("3137762626")
-                .name("hector")
-                .build()));
+        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomerDetails.Builder().build()));
         when(salesFacade.add(any(Connection.class), anyInt(), any(BigDecimal.class), any(BigDecimal.class))).thenReturn(5);
         when(invoicesFacade.add(any(Connection.class), any(DTOInvoiceCreate.class))).thenReturn(5);
 
-        int result = saleService.registerSale(1066726477, "Hector Acevedo", "3137762626", new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList());
+        int numSale = saleService.registerSale(1066726477, "Hector Acevedo",
+                "3137762626", new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList());
 
-        assertEquals(5, result, () -> "El resultado no es el esperado");
+        assertEquals(5, numSale, () -> "El numero de la venta no es el esperado");
+
+        verify(connection).setAutoCommit(false);
+        verify(connection).commit();
+        verify(connection).close();
+        verify(connection, never()).rollback();
+        verify(provider).getConnection();
+
+        verify(customersFacade).findById(connection, 1066726477);
+        verify(customersFacade).modify(connection, "3137762626", 1066726477);
+        verify(customersFacade, never()).add(connection, 1066726477, "Hector", "3137762626");
+        verify(salesFacade).add(connection, 1066726477, new BigDecimal("25000.00"), new BigDecimal("25000.00"));
+
+        verify(saleDetailsFacade, never()).add(any(Connection.class), anyInt(), anyInt(), anyInt(), any(BigDecimal.class));
+        verifyNoInteractions(saleDetailsFacade);
+
+        verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
     }
 
     @Test
     void testCheckLowStock() throws DAOException {
-        when(productsFacade.findByAll()).thenReturn(Arrays.asList(new DTOProductDetails.Builder().amount(3).description("Cuaderno").build(),
+        when(productsFacade.findByAll()).thenReturn(Arrays.asList(
+                new DTOProductDetails.Builder().amount(3).description("Cuaderno").build(),
                 new DTOProductDetails.Builder().amount(5).description("Lapicero").build(),
-                new DTOProductDetails.Builder().amount(1).description("Colores").build()));
+                new DTOProductDetails.Builder().amount(1).description("Colores").build())
+        );
 
         String lowStock = saleService.checkLowStock();
-
-        assertEquals("Cuaderno, Colores", lowStock);
+        assertEquals("Cuaderno, Colores", lowStock, () -> "El resultado no es el esperado");
+        verify(productsFacade).findByAll();
     }
 
 }
