@@ -5,9 +5,15 @@ import java.sql.SQLException;
 
 public class ConnectionProviderImpl implements ConnectionProvider {
 
+    private final DataBasePool dataBase;
+
+    public ConnectionProviderImpl(DataBasePool dataBase) {
+        this.dataBase = dataBase;
+    }
+
     @Override
     public Connection getConnection() throws SQLException {
-        return DataBasePool.getInstance().getConnection();
+        return dataBase.getConnection();
     }
 
 }

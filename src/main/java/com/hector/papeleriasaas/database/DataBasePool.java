@@ -15,7 +15,7 @@ public final class DataBasePool {
 
     private final HikariDataSource dataSource;
 
-    private DataBasePool() {
+    public DataBasePool() {
         HikariConfig config = new HikariConfig();
 
         config.setJdbcUrl(AppConfig.get("db.url"));
