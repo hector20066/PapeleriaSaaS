@@ -4,8 +4,13 @@ import com.hector.papeleriasaas.controller.builder.*;
 import com.hector.papeleriasaas.controller.company.ControllerCustomer;
 import com.hector.papeleriasaas.controller.company.ControllerPurchasingReport;
 import com.hector.papeleriasaas.controller.company.ControllerSuppliers;
+import com.hector.papeleriasaas.database.ConnectionProvider;
+import com.hector.papeleriasaas.database.ConnectionProviderImpl;
+import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.facade.impl.*;
 import com.hector.papeleriasaas.facade.interfaces.*;
+import com.hector.papeleriasaas.model.dao.impl.*;
+import com.hector.papeleriasaas.model.dao.interfaces.*;
 import com.hector.papeleriasaas.observer.ConcreteSubject;
 import com.hector.papeleriasaas.service.PurchaseService;
 import com.hector.papeleriasaas.service.SaleService;
@@ -37,15 +42,35 @@ public class Coordinator {
     private Suppliers suppliers;
     private ModifyProduct modifyProduct;
 
-    private final ProductsFacade daoProducts = new ProductImplFacade();
-    private final SalesFacade daoSales = new SalesImplFacade();
-    private final DebtsFacade daoDebts = new DebtsImplFacade();
-    private final PurchasesFacade daoPurchases = new PurchasesImplFacade();
-    private final CustomersFacade daoCustomer = new CustomersImplFacade();
-    private final ProvidersFacade daoSupplier = new ProvidersImplFacade();
+    // Connection
+    private final DataBasePool dataBase = new DataBasePool();
+    private final ConnectionProvider connectionProvider = new ConnectionProviderImpl(dataBase);
 
-    private final SaleService saleService = new SaleService();
-    private final PurchaseService purchaseService = new PurchaseService();
+    // DAO's
+    private final DAOCustomers daoCustomers = new DAOCustomersImpl(connectionProvider);
+    private final DAODebts daoDebts = new DAODebtsImpl(connectionProvider);
+    private final DAOInvoices daoInvoices = new DAOInvoicesImpl();
+    private final DAOProducts daoProducts = new DAOProductsImpl(connectionProvider);
+    private final DAOProviders daoProviders = new DAOProvidersImpl(connectionProvider);
+    private final DAOPurchases daoPurchases = new DAOPurchasesImpl(connectionProvider);
+    private final DAOPurchaseDetails daoPurchaseDetails = new DAOPurchaseDetailsImpl();
+    private final DAOSales daoSales = new DAOSalesImpl(connectionProvider);
+    private final DAOSaleDetails daoSaleDetails = new DAOSaleDetailsImpl();
+
+    // Facade's
+    private final CustomersFacade customersFacade = new CustomersImplFacade(daoCustomers);
+    private final DebtsFacade debtsFacade = new DebtsImplFacade(daoDebts);
+    private final InvoicesFacade invoicesFacade = new InvoicesImplFacade(daoInvoices);
+    private final ProductsFacade productsFacade = new ProductImplFacade(daoProducts);
+    private final ProvidersFacade providersFacade = new ProvidersImplFacade(daoProviders);
+    private final PurchasesFacade purchasesFacade = new PurchasesImplFacade(daoPurchases);
+    private final PurchaseDetailsFacade purchaseDetailsFacade = new PurchaseDetailsImplFacade(daoPurchaseDetails);
+    private final SalesFacade salesFacade = new SalesImplFacade(daoSales);
+    private final SaleDetailsFacade saleDetailsFacade = new SaleDetailsImplFacade(daoSaleDetails);
+
+    // Service
+    private final SaleService saleService = new SaleService(customersFacade, salesFacade, saleDetailsFacade, invoicesFacade, productsFacade, connectionProvider);
+    private final PurchaseService purchaseService = new PurchaseService(providersFacade, productsFacade, purchasesFacade, purchaseDetailsFacade, connectionProvider);
 
     public void startApp() {
         subject = ConcreteSubject.getInstance();
@@ -93,28 +118,28 @@ public class Coordinator {
                 .withViewPurchaseProducts(purchaseProducts)
                 .withViewModifyProducts(modifyProduct)
                 .withSubject(subject)
-                .withDaoProducts(daoProducts)
+                .withProductsFacade(productsFacade)
                 .build();
 
         new ControllerDashboardBuilder()
                 .withViewDashboard(dashboard)
                 .withSubject(subject)
-                .withDaoProducts(daoProducts)
-                .withDaoSales(daoSales)
+                .withProductsFacade(productsFacade)
+                .withSalesFacade(salesFacade)
                 .build();
 
         new ControllerDebtReportBuilder()
                 .withViewDebtReport(debtReport)
                 .withSubject(subject)
-                .withDaoDebts(daoDebts)
-                .withDaoSales(daoSales)
+                .withDebtsFacade(debtsFacade)
+                .withSalesFacade(salesFacade)
                 .build();
 
         new ControllerModifyProductsBuilder()
                 .withViewModifyProduct(modifyProduct)
                 .withViewInventory(inventory)
                 .withSubject(subject)
-                .withDaoProducts(daoProducts)
+                .withProductsFacade(productsFacade)
                 .build();
 
         new ControllerPurchaseProductsBuilder()
@@ -127,20 +152,20 @@ public class Coordinator {
         new ControllerSalesManagementBuilder()
                 .withViewSalesManagement(salesManagement)
                 .withSubject(subject)
-                .withDaoProducts(daoProducts)
+                .withProductsFacade(productsFacade)
                 .withSaleService(saleService)
                 .build();
 
         new ControllerSalesReportBuilder()
                 .withViewSalesReport(salesReport)
                 .withSubject(subject)
-                .withDaoSales(daoSales)
-                .withDaoProducts(daoProducts)
+                .withSalesFacade(salesFacade)
+                .withProductsFacade(productsFacade)
                 .build();
 
-        new ControllerPurchasingReport(purchasingReport, subject, daoPurchases);
-        new ControllerCustomer(customers, subject, daoCustomer);
-        new ControllerSuppliers(suppliers, subject, daoSupplier);
+        new ControllerPurchasingReport(purchasingReport, subject, purchasesFacade);
+        new ControllerCustomer(customers, subject, customersFacade);
+        new ControllerSuppliers(suppliers, subject, providersFacade);
     }
 
     public void loadData() {
