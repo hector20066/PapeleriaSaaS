@@ -12,8 +12,8 @@ import java.util.Optional;
  */
 public interface IListable<T> {
 
-    Optional<T> findById(int id) throws DAOException;
-    Optional<T> findById(Connection connection, int id) throws DAOException;
-    List<T> findByAll() throws DAOException;
+    Optional<T> findById(int id, int companyId) throws DAOException;
+    Optional<T> findById(Connection connection, int id, int companyId) throws DAOException;
+    List<T> findByAll(int companyId) throws DAOException;
 
 }

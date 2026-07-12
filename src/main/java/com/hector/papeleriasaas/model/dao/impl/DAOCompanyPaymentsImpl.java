@@ -23,17 +23,22 @@ public class DAOCompanyPaymentsImpl implements DAOCompanyPayments {
     }
 
     @Override
-    public Optional<DTOCompanyPaymentSimpleDetails> findById(int id) throws DAOException {
+    public Optional<DTOCompanyPaymentSimpleDetails> findById(int id, int companyId) throws DAOException {
         return Optional.empty();
     }
 
     @Override
-    public Optional<DTOCompanyPaymentSimpleDetails> findById(Connection connection, int id) throws DAOException {
+    public Optional<DTOCompanyPaymentSimpleDetails> findById(Connection connection, int id, int companyId) throws DAOException {
         return Optional.empty();
     }
 
     @Override
     public List<DTOCompanyPaymentSimpleDetails> findByAll() throws DAOException {
+        return List.of();
+    }
+
+    @Override
+    public List<DTOCompanyPaymentSimpleDetails> findByAll(int companyId) throws DAOException {
         return List.of();
     }
 

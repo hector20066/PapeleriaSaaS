@@ -27,7 +27,7 @@ public class DAODebtsImpl implements DAODebts {
     }
 
     @Override
-    public Optional<DTODebtDetails> findById(int id) throws DAOException {
+    public Optional<DTODebtDetails> findById(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/debt/findById.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -47,7 +47,7 @@ public class DAODebtsImpl implements DAODebts {
     }
 
     @Override
-    public Optional<DTODebtDetails> findById(Connection connection, int id) throws DAOException {
+    public Optional<DTODebtDetails> findById(Connection connection, int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/debt/findById.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -66,7 +66,7 @@ public class DAODebtsImpl implements DAODebts {
     }
 
     @Override
-    public List<DTODebtDetails> findByCustomer(String customer) throws DAOException {
+    public List<DTODebtDetails> findByCustomer(String customer, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/debt/findByCustomer.sql");
         List<DTODebtDetails> list = new ArrayList<>();
 
@@ -83,7 +83,7 @@ public class DAODebtsImpl implements DAODebts {
     }
 
     @Override
-    public List<DTODebtDetails> findByAll() throws DAOException {
+    public List<DTODebtDetails> findByAll(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/debt/findByAll.sql");
         List<DTODebtDetails> list = new ArrayList<>();
 
@@ -98,7 +98,7 @@ public class DAODebtsImpl implements DAODebts {
     }
 
     @Override
-    public List<DTODebtDetails> findByStatus(PaymentStatus status) throws DAOException {
+    public List<DTODebtDetails> findByStatus(PaymentStatus status, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/debt/findByStatus.sql");
         List<DTODebtDetails> list = new ArrayList<>();
 
@@ -139,7 +139,7 @@ public class DAODebtsImpl implements DAODebts {
     }
 
     @Override
-    public int countRecords() throws DAOException {
+    public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/debt/countRecords.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();

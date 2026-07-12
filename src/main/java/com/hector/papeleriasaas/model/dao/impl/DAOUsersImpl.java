@@ -33,17 +33,17 @@ public class DAOUsersImpl implements DAOUsers {
     }
 
     @Override
-    public Optional<DTOUserDetails> findById(int id) throws DAOException {
+    public Optional<DTOUserDetails> findById(int id, int companyId) throws DAOException {
         return Optional.empty();
     }
 
     @Override
-    public Optional<DTOUserDetails> findById(Connection connection, int id) throws DAOException {
+    public Optional<DTOUserDetails> findById(Connection connection, int id, int companyId) throws DAOException {
         return Optional.empty();
     }
 
     @Override
-    public List<DTOUserDetails> findByAll() throws DAOException {
+    public List<DTOUserDetails> findByAll(int companyId) throws DAOException {
         return List.of();
     }
 
@@ -53,7 +53,7 @@ public class DAOUsersImpl implements DAOUsers {
     }
 
     @Override
-    public void delete(int id) throws DAOException {
+    public void delete(int id, int companyId) throws DAOException {
 
     }
 

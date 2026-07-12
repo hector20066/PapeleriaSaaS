@@ -14,9 +14,9 @@ public interface DAOSales extends IModifiable<DTOSaleUpdate>,
         ICountable {
 
     int add(Connection connection, DTOSaleCreate dto) throws DAOException;
-    List<DTOSaleDetails> findById(int id) throws DAOException;
-    List<DTOSaleDetails> findById(Connection connection, int id) throws DAOException;
-    List<DTOSaleDetails> findByAll() throws DAOException;
+    List<DTOSaleDetails> findById(int id, int companyId) throws DAOException;
+    List<DTOSaleDetails> findById(Connection connection, int id, int companyId) throws DAOException;
+    List<DTOSaleDetails> findByAll(int companyId) throws DAOException;
     void modify(DTOSaleUpdate dto) throws DAOException;
 
 }

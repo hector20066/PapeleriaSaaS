@@ -16,6 +16,6 @@ public interface DAOProviders extends IListable<DTOProvider>,
         ICountable {
 
     int add(Connection connection, DTOProvider dto) throws DAOException;
-    Optional<DTOProvider> findByName(String name) throws DAOException;
+    Optional<DTOProvider> findByName(String name, int companyId) throws DAOException;
 
 }

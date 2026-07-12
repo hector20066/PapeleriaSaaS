@@ -11,5 +11,6 @@ public interface DAOCompanyPayments extends IListable<DTOCompanyPaymentSimpleDet
 
     void add(DTOCompanyPaymentCreate dto) throws DAOException;
     List<DTOCompanyPaymentDetails> findByCompany(int companyId) throws DAOException;
+    List<DTOCompanyPaymentSimpleDetails> findByAll() throws DAOException;
 
 }

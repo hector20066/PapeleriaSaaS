@@ -9,6 +9,6 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 @FunctionalInterface
 public interface ICountable {
 
-    int countRecords() throws DAOException;
+    int countRecords(int companyId) throws DAOException;
 
 }

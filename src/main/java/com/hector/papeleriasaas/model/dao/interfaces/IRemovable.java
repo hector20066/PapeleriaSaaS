@@ -9,6 +9,6 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 @FunctionalInterface
 public interface IRemovable {
 
-    void delete(int id) throws DAOException;
+    void delete(int id, int companyId) throws DAOException;
 
 }

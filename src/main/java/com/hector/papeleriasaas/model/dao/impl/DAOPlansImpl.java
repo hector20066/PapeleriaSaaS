@@ -17,17 +17,17 @@ public class DAOPlansImpl implements DAOPlans {
     }
 
     @Override
-    public Optional<DTOPlanCreate> findById(int id) throws DAOException {
+    public Optional<DTOPlanCreate> findById(int id, int companyId) throws DAOException {
         return Optional.empty();
     }
 
     @Override
-    public Optional<DTOPlanCreate> findById(Connection connection, int id) throws DAOException {
+    public Optional<DTOPlanCreate> findById(Connection connection, int id, int companyId) throws DAOException {
         return Optional.empty();
     }
 
     @Override
-    public List<DTOPlanCreate> findByAll() throws DAOException {
+    public List<DTOPlanCreate> findByAll(int companyId) throws DAOException {
         return List.of();
     }
 
@@ -37,7 +37,7 @@ public class DAOPlansImpl implements DAOPlans {
     }
 
     @Override
-    public void delete(int id) throws DAOException {
+    public void delete(int id, int companyId) throws DAOException {
 
     }
 

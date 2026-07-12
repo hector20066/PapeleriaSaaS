@@ -14,8 +14,8 @@ public interface DAOPurchases extends IRemovable,
         ICountable {
 
     int add(Connection connection, DTOPurchaseCreate dto) throws DAOException;
-    List<DTOPurchaseDetails> findById(int id) throws DAOException;
-    List<DTOPurchaseDetails> findById(Connection connection, int id) throws DAOException;
-    List<DTOPurchaseDetails> findByAll() throws DAOException;
+    List<DTOPurchaseDetails> findById(int id, int companyId) throws DAOException;
+    List<DTOPurchaseDetails> findById(Connection connection, int id, int companyId) throws DAOException;
+    List<DTOPurchaseDetails> findByAll(int companyId) throws DAOException;
 
 }

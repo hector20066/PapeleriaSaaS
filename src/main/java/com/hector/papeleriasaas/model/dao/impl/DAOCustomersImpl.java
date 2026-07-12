@@ -44,7 +44,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public Optional<DTOCustomerDetails> findByName(String name) throws DAOException {
+    public Optional<DTOCustomerDetails> findByName(String name, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findByName.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -64,7 +64,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public Optional<DTOCustomerDetails> findById(int id) throws DAOException {
+    public Optional<DTOCustomerDetails> findById(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findById.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -84,7 +84,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public Optional<DTOCustomerDetails> findById(Connection connection, int id) throws DAOException {
+    public Optional<DTOCustomerDetails> findById(Connection connection, int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findById.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -103,7 +103,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public List<DTOCustomerDetails> findByAll() throws DAOException {
+    public List<DTOCustomerDetails> findByAll(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findByAllCompany.sql");
         List<DTOCustomerDetails> list = new ArrayList<>();
 
@@ -150,12 +150,12 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public void delete(int id) throws DAOException {
+    public void delete(int id, int companyId) throws DAOException {
 
     }
 
     @Override
-    public int countRecords() throws DAOException {
+    public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/customer/countRecords.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();

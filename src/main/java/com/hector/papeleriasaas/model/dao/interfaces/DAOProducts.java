@@ -17,9 +17,9 @@ public interface DAOProducts extends IListable<DTOProductDetails>,
         ICountable {
 
     int add(Connection connection, DTOProductCreate dto) throws DAOException;
-    Optional<DTOProductDetails> findByName(String product) throws DAOException;
-    Optional<DTOProductDetails> findByName(Connection connection, String product) throws DAOException;
-    Optional<DTOProductBestSelling> bestSelling() throws DAOException;
+    Optional<DTOProductDetails> findByName(String product, int companyId) throws DAOException;
+    Optional<DTOProductDetails> findByName(Connection connection, String product, int companyId) throws DAOException;
+    Optional<DTOProductBestSelling> bestSelling(int companyId) throws DAOException;
     List<DTOProductDetails> getProductList();
     void modify(DTOProductUpdate dto) throws DAOException;
 

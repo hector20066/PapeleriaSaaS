@@ -59,7 +59,7 @@ public class DAOProductsImpl implements DAOProducts {
     }
 
     @Override
-    public Optional<DTOProductDetails> findById(int id) throws DAOException {
+    public Optional<DTOProductDetails> findById(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/findById.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -79,7 +79,7 @@ public class DAOProductsImpl implements DAOProducts {
     }
 
     @Override
-    public Optional<DTOProductDetails> findById(Connection connection, int id) throws DAOException {
+    public Optional<DTOProductDetails> findById(Connection connection, int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/findById.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -98,7 +98,7 @@ public class DAOProductsImpl implements DAOProducts {
     }
 
     @Override
-    public Optional<DTOProductDetails> findByName(String product) throws DAOException {
+    public Optional<DTOProductDetails> findByName(String product, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/findByName.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -118,7 +118,7 @@ public class DAOProductsImpl implements DAOProducts {
     }
 
     @Override
-    public Optional<DTOProductDetails> findByName(Connection connection, String product) throws DAOException {
+    public Optional<DTOProductDetails> findByName(Connection connection, String product, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/findByName.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -137,7 +137,7 @@ public class DAOProductsImpl implements DAOProducts {
     }
 
     @Override
-    public List<DTOProductDetails> findByAll() throws DAOException {
+    public List<DTOProductDetails> findByAll(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/findByAll.sql");
         List<DTOProductDetails> list = new ArrayList<>();
 
@@ -171,7 +171,7 @@ public class DAOProductsImpl implements DAOProducts {
     }
 
     @Override
-    public Optional<DTOProductBestSelling> bestSelling() throws DAOException {
+    public Optional<DTOProductBestSelling> bestSelling(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/bestSelling.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
@@ -238,7 +238,7 @@ public class DAOProductsImpl implements DAOProducts {
     }
 
     @Override
-    public void delete(int id) throws DAOException {
+    public void delete(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/delete.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection()) {
@@ -262,7 +262,7 @@ public class DAOProductsImpl implements DAOProducts {
     }
 
     @Override
-    public int countRecords() throws DAOException {
+    public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/countRecords.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();

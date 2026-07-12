@@ -13,7 +13,7 @@ import java.util.List;
 public interface DAODebts extends IListable<DTODebtDetails>,
         ICountable {
 
-    List<DTODebtDetails> findByCustomer(String customer) throws DAOException;
-    List<DTODebtDetails> findByStatus(PaymentStatus status) throws DAOException;
+    List<DTODebtDetails> findByCustomer(String customer, int companyId) throws DAOException;
+    List<DTODebtDetails> findByStatus(PaymentStatus status, int companyId) throws DAOException;
 
 }

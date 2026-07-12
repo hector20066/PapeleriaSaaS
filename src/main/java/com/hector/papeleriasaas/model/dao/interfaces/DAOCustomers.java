@@ -17,6 +17,6 @@ public interface DAOCustomers extends IModifiable<DTOCustomerCreate>,
         IRemovable {
 
     int add(Connection connection, DTOCustomerCreate dto) throws DAOException;
-    Optional<DTOCustomerDetails> findByName(String name) throws DAOException;
+    Optional<DTOCustomerDetails> findByName(String name, int companyId) throws DAOException;
 
 }

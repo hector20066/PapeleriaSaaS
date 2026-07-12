@@ -43,7 +43,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
     }
 
     @Override
-    public List<DTOPurchaseDetails> findById(int id) throws DAOException {
+    public List<DTOPurchaseDetails> findById(int id, int companyId) throws DAOException {
         List<DTOPurchaseDetails> list = new ArrayList<>();
         String sql = SQLRepository.get("sql/purchase/findById.sql");
 
@@ -64,7 +64,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
     }
 
     @Override
-    public List<DTOPurchaseDetails> findById(Connection connection, int id) throws DAOException {
+    public List<DTOPurchaseDetails> findById(Connection connection, int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/purchase/findById.sql");
         List<DTOPurchaseDetails> list = new ArrayList<>();
 
@@ -84,7 +84,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
     }
 
     @Override
-    public List<DTOPurchaseDetails> findByAll() throws DAOException {
+    public List<DTOPurchaseDetails> findByAll(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/purchase/findByAll.sql");
         List<DTOPurchaseDetails> list = new ArrayList<>();
 
@@ -120,7 +120,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
     }
 
     @Override
-    public void delete(int id) throws DAOException {
+    public void delete(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/purchase/delete.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection()) {
@@ -144,7 +144,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
     }
 
     @Override
-    public int countRecords() throws DAOException {
+    public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/purchase/countRecords.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();

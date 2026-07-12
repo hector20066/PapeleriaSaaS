@@ -56,7 +56,7 @@ public class DAOSalesImpl implements DAOSales {
     }
 
     @Override
-    public List<DTOSaleDetails> findById(int id) throws DAOException {
+    public List<DTOSaleDetails> findById(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/sale/findById.sql");
         List<DTOSaleDetails> list = new ArrayList<>();
 
@@ -77,7 +77,7 @@ public class DAOSalesImpl implements DAOSales {
     }
 
     @Override
-    public List<DTOSaleDetails> findById(Connection connection, int id) throws DAOException {
+    public List<DTOSaleDetails> findById(Connection connection, int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/sale/findById.sql");
         List<DTOSaleDetails> list = new ArrayList<>();
 
@@ -97,7 +97,7 @@ public class DAOSalesImpl implements DAOSales {
     }
 
     @Override
-    public List<DTOSaleDetails> findByAll() throws DAOException {
+    public List<DTOSaleDetails> findByAll(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/sale/findByAll.sql");
         List<DTOSaleDetails> list = new ArrayList<>();
 
@@ -169,7 +169,7 @@ public class DAOSalesImpl implements DAOSales {
     }
 
     @Override
-    public int countRecords() throws DAOException {
+    public int countRecords(int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/sale/countRecords.sql");
 
         try (Connection connection = DataBasePool.getInstance().getConnection();
