@@ -70,6 +70,7 @@ class SaleServiceTest {
     }
 
     @Test
+    @DisplayName("Testear el registro de la venta")
     void testRegisterSale() throws DAOException, SQLException {
         configureSuccessfulSale();
         when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
@@ -90,6 +91,7 @@ class SaleServiceTest {
     }
 
     @Test
+    @DisplayName("Testear el registro de la venta con cliente existente")
     void testRegisterSaleCustomerExist() throws DAOException, SQLException {
         configureSuccessfulSale();
         when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomerDetails.Builder().build()));
@@ -118,6 +120,7 @@ class SaleServiceTest {
     }
 
     @Test
+    @DisplayName("Testear el registro de la venta sin cliente")
     void testRegisterSaleCustomerNull() throws DAOException, SQLException {
         configureSuccessfulSale();
 
@@ -134,6 +137,7 @@ class SaleServiceTest {
     }
 
     @Test
+    @DisplayName("Testear el registro de la venta con lista de productos vacía")
     void testRegisterSaleEmptyList() throws DAOException, SQLException {
         configureSuccessfulSale();
         when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomerDetails.Builder().build()));
@@ -162,6 +166,7 @@ class SaleServiceTest {
 
     @Test
     @Tag("exception")
+    @DisplayName("Testear excepción lanzada al registrar la venta")
     void testRegisterSaleException() throws DAOException, SQLException {
         when(provider.getConnection()).thenReturn(connection);
         when(customersFacade.findById(any(Connection.class), anyInt())).thenThrow(new CustomerNotFoundException("1066726477"));
@@ -189,6 +194,7 @@ class SaleServiceTest {
     }
 
     @Test
+    @DisplayName("Testear verificación de stock bajo")
     void testCheckLowStock() throws DAOException {
         when(productsFacade.findByAll()).thenReturn(Arrays.asList(
                 new DTOProductDetails.Builder().amount(3).description("Cuaderno").build(),
@@ -197,7 +203,20 @@ class SaleServiceTest {
         );
 
         String lowStock = saleService.checkLowStock();
+
+        assertFalse(lowStock.isBlank(), () -> "La lista de productos esta vacía");
         assertEquals("Cuaderno, Colores", lowStock, () -> "El resultado no es el esperado");
+        verify(productsFacade).findByAll();
+    }
+
+    @Test
+    @DisplayName("Testear verificación de stock bajo sin productos")
+    void testCheckLowStockEmpty() throws DAOException {
+        when(productsFacade.findByAll()).thenReturn(Collections.emptyList());
+
+        String lowStock = saleService.checkLowStock();
+
+        assertTrue(lowStock.isBlank(), () -> "La lista no esta vacía");
         verify(productsFacade).findByAll();
     }
 

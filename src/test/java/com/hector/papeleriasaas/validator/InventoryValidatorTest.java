@@ -13,8 +13,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("exception")
 @Tag("validator")
+@Tag("exception")
 class InventoryValidatorTest {
 
     @Test
@@ -42,8 +42,8 @@ class InventoryValidatorTest {
     }
 
     @Test
-    @DisplayName("Testear parámetro de búsqueda vacío")
     @Tag("empty_exception")
+    @DisplayName("Testear parámetro de búsqueda vacío")
     void testSearchParamEmpty() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -68,8 +68,8 @@ class InventoryValidatorTest {
 
     @ParameterizedTest
     @CsvSource({"Hector Acevedo", "1066726477"})
-    @DisplayName("Testar Optional de producto vacío")
     @Tag("empty_exception")
+    @DisplayName("Testar Optional de producto vacío")
     void testDtoProductEmpty(String param) {
         ProductNotFoundException ex = assertThrows(
                 ProductNotFoundException.class,

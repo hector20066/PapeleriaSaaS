@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,12 +45,12 @@ class SalesManagementMapperTest {
     }
 
     @Test
-    @DisplayName("Testear la excepción lanzada al crear la lista de los detalles.")
     @Tag("exception")
+    @DisplayName("Testear la excepción lanzada al crear la lista de los detalles.")
     void testProductDetailsException() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
-                () -> SalesManagementMapper.listProductDetails(new ArrayList<>()),
+                () -> SalesManagementMapper.listProductDetails(Collections.emptyList()),
                 () -> "La excepción lanzada no es la esperada"
         );
 

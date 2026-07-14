@@ -12,11 +12,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("exception")
 @Tag("validator")
+@Tag("exception")
 class DebtReportValidatorTest {
 
     @Test
@@ -82,8 +83,8 @@ class DebtReportValidatorTest {
     }
 
     @Test
-    @DisplayName("Testear parámetro de búsqueda vacío")
     @Tag("empty_exception")
+    @DisplayName("Testear parámetro de búsqueda vacío")
     void testSearchParamEmpty() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -107,14 +108,14 @@ class DebtReportValidatorTest {
     }
 
     @Test
-    @DisplayName("Testear lista de deudas vacía")
     @Tag("empty_exception")
+    @DisplayName("Testear lista de deudas vacía")
     void testDebtListEmpty() {
         String param = "Hector Acevedo";
 
         DebtNotFoundException ex = assertThrows(
                 DebtNotFoundException.class,
-                () -> DebtReportValidator.debtListEmptyValidation(new ArrayList<>(), param),
+                () -> DebtReportValidator.debtListEmptyValidation(Collections.emptyList(), param),
                 () -> "La excepción lanzada no es la esperada."
         );
 

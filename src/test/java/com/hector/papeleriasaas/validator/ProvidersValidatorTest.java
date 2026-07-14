@@ -10,20 +10,17 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("validator")
 @Tag("exception")
 class ProvidersValidatorTest {
 
     @Test
-    @DisplayName("Testear el parámetro de búsqueda vacío")
     @Tag("empty_exception")
+    @DisplayName("Testear el parámetro de búsqueda vacío")
     void testSearchParamEmpty() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
-                () -> {
-                    ProvidersValidator.searchParamValidation("");
-                    ProvidersValidator.searchParamValidation("Buscar proveedor");
-                    ProvidersValidator.searchParamValidation(null);
-                },
+                () -> ProvidersValidator.searchParamValidation(""),
                 () -> "La excepción lanzada no es la esperada"
         );
 

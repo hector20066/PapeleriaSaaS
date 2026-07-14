@@ -10,6 +10,7 @@ import com.hector.papeleriasaas.facade.interfaces.PurchasesFacade;
 import com.hector.papeleriasaas.model.dto.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -52,6 +53,7 @@ class PurchaseServiceTest {
     private PurchaseService purchaseService;
 
     @Test
+    @DisplayName("Testear la conexión")
     void testConnection() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
 
@@ -65,6 +67,7 @@ class PurchaseServiceTest {
     }
 
     @Test
+    @DisplayName("Testear el registro de la compra")
     void testRegisterPurchase() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
@@ -88,6 +91,7 @@ class PurchaseServiceTest {
     }
 
     @Test
+    @DisplayName("Testear el registro de la compra con producto Existente")
     void testRegisterPurchaseProductExist() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(createDtoProvider()));
@@ -129,6 +133,7 @@ class PurchaseServiceTest {
     }
 
     @Test
+    @DisplayName("Testear el registro de la compra con lista de productos vacía")
     void testRegisterPurchaseEmptyList() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
@@ -154,6 +159,7 @@ class PurchaseServiceTest {
 
     @Test
     @Tag("exception")
+    @DisplayName("Testear excepción lanzada al registrar la compra")
     void testRegisterPurchaseException() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());

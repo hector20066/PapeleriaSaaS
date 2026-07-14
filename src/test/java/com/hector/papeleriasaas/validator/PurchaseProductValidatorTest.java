@@ -8,6 +8,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("validator")
 class PurchaseProductValidatorTest {
 
     private String nit;
@@ -43,6 +44,7 @@ class PurchaseProductValidatorTest {
 
     @Nested
     @Tag("empty_exception")
+    @DisplayName("Testear campos vacíos")
     class EmptyFieldsTest {
 
         @Test
@@ -136,6 +138,7 @@ class PurchaseProductValidatorTest {
     }
 
     @Nested
+    @DisplayName("Testear campos nulos")
     class NullFieldsTest {
 
         @Test
@@ -229,6 +232,7 @@ class PurchaseProductValidatorTest {
     }
 
     @Nested
+    @DisplayName("Testear campos con valores por defecto")
     class InvalidInputTest {
 
         @Test

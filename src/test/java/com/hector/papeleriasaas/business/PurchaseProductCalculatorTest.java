@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,7 +43,7 @@ class PurchaseProductCalculatorTest {
     @Test
     @DisplayName("Testear con listas vacías")
     void testAmountPaidEmpty() {
-        BigDecimal result = PurchaseProductCalculator.totalAmountPaid(new ArrayList<>());
+        BigDecimal result = PurchaseProductCalculator.totalAmountPaid(Collections.emptyList());
         assertEquals(BigDecimal.ZERO, result, () -> "Listas vacías deben retornar ZERO");
     }
 

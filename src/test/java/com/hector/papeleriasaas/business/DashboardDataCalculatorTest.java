@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -95,13 +96,13 @@ class DashboardDataCalculatorTest {
     @Test
     @DisplayName("Testear con listas vacías")
     void testTotalPurchasesEmpty() {
-        BigDecimal result = DashboardDataCalculator.totalPurchases(new ArrayList<>());
+        BigDecimal result = DashboardDataCalculator.totalPurchases(Collections.emptyList());
         assertEquals(BigDecimal.ZERO, result, () -> "Listas vacías deben retornar ZERO");
     }
 
     @Test
-    @DisplayName("Testear con listas nulas")
     @Tag("exception")
+    @DisplayName("Testear con listas nulas")
     void testTotalPurchasesNull() {
         assertThrows(NullPointerException.class, () -> DashboardDataCalculator.totalPurchases(null));
     }

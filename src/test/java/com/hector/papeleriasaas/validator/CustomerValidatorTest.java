@@ -14,8 +14,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Tag("exception")
 @Tag("validator")
+@Tag("exception")
 class CustomerValidatorTest {
 
     @Test
@@ -31,8 +31,8 @@ class CustomerValidatorTest {
     }
 
     @Test
-    @DisplayName("Testear excepción lanzada con parámetro de búsqueda vacío")
     @Tag("empty_exception")
+    @DisplayName("Testear excepción lanzada con parámetro de búsqueda vacío")
     void testEmptySearchParam() {
         EmptyFieldException ex = assertThrows(
                 EmptyFieldException.class,
@@ -44,8 +44,8 @@ class CustomerValidatorTest {
     }
 
     @Test
-    @DisplayName("Testear excepción lanzada al usar el place holder para la búsqueda")
     @Tag("empty_exception")
+    @DisplayName("Testear excepción lanzada al usar el place holder para la búsqueda")
     void testPlaceHolderSearchParam() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -57,8 +57,8 @@ class CustomerValidatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"Hector Acevedo", "1066726477"})
-    @DisplayName("Testear la excepción lanzada cuando el optional es vacío")
     @Tag("empty_exception")
+    @DisplayName("Testear la excepción lanzada cuando el optional es vacío")
     void testOptionalEmpty(String param) {
         CustomerNotFoundException ex = assertThrows(
                 CustomerNotFoundException.class,

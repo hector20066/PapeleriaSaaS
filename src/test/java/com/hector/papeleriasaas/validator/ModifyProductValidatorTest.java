@@ -3,15 +3,13 @@ package com.hector.papeleriasaas.validator;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("validator")
 class ModifyProductValidatorTest {
 
     private String id;
@@ -30,6 +28,7 @@ class ModifyProductValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear validación para valores numéricos")
     void testFieldNumericValue() {
         this.id = "12304O";
         this.amount = "5S";
@@ -45,6 +44,7 @@ class ModifyProductValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear validación para la cantidad")
     void testProductAmount() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -56,6 +56,7 @@ class ModifyProductValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear el precio de compra del producto")
     void testProductPurchasePrices() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -67,6 +68,7 @@ class ModifyProductValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear el precio de venta del producto")
     void testProductSalePrices() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -79,9 +81,11 @@ class ModifyProductValidatorTest {
 
     @Nested
     @Tag("empty_exception")
+    @DisplayName("Testear excepciones para campos vacíos")
     class EmptyFieldsTest {
 
         @Test
+        @DisplayName("Testear ID vacío")
         void testEmptyFieldId() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -94,6 +98,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear campos de productos vacíos")
         void testEmptyFieldProduct() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -106,6 +111,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear cantidad vacía")
         void testEmptyFieldAmount() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -118,6 +124,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear precio de compra vacío")
         void testEmptyFieldPurchasePrice() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -130,6 +137,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear precio de venta vacío")
         void testEmptyFieldSalePrice() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -142,6 +150,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear campos vacíos")
         void testEmptyFields() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -157,9 +166,11 @@ class ModifyProductValidatorTest {
 
     @Nested
     @Tag("null_exception")
+    @DisplayName("Testear excepciones para campos nulos")
     class NullFieldsTest {
 
         @Test
+        @DisplayName("Testear ID nul")
         void testNullFieldId() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -172,6 +183,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear campos de productos nulos")
         void testNullFieldProduct() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -184,6 +196,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear cantidad nula")
         void testNullFieldAmount() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -196,6 +209,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear precio de compra nulo")
         void testNullFieldPurchasePrice() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -208,6 +222,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear precio de venta nulo")
         void testNullFieldSalePrice() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
@@ -220,6 +235,7 @@ class ModifyProductValidatorTest {
         }
 
         @Test
+        @DisplayName("Testear campos nulos")
         void testNullFields() {
             EmptyFieldException ex = assertThrows(
                     EmptyFieldException.class,
