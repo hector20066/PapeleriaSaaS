@@ -8,6 +8,8 @@ import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -53,34 +55,25 @@ class SaleServiceTest {
     private SaleService saleService;
 
     @Test
-    void testRegisterSaleCustomerNotEmpty() throws DAOException, SQLException {
-        configureSuccessfulSale();
-        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomerDetails.Builder().build()));
-        DTOSaleDetailsCreate dto = createSaleDTO();
+    @DisplayName("Testear la conexión y la transacción")
+    void testConnection() throws DAOException, SQLException {
+        when(provider.getConnection()).thenReturn(connection);
 
-        int invoiceNumber = saleService.registerSale(1066726477, "Hector Acevedo", "3137762626",
+        saleService.registerSale(1066726477, "Hector Acevedo", "3137762626",
                 new BigDecimal("25000.00"), new BigDecimal("25000.00"), List.of(createSaleDTO()));
-
-        assertEquals(5, invoiceNumber, () -> "El numero de la venta no es el esperado");
 
         verify(connection).setAutoCommit(false);
         verify(connection).commit();
         verify(connection).close();
         verify(connection, never()).rollback();
         verify(provider).getConnection();
-
-        verify(customersFacade).findById(connection, 1066726477);
-        verify(customersFacade).modify(connection, "3137762626", 1066726477);
-        verify(customersFacade, never()).add(connection, 1066726477, "Hector", "3137762626");
-        verify(salesFacade).add(connection, 1066726477, new BigDecimal("25000.00"), new BigDecimal("25000.00"));
-        verify(saleDetailsFacade).add(connection, invoiceNumber, dto.getProductId(), dto.getAmount(), dto.getUnitPrice());
-        verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
     }
 
     @Test
-    void testRegisterSaleCustomerEmpty() throws DAOException, SQLException {
+    void testRegisterSale() throws DAOException, SQLException {
         configureSuccessfulSale();
         when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
+
         DTOSaleDetailsCreate dto = createSaleDTO();
 
         int invoiceNumber = saleService.registerSale(1066726477, "Hector Acevedo",
@@ -96,6 +89,25 @@ class SaleServiceTest {
         verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
     }
 
+    @Test
+    void testRegisterSaleCustomerExist() throws DAOException, SQLException {
+        configureSuccessfulSale();
+        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomerDetails.Builder().build()));
+        DTOSaleDetailsCreate dto = createSaleDTO();
+
+        int invoiceNumber = saleService.registerSale(1066726477, "Hector Acevedo", "3137762626",
+                new BigDecimal("25000.00"), new BigDecimal("25000.00"), List.of(createSaleDTO()));
+
+        assertEquals(5, invoiceNumber, () -> "El numero de la venta no es el esperado");
+
+        verify(customersFacade).findById(connection, 1066726477);
+        verify(customersFacade).modify(connection, "3137762626", 1066726477);
+        verify(customersFacade, never()).add(connection, 1066726477, "Hector", "3137762626");
+        verify(salesFacade).add(connection, 1066726477, new BigDecimal("25000.00"), new BigDecimal("25000.00"));
+        verify(saleDetailsFacade).add(connection, invoiceNumber, dto.getProductId(), dto.getAmount(), dto.getUnitPrice());
+        verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
+    }
+
     private DTOSaleDetailsCreate createSaleDTO() {
         DTOSaleDetailsCreate dto = new DTOSaleDetailsCreate();
         dto.setProductId(5);
@@ -103,6 +115,22 @@ class SaleServiceTest {
         dto.setUnitPrice(new BigDecimal("25000.00"));
 
         return dto;
+    }
+
+    @Test
+    void testRegisterSaleCustomerNull() throws DAOException, SQLException {
+        configureSuccessfulSale();
+
+        int numSale = saleService.registerSale(null, null, null,
+                new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList());
+
+        assertEquals(5, numSale, () -> "El numero de la venta no es el esperado");
+
+        verify(salesFacade).add(connection, null, new BigDecimal("25000.00"), new BigDecimal("25000.00"));
+        verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
+
+        verifyNoInteractions(customersFacade);
+        verifyNoInteractions(saleDetailsFacade);
     }
 
     @Test
@@ -128,30 +156,12 @@ class SaleServiceTest {
 
     private void configureSuccessfulSale() throws SQLException, DAOException {
         when(provider.getConnection()).thenReturn(connection);
-        when(salesFacade.add(any(Connection.class), anyInt(), any(BigDecimal.class), any(BigDecimal.class))).thenReturn(5);
-        when(invoicesFacade.add(any(Connection.class), any(DTOInvoiceCreate.class))).thenReturn(5);
-    }
-
-    @Test
-    void testRegisterSaleCustomerNull() throws DAOException, SQLException {
-        when(provider.getConnection()).thenReturn(connection);
         when(salesFacade.add(any(Connection.class), any(), any(BigDecimal.class), any(BigDecimal.class))).thenReturn(5);
         when(invoicesFacade.add(any(Connection.class), any(DTOInvoiceCreate.class))).thenReturn(5);
-
-        int numSale = saleService.registerSale(null, null, null,
-                new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList());
-
-        assertEquals(5, numSale, () -> "El numero de la venta no es el esperado");
-
-        verifyNoInteractions(customersFacade);
-        verify(salesFacade).add(connection, null, new BigDecimal("25000.00"), new BigDecimal("25000.00"));
-
-        verifyNoInteractions(saleDetailsFacade);
-
-        verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
     }
 
     @Test
+    @Tag("exception")
     void testRegisterSaleException() throws DAOException, SQLException {
         when(provider.getConnection()).thenReturn(connection);
         when(customersFacade.findById(any(Connection.class), anyInt())).thenThrow(new CustomerNotFoundException("1066726477"));

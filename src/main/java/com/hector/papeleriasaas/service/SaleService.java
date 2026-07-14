@@ -39,7 +39,7 @@ public class SaleService {
     public int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
                              BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws SQLException, DAOException {
         Connection connection = null;
-        int invoiceNumber = 0;
+        int invoiceNumber;
 
         try {
             connection = connectionProvider.getConnection();
