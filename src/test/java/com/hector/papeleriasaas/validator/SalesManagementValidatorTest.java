@@ -168,6 +168,14 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    void testSearchParamNotThrows() {
+        assertDoesNotThrow(
+                () -> SalesManagementValidator.searchInvalidParamValidation("Cuaderno Norma"),
+                () -> "Se ha lanzado la excepcion"
+        );
+    }
+
+    @Test
     void testEmptyProduct() {
         ProductNotFoundException ex = assertThrows(
                 ProductNotFoundException.class,
