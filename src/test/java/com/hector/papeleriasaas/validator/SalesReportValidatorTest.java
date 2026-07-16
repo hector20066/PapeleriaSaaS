@@ -6,6 +6,8 @@ import com.hector.papeleriasaas.exception.dao.notfound.SaleDetailsNotFoundExcept
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -14,9 +16,13 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Tag("validator")
+@Tag("exception")
 class SalesReportValidatorTest {
 
     @Test
+    @Tag("empty_exception")
+    @DisplayName("Testear parámetro de búsqueda vacío")
     void testSearchEmpty() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -28,6 +34,7 @@ class SalesReportValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear parámetro de búsqueda con valores inválidos")
     void testSearchInvalidNumber() {
         InvalidNumberInputException ex = assertThrows(
                 InvalidNumberInputException.class,
@@ -40,6 +47,7 @@ class SalesReportValidatorTest {
     }
 
     @Test
+    @DisplayName("Testar validación para el parámetro de búsqueda")
     void testSearchNotThrows() {
         assertDoesNotThrow(
                 () -> SalesReportValidator.searchValidation("32523"),
@@ -48,6 +56,8 @@ class SalesReportValidatorTest {
     }
 
     @Test
+    @Tag("empty_exception")
+    @DisplayName("Testear lista vacía")
     void testListEmpty() {
         SaleDetailsNotFoundException ex = assertThrows(
                 SaleDetailsNotFoundException.class,
@@ -60,6 +70,8 @@ class SalesReportValidatorTest {
     }
 
     @Test
+    @Tag("empty_exception")
+    @DisplayName("Testear validación de lista vacía")
     void testListEmptyNotThrows() {
         assertDoesNotThrow(
                 () -> SalesReportValidator.listEmptyValidation(List.of(new DTOSaleDetails.Builder().build()), "1242"),
@@ -68,6 +80,8 @@ class SalesReportValidatorTest {
     }
 
     @Test
+    @Tag("empty_exception")
+    @DisplayName("Testear producto más vendido vacío")
     void testBestSellingEmpty() {
         ProductNotFoundException ex = assertThrows(
                 ProductNotFoundException.class,
