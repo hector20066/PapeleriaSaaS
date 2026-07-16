@@ -5,6 +5,7 @@ import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -14,10 +15,12 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("validator")
+@Tag("exception")
 class SalesManagementValidatorTest {
 
     @Test
     @Tag("empty_exception")
+    @DisplayName("Testear el ID del cliente vacío")
     void testValidationDebtsEmptyId() {
         EmptyFieldException ex = assertThrows(
                 EmptyFieldException.class,
@@ -30,6 +33,8 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @Tag("empty_exception")
+    @DisplayName("Testear nombre del cliente vacío")
     void testValidationDebtsEmptyName() {
         EmptyFieldException ex = assertThrows(
                 EmptyFieldException.class,
@@ -42,6 +47,8 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @Tag("empty_exception")
+    @DisplayName("Testear campos del cliente vacío")
     void testValidationDebtsEmptyFields() {
         EmptyFieldException ex = assertThrows(
                 EmptyFieldException.class,
@@ -54,6 +61,7 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear valor por defecto en ID del cliente")
     void testInvalidInput() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -65,6 +73,7 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear ID del cliente con valor numérico")
     void testInvalidNumericId() {
         InvalidNumberInputException ex = assertThrows(
                 InvalidNumberInputException.class,
@@ -77,6 +86,7 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear Nombre del cliente con valor por defecto")
     void testInvalidCustomerName() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -88,6 +98,7 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear validaciones de los datos del cliente")
     void testInvalid() {
         assertDoesNotThrow(
                 () -> SalesManagementValidator.validationsDebts("1066726477", "Hector Acevedo"),
@@ -96,6 +107,8 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @Tag("empty_exception")
+    @DisplayName("Testear cantidad pagada vacía")
     void testAmountPaidEmpty() {
         EmptyFieldException ex = assertThrows(
                 EmptyFieldException.class,
@@ -108,6 +121,7 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear validación de cantidad pagada")
     void testAmountPaid() {
         assertDoesNotThrow(
                 () -> SalesManagementValidator.amountPaidEmptyValidation("25000.00"),
@@ -116,6 +130,7 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear cantidad pagada negativa")
     void testAmountPaidValue() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -127,6 +142,7 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear total de la venta cero")
     void testTotalSaleValue() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -138,14 +154,16 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @DisplayName("Testear validación de los campos de dinero")
     void testAmountPaidNotThrows() {
         assertDoesNotThrow(
                 () -> SalesManagementValidator.amountPaidValueValidation(new BigDecimal("25000.00"), new BigDecimal("26000.00")),
-                "Se ha lanzado la excepción"
+                () -> "Se ha lanzado la excepción"
         );
     }
 
     @Test
+    @DisplayName("Testear validación del parámetro de búsqueda")
     void testSearchParam() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -157,6 +175,8 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @Tag("empty_exception")
+    @DisplayName("Testear parámetro de búsqueda vacío")
     void testSearchParamEmpty() {
         InvalidInputException ex = assertThrows(
                 InvalidInputException.class,
@@ -176,6 +196,7 @@ class SalesManagementValidatorTest {
     }
 
     @Test
+    @Tag("empty_exception")
     void testEmptyProduct() {
         ProductNotFoundException ex = assertThrows(
                 ProductNotFoundException.class,
