@@ -12,7 +12,7 @@ import java.util.Map;
 public class ValidationUtils {
 
     public static boolean isNumeric(String value) {
-        if (value == null || value.isEmpty()) {
+        if (isEmptyFields(value)) {
             return false;
         }
 
@@ -24,7 +24,7 @@ public class ValidationUtils {
     }
 
     public static boolean isInvalidInput(String value, String... placeholders) {
-        if (value == null || value.isBlank()) {
+        if (isEmptyFields(value)) {
             return true;
         }
 
