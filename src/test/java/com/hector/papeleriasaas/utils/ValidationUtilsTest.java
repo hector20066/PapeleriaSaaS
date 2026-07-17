@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.utils;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ValidationUtilsTest {
 
     @Test
+    @DisplayName("Testear valores numéricos")
     void testIsNumeric() {
         assertAll(
                 () -> assertFalse(ValidationUtils.isNumeric(null), () -> "El valor es null"),
@@ -22,6 +24,7 @@ class ValidationUtilsTest {
     }
 
     @Test
+    @DisplayName("Testear campos vacíos")
     void testIsEmptyFields() {
         assertAll(
                 () -> assertTrue(ValidationUtils.isEmptyFields(null, null, "Hector Acevedo"), () -> "Habían valores nulos"),
@@ -31,6 +34,7 @@ class ValidationUtilsTest {
     }
 
     @Test
+    @DisplayName("Testear valores inválidos")
     void testIsInvalidInput() {
         assertAll(
                 () -> assertTrue(ValidationUtils.isInvalidInput("Buscar Cliente", "Buscar Cliente", "Nombre del Cliente"), () -> "El valor es diferente a los placeholders"),
@@ -41,6 +45,7 @@ class ValidationUtilsTest {
     }
 
     @Test
+    @DisplayName("Testear obtención de campos vacíos")
     void testGetEmptyFields() {
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put("Cedula del Cliente", "");
