@@ -15,7 +15,7 @@ public class ParserUtils {
         try {
             return new BigDecimal(value);
         } catch (NumberFormatException e) {
-            throw new InvalidNumberInputException(fieldName);
+            throw new InvalidNumberInputException(fieldName, e);
         }
     }
 
@@ -23,7 +23,7 @@ public class ParserUtils {
         try {
             return Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            throw new InvalidNumberInputException(fieldName);
+            throw new InvalidNumberInputException(fieldName, e);
         }
     }
 

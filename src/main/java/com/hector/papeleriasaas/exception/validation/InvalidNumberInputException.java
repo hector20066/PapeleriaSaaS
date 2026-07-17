@@ -10,8 +10,8 @@ public class InvalidNumberInputException extends InvalidInputException {
         super("El campo '" + fieldName + "' debe contener un valor numérico");
     }
 
-    public InvalidNumberInputException(String message, Throwable cause) {
-        super(message, cause);
+    public InvalidNumberInputException(String fieldName, Throwable cause) {
+        super("El campo '" + fieldName + "' debe contener un valor numérico", cause);
     }
 
 }
