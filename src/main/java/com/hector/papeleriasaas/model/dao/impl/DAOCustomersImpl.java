@@ -52,6 +52,7 @@ public class DAOCustomersImpl implements DAOCustomers {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, name);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -66,7 +67,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public Optional<DTOCustomerDetails> findById(int id, int companyId) throws DAOException {
+    public Optional<DTOCustomerDetails> findById(int id) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findById.sql");
 
         try (Connection connection = connectionProvider.getConnection();
@@ -86,7 +87,7 @@ public class DAOCustomersImpl implements DAOCustomers {
     }
 
     @Override
-    public Optional<DTOCustomerDetails> findById(Connection connection, int id, int companyId) throws DAOException {
+    public Optional<DTOCustomerDetails> findById(Connection connection, int id) throws DAOException {
         String sql = SQLRepository.get("sql/customer/findById.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -110,14 +111,16 @@ public class DAOCustomersImpl implements DAOCustomers {
         List<DTOCustomerDetails> list = new ArrayList<>();
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            while (rs.next()) {
-                list.add(getDTOCustomer(rs));
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    list.add(getDTOCustomer(rs));
+                }
+
+                return list;
             }
-
-            return list;
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al obtener todos los clientes", e);
         }
@@ -141,9 +144,9 @@ public class DAOCustomersImpl implements DAOCustomers {
             st.setString(2, dto.getPhone());
             st.setString(3, dto.getEmail());
             st.setInt(4, dto.getIdentification());
-            int affectedRows = st.executeUpdate();
+            st.setInt(5, dto.getCompanyId());
 
-            if (affectedRows == 0) {
+            if (st.executeUpdate() == 0) {
                 throw new SQLException("cliente no existe con id: " + dto.getIdentification());
             }
         } catch (SQLException e) {
@@ -161,14 +164,16 @@ public class DAOCustomersImpl implements DAOCustomers {
         String sql = SQLRepository.get("sql/customer/countRecords.sql");
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            if (!rs.next()) {
-                return 0;
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return 0;
+                }
+
+                return rs.getInt("total_records");
             }
-
-            return rs.getInt("total_records");
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al contar clientes", e);
         }

@@ -65,6 +65,7 @@ public class DAOSalesImpl implements DAOSales {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
@@ -85,6 +86,7 @@ public class DAOSalesImpl implements DAOSales {
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
@@ -104,15 +106,17 @@ public class DAOSalesImpl implements DAOSales {
         List<DTOSaleDetails> list = new ArrayList<>();
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            while (rs.next()) {
-                DTOSaleDetails dto = getDTOSaleDetails(rs);
-                list.add(dto);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    DTOSaleDetails dto = getDTOSaleDetails(rs);
+                    list.add(dto);
+                }
+
+                return list;
             }
-
-            return list;
         } catch (SQLException e) {
             throw new SalePersistenceException("Error al obtener todas las ventas", e);
         }
@@ -175,14 +179,16 @@ public class DAOSalesImpl implements DAOSales {
         String sql = SQLRepository.get("sql/sale/countRecords.sql");
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            if (!rs.next()) {
-                return 0;
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return 0;
+                }
+
+                return rs.getInt("total_records");
             }
-
-            return rs.getInt("total_records");
         } catch (SQLException e) {
             throw new SalePersistenceException("Error al contar ventas", e);
         }

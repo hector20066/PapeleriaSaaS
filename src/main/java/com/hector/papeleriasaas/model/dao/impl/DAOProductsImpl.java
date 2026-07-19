@@ -67,6 +67,7 @@ public class DAOProductsImpl implements DAOProducts {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -86,6 +87,7 @@ public class DAOProductsImpl implements DAOProducts {
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -106,6 +108,7 @@ public class DAOProductsImpl implements DAOProducts {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, product);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -125,6 +128,7 @@ public class DAOProductsImpl implements DAOProducts {
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, product);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -144,17 +148,20 @@ public class DAOProductsImpl implements DAOProducts {
         List<DTOProductDetails> list = new ArrayList<>();
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
-            this.productList.clear();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            while (rs.next()) {
-                DTOProductDetails dto = getDTOProductDetails(rs);
-                this.productList.add(dto);
-                list.add(dto);
+            try (ResultSet rs = st.executeQuery()) {
+                this.productList.clear();
+
+                while (rs.next()) {
+                    DTOProductDetails dto = getDTOProductDetails(rs);
+                    this.productList.add(dto);
+                    list.add(dto);
+                }
+
+                return list;
             }
-
-            return list;
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al obtener todos los productos", e);
         }
@@ -177,20 +184,22 @@ public class DAOProductsImpl implements DAOProducts {
         String sql = SQLRepository.get("sql/product/bestSelling.sql");
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            if (!rs.next()) {
-                return Optional.empty();
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return Optional.empty();
+                }
+
+                DTOProductBestSelling dto = new DTOProductBestSelling.Builder()
+                        .id(rs.getInt("id"))
+                        .description(rs.getString("description"))
+                        .quantitySold(rs.getInt("quantity_sold"))
+                        .build();
+
+                return Optional.of(dto);
             }
-
-            DTOProductBestSelling dto = new DTOProductBestSelling.Builder()
-                    .id(rs.getInt("id"))
-                    .description(rs.getString("description"))
-                    .quantitySold(rs.getInt("quantity_sold"))
-                    .build();
-
-            return Optional.of(dto);
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al obtener el producto más vendido", e);
         }
@@ -246,10 +255,9 @@ public class DAOProductsImpl implements DAOProducts {
         try (Connection connection = connectionProvider.getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, id);
-                // st.setInt(2, id_company);
-                int affectedRows = st.executeUpdate();
+                st.setInt(2, companyId);
 
-                if (affectedRows == 0) {
+                if (st.executeUpdate() == 0) {
                     throw new SQLException("producto no existe con id: " + id);
                 }
 
@@ -268,14 +276,16 @@ public class DAOProductsImpl implements DAOProducts {
         String sql = SQLRepository.get("sql/product/countRecords.sql");
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            if (!rs.next()) {
-                return 0;
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return 0;
+                }
+
+                return rs.getInt("total_records");
             }
-
-            return rs.getInt("total_records");
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al contar productos", e);
         }

@@ -37,7 +37,7 @@ public class DAOProvidersImpl implements DAOProviders {
             st.setString(3, dto.getAddress());
             st.setString(4, dto.getPhone());
             st.setString(5, dto.getEmail());
-            st.setInt(6, dto.getId());
+            st.setInt(6, dto.getCompanyId());
 
             return st.executeUpdate();
         } catch (SQLException e) {
@@ -52,6 +52,7 @@ public class DAOProvidersImpl implements DAOProviders {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, name);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -72,6 +73,7 @@ public class DAOProvidersImpl implements DAOProviders {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -91,6 +93,7 @@ public class DAOProvidersImpl implements DAOProviders {
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -110,18 +113,20 @@ public class DAOProvidersImpl implements DAOProviders {
         List<DTOProvider> list = new ArrayList<>();
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            while (rs.next()) {
-                DTOProvider dto = getDTOSupplier(rs);
-                list.add(dto);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    DTOProvider dto = getDTOSupplier(rs);
+                    list.add(dto);
+                }
+
+                return list;
             }
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al obtener todos los proveedores", e);
         }
-
-        return list;
     }
 
     private DTOProvider getDTOSupplier(ResultSet rs) throws SQLException {
@@ -147,9 +152,7 @@ public class DAOProvidersImpl implements DAOProviders {
             st.setInt(5, dto.getNit());
             st.setInt(6, dto.getCompanyId());
 
-            int affectedRows = st.executeUpdate();
-
-            if (affectedRows == 0) {
+            if (st.executeUpdate() == 0) {
                 throw new SQLException("proveedor no existe con nit: " + dto.getNit());
             }
         } catch (SQLException e) {
@@ -164,11 +167,9 @@ public class DAOProvidersImpl implements DAOProviders {
         try (Connection connection = connectionProvider.getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, id);
-                // st.setInt(2, companyId);
+                st.setInt(2, companyId);
 
-                int affectedRows = st.executeUpdate();
-
-                if (affectedRows == 0) {
+                if (st.executeUpdate() == 0) {
                     throw new SQLException("proveedor no existe con nit: " + id);
                 }
 
@@ -187,14 +188,16 @@ public class DAOProvidersImpl implements DAOProviders {
         String sql = SQLRepository.get("sql/provider/countRecords.sql");
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
+            
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return 0;
+                }
 
-            if (!rs.next()) {
-                return 0;
+                return rs.getInt("total_records");
             }
-
-            return rs.getInt("total_records");
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al contar proveedores", e);
         }

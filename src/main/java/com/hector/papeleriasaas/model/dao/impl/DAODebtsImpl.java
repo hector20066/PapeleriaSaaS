@@ -35,6 +35,7 @@ public class DAODebtsImpl implements DAODebts {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -54,6 +55,7 @@ public class DAODebtsImpl implements DAODebts {
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 if (!rs.next()) {
@@ -75,6 +77,7 @@ public class DAODebtsImpl implements DAODebts {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, customer);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 return executeQuery(list, rs);
@@ -90,10 +93,12 @@ public class DAODebtsImpl implements DAODebts {
         List<DTODebtDetails> list = new ArrayList<>();
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            return executeQuery(list, rs);
+            try (ResultSet rs = st.executeQuery()) {
+                return executeQuery(list, rs);
+            }
         } catch (SQLException e) {
             throw new DebtPersistenceException("No se han encontrado registros de deudas.", e);
         }
@@ -107,6 +112,7 @@ public class DAODebtsImpl implements DAODebts {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, String.valueOf(status));
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 return executeQuery(list, rs);
@@ -145,14 +151,16 @@ public class DAODebtsImpl implements DAODebts {
         String sql = SQLRepository.get("sql/debt/countRecords.sql");
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            if (!rs.next()) {
-                return 0;
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return 0;
+                }
+
+                return rs.getInt("total_records");
             }
-
-            return rs.getInt("total_records");
         } catch (SQLException e) {
             throw new DebtPersistenceException("No se han encontrado registros.", e);
         }

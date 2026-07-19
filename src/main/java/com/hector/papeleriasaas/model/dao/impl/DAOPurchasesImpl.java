@@ -52,6 +52,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
@@ -72,6 +73,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
@@ -91,15 +93,17 @@ public class DAOPurchasesImpl implements DAOPurchases {
         List<DTOPurchaseDetails> list = new ArrayList<>();
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql) ) {
+            st.setInt(1, companyId);
 
-            while (rs.next()) {
-                DTOPurchaseDetails dto = getDTOPurchaseDetails(rs);
-                list.add(dto);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    DTOPurchaseDetails dto = getDTOPurchaseDetails(rs);
+                    list.add(dto);
+                }
+
+                return list;
             }
-
-            return list;
         } catch (SQLException e) {
             throw new PurchasePersistenceException("Error al obtener todas las compras", e);
         }
@@ -128,10 +132,9 @@ public class DAOPurchasesImpl implements DAOPurchases {
         try (Connection connection = connectionProvider.getConnection()) {
             try (PreparedStatement st = connection.prepareStatement(sql)) {
                 st.setInt(1, id);
+                st.setInt(2, companyId);
 
-                int affectedRows = st.executeUpdate();
-
-                if (affectedRows == 0) {
+                if (st.executeUpdate() == 0) {
                     throw new SQLException("compra no existe con numero: " + id);
                 }
 
@@ -150,14 +153,16 @@ public class DAOPurchasesImpl implements DAOPurchases {
         String sql = SQLRepository.get("sql/purchase/countRecords.sql");
 
         try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql);
-             ResultSet rs = st.executeQuery()) {
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, companyId);
 
-            if (!rs.next()) {
-                return 0;
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return 0;
+                }
+
+                return rs.getInt("total_records");
             }
-
-            return rs.getInt("total_records");
         } catch (SQLException e) {
             throw new PurchasePersistenceException("Error al contar compras", e);
         }
