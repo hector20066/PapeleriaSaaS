@@ -3,4 +3,5 @@ SET
     name = ?,
     phone = ?,
     email = ?
-WHERE identification = ?;
+WHERE identification = ? AND
+      id_company = ?;

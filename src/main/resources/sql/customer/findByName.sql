@@ -4,4 +4,5 @@ SELECT
     phone,
     email
 FROM customers
-WHERE LOWER(TRIM(name)) = LOWER(TRIM(?));
+WHERE LOWER(TRIM(name)) = LOWER(TRIM(?)) AND
+    id_company = ?;
