@@ -43,12 +43,12 @@ public class CustomersImplFacade implements CustomersFacade {
 
     @Override
     public Optional<DTOCustomerDetails> findById(int id) throws DAOException {
-        return daoCustomers.findById(id, companyId);
+        return daoCustomers.findById(id);
     }
 
     @Override
     public Optional<DTOCustomerDetails> findById(Connection connection, int id) throws DAOException {
-        return daoCustomers.findById(connection, id, companyId);
+        return daoCustomers.findById(connection, id);
     }
 
     @Override
