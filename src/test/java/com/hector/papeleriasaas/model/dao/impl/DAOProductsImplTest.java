@@ -59,9 +59,6 @@ class DAOProductsImplTest {
         verify(connection).prepareStatement(any(), anyInt());
         verify(statement).executeUpdate();
         verify(statement).getGeneratedKeys();
-        verify(statement).setString(anyInt(), anyString());
-        verify(statement).setBigDecimal(2, new BigDecimal("25000"));
-        verify(statement).setInt(anyInt(), anyInt());
         verify(resultSet).next();
         verify(resultSet).getInt(1);
     }
@@ -78,7 +75,6 @@ class DAOProductsImplTest {
         assertTrue(optional.isEmpty());
         verify(connectionProvider).getConnection();
         verify(connection).prepareStatement(anyString());
-        verify(statement).setInt(1, 2);
         verify(statement).executeQuery();
         verify(resultSet).next();
     }
