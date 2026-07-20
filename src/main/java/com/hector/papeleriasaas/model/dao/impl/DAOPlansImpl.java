@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOPlans;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanCreate;
-import com.hector.papeleriasaas.model.dto.plan.DTOPlanUpdate;
+import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
 
 import java.sql.Connection;
 import java.util.List;
@@ -39,7 +39,7 @@ public class DAOPlansImpl implements DAOPlans {
     }
 
     @Override
-    public void modify(Connection connection, DTOPlanUpdate dto) throws DAOException {
+    public void modify(Connection connection, DTOPlanDetails dto) throws DAOException {
 
     }
 
