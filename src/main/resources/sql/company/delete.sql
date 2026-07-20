@@ -1,1 +1,3 @@
-DELETE FROM companies WHERE id = ?;
+DELETE
+FROM companies
+WHERE id = ?;

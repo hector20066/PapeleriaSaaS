@@ -1,1 +1,4 @@
-UPDATE companies SET status = ? WHERE id = ?;
+UPDATE companies
+SET
+    status = ?
+WHERE id = ?;

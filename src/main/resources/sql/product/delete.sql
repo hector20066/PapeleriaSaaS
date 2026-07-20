@@ -1,4 +1,4 @@
 DELETE
 FROM products
-WHERE id = ? AND
-      id_company = ?;
+WHERE id = ?
+  AND id_company = ?;

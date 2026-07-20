@@ -6,5 +6,5 @@ SELECT
     phone,
     email
 FROM providers
-WHERE LOWER(TRIM(rSocial)) = LOWER(TRIM(?)) AND
-      id_company = ?;
+WHERE LOWER(TRIM(rSocial)) = LOWER(TRIM(?))
+  AND id_company = ?;

@@ -1,4 +1,5 @@
-INSERT INTO companies (
+INSERT INTO
+companies (
     nit,
     name,
     address,

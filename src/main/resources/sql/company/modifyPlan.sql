@@ -1,1 +1,4 @@
-UPDATE companies SET plan_id = ? WHERE id = ?;
+UPDATE companies
+SET
+    plan_id = ?
+WHERE id = ?;

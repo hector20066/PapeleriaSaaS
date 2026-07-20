@@ -6,5 +6,5 @@ SELECT
     phone,
     email
 FROM providers
-WHERE nit = ? AND
-      id_company = ?;
+WHERE nit = ?
+  AND id_company = ?;

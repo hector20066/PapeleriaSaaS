@@ -4,5 +4,5 @@ SET
     amount = ?,
     sale_price = ?,
     purchase_price = ?
-WHERE id = ? AND
-      id_company = ?;
+WHERE id = ?
+  AND id_company = ?;
