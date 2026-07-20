@@ -9,14 +9,15 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
-public interface DAOCompanies extends IModifiable<DTOCompanyUpdate> {
+public interface DAOCompanies {
 
     int add(DTOCompanyCreate dto) throws DAOException;
     Optional<DTOCompanyDetails> findByName(String name) throws DAOException;
-    Optional<DTOCompanyDetails> findByNit(int id) throws DAOException;
+    Optional<DTOCompanyDetails> findByNit(int nit) throws DAOException;
     Optional<DTOCompanyDetails> findById(int id) throws DAOException;
     Optional<DTOCompanyDetails> findById(Connection connection, int id) throws DAOException;
     List<DTOCompanyDetails> findByAll() throws DAOException;
+    void modify(DTOCompanyUpdate dto) throws DAOException;
     void delete(int id) throws DAOException;
 
 }
