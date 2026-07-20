@@ -3,10 +3,9 @@ package com.hector.papeleriasaas.validator;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.SupplierNotFoundException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.model.dto.DTOProvider;
+import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 
-import java.nio.file.ProviderNotFoundException;
 import java.util.Optional;
 
 public final class ProvidersValidator {

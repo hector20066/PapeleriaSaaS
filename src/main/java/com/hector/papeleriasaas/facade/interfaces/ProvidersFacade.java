@@ -1,10 +1,7 @@
 package com.hector.papeleriasaas.facade.interfaces;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.model.dao.interfaces.ICountable;
-import com.hector.papeleriasaas.model.dao.interfaces.IListable;
-import com.hector.papeleriasaas.model.dao.interfaces.IRemovable;
-import com.hector.papeleriasaas.model.dto.DTOProvider;
+import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 
 import java.sql.Connection;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.mapper;
 
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.model.dto.DTOProvider;
+import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.validator.PurchaseProductValidator;

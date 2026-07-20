@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import com.hector.papeleriasaas.model.enums.PaymentStatus;
 
-public class DTOCompanyPaymentCreate {
+public class DTOPaymentCreate {
 
     private Integer companyId;
     private Integer planId;
@@ -16,11 +16,11 @@ public class DTOCompanyPaymentCreate {
     private String observations;
     private PaymentStatus paymentStatus;
 
-    public DTOCompanyPaymentCreate() {
+    public DTOPaymentCreate() {
 
     }
 
-    public DTOCompanyPaymentCreate(Builder builder) {
+    public DTOPaymentCreate(Builder builder) {
         this.companyId = builder.companyId;
         this.planId = builder.planId;
         this.amountPaid = builder.amountPaid;
@@ -146,8 +146,8 @@ public class DTOCompanyPaymentCreate {
             return this;
         }
 
-        public DTOCompanyPaymentCreate build() {
-            return new DTOCompanyPaymentCreate(this);
+        public DTOPaymentCreate build() {
+            return new DTOPaymentCreate(this);
         }
 
     }

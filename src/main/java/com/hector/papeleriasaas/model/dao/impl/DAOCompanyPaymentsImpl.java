@@ -3,9 +3,9 @@ package com.hector.papeleriasaas.model.dao.impl;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanyPayments;
-import com.hector.papeleriasaas.model.dto.companypayments.DTOCompanyPaymentCreate;
-import com.hector.papeleriasaas.model.dto.companypayments.DTOCompanyPaymentDetails;
-import com.hector.papeleriasaas.model.dto.companypayments.DTOCompanyPaymentSimpleDetails;
+import com.hector.papeleriasaas.model.dto.companypayments.DTOPaymentCreate;
+import com.hector.papeleriasaas.model.dto.companypayments.DTOPaymentDetails;
+import com.hector.papeleriasaas.model.dto.companypayments.DTOPaymentSimpleDetails;
 
 import java.sql.Connection;
 import java.util.List;
@@ -20,32 +20,32 @@ public class DAOCompanyPaymentsImpl implements DAOCompanyPayments {
     }
 
     @Override
-    public void add(DTOCompanyPaymentCreate dto) throws DAOException {
+    public void add(DTOPaymentCreate dto) throws DAOException {
 
     }
 
     @Override
-    public List<DTOCompanyPaymentDetails> findByCompany(int companyId) throws DAOException {
+    public List<DTOPaymentDetails> findByCompany(int companyId) throws DAOException {
         return List.of();
     }
 
     @Override
-    public Optional<DTOCompanyPaymentSimpleDetails> findById(int id, int companyId) throws DAOException {
+    public Optional<DTOPaymentSimpleDetails> findById(int id, int companyId) throws DAOException {
         return Optional.empty();
     }
 
     @Override
-    public Optional<DTOCompanyPaymentSimpleDetails> findById(Connection connection, int id, int companyId) throws DAOException {
+    public Optional<DTOPaymentSimpleDetails> findById(Connection connection, int id, int companyId) throws DAOException {
         return Optional.empty();
     }
 
     @Override
-    public List<DTOCompanyPaymentSimpleDetails> findByAll() throws DAOException {
+    public List<DTOPaymentSimpleDetails> findByAll() throws DAOException {
         return List.of();
     }
 
     @Override
-    public List<DTOCompanyPaymentSimpleDetails> findByAll(int companyId) throws DAOException {
+    public List<DTOPaymentSimpleDetails> findByAll(int companyId) throws DAOException {
         return List.of();
     }
 

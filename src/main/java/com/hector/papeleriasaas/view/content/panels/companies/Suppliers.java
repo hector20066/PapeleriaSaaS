@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
-import com.hector.papeleriasaas.model.dto.DTOProvider;
+import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.panels.RoundedPanel;
 

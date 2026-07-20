@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.SupplierPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
-import com.hector.papeleriasaas.model.dto.DTOProvider;
+import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
 import java.sql.Connection;

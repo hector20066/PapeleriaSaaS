@@ -7,7 +7,7 @@ import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.facade.interfaces.ProvidersFacade;
 import com.hector.papeleriasaas.facade.interfaces.PurchaseDetailsFacade;
 import com.hector.papeleriasaas.facade.interfaces.PurchasesFacade;
-import com.hector.papeleriasaas.model.dto.DTOProvider;
+import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import org.junit.jupiter.api.DisplayName;

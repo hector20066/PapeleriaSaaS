@@ -1,4 +1,4 @@
 package com.hector.papeleriasaas.model.dto.companypayments;
 
-public class DTOCompanyPaymentSimpleDetails {
+public class DTOPaymentSimpleDetails {
 }

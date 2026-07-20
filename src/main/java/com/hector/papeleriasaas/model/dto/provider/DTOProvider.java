@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.model.dto;
+package com.hector.papeleriasaas.model.dto.provider;
 
 /**
  *
