@@ -18,7 +18,6 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/countRecords.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/delete.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/findByAll.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/findByAllWithLimit.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/findById.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/findByName.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/product/insert.sql" dialect="GenericSQL" />
