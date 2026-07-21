@@ -5,9 +5,7 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.exception.dao.PersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanies;
-import com.hector.papeleriasaas.model.dto.company.DTOCompanyCreate;
-import com.hector.papeleriasaas.model.dto.company.DTOCompanyDetails;
-import com.hector.papeleriasaas.model.dto.company.DTOCompanyUpdate;
+import com.hector.papeleriasaas.model.dto.company.*;
 import com.hector.papeleriasaas.utils.SQLRepository;
 import com.mysql.cj.x.protobuf.MysqlxPrepare;
 
@@ -56,12 +54,12 @@ public class DAOCompaniesImpl implements DAOCompanies {
     }
 
     @Override
-    public Optional<DTOCompanyDetails> findByName(String name) throws DAOException {
+    public Optional<DTOCompanySimpleDetails> findByName(String name) throws DAOException {
         return Optional.empty();
     }
 
     @Override
-    public Optional<DTOCompanyDetails> findByNit(int nit) throws DAOException {
+    public Optional<DTOCompanySimpleDetails> findByNit(int nit) throws DAOException {
         return Optional.empty();
     }
 
@@ -76,21 +74,30 @@ public class DAOCompaniesImpl implements DAOCompanies {
     }
 
     @Override
-    public List<DTOCompanyDetails> findByAll() throws DAOException {
+    public Optional<DTOCompanySimpleDetails> findByIdSimpleDetails(int nit) throws DAOException {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<DTOCompanySimpleDetails> findByAll() throws DAOException {
         return List.of();
     }
 
     @Override
     public void modify(DTOCompanyUpdate dto) throws DAOException {
-        String sql = SQLRepository.get("sql/company/modify.sql");
 
-        try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql)) {
-
-        } catch (SQLException e) {
-
-        }
     }
+
+    @Override
+    public void modifyPlan(DTOCompanyUpdatePlan dto) throws DAOException {
+
+    }
+
+    @Override
+    public void modifyStatus(DTOCompanyUpdateStatus dto) throws DAOException {
+
+    }
+
 
     @Override
     public void delete(int id) throws DAOException {

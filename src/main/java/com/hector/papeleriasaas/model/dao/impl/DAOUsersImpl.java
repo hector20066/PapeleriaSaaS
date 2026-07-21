@@ -3,9 +3,7 @@ package com.hector.papeleriasaas.model.dao.impl;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOUsers;
-import com.hector.papeleriasaas.model.dto.user.DTOUserCreate;
-import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
-import com.hector.papeleriasaas.model.dto.user.DTOUserUpdate;
+import com.hector.papeleriasaas.model.dto.user.*;
 
 import java.sql.Connection;
 import java.util.List;
@@ -40,6 +38,21 @@ public class DAOUsersImpl implements DAOUsers {
     }
 
     @Override
+    public void modify(DTOUserUpdate dto) throws DAOException {
+
+    }
+
+    @Override
+    public void modifyPassword(DTOUserUpdatePasswd dto) throws DAOException {
+
+    }
+
+    @Override
+    public void modifyPasswordCompany(DTOUserUpdatePasswdCompany dto) throws DAOException {
+
+    }
+
+    @Override
     public Optional<DTOUserDetails> findById(int id, int companyId) throws DAOException {
         return Optional.empty();
     }
@@ -52,11 +65,6 @@ public class DAOUsersImpl implements DAOUsers {
     @Override
     public List<DTOUserDetails> findByAll(int companyId) throws DAOException {
         return List.of();
-    }
-
-    @Override
-    public void modify(Connection connection, DTOUserUpdate dto) throws DAOException {
-
     }
 
     @Override
