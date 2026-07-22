@@ -12,9 +12,9 @@ public interface DAOCompanies {
     int add(DTOCompanyCreate dto) throws DAOException;
     Optional<DTOCompanySimpleDetails> findByName(String name) throws DAOException;
     Optional<DTOCompanySimpleDetails> findByNit(int nit) throws DAOException;
-    Optional<DTOCompanyDetails> findById(int id) throws DAOException;
-    Optional<DTOCompanyDetails> findById(Connection connection, int id) throws DAOException;
-    Optional<DTOCompanySimpleDetails> findByIdSimpleDetails(int nit) throws DAOException;
+    Optional<DTOCompanyDetails> findCompanyInfo(int id) throws DAOException;
+    Optional<DTOCompanyDetails> findCompanyInfo(Connection connection, int id) throws DAOException;
+    Optional<DTOCompanySimpleDetails> findById(int id) throws DAOException;
     List<DTOCompanySimpleDetails> findByAll() throws DAOException;
     void modify(DTOCompanyUpdate dto) throws DAOException;
     void modifyPlan(DTOCompanyUpdatePlan dto) throws DAOException;

@@ -6,10 +6,11 @@ import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.exception.dao.PersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanies;
 import com.hector.papeleriasaas.model.dto.company.*;
+import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.utils.SQLRepository;
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,50 +55,203 @@ public class DAOCompaniesImpl implements DAOCompanies {
     }
 
     @Override
+    public Optional<DTOCompanySimpleDetails> findById(int id) throws DAOException {
+        String sql = SQLRepository.get("sql/company/adminFilters/findById.sql");
+
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return Optional.empty();
+                }
+
+                return Optional.of(getDTOCompanySimpleDetails(rs));
+            }
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
+    }
+
+    @Override
     public Optional<DTOCompanySimpleDetails> findByName(String name) throws DAOException {
-        return Optional.empty();
+        String sql = SQLRepository.get("sql/company/adminFilters/findByName.sql");
+
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, name);
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return Optional.empty();
+                }
+
+                return Optional.of(getDTOCompanySimpleDetails(rs));
+            }
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
     }
 
     @Override
     public Optional<DTOCompanySimpleDetails> findByNit(int nit) throws DAOException {
-        return Optional.empty();
+        String sql = SQLRepository.get("sql/company/adminFilters/findByNit.sql");
+
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, nit);
+
+            try (ResultSet rs = st.executeQuery()) {
+                /* if (!rs.next()) {
+                    return Optional.empty();
+                }
+
+                return Optional.of(getDTOCompanySimpleDetails(rs)); */
+
+                return rs.next()
+                        ? Optional.of(getDTOCompanySimpleDetails(rs))
+                        : Optional.empty();
+            }
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
     }
 
     @Override
-    public Optional<DTOCompanyDetails> findById(int id) throws DAOException {
-        return Optional.empty();
+    public Optional<DTOCompanyDetails> findCompanyInfo(int id) throws DAOException {
+        String sql = SQLRepository.get("sql/company/filtersForBusinesses/findCompanyInfo.sql");
+
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
+
+            return executeQueryCompanyInfo(st);
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
     }
 
     @Override
-    public Optional<DTOCompanyDetails> findById(Connection connection, int id) throws DAOException {
-        return Optional.empty();
+    public Optional<DTOCompanyDetails> findCompanyInfo(Connection connection, int id) throws DAOException {
+        String sql = SQLRepository.get("sql/company/filtersForBusinesses/findCompanyInfo.sql");
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
+
+            return executeQueryCompanyInfo(st);
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
     }
 
-    @Override
-    public Optional<DTOCompanySimpleDetails> findByIdSimpleDetails(int nit) throws DAOException {
-        return Optional.empty();
+    private Optional<DTOCompanyDetails> executeQueryCompanyInfo(PreparedStatement st) throws SQLException {
+        try (ResultSet rs = st.executeQuery()) {
+            if (!rs.next()) {
+                return Optional.empty();
+            }
+
+            return Optional.of(new DTOCompanyDetails.Builder()
+                    .id(rs.getInt("id"))
+                    .nit(rs.getInt("nit"))
+                    .name(rs.getString("name"))
+                    .address(rs.getString("address"))
+                    .phone(rs.getString("phone"))
+                    .registrationDate(rs.getDate("registration_date").toLocalDate())
+                    .status(Status.valueOf(rs.getString("status")))
+                    .planName(rs.getString("plan_name"))
+                    .planPrice(rs.getBigDecimal("plan_price"))
+                    .build());
+        }
     }
 
     @Override
     public List<DTOCompanySimpleDetails> findByAll() throws DAOException {
-        return List.of();
+        String sql = SQLRepository.get("sql/company/adminFilters/findByPaymentsReport.sql");
+        List<DTOCompanySimpleDetails> list = new ArrayList<>();
+
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql);
+             ResultSet rs = st.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(getDTOCompanySimpleDetails(rs));
+            }
+
+            return list;
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
+    }
+
+    private DTOCompanySimpleDetails getDTOCompanySimpleDetails(ResultSet rs) throws SQLException {
+        return new DTOCompanySimpleDetails.Builder()
+                .id(rs.getInt("id"))
+                .nit(rs.getInt("nit"))
+                .name(rs.getString("name"))
+                .address(rs.getString("address"))
+                .phone(rs.getString("phone"))
+                .registrationDate(rs.getDate("registration_date").toLocalDate())
+                .planName(rs.getString("plan_name"))
+                .lastPayment(rs.getDate("last_payment").toLocalDate())
+                .nextPayment(rs.getDate("next_payment").toLocalDate())
+                .status(Status.valueOf(rs.getString("status")))
+                .build();
     }
 
     @Override
     public void modify(DTOCompanyUpdate dto) throws DAOException {
+        String sql = SQLRepository.get("sql/company/modify.sql");
 
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, dto.getName());
+            st.setString(2, dto.getAddress());
+            st.setString(3, dto.getPhone());
+            st.setString(4, dto.getEmail());
+            st.setInt(5, dto.getId());
+
+            if (st.executeUpdate() == 0) {
+                throw new DataNotFoundException();
+            }
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
     }
 
     @Override
     public void modifyPlan(DTOCompanyUpdatePlan dto) throws DAOException {
+        String sql = SQLRepository.get("sql/company/modifyPlan.sql");
 
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, dto.getPlanId());
+            st.setInt(2, dto.getId());
+
+            if (st.executeUpdate() == 0) {
+                throw new DataNotFoundException();
+            }
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
     }
 
     @Override
     public void modifyStatus(DTOCompanyUpdateStatus dto) throws DAOException {
+        String sql = SQLRepository.get("sql/company/modifyStatus.sql");
 
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, dto.getStatus().toString());
+            st.setInt(2, dto.getId());
+
+            if (st.executeUpdate() == 0) {
+                throw new DataNotFoundException();
+            }
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
     }
-
 
     @Override
     public void delete(int id) throws DAOException {

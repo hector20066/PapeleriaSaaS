@@ -393,6 +393,7 @@ FROM purchases_details pd
     LEFT JOIN products p ON pd.product_id = p.id
     LEFT JOIN providers pr ON ps.provider_id = pr.id;
 
+-- Lista los reportes de compras
 CREATE VIEW vw_payments_report AS
 SELECT
     c.id,
