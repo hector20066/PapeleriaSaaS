@@ -5,7 +5,7 @@ USE db_papeleria_saas;
 CREATE TABLE plans (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    amount DECIMAL(12,2) NOT NULL,
+    price DECIMAL(12,2) NOT NULL,
     description VARCHAR(500),
     billing_cycle VARCHAR(10) NOT NULL -- MONTHLY, YEARLY
 );
@@ -444,7 +444,7 @@ END $$
 
 DELIMITER ;
 
--- Inserta una compra y retorna el numero de la compra
+-- Inserta una compra y retorna el número de la compra
 DELIMITER $$
 
 CREATE PROCEDURE sp_create_purchase(

@@ -7,7 +7,7 @@ import com.hector.papeleriasaas.model.enums.BillingCycle;
 public class DTOPlanCreate {
 
     private String name;
-    private BigDecimal amount;
+    private BigDecimal price;
     private String description;
     private BillingCycle billingCycle;
 
@@ -15,9 +15,9 @@ public class DTOPlanCreate {
 
     }
 
-    public DTOPlanCreate(String name, BigDecimal amount, String description, BillingCycle billingCycle) {
+    public DTOPlanCreate(String name, BigDecimal price, String description, BillingCycle billingCycle) {
         this.name = name;
-        this.amount = amount;
+        this.price = price;
         this.description = description;
         this.billingCycle = billingCycle;
     }
@@ -30,12 +30,12 @@ public class DTOPlanCreate {
         this.name = name;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getDescription() {
