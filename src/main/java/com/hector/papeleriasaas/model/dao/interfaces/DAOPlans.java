@@ -8,11 +8,12 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
-public interface DAOPlans extends IModifiable<DTOPlanDetails>,
-       IRemovable {
+public interface DAOPlans {
 
     int add(DTOPlanCreate dto) throws DAOException;
     Optional<DTOPlanDetails> findById(int id) throws DAOException;
     List<DTOPlanDetails> findByAll() throws DAOException;
-    
+    void modify(DTOPlanDetails dto) throws DAOException;
+    void delete(int id) throws DAOException;
+
 }
