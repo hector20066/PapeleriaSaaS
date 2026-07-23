@@ -63,11 +63,9 @@ public class DAOCompaniesImpl implements DAOCompanies {
             st.setInt(1, id);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOCompanySimpleDetails(rs));
+                return rs.next()
+                        ? Optional.of(getDTOCompanySimpleDetails(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new PersistenceException();
@@ -83,11 +81,9 @@ public class DAOCompaniesImpl implements DAOCompanies {
             st.setString(1, name);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOCompanySimpleDetails(rs));
+                return rs.next()
+                        ? Optional.of(getDTOCompanySimpleDetails(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new PersistenceException();
@@ -103,12 +99,6 @@ public class DAOCompaniesImpl implements DAOCompanies {
             st.setInt(1, nit);
 
             try (ResultSet rs = st.executeQuery()) {
-                /* if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOCompanySimpleDetails(rs)); */
-
                 return rs.next()
                         ? Optional.of(getDTOCompanySimpleDetails(rs))
                         : Optional.empty();
@@ -126,7 +116,11 @@ public class DAOCompaniesImpl implements DAOCompanies {
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
 
-            return executeQueryCompanyInfo(st);
+            try (ResultSet rs = st.executeQuery()) {
+                return rs.next()
+                        ? Optional.of(getDTOCompanyDetails(rs))
+                        : Optional.empty();
+            }
         } catch (SQLException e) {
             throw new PersistenceException();
         }
@@ -139,30 +133,28 @@ public class DAOCompaniesImpl implements DAOCompanies {
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
 
-            return executeQueryCompanyInfo(st);
+            try (ResultSet rs = st.executeQuery()) {
+                return rs.next()
+                        ? Optional.of(getDTOCompanyDetails(rs))
+                        : Optional.empty();
+            }
         } catch (SQLException e) {
             throw new PersistenceException();
         }
     }
 
-    private Optional<DTOCompanyDetails> executeQueryCompanyInfo(PreparedStatement st) throws SQLException {
-        try (ResultSet rs = st.executeQuery()) {
-            if (!rs.next()) {
-                return Optional.empty();
-            }
-
-            return Optional.of(new DTOCompanyDetails.Builder()
-                    .id(rs.getInt("id"))
-                    .nit(rs.getInt("nit"))
-                    .name(rs.getString("name"))
-                    .address(rs.getString("address"))
-                    .phone(rs.getString("phone"))
-                    .registrationDate(rs.getDate("registration_date").toLocalDate())
-                    .status(Status.valueOf(rs.getString("status")))
-                    .planName(rs.getString("plan_name"))
-                    .planPrice(rs.getBigDecimal("plan_price"))
-                    .build());
-        }
+    private DTOCompanyDetails getDTOCompanyDetails(ResultSet rs) throws SQLException {
+        return new DTOCompanyDetails.Builder()
+                .id(rs.getInt("id"))
+                .nit(rs.getInt("nit"))
+                .name(rs.getString("name"))
+                .address(rs.getString("address"))
+                .phone(rs.getString("phone"))
+                .registrationDate(rs.getDate("registration_date").toLocalDate())
+                .status(Status.valueOf(rs.getString("status")))
+                .planName(rs.getString("plan_name"))
+                .planPrice(rs.getBigDecimal("plan_price"))
+                .build();
     }
 
     @Override
