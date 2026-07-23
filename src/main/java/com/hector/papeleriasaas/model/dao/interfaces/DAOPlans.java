@@ -4,10 +4,15 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanCreate;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
 
-public interface DAOPlans extends IListable<DTOPlanDetails>,
-       IModifiable<DTOPlanDetails>,
+import java.sql.Connection;
+import java.util.List;
+import java.util.Optional;
+
+public interface DAOPlans extends IModifiable<DTOPlanDetails>,
        IRemovable {
 
     int add(DTOPlanCreate dto) throws DAOException;
+    Optional<DTOPlanDetails> findById(int id) throws DAOException;
+    List<DTOPlanDetails> findByAll() throws DAOException;
     
 }
