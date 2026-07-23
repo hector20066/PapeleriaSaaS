@@ -1,7 +1,7 @@
 UPDATE plans
 SET
     name = ?,
-    amount = ?,
+    price = ?,
     description = ?,
     billing_cycle = ?
 WHERE id = ?;

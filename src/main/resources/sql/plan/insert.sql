@@ -1,7 +1,7 @@
 INSERT INTO
 plans (
     name,
-    amount,
+    price,
     description,
     billing_cycle
 ) VALUES (?, ?, ?, ?);
