@@ -5,7 +5,7 @@ SELECT
     u.role,
     u.status,
     u.id_company
-    c.name
+    c.name AS company_name
 FROM users u
     INNER JOIN companies c ON c.id = u.id_company
 WHERE c.nit = ?
