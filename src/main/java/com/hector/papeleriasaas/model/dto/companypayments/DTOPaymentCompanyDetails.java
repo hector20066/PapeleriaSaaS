@@ -2,12 +2,13 @@ package com.hector.papeleriasaas.model.dto.companypayments;
 
 import com.hector.papeleriasaas.model.enums.Status;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class DTOPaymentCompanyDetails {
 
     private String planName;
-    private Integer amountPaid;
+    private BigDecimal amountPaid;
     private LocalDate paymentDate;
     private LocalDate expirationDate;
     private Status status;
@@ -28,7 +29,7 @@ public class DTOPaymentCompanyDetails {
         return planName;
     }
 
-    public Integer getAmountPaid() {
+    public BigDecimal getAmountPaid() {
         return amountPaid;
     }
 
@@ -47,7 +48,7 @@ public class DTOPaymentCompanyDetails {
     public static class Builder {
 
         private String planName;
-        private Integer amountPaid;
+        private BigDecimal amountPaid;
         private LocalDate paymentDate;
         private LocalDate expirationDate;
         private Status status;
@@ -57,7 +58,7 @@ public class DTOPaymentCompanyDetails {
             return this;
         }
 
-        public Builder amountPaid(Integer amountPaid) {
+        public Builder amountPaid(BigDecimal amountPaid) {
             this.amountPaid = amountPaid;
             return this;
         }
