@@ -48,7 +48,7 @@ public class DAOPlansImpl implements DAOPlans {
                 if (rs.next()) {
                     return rs.getInt(1);
                 } else {
-                    throw new PersistenceException();
+                    throw new SQLException("Creating plan failed, no ID obtained.");
                 }
             }
         } catch (SQLException e) {

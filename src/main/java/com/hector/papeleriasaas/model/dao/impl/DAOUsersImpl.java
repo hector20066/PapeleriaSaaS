@@ -52,7 +52,7 @@ public class DAOUsersImpl implements DAOUsers {
                 if (rs.next()) {
                     return rs.getInt(1);
                 } else {
-                    throw new PersistenceException();
+                    throw new SQLException("Creating user failed, no ID obtained.");
                 }
             }
         } catch (SQLException e) {

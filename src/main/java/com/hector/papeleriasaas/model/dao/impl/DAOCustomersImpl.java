@@ -2,16 +2,14 @@ package com.hector.papeleriasaas.model.dao.impl;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.PersistenceException;
 import com.hector.papeleriasaas.exception.dao.persistence.CustomerPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCustomers;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,14 +30,26 @@ public class DAOCustomersImpl implements DAOCustomers {
     public int add(Connection connection, DTOCustomerCreate dto) throws DAOException {
         String sql = SQLRepository.get("sql/customer/insert.sql");
 
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
+        try (PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             st.setInt(1, dto.getIdentification());
             st.setString(2, dto.getName());
             st.setString(3, dto.getPhone());
             st.setString(4, dto.getEmail());
             st.setInt(5, dto.getCompanyId());
 
-            return st.executeUpdate();
+            int affectedRows = st.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating customer failed, no rows affected.");
+            }
+
+            try (ResultSet rs = st.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                } else {
+                    throw new SQLException("Creating customer failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al agregar cliente", e);
         }

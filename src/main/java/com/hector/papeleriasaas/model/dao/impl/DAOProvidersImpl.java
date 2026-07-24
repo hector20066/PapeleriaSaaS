@@ -39,7 +39,19 @@ public class DAOProvidersImpl implements DAOProviders {
             st.setString(5, dto.getEmail());
             st.setInt(6, dto.getCompanyId());
 
-            return st.executeUpdate();
+            int affectedRows = st.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating provider failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating provider failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al agregar proveedor", e);
         }
