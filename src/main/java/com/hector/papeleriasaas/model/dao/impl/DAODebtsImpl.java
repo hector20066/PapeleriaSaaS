@@ -120,8 +120,7 @@ public class DAODebtsImpl implements DAODebts {
 
     private List<DTODebtDetails> executeQuery(List<DTODebtDetails> list, ResultSet rs) throws SQLException {
         while (rs.next()) {
-            DTODebtDetails dto = getDTODebtDetails(rs);
-            list.add(dto);
+            list.add(getDTODebtDetails(rs));
         }
 
         return list;
