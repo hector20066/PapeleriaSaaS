@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.service.impl;
+package com.hector.papeleriasaas.service;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;

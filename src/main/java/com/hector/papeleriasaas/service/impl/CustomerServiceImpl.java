@@ -23,6 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
         this.daoCustomers = daoCustomers;
     }
 
+    @Override
     public void add(Connection connection, int id, String name, String phone) throws DAOException {
         DTOCustomerCreate dto = new DTOCustomerCreate.Builder()
                 .identification(id)
@@ -34,22 +35,27 @@ public class CustomerServiceImpl implements CustomerService {
         daoCustomers.add(connection, dto);
     }
 
+    @Override
     public Optional<DTOCustomerDetails> findByName(String name) throws DAOException {
         return daoCustomers.findByName(name, companyId);
     }
 
+    @Override
     public Optional<DTOCustomerDetails> findById(int id) throws DAOException {
         return daoCustomers.findById(id);
     }
 
+    @Override
     public Optional<DTOCustomerDetails> findById(Connection connection, int id) throws DAOException {
         return daoCustomers.findById(connection, id);
     }
 
+    @Override
     public List<DTOCustomerDetails> findByAll() throws DAOException {
         return daoCustomers.findByAll(companyId);
     }
 
+    @Override
     public void modify(Connection connection, String phone, int id) throws DAOException {
         DTOCustomerCreate dto = new DTOCustomerCreate.Builder()
                 .phone(phone)
@@ -60,6 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
         daoCustomers.modify(connection, dto);
     }
 
+    @Override
     public int countRecords() throws DAOException {
         return daoCustomers.countRecords(companyId);
     }

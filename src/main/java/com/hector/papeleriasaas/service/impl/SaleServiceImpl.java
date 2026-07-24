@@ -40,6 +40,7 @@ public class SaleServiceImpl implements SaleService {
         this.connectionProvider = connectionProvider;
     }
 
+    @Override
     public int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
                              BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws SQLException, DAOException {
         Connection connection = null;
@@ -82,6 +83,17 @@ public class SaleServiceImpl implements SaleService {
         return invoiceNumber;
     }
 
+    private int add(Connection connection, Integer customerId, BigDecimal totalPaid, BigDecimal totalSale) throws DAOException {
+        DTOSaleCreate dto = new DTOSaleCreate();
+        dto.setCustomerId(customerId);
+        dto.setTotalPaid(totalPaid);
+        dto.setTotalSale(totalSale);
+        dto.setCompanyId(companyId);
+
+        return daoSales.add(connection, dto);
+    }
+
+    @Override
     public String checkLowStock() throws DAOException {
         StringBuilder productsOutOfStock = new StringBuilder();
         List<DTOProductDetails> products = productsFacade.findByAll();
@@ -99,28 +111,22 @@ public class SaleServiceImpl implements SaleService {
         return productsOutOfStock.toString();
     }
 
-    private int add(Connection connection, Integer customerId, BigDecimal totalPaid, BigDecimal totalSale) throws DAOException {
-        DTOSaleCreate dto = new DTOSaleCreate();
-        dto.setCustomerId(customerId);
-        dto.setTotalPaid(totalPaid);
-        dto.setTotalSale(totalSale);
-        dto.setCompanyId(companyId);
-
-        return daoSales.add(connection, dto);
-    }
-
+    @Override
     public List<DTOSaleDetails> findById(int id) throws DAOException {
         return daoSales.findById(id, companyId);
     }
 
+    @Override
     public List<DTOSaleDetails> findById(Connection connection, int id) throws DAOException {
         return daoSales.findById(connection, id, companyId);
     }
 
+    @Override
     public List<DTOSaleDetails> findByAll() throws DAOException {
         return daoSales.findByAll(companyId);
     }
 
+    @Override
     public void modify(BigDecimal totalPaid, int numSale) throws DAOException {
         DTOSaleUpdate dto = new DTOSaleUpdate();
         dto.setTotalPaid(totalPaid);
@@ -129,6 +135,7 @@ public class SaleServiceImpl implements SaleService {
         daoSales.modify(dto);
     }
 
+    @Override
     public void modify(Connection connection, BigDecimal totalPaid, int numSale) throws DAOException {
         DTOSaleUpdate dto = new DTOSaleUpdate();
         dto.setTotalPaid(totalPaid);
@@ -137,6 +144,7 @@ public class SaleServiceImpl implements SaleService {
         daoSales.modify(connection, dto);
     }
 
+    @Override
     public int countRecords() throws DAOException {
         return daoSales.countRecords(companyId);
     }

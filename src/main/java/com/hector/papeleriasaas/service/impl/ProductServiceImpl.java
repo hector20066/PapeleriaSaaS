@@ -27,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
         return daoProducts.getProductList();
     }
 
+    @Override
     public int add(Connection connection, String description, BigDecimal purchasePrice, BigDecimal salePrice) throws DAOException {
         DTOProductCreate dto = new DTOProductCreate();
         dto.setDescription(description);
@@ -37,30 +38,37 @@ public class ProductServiceImpl implements ProductService {
         return daoProducts.add(connection, dto);
     }
 
+    @Override
     public Optional<DTOProductDetails> findByName(String product) throws DAOException {
         return daoProducts.findByName(product, companyId);
     }
 
+    @Override
     public Optional<DTOProductDetails> findByName(Connection connection, String product) throws DAOException {
         return daoProducts.findByName(connection, product, companyId);
     }
 
+    @Override
     public Optional<DTOProductDetails> findById(int id) throws DAOException {
         return daoProducts.findById(id, companyId);
     }
 
+    @Override
     public Optional<DTOProductDetails> findById(Connection connection, int id) throws DAOException {
         return daoProducts.findById(connection, id, companyId);
     }
 
+    @Override
     public Optional<DTOProductBestSelling> bestSelling() throws DAOException {
         return daoProducts.bestSelling(companyId);
     }
 
+    @Override
     public List<DTOProductDetails> findByAll() throws DAOException {
         return daoProducts.findByAll(companyId);
     }
 
+    @Override
     public void modify(String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice, int id) throws DAOException {
         DTOProductUpdate dto = new DTOProductUpdate.Builder()
                 .description(description)
@@ -74,6 +82,7 @@ public class ProductServiceImpl implements ProductService {
         daoProducts.modify(dto);
     }
 
+    @Override
     public void modify(Connection connection, String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice,
                        int id) throws DAOException {
         DTOProductUpdate dto = new DTOProductUpdate.Builder()
@@ -88,10 +97,12 @@ public class ProductServiceImpl implements ProductService {
         daoProducts.modify(connection, dto);
     }
 
+    @Override
     public void delete(int id) throws DAOException {
         daoProducts.delete(id, companyId);
     }
 
+    @Override
     public int countRecords() throws DAOException {
         return daoProducts.countRecords(companyId);
     }

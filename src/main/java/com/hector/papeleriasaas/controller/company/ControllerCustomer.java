@@ -6,7 +6,7 @@ import com.hector.papeleriasaas.executor.*;
 import com.hector.papeleriasaas.service.impl.CustomerServiceImpl;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.observer.*;
-import com.hector.papeleriasaas.service.impl.ReportServiceImpl;
+import com.hector.papeleriasaas.service.ReportServiceImpl;
 import com.hector.papeleriasaas.utils.*;
 import com.hector.papeleriasaas.validator.CustomerValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Customers;

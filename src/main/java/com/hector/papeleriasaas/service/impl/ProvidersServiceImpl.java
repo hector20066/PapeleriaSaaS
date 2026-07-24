@@ -22,6 +22,7 @@ public class ProvidersServiceImpl implements ProvidersService {
         this.daoProviders = daoProviders;
     }
 
+    @Override
     public void add(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException {
         DTOProvider dto = new DTOProvider.Builder()
                 .nit(nit)
@@ -35,22 +36,27 @@ public class ProvidersServiceImpl implements ProvidersService {
         daoProviders.add(connection, dto);
     }
 
+    @Override
     public Optional<DTOProvider> findByName(String name) throws DAOException {
         return daoProviders.findByName(name, companyId);
     }
 
+    @Override
     public Optional<DTOProvider> findById(int id) throws DAOException {
         return daoProviders.findById(id, companyId);
     }
 
+    @Override
     public Optional<DTOProvider> findById(Connection connection, int id) throws DAOException {
         return daoProviders.findById(connection, id, companyId);
     }
 
+    @Override
     public List<DTOProvider> findByAll() throws DAOException {
         return daoProviders.findByAll(companyId);
     }
 
+    @Override
     public void modify(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException {
         DTOProvider dto = new DTOProvider.Builder()
                 .nit(nit)
@@ -64,10 +70,12 @@ public class ProvidersServiceImpl implements ProvidersService {
         daoProviders.modify(connection, dto);
     }
 
+    @Override
     public void delete(int id) throws DAOException {
         daoProviders.delete(id, companyId);
     }
 
+    @Override
     public int countRecords() throws DAOException {
         return daoProviders.countRecords(companyId);
     }

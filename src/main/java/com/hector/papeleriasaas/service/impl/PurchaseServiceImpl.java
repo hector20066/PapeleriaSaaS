@@ -38,6 +38,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         this.connectionProvider = connectionProvider;
     }
 
+    @Override
     public void registerPurchase(DTOProvider dtoSupplier, BigDecimal totalPaid,
                                  List<DTOProductCreate> products) throws SQLException, DAOException {
         Connection connection = null;
@@ -99,22 +100,27 @@ public class PurchaseServiceImpl implements PurchaseService {
         return daoPurchases.add(connection, dto);
     }
 
+    @Override
     public List<DTOPurchaseDetails> findById(int id) throws DAOException {
         return daoPurchases.findById(id, companyId);
     }
 
+    @Override
     public List<DTOPurchaseDetails> findById(Connection connection, int id) throws DAOException {
         return daoPurchases.findById(connection, id, companyId);
     }
 
+    @Override
     public List<DTOPurchaseDetails> findByAll() throws DAOException {
         return daoPurchases.findByAll(companyId);
     }
 
+    @Override
     public void delete(int id) throws DAOException {
         daoPurchases.delete(id, companyId);
     }
 
+    @Override
     public int countRecords() throws DAOException {
         return daoPurchases.countRecords(companyId);
     }

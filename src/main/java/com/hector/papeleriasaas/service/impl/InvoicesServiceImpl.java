@@ -15,6 +15,7 @@ public class InvoicesServiceImpl implements InvoicesService {
         this.daoInvoices = daoInvoices;
     }
 
+    @Override
     public int add(Connection connection, DTOInvoiceCreate dto) throws DAOException {
         return daoInvoices.add(connection, dto);
     }

@@ -11,7 +11,7 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.product.DTOProductUpdate;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
-import com.hector.papeleriasaas.service.impl.ReportServiceImpl;
+import com.hector.papeleriasaas.service.ReportServiceImpl;
 import com.hector.papeleriasaas.utils.*;
 import com.hector.papeleriasaas.validator.InventoryValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Inventory;

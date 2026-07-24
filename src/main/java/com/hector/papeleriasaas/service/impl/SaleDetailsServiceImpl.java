@@ -20,6 +20,7 @@ public class SaleDetailsServiceImpl implements SaleDetailsService {
         this.daoSaleDetails = daoSaleDetails;
     }
 
+    @Override
     public void add(Connection connection, int numSale, int productId, int amount, BigDecimal unitPrice) throws DAOException {
         DTOSaleDetailsCreate dto = new DTOSaleDetailsCreate();
         dto.setSaleId(numSale);

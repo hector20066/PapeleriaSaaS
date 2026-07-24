@@ -23,26 +23,32 @@ public class DebtsServiceImpl implements DebtsService {
         this.daoDebts = daoDebts;
     }
 
+    @Override
     public List<DTODebtDetails> findByCustomer(String customer) throws DAOException {
         return daoDebts.findByCustomer(customer, companyId);
     }
 
+    @Override
     public List<DTODebtDetails> findByStatus(PaymentStatus status) throws DAOException {
         return daoDebts.findByStatus(status, 1);
     }
 
+    @Override
     public Optional<DTODebtDetails> findById(int id) throws DAOException {
         return daoDebts.findById(id, companyId);
     }
 
+    @Override
     public Optional<DTODebtDetails> findById(Connection connection, int id) throws DAOException {
         return daoDebts.findById(connection, id, companyId);
     }
 
+    @Override
     public List<DTODebtDetails> findByAll() throws DAOException {
         return daoDebts.findByAll(companyId);
     }
 
+    @Override
     public int countRecords() throws DAOException {
         return daoDebts.countRecords(companyId);
     }
