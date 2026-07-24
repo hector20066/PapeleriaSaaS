@@ -1,8 +1,9 @@
-package com.hector.papeleriasaas.service;
+package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOSaleDetails;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
+import com.hector.papeleriasaas.service.interfaces.SaleDetailsService;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -11,11 +12,11 @@ import java.sql.Connection;
  *
  * @author Ing. Hector Acevedo
  */
-public class SaleDetailsService {
+public class SaleDetailsServiceImpl implements SaleDetailsService {
 
     private final DAOSaleDetails daoSaleDetails;
 
-    public SaleDetailsService(DAOSaleDetails daoSaleDetails) {
+    public SaleDetailsServiceImpl(DAOSaleDetails daoSaleDetails) {
         this.daoSaleDetails = daoSaleDetails;
     }
 

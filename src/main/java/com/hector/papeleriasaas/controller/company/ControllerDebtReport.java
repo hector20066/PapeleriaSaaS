@@ -6,13 +6,13 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.DebtsService;
-import com.hector.papeleriasaas.service.SaleService;
+import com.hector.papeleriasaas.service.impl.DebtsServiceImpl;
+import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
 import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
-import com.hector.papeleriasaas.service.ReportService;
+import com.hector.papeleriasaas.service.impl.ReportServiceImpl;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
@@ -39,8 +39,8 @@ public class ControllerDebtReport implements Observer {
     private final DebtReport debtReport;
     private final Subject subject;
 
-    private final DebtsService debtsService;
-    private final SaleService saleService;
+    private final DebtsServiceImpl debtsService;
+    private final SaleServiceImpl saleService;
 
     public ControllerDebtReport(ControllerDebtReportBuilder builder) {
         this.debtReport = builder.getDebtReport();
@@ -211,7 +211,7 @@ public class ControllerDebtReport implements Observer {
                 String compileReport = "/reports/ReporteDeudas.jrxml";
                 Map<String, Object> params = new HashMap<>();
 
-                JasperPrint report = ReportService.generate(debtDetails, compileReport, params);
+                JasperPrint report = ReportServiceImpl.generate(debtDetails, compileReport, params);
                 ReportViewer.show(report);
             } catch (DAOException | JRException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("Ha ocurrido un error al generar el "

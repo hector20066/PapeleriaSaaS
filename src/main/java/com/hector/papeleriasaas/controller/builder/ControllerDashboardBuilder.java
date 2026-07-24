@@ -1,8 +1,8 @@
 package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerDashboard;
-import com.hector.papeleriasaas.service.ProductService;
-import com.hector.papeleriasaas.service.SaleService;
+import com.hector.papeleriasaas.service.impl.ProductServiceImpl;
+import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
 
@@ -15,8 +15,8 @@ public class ControllerDashboardBuilder {
     private Dashboard dashboard;
     private Subject subject;
 
-    private ProductService productService;
-    private SaleService saleService;
+    private ProductServiceImpl productService;
+    private SaleServiceImpl saleService;
 
     public ControllerDashboardBuilder withViewDashboard(Dashboard dashboard) {
         this.dashboard = dashboard;
@@ -28,12 +28,12 @@ public class ControllerDashboardBuilder {
         return this;
     }
 
-    public ControllerDashboardBuilder withProductService(ProductService productService) {
+    public ControllerDashboardBuilder withProductService(ProductServiceImpl productService) {
         this.productService = productService;
         return this;
     }
 
-    public ControllerDashboardBuilder withSaleService(SaleService salesFacade) {
+    public ControllerDashboardBuilder withSaleService(SaleServiceImpl salesFacade) {
         this.saleService = salesFacade;
         return this;
     }
@@ -50,11 +50,11 @@ public class ControllerDashboardBuilder {
         return subject;
     }
 
-    public ProductService getProductService() {
+    public ProductServiceImpl getProductService() {
         return productService;
     }
 
-    public SaleService getSaleService() {
+    public SaleServiceImpl getSaleService() {
         return saleService;
     }
 

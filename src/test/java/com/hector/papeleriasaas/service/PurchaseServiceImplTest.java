@@ -3,6 +3,7 @@ package com.hector.papeleriasaas.service;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.PurchasePersistenceException;
+import com.hector.papeleriasaas.service.impl.PurchaseServiceImpl;
 import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.service.interfaces.ProvidersFacade;
 import com.hector.papeleriasaas.service.interfaces.PurchaseDetailsFacade;
@@ -29,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class PurchaseServiceTest {
+class PurchaseServiceImplTest {
 
     @Mock
     private ProvidersFacade providersFacade;
@@ -50,7 +51,7 @@ class PurchaseServiceTest {
     private Connection connection;
 
     @InjectMocks
-    private PurchaseService purchaseService;
+    private PurchaseServiceImpl purchaseService;
 
     @Test
     @DisplayName("Testear la conexión")

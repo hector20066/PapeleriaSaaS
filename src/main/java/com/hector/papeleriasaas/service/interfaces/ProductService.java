@@ -1,0 +1,27 @@
+package com.hector.papeleriasaas.service.interfaces;
+
+import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
+import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.util.List;
+import java.util.Optional;
+
+public interface ProductService {
+
+    List<DTOProductDetails> getProductList();
+    int add(Connection connection, String description, BigDecimal purchasePrice, BigDecimal salePrice) throws DAOException;
+    Optional<DTOProductDetails> findByName(String product) throws DAOException;
+    Optional<DTOProductDetails> findByName(Connection connection, String product) throws DAOException;
+    Optional<DTOProductDetails> findById(int id) throws DAOException;
+    Optional<DTOProductDetails> findById(Connection connection, int id) throws DAOException;
+    Optional<DTOProductBestSelling> bestSelling() throws DAOException;
+    List<DTOProductDetails> findByAll() throws DAOException;
+    void modify(String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice, int id) throws DAOException;
+    void modify(Connection connection, String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice, int id) throws DAOException;
+    void delete(int id) throws DAOException;
+    int countRecords() throws DAOException;
+
+}

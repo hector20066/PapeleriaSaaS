@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.service;
+package com.hector.papeleriasaas.service.impl;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -14,23 +14,24 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
+import com.hector.papeleriasaas.service.interfaces.SaleService;
 
 /**
  *
  * @author Ing. Hector Acevedo
  */
-public class SaleService {
+public class SaleServiceImpl implements SaleService {
 
     private final DAOSales daoSales;
-    private final CustomerService customerFacade;
-    private final SaleDetailsService saleDetailsFacade;
-    private final InvoicesService invoiceFacade;
-    private final ProductService productsFacade;
+    private final CustomerServiceImpl customerFacade;
+    private final SaleDetailsServiceImpl saleDetailsFacade;
+    private final InvoicesServiceImpl invoiceFacade;
+    private final ProductServiceImpl productsFacade;
     private final ConnectionProvider connectionProvider;
 
     private int companyId = 0;
 
-    public SaleService(DAOSales daoSales, CustomerService customersFacade, SaleDetailsService saleDetailsFacade, InvoicesService invoicesFacade, ProductService productsFacade, ConnectionProvider connectionProvider) {
+    public SaleServiceImpl(DAOSales daoSales, CustomerServiceImpl customersFacade, SaleDetailsServiceImpl saleDetailsFacade, InvoicesServiceImpl invoicesFacade, ProductServiceImpl productsFacade, ConnectionProvider connectionProvider) {
         this.daoSales = daoSales;
         this.customerFacade = customersFacade;
         this.saleDetailsFacade = saleDetailsFacade;
@@ -98,7 +99,7 @@ public class SaleService {
         return productsOutOfStock.toString();
     }
 
-    public int add(Connection connection, Integer customerId, BigDecimal totalPaid, BigDecimal totalSale) throws DAOException {
+    private int add(Connection connection, Integer customerId, BigDecimal totalPaid, BigDecimal totalSale) throws DAOException {
         DTOSaleCreate dto = new DTOSaleCreate();
         dto.setCustomerId(customerId);
         dto.setTotalPaid(totalPaid);

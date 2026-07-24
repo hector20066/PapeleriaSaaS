@@ -1,4 +1,4 @@
-package com.hector.papeleriasaas.service;
+package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
@@ -8,6 +8,7 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseCreate;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
+import com.hector.papeleriasaas.service.interfaces.PurchaseService;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -19,17 +20,17 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class PurchaseService {
+public class PurchaseServiceImpl implements PurchaseService {
 
     private final DAOPurchases daoPurchases;
-    private final ProvidersService providersFacade;
-    private final ProductService productsFacade;
-    private final PurchaseDetailsService purchaseDetailsFacade;
+    private final ProvidersServiceImpl providersFacade;
+    private final ProductServiceImpl productsFacade;
+    private final PurchaseDetailsServiceImpl purchaseDetailsFacade;
     private final ConnectionProvider connectionProvider;
 
     private int companyId = 0;
 
-    public PurchaseService(DAOPurchases daoPurchases, ProvidersService providersFacade, ProductService productsFacade, PurchaseDetailsService purchaseDetailsFacade, ConnectionProvider connectionProvider) {
+    public PurchaseServiceImpl(DAOPurchases daoPurchases, ProvidersServiceImpl providersFacade, ProductServiceImpl productsFacade, PurchaseDetailsServiceImpl purchaseDetailsFacade, ConnectionProvider connectionProvider) {
         this.daoPurchases = daoPurchases;
         this.providersFacade = providersFacade;
         this.productsFacade = productsFacade;
@@ -89,7 +90,7 @@ public class PurchaseService {
         }
     }
 
-    public int add(Connection connection, int providerId, BigDecimal totalPaid) throws DAOException {
+    private int add(Connection connection, int providerId, BigDecimal totalPaid) throws DAOException {
         DTOPurchaseCreate dto = new DTOPurchaseCreate();
         dto.setProviderId(providerId);
         dto.setTotalPurchase(totalPaid);

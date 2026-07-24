@@ -5,11 +5,11 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.PurchaseService;
+import com.hector.papeleriasaas.service.impl.PurchaseServiceImpl;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
-import com.hector.papeleriasaas.service.ReportService;
+import com.hector.papeleriasaas.service.impl.ReportServiceImpl;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.validator.PurchasingReportValidator;
@@ -34,9 +34,9 @@ public class ControllerPurchasingReport implements Observer {
     private final PurchasingReport purchasingReport;
     private final Subject subject;
 
-    private final PurchaseService purchaseService;
+    private final PurchaseServiceImpl purchaseService;
 
-    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchaseService purchaseService) {
+    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchaseServiceImpl purchaseService) {
         this.purchasingReport = purchasingReport;
         this.subject = subject;
         this.purchaseService = purchaseService;
@@ -113,7 +113,7 @@ public class ControllerPurchasingReport implements Observer {
                 String compileReport = "/reports/ReporteCompras.jrxml";
                 Map<String, Object> params = new HashMap<>();
 
-                JasperPrint report = ReportService.generate(purchasesList, compileReport, params);
+                JasperPrint report = ReportServiceImpl.generate(purchasesList, compileReport, params);
                 ReportViewer.show(report);
             } catch (DAOException | JRException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("Ha ocurrido un error al generar el "

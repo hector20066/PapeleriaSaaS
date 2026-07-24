@@ -3,7 +3,7 @@ package com.hector.papeleriasaas.service;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
-import com.hector.papeleriasaas.service.interfaces.*;
+import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class SaleServiceTest {
+class SaleServiceImplTest {
 
     @Mock
     private CustomersFacade customersFacade;
@@ -52,7 +52,7 @@ class SaleServiceTest {
     private Connection connection;
 
     @InjectMocks
-    private SaleService saleService;
+    private SaleServiceImpl saleService;
 
     @Test
     @DisplayName("Testear la conexión y la transacción")

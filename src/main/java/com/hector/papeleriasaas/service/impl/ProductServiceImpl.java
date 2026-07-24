@@ -1,8 +1,9 @@
-package com.hector.papeleriasaas.service;
+package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProducts;
 import com.hector.papeleriasaas.model.dto.product.*;
+import com.hector.papeleriasaas.service.interfaces.ProductService;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -13,12 +14,12 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class ProductService {
+public class ProductServiceImpl implements ProductService {
 
     private final DAOProducts daoProducts;
     private int companyId = 0; // se debe obtener
 
-    public ProductService(DAOProducts daoProducts) {
+    public ProductServiceImpl(DAOProducts daoProducts) {
         this.daoProducts = daoProducts;
     }
 

@@ -1,9 +1,10 @@
-package com.hector.papeleriasaas.service;
+package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAODebts;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
 import com.hector.papeleriasaas.model.enums.PaymentStatus;
+import com.hector.papeleriasaas.service.interfaces.DebtsService;
 
 import java.sql.Connection;
 import java.util.List;
@@ -13,12 +14,12 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class DebtsService {
+public class DebtsServiceImpl implements DebtsService {
 
     private final DAODebts daoDebts;
     private int companyId = 0; // Se debe obtener
 
-    public DebtsService(DAODebts daoDebts) {
+    public DebtsServiceImpl(DAODebts daoDebts) {
         this.daoDebts = daoDebts;
     }
 

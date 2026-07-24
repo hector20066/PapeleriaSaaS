@@ -8,15 +8,15 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.ProductService;
-import com.hector.papeleriasaas.service.SaleService;
+import com.hector.papeleriasaas.service.impl.ProductServiceImpl;
+import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.mapper.DashboardCompanyMapper;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
-import com.hector.papeleriasaas.service.ReportService;
+import com.hector.papeleriasaas.service.impl.ReportServiceImpl;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.validator.SalesReportValidator;
@@ -43,8 +43,8 @@ public class ControllerSalesReport implements Observer {
     private final SalesReport salesReport;
     private final Subject subject;
 
-    private final SaleService saleService;
-    private final ProductService productService;
+    private final SaleServiceImpl saleService;
+    private final ProductServiceImpl productService;
 
     public ControllerSalesReport(ControllerSalesReportBuilder builder) {
         this.salesReport = builder.getSalesReport();
@@ -139,7 +139,7 @@ public class ControllerSalesReport implements Observer {
                 params.put("amountProduct", dtoSummary.getAmountProduct());
                 params.put("chartData", listChartData);
 
-                JasperPrint report = ReportService.generate(salesList, compileReport, params);
+                JasperPrint report = ReportServiceImpl.generate(salesList, compileReport, params);
                 ReportViewer.show(report);
             } catch (DAOException | JRException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("Ha ocurrido un error al generar el "

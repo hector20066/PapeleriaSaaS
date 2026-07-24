@@ -7,13 +7,10 @@ import com.hector.papeleriasaas.controller.company.ControllerSuppliers;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.ConnectionProviderImpl;
 import com.hector.papeleriasaas.database.DataBasePool;
-import com.hector.papeleriasaas.service.*;
-import com.hector.papeleriasaas.service.interfaces.*;
 import com.hector.papeleriasaas.model.dao.impl.*;
 import com.hector.papeleriasaas.model.dao.interfaces.*;
 import com.hector.papeleriasaas.observer.ConcreteSubject;
-import com.hector.papeleriasaas.service.PurchaseService;
-import com.hector.papeleriasaas.service.SaleService;
+import com.hector.papeleriasaas.service.impl.*;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.view.content.Content;
 import com.hector.papeleriasaas.view.content.panels.companies.*;
@@ -58,19 +55,19 @@ public class Coordinator {
     private final DAOSaleDetails daoSaleDetails = new DAOSaleDetailsImpl();
 
     // Facade's
-    private final CustomersFacade customersFacade = new CustomerService(daoCustomers);
-    private final DebtsFacade debtsFacade = new DebtsService(daoDebts);
-    private final InvoicesFacade invoicesFacade = new InvoicesService(daoInvoices);
-    private final ProductsFacade productsFacade = new ProductService(daoProducts);
-    private final ProvidersFacade providersFacade = new ProvidersService(daoProviders);
+    private final CustomersFacade customersFacade = new CustomerServiceImpl(daoCustomers);
+    private final DebtsFacade debtsFacade = new DebtsServiceImpl(daoDebts);
+    private final InvoicesFacade invoicesFacade = new InvoicesServiceImpl(daoInvoices);
+    private final ProductsFacade productsFacade = new ProductServiceImpl(daoProducts);
+    private final ProvidersFacade providersFacade = new ProvidersServiceImpl(daoProviders);
     private final PurchasesFacade purchasesFacade = new PurchasesImplFacade(daoPurchases);
-    private final PurchaseDetailsFacade purchaseDetailsFacade = new PurchaseDetailsService(daoPurchaseDetails);
+    private final PurchaseDetailsFacade purchaseDetailsFacade = new PurchaseDetailsServiceImpl(daoPurchaseDetails);
     private final SalesFacade salesFacade = new SalesImplFacade(daoSales);
-    private final SaleDetailsFacade saleDetailsFacade = new SaleDetailsService(daoSaleDetails);
+    private final SaleDetailsFacade saleDetailsFacade = new SaleDetailsServiceImpl(daoSaleDetails);
 
     // Service
-    private final SaleService saleService = new SaleService(customersFacade, salesFacade, saleDetailsFacade, invoicesFacade, productsFacade, connectionProvider);
-    private final PurchaseService purchaseService = new PurchaseService(providersFacade, productsFacade, purchasesFacade, purchaseDetailsFacade, connectionProvider);
+    private final SaleServiceImpl saleService = new SaleServiceImpl(customersFacade, salesFacade, saleDetailsFacade, invoicesFacade, productsFacade, connectionProvider);
+    private final PurchaseServiceImpl purchaseService = new PurchaseServiceImpl(providersFacade, productsFacade, purchasesFacade, purchaseDetailsFacade, connectionProvider);
 
     public void startApp() {
         subject = ConcreteSubject.getInstance();

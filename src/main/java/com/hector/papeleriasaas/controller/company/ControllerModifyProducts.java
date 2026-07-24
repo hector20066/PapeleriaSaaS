@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.controller.builder.ControllerModifyProductsBuild
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
-import com.hector.papeleriasaas.service.ProductService;
+import com.hector.papeleriasaas.service.impl.ProductServiceImpl;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
@@ -26,7 +26,7 @@ public class ControllerModifyProducts {
     private final Inventory inventory;
     private final Subject subject;
 
-    private final ProductService productService;
+    private final ProductServiceImpl productService;
 
     public ControllerModifyProducts(ControllerModifyProductsBuilder builder) {
         this.modifyProduct = builder.getModifyProduct();

@@ -1,8 +1,9 @@
-package com.hector.papeleriasaas.service;
+package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
+import com.hector.papeleriasaas.service.interfaces.ProvidersService;
 
 import java.sql.Connection;
 import java.util.List;
@@ -12,12 +13,12 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class ProvidersService {
+public class ProvidersServiceImpl implements ProvidersService {
 
     private final DAOProviders daoProviders;
     private int companyId = 0;
 
-    public ProvidersService(DAOProviders daoProviders) {
+    public ProvidersServiceImpl(DAOProviders daoProviders) {
         this.daoProviders = daoProviders;
     }
 

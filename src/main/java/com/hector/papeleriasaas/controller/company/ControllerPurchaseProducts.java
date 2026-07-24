@@ -9,7 +9,7 @@ import com.hector.papeleriasaas.mapper.PurchaseProductMapper;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.observer.Subject;
-import com.hector.papeleriasaas.service.PurchaseService;
+import com.hector.papeleriasaas.service.impl.PurchaseServiceImpl;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
@@ -34,7 +34,7 @@ public class ControllerPurchaseProducts {
     private final Inventory inventory;
     private final Subject subject;
 
-    private final PurchaseService purchaseService;
+    private final PurchaseServiceImpl purchaseService;
 
     public ControllerPurchaseProducts(ControllerPurchaseProductsBuilder builder) {
         this.productManagement = builder.getProductManagement();

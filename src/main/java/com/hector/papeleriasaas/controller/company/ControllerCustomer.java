@@ -3,10 +3,10 @@ package com.hector.papeleriasaas.controller.company;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.*;
-import com.hector.papeleriasaas.service.CustomerService;
+import com.hector.papeleriasaas.service.impl.CustomerServiceImpl;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.observer.*;
-import com.hector.papeleriasaas.service.ReportService;
+import com.hector.papeleriasaas.service.impl.ReportServiceImpl;
 import com.hector.papeleriasaas.utils.*;
 import com.hector.papeleriasaas.validator.CustomerValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Customers;
@@ -31,9 +31,9 @@ public class ControllerCustomer implements Observer {
     private final Customers customers;
     private final Subject subject;
 
-    private final CustomerService customerService;
+    private final CustomerServiceImpl customerService;
 
-    public ControllerCustomer(Customers customers, Subject subject, CustomerService customerService) {
+    public ControllerCustomer(Customers customers, Subject subject, CustomerServiceImpl customerService) {
         this.customers = customers;
         this.subject = subject;
 
@@ -135,7 +135,7 @@ public class ControllerCustomer implements Observer {
                 String compileReport = "/reports/Clientes.jrxml";
                 Map<String, Object> params = new HashMap<>();
 
-                JasperPrint report = ReportService.generate(customersList, compileReport, params);
+                JasperPrint report = ReportServiceImpl.generate(customersList, compileReport, params);
                 ReportViewer.show(report);
             } catch (DAOException | JRException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("Ha ocurrido un error al generar el "

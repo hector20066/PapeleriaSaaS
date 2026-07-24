@@ -5,8 +5,8 @@ import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
-import com.hector.papeleriasaas.service.ProductService;
-import com.hector.papeleriasaas.service.SaleService;
+import com.hector.papeleriasaas.service.impl.ProductServiceImpl;
+import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.mapper.DashboardCompanyMapper;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
@@ -31,8 +31,8 @@ public class ControllerDashboard implements Observer {
 
     private final Dashboard dashboard;
 
-    private final ProductService productService;
-    private final SaleService saleService;
+    private final ProductServiceImpl productService;
+    private final SaleServiceImpl saleService;
 
     public ControllerDashboard(ControllerDashboardBuilder builder) {
         this.dashboard = builder.getDashboard();

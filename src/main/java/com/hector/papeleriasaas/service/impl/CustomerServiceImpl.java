@@ -1,9 +1,10 @@
-package com.hector.papeleriasaas.service;
+package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCustomers;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
+import com.hector.papeleriasaas.service.interfaces.CustomerService;
 
 import java.sql.Connection;
 import java.util.List;
@@ -13,12 +14,12 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class CustomerService {
+public class CustomerServiceImpl implements CustomerService {
 
     private final DAOCustomers daoCustomers;
     private int companyId = 0; // Se debe obtener
 
-    public CustomerService(DAOCustomers daoCustomers) {
+    public CustomerServiceImpl(DAOCustomers daoCustomers) {
         this.daoCustomers = daoCustomers;
     }
 
