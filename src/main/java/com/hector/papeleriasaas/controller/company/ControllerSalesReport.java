@@ -8,8 +8,8 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.service.interfaces.SalesFacade;
+import com.hector.papeleriasaas.service.ProductService;
+import com.hector.papeleriasaas.service.SaleService;
 import com.hector.papeleriasaas.mapper.DashboardCompanyMapper;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
@@ -43,15 +43,15 @@ public class ControllerSalesReport implements Observer {
     private final SalesReport salesReport;
     private final Subject subject;
 
-    private final SalesFacade salesFacade;
-    private final ProductsFacade productsFacade;
+    private final SaleService saleService;
+    private final ProductService productService;
 
     public ControllerSalesReport(ControllerSalesReportBuilder builder) {
         this.salesReport = builder.getSalesReport();
         this.subject = builder.getSubject();
 
-        this.salesFacade = builder.getSalesFacade();
-        this.productsFacade = builder.getProductsFacade();
+        this.saleService = builder.getSaleService();
+        this.productService = builder.getProductService();
 
         this.subject.register(this);
 
@@ -70,7 +70,7 @@ public class ControllerSalesReport implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOSaleDetails> list = salesFacade.findByAll();
+                List<DTOSaleDetails> list = saleService.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de ventas. "
@@ -99,7 +99,7 @@ public class ControllerSalesReport implements Observer {
     private void doInBackgroundSearch(String param) {
         BackgroundExecutor.execute(() -> {
             try {
-                List<DTOSaleDetails> list = salesFacade.findById(Integer.parseInt(param));
+                List<DTOSaleDetails> list = saleService.findById(Integer.parseInt(param));
                 SalesReportValidator.listEmptyValidation(list, param);
 
                 SwingUtilities.invokeLater(() -> {
@@ -120,9 +120,9 @@ public class ControllerSalesReport implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOSaleDetails> salesList = salesFacade.findByAll();
-                List<DTOProductDetails> productsList = productsFacade.findByAll();
-                Optional<DTOProductBestSelling> bestSelling = productsFacade.bestSelling();
+                List<DTOSaleDetails> salesList = saleService.findByAll();
+                List<DTOProductDetails> productsList = productService.findByAll();
+                Optional<DTOProductBestSelling> bestSelling = productService.bestSelling();
 
                 SalesReportValidator.bestSellingEmptyValidation(bestSelling);
 

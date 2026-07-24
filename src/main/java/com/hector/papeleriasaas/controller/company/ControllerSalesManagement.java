@@ -8,7 +8,7 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
+import com.hector.papeleriasaas.service.ProductService;
 import com.hector.papeleriasaas.mapper.SalesManagementMapper;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
@@ -46,7 +46,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     private final SalesManagement salesManagement;
     private final Subject subject;
 
-    private final ProductsFacade productsFacade;
+    private final ProductService productService;
     private final SaleService saleService;
 
     private final List<OrderItemSaleDTO> orderList;
@@ -55,7 +55,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         this.salesManagement = builder.getSalesManagement();
         this.subject = builder.getSubject();
 
-        this.productsFacade = builder.getProductsFacade();
+        this.productService = builder.getProductService();
         this.saleService = builder.getSaleService();
 
         this.orderList = new ArrayList<>();
@@ -86,7 +86,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOProductDetails> dto = productsFacade.findByAll();
+                List<DTOProductDetails> dto = productService.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(dto));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los productos. "
@@ -301,7 +301,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
 
     private void search() {
         try {
-            List<DTOProductDetails> listProducts = productsFacade.getProductList();
+            List<DTOProductDetails> listProducts = productService.getProductList();
             String searchParameter = salesManagement.getTxt_search().getText().trim();
             SalesManagementValidator.searchInvalidParamValidation(searchParameter);
 
@@ -319,7 +319,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     }
 
     private void filterProducts() {
-        List<DTOProductDetails> listProducts = productsFacade.getProductList();
+        List<DTOProductDetails> listProducts = productService.getProductList();
         String searchParameter = salesManagement.getTxt_search().getText().trim();
         salesManagement.getJpl_content().removeAll();
 
@@ -340,7 +340,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         salesManagement.clearPanel();
 
         BackgroundExecutor.execute(() -> {
-            List<DTOProductDetails> list = productsFacade.getProductList();
+            List<DTOProductDetails> list = productService.getProductList();
 
             SwingUtilities.invokeLater(() -> list.stream()
                     .filter(Objects::nonNull)

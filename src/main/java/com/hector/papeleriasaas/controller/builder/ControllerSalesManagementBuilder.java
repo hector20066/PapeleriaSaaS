@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerSalesManagement;
-import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
+import com.hector.papeleriasaas.service.ProductService;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.SaleService;
 import com.hector.papeleriasaas.view.content.panels.companies.SalesManagement;
@@ -15,7 +15,7 @@ public class ControllerSalesManagementBuilder {
     private SalesManagement salesManagement;
     private Subject subject;
 
-    private ProductsFacade productsFacade;
+    private ProductService productService;
     private SaleService saleService;
 
     public ControllerSalesManagementBuilder withViewSalesManagement(SalesManagement salesManagement) {
@@ -28,8 +28,8 @@ public class ControllerSalesManagementBuilder {
         return this;
     }
 
-    public ControllerSalesManagementBuilder withProductsFacade(ProductsFacade productsFacade) {
-        this.productsFacade = productsFacade;
+    public ControllerSalesManagementBuilder withProductService(ProductService productService) {
+        this.productService = productService;
         return this;
     }
 
@@ -50,8 +50,8 @@ public class ControllerSalesManagementBuilder {
         return subject;
     }
 
-    public ProductsFacade getProductsFacade() {
-        return productsFacade;
+    public ProductService getProductService() {
+        return productService;
     }
 
     public SaleService getSaleService() {

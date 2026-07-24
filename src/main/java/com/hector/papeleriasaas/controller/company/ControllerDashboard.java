@@ -5,8 +5,8 @@ import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
-import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.service.interfaces.SalesFacade;
+import com.hector.papeleriasaas.service.ProductService;
+import com.hector.papeleriasaas.service.SaleService;
 import com.hector.papeleriasaas.mapper.DashboardCompanyMapper;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
@@ -31,13 +31,13 @@ public class ControllerDashboard implements Observer {
 
     private final Dashboard dashboard;
 
-    private final ProductsFacade productsFacade;
-    private final SalesFacade salesFacade;
+    private final ProductService productService;
+    private final SaleService saleService;
 
     public ControllerDashboard(ControllerDashboardBuilder builder) {
         this.dashboard = builder.getDashboard();
-        this.productsFacade = builder.getProductsFacade();
-        this.salesFacade = builder.getSalesFacade();
+        this.productService = builder.getProductService();
+        this.saleService = builder.getSaleService();
 
         builder.getSubject().register(this);
     }
@@ -46,9 +46,9 @@ public class ControllerDashboard implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOSaleDetails> salesList = salesFacade.findByAll();
-                List<DTOProductDetails> productsList = productsFacade.findByAll();
-                Optional<DTOProductBestSelling> bestSelling = productsFacade.bestSelling();
+                List<DTOSaleDetails> salesList = saleService.findByAll();
+                List<DTOProductDetails> productsList = productService.findByAll();
+                Optional<DTOProductBestSelling> bestSelling = productService.bestSelling();
 
                 CompanyDashboardValidator.bestSellingEmptyValidation(bestSelling);
 

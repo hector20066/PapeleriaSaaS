@@ -1,8 +1,8 @@
 package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerDashboard;
-import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.service.interfaces.SalesFacade;
+import com.hector.papeleriasaas.service.ProductService;
+import com.hector.papeleriasaas.service.SaleService;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
 
@@ -15,8 +15,8 @@ public class ControllerDashboardBuilder {
     private Dashboard dashboard;
     private Subject subject;
 
-    private ProductsFacade productsFacade;
-    private SalesFacade salesFacade;
+    private ProductService productService;
+    private SaleService saleService;
 
     public ControllerDashboardBuilder withViewDashboard(Dashboard dashboard) {
         this.dashboard = dashboard;
@@ -28,13 +28,13 @@ public class ControllerDashboardBuilder {
         return this;
     }
 
-    public ControllerDashboardBuilder withProductsFacade(ProductsFacade productsFacade) {
-        this.productsFacade = productsFacade;
+    public ControllerDashboardBuilder withProductService(ProductService productService) {
+        this.productService = productService;
         return this;
     }
 
-    public ControllerDashboardBuilder withSalesFacade(SalesFacade salesFacade) {
-        this.salesFacade = salesFacade;
+    public ControllerDashboardBuilder withSaleService(SaleService salesFacade) {
+        this.saleService = salesFacade;
         return this;
     }
 
@@ -50,12 +50,12 @@ public class ControllerDashboardBuilder {
         return subject;
     }
 
-    public ProductsFacade getProductsFacade() {
-        return productsFacade;
+    public ProductService getProductService() {
+        return productService;
     }
 
-    public SalesFacade getSalesFacade() {
-        return salesFacade;
+    public SaleService getSaleService() {
+        return saleService;
     }
 
 }

@@ -5,7 +5,7 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.interfaces.PurchasesFacade;
+import com.hector.papeleriasaas.service.PurchaseService;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
@@ -34,12 +34,12 @@ public class ControllerPurchasingReport implements Observer {
     private final PurchasingReport purchasingReport;
     private final Subject subject;
 
-    private final PurchasesFacade purchasesFacade;
+    private final PurchaseService purchaseService;
 
-    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchasesFacade purchasesFacade) {
+    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchaseService purchaseService) {
         this.purchasingReport = purchasingReport;
         this.subject = subject;
-        this.purchasesFacade = purchasesFacade;
+        this.purchaseService = purchaseService;
 
         this.subject.register(this);
 
@@ -59,7 +59,7 @@ public class ControllerPurchasingReport implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOPurchaseDetails> list = purchasesFacade.findByAll();
+                List<DTOPurchaseDetails> list = purchaseService.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de compras. "
@@ -88,7 +88,7 @@ public class ControllerPurchasingReport implements Observer {
     private void doInBackgroundSearch(String param) {
         BackgroundExecutor.execute(() -> {
             try {
-                List<DTOPurchaseDetails> list = purchasesFacade.findById(Integer.parseInt(param));
+                List<DTOPurchaseDetails> list = purchaseService.findById(Integer.parseInt(param));
                 PurchasingReportValidator.listEmptyValidation(list, param);
 
                 SwingUtilities.invokeLater(() -> {
@@ -109,7 +109,7 @@ public class ControllerPurchasingReport implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOPurchaseDetails> purchasesList = purchasesFacade.findByAll();
+                List<DTOPurchaseDetails> purchasesList = purchaseService.findByAll();
                 String compileReport = "/reports/ReporteCompras.jrxml";
                 Map<String, Object> params = new HashMap<>();
 

@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.controller.builder.ControllerModifyProductsBuild
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
-import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
+import com.hector.papeleriasaas.service.ProductService;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
@@ -26,14 +26,14 @@ public class ControllerModifyProducts {
     private final Inventory inventory;
     private final Subject subject;
 
-    private final ProductsFacade productsFacade;
+    private final ProductService productService;
 
     public ControllerModifyProducts(ControllerModifyProductsBuilder builder) {
         this.modifyProduct = builder.getModifyProduct();
         this.inventory = builder.getInventory();
         this.subject = builder.getSubject();
 
-        this.productsFacade = builder.getProductsFacade();
+        this.productService = builder.getProductService();
 
         connectEvents();
     }
@@ -75,7 +75,7 @@ public class ControllerModifyProducts {
     private void doInBackground(int id, String product, int amount, BigDecimal purchasePrice, BigDecimal salePrice) {
         BackgroundExecutor.execute(() -> {
             try {
-                productsFacade.modify(product, amount, salePrice, purchasePrice, id);
+                productService.modify(product, amount, salePrice, purchasePrice, id);
 
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.informationMessage("Producto actualizado correctamente.", modifyProduct);

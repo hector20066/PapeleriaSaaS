@@ -6,7 +6,7 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
+import com.hector.papeleriasaas.service.ProductService;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.product.DTOProductUpdate;
 import com.hector.papeleriasaas.observer.Observer;
@@ -41,7 +41,7 @@ public class ControllerInventory implements Observer {
     private final ModifyProduct modifyProduct;
     private final Subject subject;
 
-    private final ProductsFacade productsFacade;
+    private final ProductService productsFacade;
 
     public ControllerInventory(ControllerInventoryBuilder builder) {
         this.inventory = builder.getInventory();
@@ -49,7 +49,7 @@ public class ControllerInventory implements Observer {
         this.modifyProduct = builder.getModifyProduct();
         this.subject = builder.getSubject();
 
-        this.productsFacade = builder.getProductsFacade();
+        this.productsFacade = builder.getProductService();
 
         this.subject.register(this);
 

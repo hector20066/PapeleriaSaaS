@@ -1,8 +1,8 @@
 package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerDebtReport;
-import com.hector.papeleriasaas.service.interfaces.DebtsFacade;
-import com.hector.papeleriasaas.service.interfaces.SalesFacade;
+import com.hector.papeleriasaas.service.DebtsService;
+import com.hector.papeleriasaas.service.SaleService;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.view.content.panels.companies.DebtReport;
 
@@ -15,8 +15,8 @@ public class ControllerDebtReportBuilder {
     private DebtReport debtReport;
     private Subject subject;
 
-    private DebtsFacade debtsFacade;
-    private SalesFacade salesFacade;
+    private DebtsService debtsService;
+    private SaleService saleService;
 
     public ControllerDebtReportBuilder withViewDebtReport(DebtReport debtReport) {
         this.debtReport = debtReport;
@@ -28,13 +28,13 @@ public class ControllerDebtReportBuilder {
         return this;
     }
 
-    public ControllerDebtReportBuilder withDebtsFacade(DebtsFacade debtsFacade) {
-        this.debtsFacade = debtsFacade;
+    public ControllerDebtReportBuilder withDebtsService(DebtsService debtsService) {
+        this.debtsService = debtsService;
         return this;
     }
 
-    public ControllerDebtReportBuilder withSalesFacade(SalesFacade salesFacade) {
-        this.salesFacade = salesFacade;
+    public ControllerDebtReportBuilder withSaleService(SaleService saleService) {
+        this.saleService = saleService;
         return this;
     }
 
@@ -50,12 +50,12 @@ public class ControllerDebtReportBuilder {
         return subject;
     }
 
-    public DebtsFacade getDebtsFacade() {
-        return debtsFacade;
+    public DebtsService getDebtsService() {
+        return debtsService;
     }
 
-    public SalesFacade getSalesFacade() {
-        return salesFacade;
+    public SaleService getSaleService() {
+        return saleService;
     }
 
 }

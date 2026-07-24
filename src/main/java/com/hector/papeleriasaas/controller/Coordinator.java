@@ -118,28 +118,28 @@ public class Coordinator {
                 .withViewPurchaseProducts(purchaseProducts)
                 .withViewModifyProducts(modifyProduct)
                 .withSubject(subject)
-                .withProductsFacade(productsFacade)
+                .withProductService(productsFacade)
                 .build();
 
         new ControllerDashboardBuilder()
                 .withViewDashboard(dashboard)
                 .withSubject(subject)
-                .withProductsFacade(productsFacade)
-                .withSalesFacade(salesFacade)
+                .withProductService(productsFacade)
+                .withSaleService(salesFacade)
                 .build();
 
         new ControllerDebtReportBuilder()
                 .withViewDebtReport(debtReport)
                 .withSubject(subject)
-                .withDebtsFacade(debtsFacade)
-                .withSalesFacade(salesFacade)
+                .withDebtsService(debtsFacade)
+                .withSaleService(salesFacade)
                 .build();
 
         new ControllerModifyProductsBuilder()
                 .withViewModifyProduct(modifyProduct)
                 .withViewInventory(inventory)
                 .withSubject(subject)
-                .withProductsFacade(productsFacade)
+                .withProductService(productsFacade)
                 .build();
 
         new ControllerPurchaseProductsBuilder()
@@ -152,15 +152,15 @@ public class Coordinator {
         new ControllerSalesManagementBuilder()
                 .withViewSalesManagement(salesManagement)
                 .withSubject(subject)
-                .withProductsFacade(productsFacade)
+                .withProductService(productsFacade)
                 .withSaleService(saleService)
                 .build();
 
         new ControllerSalesReportBuilder()
                 .withViewSalesReport(salesReport)
                 .withSubject(subject)
-                .withSalesFacade(salesFacade)
-                .withProductsFacade(productsFacade)
+                .withSaleService(salesFacade)
+                .withProductService(productsFacade)
                 .build();
 
         new ControllerPurchasingReport(purchasingReport, subject, purchasesFacade);

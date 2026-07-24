@@ -6,8 +6,8 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.interfaces.DebtsFacade;
-import com.hector.papeleriasaas.service.interfaces.SalesFacade;
+import com.hector.papeleriasaas.service.DebtsService;
+import com.hector.papeleriasaas.service.SaleService;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
 import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import com.hector.papeleriasaas.observer.Observer;
@@ -39,15 +39,15 @@ public class ControllerDebtReport implements Observer {
     private final DebtReport debtReport;
     private final Subject subject;
 
-    private final DebtsFacade debtsFacade;
-    private final SalesFacade salesFacade;
+    private final DebtsService debtsService;
+    private final SaleService saleService;
 
     public ControllerDebtReport(ControllerDebtReportBuilder builder) {
         this.debtReport = builder.getDebtReport();
         this.subject = builder.getSubject();
 
-        this.debtsFacade = builder.getDebtsFacade();
-        this.salesFacade = builder.getSalesFacade();
+        this.debtsService = builder.getDebtsService();
+        this.saleService = builder.getSaleService();
 
         this.subject.register(this);
 
@@ -69,7 +69,7 @@ public class ControllerDebtReport implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTODebtDetails> list = debtsFacade.findByAll();
+                List<DTODebtDetails> list = debtsService.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de deudas. "
@@ -122,7 +122,7 @@ public class ControllerDebtReport implements Observer {
     private void doInBackground(int numSale, BigDecimal newAmountPaid) {
         BackgroundExecutor.execute(() -> {
             try {
-                salesFacade.modify(newAmountPaid, numSale);
+                saleService.modify(newAmountPaid, numSale);
 
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.informationMessage("Abono registrado correctamente.", debtReport);
@@ -158,7 +158,7 @@ public class ControllerDebtReport implements Observer {
     private void doInBackgroundSearch(String customer) {
         BackgroundExecutor.execute(() -> {
             try {
-                List<DTODebtDetails> list = debtsFacade.findByCustomer(customer);
+                List<DTODebtDetails> list = debtsService.findByCustomer(customer);
                 DebtReportValidator.debtListEmptyValidation(list, customer);
 
                 SwingUtilities.invokeLater(() -> {
@@ -183,9 +183,9 @@ public class ControllerDebtReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTODebtDetails> listDebts = switch (parameter) {
-                    case "Todas" -> debtsFacade.findByAll();
-                    case "Pendientes" -> debtsFacade.findByStatus(PaymentStatus.PENDING);
-                    case "Pagadas" -> debtsFacade.findByStatus(PaymentStatus.PAID);
+                    case "Todas" -> debtsService.findByAll();
+                    case "Pendientes" -> debtsService.findByStatus(PaymentStatus.PENDING);
+                    case "Pagadas" -> debtsService.findByStatus(PaymentStatus.PAID);
                     default -> throw new IllegalStateException("Parámetro inesperado " + parameter);
                 };
 
@@ -207,7 +207,7 @@ public class ControllerDebtReport implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTODebtDetails> debtDetails = debtsFacade.findByAll();
+                List<DTODebtDetails> debtDetails = debtsService.findByAll();
                 String compileReport = "/reports/ReporteDeudas.jrxml";
                 Map<String, Object> params = new HashMap<>();
 

@@ -5,7 +5,7 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.interfaces.ProvidersFacade;
+import com.hector.papeleriasaas.service.ProvidersService;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
@@ -36,13 +36,13 @@ public class ControllerSuppliers implements Observer {
     private final Suppliers suppliers;
     private final Subject subject;
 
-    private final ProvidersFacade providersFacade;
+    private final ProvidersService providersService;
 
-    public ControllerSuppliers(Suppliers suppliers, Subject subject, ProvidersFacade providersFacade) {
+    public ControllerSuppliers(Suppliers suppliers, Subject subject, ProvidersService providersService) {
         this.suppliers = suppliers;
         this.subject = subject;
 
-        this.providersFacade = providersFacade;
+        this.providersService = providersService;
         this.subject.register(this);
 
         connectEvents();
@@ -60,7 +60,7 @@ public class ControllerSuppliers implements Observer {
     public void update() {
         ObserverExecutor.execute(() -> {
             try {
-                List<DTOProvider> suppliersList = providersFacade.findByAll();
+                List<DTOProvider> suppliersList = providersService.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(suppliersList));
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los proveedores. "
@@ -88,8 +88,8 @@ public class ControllerSuppliers implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 Optional<DTOProvider> supplier = ValidationUtils.isNumeric(param)
-                        ? providersFacade.findById(Integer.parseInt(param))
-                        : providersFacade.findByName(param);
+                        ? providersService.findById(Integer.parseInt(param))
+                        : providersService.findByName(param);
 
                 ProvidersValidator.providerEmptyValidation(supplier, param);
 
@@ -111,7 +111,7 @@ public class ControllerSuppliers implements Observer {
     private void export() {
         ReportExecutor.execute(() -> {
             try {
-                List<DTOProvider> suppliersList = providersFacade.findByAll();
+                List<DTOProvider> suppliersList = providersService.findByAll();
                 String compileReport = "/reports/Proveedores.jrxml";
                 Map<String, Object> params = new HashMap<>();
 
