@@ -98,8 +98,7 @@ public class DAOPurchasesImpl implements DAOPurchases {
 
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
-                    DTOPurchaseDetails dto = getDTOPurchaseDetails(rs);
-                    list.add(dto);
+                    list.add(getDTOPurchaseDetails(rs));
                 }
 
                 return list;
@@ -157,11 +156,9 @@ public class DAOPurchasesImpl implements DAOPurchases {
             st.setInt(1, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return 0;
-                }
-
-                return rs.getInt("total_records");
+                return rs.next()
+                        ? rs.getInt("total_records")
+                        : 0;
             }
         } catch (SQLException e) {
             throw new PurchasePersistenceException("Error al contar compras", e);

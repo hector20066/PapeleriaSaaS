@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public class DAOPlansImpl implements DAOPlans {
 
     private final ConnectionProvider connectionProvider;
@@ -33,6 +37,12 @@ public class DAOPlansImpl implements DAOPlans {
             st.setBigDecimal(2, dto.getPrice());
             st.setString(3, dto.getDescription());
             st.setString(4, String.valueOf(dto.getBillingCycle()));
+
+            int affectedRows = st.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating plan failed, no rows affected.");
+            }
 
             try (ResultSet rs = st.getGeneratedKeys()) {
                 if (rs.next()) {

@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public class DAOCompanyPaymentsImpl implements DAOCompanyPayments {
 
     private final ConnectionProvider connectionProvider;

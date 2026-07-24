@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public class DAOCompaniesImpl implements DAOCompanies {
 
     private final ConnectionProvider connectionProvider;
@@ -41,6 +45,12 @@ public class DAOCompaniesImpl implements DAOCompanies {
             st.setDate(6, Date.valueOf(dto.getRegistrationDate()));
             st.setString(7, String.valueOf(dto.getStatus()));
             st.setInt(8, dto.getPlanId());
+
+            int affectedRows = st.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating company failed, no rows affected.");
+            }
 
             try (ResultSet rs = st.getGeneratedKeys()) {
                 if (rs.next()) {

@@ -38,11 +38,9 @@ public class DAODebtsImpl implements DAODebts {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTODebtDetails(rs));
+                return rs.next()
+                        ? Optional.of(getDTODebtDetails(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new DebtPersistenceException("No se han encontrado deudas con el id: " + id, e);
@@ -58,11 +56,9 @@ public class DAODebtsImpl implements DAODebts {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTODebtDetails(rs));
+                return rs.next()
+                        ? Optional.of(getDTODebtDetails(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new DebtPersistenceException("No se han encontrado registros de deudas con el id: " + id, e);
@@ -155,11 +151,9 @@ public class DAODebtsImpl implements DAODebts {
             st.setInt(1, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return 0;
-                }
-
-                return rs.getInt("total_records");
+                return rs.next()
+                        ? rs.getInt("total_records")
+                        : 0;
             }
         } catch (SQLException e) {
             throw new DebtPersistenceException("No se han encontrado registros.", e);

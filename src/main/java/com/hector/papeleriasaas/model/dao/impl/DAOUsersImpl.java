@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public class DAOUsersImpl implements DAOUsers {
 
     private final ConnectionProvider connectionProvider;
@@ -37,6 +41,12 @@ public class DAOUsersImpl implements DAOUsers {
             st.setString(5, String.valueOf(dto.getRole()));
             st.setString(6, String.valueOf(dto.getStatus()));
             st.setInt(7, dto.getCompanyId());
+
+            int affectedRows = st.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
 
             try (ResultSet rs = st.getGeneratedKeys()) {
                 if (rs.next()) {

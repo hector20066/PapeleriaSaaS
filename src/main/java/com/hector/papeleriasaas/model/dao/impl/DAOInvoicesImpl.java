@@ -11,6 +11,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public class DAOInvoicesImpl implements DAOInvoices {
 
     public DAOInvoicesImpl() {

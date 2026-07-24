@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface DAOCompanies {
 
     int add(DTOCompanyCreate dto) throws DAOException;

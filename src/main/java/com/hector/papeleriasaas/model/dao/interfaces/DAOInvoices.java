@@ -5,6 +5,10 @@ import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 
 import java.sql.Connection;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 @FunctionalInterface
 public interface DAOInvoices {
 

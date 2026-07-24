@@ -8,6 +8,10 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface DAOPlans {
 
     int add(DTOPlanCreate dto) throws DAOException;

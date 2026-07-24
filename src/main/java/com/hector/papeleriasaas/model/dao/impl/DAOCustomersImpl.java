@@ -55,11 +55,9 @@ public class DAOCustomersImpl implements DAOCustomers {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOCustomer(rs));
+                return rs.next()
+                        ? Optional.of(getDTOCustomer(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al buscar cliente por el nombre: " + name, e);
@@ -75,11 +73,9 @@ public class DAOCustomersImpl implements DAOCustomers {
             st.setInt(1, id);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOCustomer(rs));
+                return rs.next()
+                        ? Optional.of(getDTOCustomer(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al buscar el cliente por id: " + id, e);
@@ -94,11 +90,9 @@ public class DAOCustomersImpl implements DAOCustomers {
             st.setInt(1, id);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOCustomer(rs));
+                return rs.next()
+                        ? Optional.of(getDTOCustomer(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al buscar el cliente por id: " + id, e);
@@ -168,11 +162,9 @@ public class DAOCustomersImpl implements DAOCustomers {
             st.setInt(1, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return 0;
-                }
-
-                return rs.getInt("total_records");
+                return rs.next()
+                        ? rs.getInt("total_records")
+                        : 0;
             }
         } catch (SQLException e) {
             throw new CustomerPersistenceException("Error al contar clientes", e);

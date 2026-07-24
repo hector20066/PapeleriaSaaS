@@ -55,11 +55,9 @@ public class DAOProvidersImpl implements DAOProviders {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOSupplier(rs));
+                return rs.next()
+                        ? Optional.of(getDTOSupplier(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al buscar proveedor por nombre", e);
@@ -76,11 +74,9 @@ public class DAOProvidersImpl implements DAOProviders {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOSupplier(rs));
+                return rs.next()
+                        ? Optional.of(getDTOSupplier(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al buscar proveedor por nit", e);
@@ -96,11 +92,9 @@ public class DAOProvidersImpl implements DAOProviders {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOSupplier(rs));
+                return rs.next()
+                        ? Optional.of(getDTOSupplier(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al buscar proveedor por nit", e);
@@ -192,11 +186,9 @@ public class DAOProvidersImpl implements DAOProviders {
             st.setInt(1, companyId);
             
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return 0;
-                }
-
-                return rs.getInt("total_records");
+                return rs.next()
+                        ? rs.getInt("total_records")
+                        : 0;
             }
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al contar proveedores", e);

@@ -70,11 +70,9 @@ public class DAOProductsImpl implements DAOProducts {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOProductDetails(rs));
+                return rs.next()
+                        ? Optional.of(getDTOProductDetails(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al buscar producto por id: " + id, e);
@@ -90,11 +88,9 @@ public class DAOProductsImpl implements DAOProducts {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOProductDetails(rs));
+                return rs.next()
+                        ? Optional.of(getDTOProductDetails(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al buscar producto por id: " + id, e);
@@ -111,11 +107,9 @@ public class DAOProductsImpl implements DAOProducts {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOProductDetails(rs));
+                return rs.next()
+                        ? Optional.of(getDTOProductDetails(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al buscar producto por nombre: " + product, e);
@@ -131,11 +125,9 @@ public class DAOProductsImpl implements DAOProducts {
             st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return Optional.empty();
-                }
-
-                return Optional.of(getDTOProductDetails(rs));
+                return rs.next()
+                        ? Optional.of(getDTOProductDetails(rs))
+                        : Optional.empty();
             }
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al buscar producto por nombre: " + product, e);
@@ -192,13 +184,11 @@ public class DAOProductsImpl implements DAOProducts {
                     return Optional.empty();
                 }
 
-                DTOProductBestSelling dto = new DTOProductBestSelling.Builder()
+                return Optional.of(new DTOProductBestSelling.Builder()
                         .id(rs.getInt("id"))
                         .description(rs.getString("description"))
                         .quantitySold(rs.getInt("quantity_sold"))
-                        .build();
-
-                return Optional.of(dto);
+                        .build());
             }
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al obtener el producto más vendido", e);
@@ -241,9 +231,7 @@ public class DAOProductsImpl implements DAOProducts {
         st.setInt(5, dto.getId());
         st.setInt(6, dto.getCompanyId());
 
-        int affectedRows = st.executeUpdate();
-
-        if (affectedRows == 0) {
+        if (st.executeUpdate() == 0) {
             throw new SQLException("producto no existe con id: " + dto.getId());
         }
     }
@@ -280,11 +268,9 @@ public class DAOProductsImpl implements DAOProducts {
             st.setInt(1, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
-                if (!rs.next()) {
-                    return 0;
-                }
-
-                return rs.getInt("total_records");
+                return rs.next()
+                        ? rs.getInt("total_records")
+                        : 0;
             }
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al contar productos", e);

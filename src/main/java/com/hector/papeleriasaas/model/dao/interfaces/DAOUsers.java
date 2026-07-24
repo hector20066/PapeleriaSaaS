@@ -7,6 +7,10 @@ import com.hector.papeleriasaas.auth.DTOUserLogin;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.user.*;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface DAOUsers {
 
     int add(DTOUserCreate dto) throws DAOException;
