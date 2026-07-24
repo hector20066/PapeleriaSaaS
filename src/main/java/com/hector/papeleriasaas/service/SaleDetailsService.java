@@ -1,8 +1,6 @@
-package com.hector.papeleriasaas.facade.impl;
+package com.hector.papeleriasaas.service;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.interfaces.SaleDetailsFacade;
-import com.hector.papeleriasaas.model.dao.impl.DAOSaleDetailsImpl;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOSaleDetails;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 
@@ -13,15 +11,14 @@ import java.sql.Connection;
  *
  * @author Ing. Hector Acevedo
  */
-public class SaleDetailsImplFacade implements SaleDetailsFacade {
+public class SaleDetailsService {
 
     private final DAOSaleDetails daoSaleDetails;
 
-    public SaleDetailsImplFacade(DAOSaleDetails daoSaleDetails) {
+    public SaleDetailsService(DAOSaleDetails daoSaleDetails) {
         this.daoSaleDetails = daoSaleDetails;
     }
 
-    @Override
     public void add(Connection connection, int numSale, int productId, int amount, BigDecimal unitPrice) throws DAOException {
         DTOSaleDetailsCreate dto = new DTOSaleDetailsCreate();
         dto.setSaleId(numSale);

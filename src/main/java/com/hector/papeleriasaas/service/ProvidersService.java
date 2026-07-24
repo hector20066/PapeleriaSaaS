@@ -1,7 +1,6 @@
-package com.hector.papeleriasaas.facade.impl;
+package com.hector.papeleriasaas.service;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.interfaces.ProvidersFacade;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 
@@ -13,16 +12,15 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class ProvidersImplFacade implements ProvidersFacade {
+public class ProvidersService {
 
     private final DAOProviders daoProviders;
     private int companyId = 0;
 
-    public ProvidersImplFacade(DAOProviders daoProviders) {
+    public ProvidersService(DAOProviders daoProviders) {
         this.daoProviders = daoProviders;
     }
 
-    @Override
     public void add(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException {
         DTOProvider dto = new DTOProvider.Builder()
                 .nit(nit)
@@ -36,27 +34,22 @@ public class ProvidersImplFacade implements ProvidersFacade {
         daoProviders.add(connection, dto);
     }
 
-    @Override
     public Optional<DTOProvider> findByName(String name) throws DAOException {
         return daoProviders.findByName(name, companyId);
     }
 
-    @Override
     public Optional<DTOProvider> findById(int id) throws DAOException {
         return daoProviders.findById(id, companyId);
     }
 
-    @Override
     public Optional<DTOProvider> findById(Connection connection, int id) throws DAOException {
         return daoProviders.findById(connection, id, companyId);
     }
 
-    @Override
     public List<DTOProvider> findByAll() throws DAOException {
         return daoProviders.findByAll(companyId);
     }
 
-    @Override
     public void modify(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException {
         DTOProvider dto = new DTOProvider.Builder()
                 .nit(nit)
@@ -70,12 +63,10 @@ public class ProvidersImplFacade implements ProvidersFacade {
         daoProviders.modify(connection, dto);
     }
 
-    @Override
     public void delete(int id) throws DAOException {
         daoProviders.delete(id, companyId);
     }
 
-    @Override
     public int countRecords() throws DAOException {
         return daoProviders.countRecords(companyId);
     }

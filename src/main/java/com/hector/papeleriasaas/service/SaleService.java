@@ -6,13 +6,14 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
-import com.hector.papeleriasaas.database.ConnectionProviderImpl;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.impl.*;
-import com.hector.papeleriasaas.facade.interfaces.*;
+import com.hector.papeleriasaas.model.dao.interfaces.DAOSales;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
+import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
+import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
 
 /**
  *
@@ -20,16 +21,18 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
  */
 public class SaleService {
 
-    private final CustomersFacade customerFacade;
-    private final SalesFacade saleFacade;
-    private final SaleDetailsFacade saleDetailsFacade;
-    private final InvoicesFacade invoiceFacade;
-    private final ProductsFacade productsFacade;
+    private final DAOSales daoSales;
+    private final CustomerService customerFacade;
+    private final SaleDetailsService saleDetailsFacade;
+    private final InvoicesService invoiceFacade;
+    private final ProductService productsFacade;
     private final ConnectionProvider connectionProvider;
 
-    public SaleService(CustomersFacade customersFacade, SalesFacade saleFacade, SaleDetailsFacade saleDetailsFacade, InvoicesFacade invoicesFacade, ProductsFacade productsFacade, ConnectionProvider connectionProvider) {
+    private int companyId = 0;
+
+    public SaleService(DAOSales daoSales, CustomerService customersFacade, SaleDetailsService saleDetailsFacade, InvoicesService invoicesFacade, ProductService productsFacade, ConnectionProvider connectionProvider) {
+        this.daoSales = daoSales;
         this.customerFacade = customersFacade;
-        this.saleFacade = saleFacade;
         this.saleDetailsFacade = saleDetailsFacade;
         this.invoiceFacade = invoicesFacade;
         this.productsFacade = productsFacade;
@@ -54,7 +57,7 @@ public class SaleService {
                 }
             }
 
-            int numSale = saleFacade.add(connection, customerId, amountPaid, totalSale);
+            int numSale = this.add(connection, customerId, amountPaid, totalSale);
 
             for (DTOSaleDetailsCreate product : products) {
                 saleDetailsFacade.add(connection, numSale, product.getProductId(), product.getAmount(), product.getUnitPrice());
@@ -93,6 +96,48 @@ public class SaleService {
         }
 
         return productsOutOfStock.toString();
+    }
+
+    public int add(Connection connection, Integer customerId, BigDecimal totalPaid, BigDecimal totalSale) throws DAOException {
+        DTOSaleCreate dto = new DTOSaleCreate();
+        dto.setCustomerId(customerId);
+        dto.setTotalPaid(totalPaid);
+        dto.setTotalSale(totalSale);
+        dto.setCompanyId(companyId);
+
+        return daoSales.add(connection, dto);
+    }
+
+    public List<DTOSaleDetails> findById(int id) throws DAOException {
+        return daoSales.findById(id, companyId);
+    }
+
+    public List<DTOSaleDetails> findById(Connection connection, int id) throws DAOException {
+        return daoSales.findById(connection, id, companyId);
+    }
+
+    public List<DTOSaleDetails> findByAll() throws DAOException {
+        return daoSales.findByAll(companyId);
+    }
+
+    public void modify(BigDecimal totalPaid, int numSale) throws DAOException {
+        DTOSaleUpdate dto = new DTOSaleUpdate();
+        dto.setTotalPaid(totalPaid);
+        dto.setNumSale(numSale);
+
+        daoSales.modify(dto);
+    }
+
+    public void modify(Connection connection, BigDecimal totalPaid, int numSale) throws DAOException {
+        DTOSaleUpdate dto = new DTOSaleUpdate();
+        dto.setTotalPaid(totalPaid);
+        dto.setNumSale(numSale);
+
+        daoSales.modify(connection, dto);
+    }
+
+    public int countRecords() throws DAOException {
+        return daoSales.countRecords(companyId);
     }
 
 }

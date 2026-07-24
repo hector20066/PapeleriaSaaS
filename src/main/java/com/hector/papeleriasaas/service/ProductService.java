@@ -1,8 +1,6 @@
-package com.hector.papeleriasaas.facade.impl;
+package com.hector.papeleriasaas.service;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.model.dao.impl.DAOProductsImpl;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProducts;
 import com.hector.papeleriasaas.model.dto.product.*;
 
@@ -15,21 +13,19 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class ProductImplFacade implements ProductsFacade {
+public class ProductService {
 
     private final DAOProducts daoProducts;
     private int companyId = 0; // se debe obtener
 
-    public ProductImplFacade(DAOProducts daoProducts) {
+    public ProductService(DAOProducts daoProducts) {
         this.daoProducts = daoProducts;
     }
 
-    @Override
     public List<DTOProductDetails> getProductList() {
         return daoProducts.getProductList();
     }
 
-    @Override
     public int add(Connection connection, String description, BigDecimal purchasePrice, BigDecimal salePrice) throws DAOException {
         DTOProductCreate dto = new DTOProductCreate();
         dto.setDescription(description);
@@ -40,37 +36,30 @@ public class ProductImplFacade implements ProductsFacade {
         return daoProducts.add(connection, dto);
     }
 
-    @Override
     public Optional<DTOProductDetails> findByName(String product) throws DAOException {
         return daoProducts.findByName(product, companyId);
     }
 
-    @Override
     public Optional<DTOProductDetails> findByName(Connection connection, String product) throws DAOException {
         return daoProducts.findByName(connection, product, companyId);
     }
 
-    @Override
     public Optional<DTOProductDetails> findById(int id) throws DAOException {
         return daoProducts.findById(id, companyId);
     }
 
-    @Override
     public Optional<DTOProductDetails> findById(Connection connection, int id) throws DAOException {
         return daoProducts.findById(connection, id, companyId);
     }
 
-    @Override
     public Optional<DTOProductBestSelling> bestSelling() throws DAOException {
         return daoProducts.bestSelling(companyId);
     }
 
-    @Override
     public List<DTOProductDetails> findByAll() throws DAOException {
         return daoProducts.findByAll(companyId);
     }
 
-    @Override
     public void modify(String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice, int id) throws DAOException {
         DTOProductUpdate dto = new DTOProductUpdate.Builder()
                 .description(description)
@@ -84,7 +73,6 @@ public class ProductImplFacade implements ProductsFacade {
         daoProducts.modify(dto);
     }
 
-    @Override
     public void modify(Connection connection, String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice,
                        int id) throws DAOException {
         DTOProductUpdate dto = new DTOProductUpdate.Builder()
@@ -99,12 +87,10 @@ public class ProductImplFacade implements ProductsFacade {
         daoProducts.modify(connection, dto);
     }
 
-    @Override
     public void delete(int id) throws DAOException {
         daoProducts.delete(id, companyId);
     }
 
-    @Override
     public int countRecords() throws DAOException {
         return daoProducts.countRecords(companyId);
     }

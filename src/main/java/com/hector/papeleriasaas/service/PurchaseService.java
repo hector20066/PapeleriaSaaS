@@ -2,10 +2,12 @@ package com.hector.papeleriasaas.service;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.interfaces.*;
+import com.hector.papeleriasaas.model.dao.interfaces.DAOPurchases;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseCreate;
+import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -19,16 +21,18 @@ import java.util.Optional;
  */
 public class PurchaseService {
 
-    private final ProvidersFacade providersFacade;
-    private final ProductsFacade productsFacade;
-    private final PurchasesFacade purchaseFacade;
-    private final PurchaseDetailsFacade purchaseDetailsFacade;
+    private final DAOPurchases daoPurchases;
+    private final ProvidersService providersFacade;
+    private final ProductService productsFacade;
+    private final PurchaseDetailsService purchaseDetailsFacade;
     private final ConnectionProvider connectionProvider;
 
-    public PurchaseService(ProvidersFacade providersFacade, ProductsFacade productsFacade, PurchasesFacade purchaseFacade, PurchaseDetailsFacade purchaseDetailsFacade, ConnectionProvider connectionProvider) {
+    private int companyId = 0;
+
+    public PurchaseService(DAOPurchases daoPurchases, ProvidersService providersFacade, ProductService productsFacade, PurchaseDetailsService purchaseDetailsFacade, ConnectionProvider connectionProvider) {
+        this.daoPurchases = daoPurchases;
         this.providersFacade = providersFacade;
         this.productsFacade = productsFacade;
-        this.purchaseFacade = purchaseFacade;
         this.purchaseDetailsFacade = purchaseDetailsFacade;
         this.connectionProvider = connectionProvider;
     }
@@ -49,7 +53,7 @@ public class PurchaseService {
                         dtoSupplier.getPhone(), dtoSupplier.getEmail());
             }
 
-            int numPurchase = purchaseFacade.add(connection, dtoSupplier.getNit(), totalPaid);
+            int numPurchase = this.add(connection, dtoSupplier.getNit(), totalPaid);
 
             for (DTOProductCreate dtoProduct : products) {
                 int productId;
@@ -83,6 +87,35 @@ public class PurchaseService {
                 connection.close();
             }
         }
+    }
+
+    public int add(Connection connection, int providerId, BigDecimal totalPaid) throws DAOException {
+        DTOPurchaseCreate dto = new DTOPurchaseCreate();
+        dto.setProviderId(providerId);
+        dto.setTotalPurchase(totalPaid);
+        dto.setCompanyId(companyId);
+
+        return daoPurchases.add(connection, dto);
+    }
+
+    public List<DTOPurchaseDetails> findById(int id) throws DAOException {
+        return daoPurchases.findById(id, companyId);
+    }
+
+    public List<DTOPurchaseDetails> findById(Connection connection, int id) throws DAOException {
+        return daoPurchases.findById(connection, id, companyId);
+    }
+
+    public List<DTOPurchaseDetails> findByAll() throws DAOException {
+        return daoPurchases.findByAll(companyId);
+    }
+
+    public void delete(int id) throws DAOException {
+        daoPurchases.delete(id, companyId);
+    }
+
+    public int countRecords() throws DAOException {
+        return daoPurchases.countRecords(companyId);
     }
 
 }

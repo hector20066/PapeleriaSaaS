@@ -1,8 +1,6 @@
-package com.hector.papeleriasaas.facade.impl;
+package com.hector.papeleriasaas.service;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.facade.interfaces.CustomersFacade;
-import com.hector.papeleriasaas.model.dao.impl.DAOCustomersImpl;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCustomers;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
@@ -15,16 +13,15 @@ import java.util.Optional;
  *
  * @author Ing. Hector Acevedo
  */
-public class CustomersImplFacade implements CustomersFacade {
+public class CustomerService {
 
     private final DAOCustomers daoCustomers;
     private int companyId = 0; // Se debe obtener
 
-    public CustomersImplFacade(DAOCustomers daoCustomers) {
+    public CustomerService(DAOCustomers daoCustomers) {
         this.daoCustomers = daoCustomers;
     }
 
-    @Override
     public void add(Connection connection, int id, String name, String phone) throws DAOException {
         DTOCustomerCreate dto = new DTOCustomerCreate.Builder()
                 .identification(id)
@@ -36,27 +33,22 @@ public class CustomersImplFacade implements CustomersFacade {
         daoCustomers.add(connection, dto);
     }
 
-    @Override
     public Optional<DTOCustomerDetails> findByName(String name) throws DAOException {
         return daoCustomers.findByName(name, companyId);
     }
 
-    @Override
     public Optional<DTOCustomerDetails> findById(int id) throws DAOException {
         return daoCustomers.findById(id);
     }
 
-    @Override
     public Optional<DTOCustomerDetails> findById(Connection connection, int id) throws DAOException {
         return daoCustomers.findById(connection, id);
     }
 
-    @Override
     public List<DTOCustomerDetails> findByAll() throws DAOException {
         return daoCustomers.findByAll(companyId);
     }
 
-    @Override
     public void modify(Connection connection, String phone, int id) throws DAOException {
         DTOCustomerCreate dto = new DTOCustomerCreate.Builder()
                 .phone(phone)
@@ -67,7 +59,6 @@ public class CustomersImplFacade implements CustomersFacade {
         daoCustomers.modify(connection, dto);
     }
 
-    @Override
     public int countRecords() throws DAOException {
         return daoCustomers.countRecords(companyId);
     }

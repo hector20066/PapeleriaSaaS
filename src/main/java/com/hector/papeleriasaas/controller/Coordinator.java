@@ -7,8 +7,8 @@ import com.hector.papeleriasaas.controller.company.ControllerSuppliers;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.ConnectionProviderImpl;
 import com.hector.papeleriasaas.database.DataBasePool;
-import com.hector.papeleriasaas.facade.impl.*;
-import com.hector.papeleriasaas.facade.interfaces.*;
+import com.hector.papeleriasaas.service.*;
+import com.hector.papeleriasaas.service.interfaces.*;
 import com.hector.papeleriasaas.model.dao.impl.*;
 import com.hector.papeleriasaas.model.dao.interfaces.*;
 import com.hector.papeleriasaas.observer.ConcreteSubject;
@@ -58,15 +58,15 @@ public class Coordinator {
     private final DAOSaleDetails daoSaleDetails = new DAOSaleDetailsImpl();
 
     // Facade's
-    private final CustomersFacade customersFacade = new CustomersImplFacade(daoCustomers);
-    private final DebtsFacade debtsFacade = new DebtsImplFacade(daoDebts);
-    private final InvoicesFacade invoicesFacade = new InvoicesImplFacade(daoInvoices);
-    private final ProductsFacade productsFacade = new ProductImplFacade(daoProducts);
-    private final ProvidersFacade providersFacade = new ProvidersImplFacade(daoProviders);
+    private final CustomersFacade customersFacade = new CustomerService(daoCustomers);
+    private final DebtsFacade debtsFacade = new DebtsService(daoDebts);
+    private final InvoicesFacade invoicesFacade = new InvoicesService(daoInvoices);
+    private final ProductsFacade productsFacade = new ProductService(daoProducts);
+    private final ProvidersFacade providersFacade = new ProvidersService(daoProviders);
     private final PurchasesFacade purchasesFacade = new PurchasesImplFacade(daoPurchases);
-    private final PurchaseDetailsFacade purchaseDetailsFacade = new PurchaseDetailsImplFacade(daoPurchaseDetails);
+    private final PurchaseDetailsFacade purchaseDetailsFacade = new PurchaseDetailsService(daoPurchaseDetails);
     private final SalesFacade salesFacade = new SalesImplFacade(daoSales);
-    private final SaleDetailsFacade saleDetailsFacade = new SaleDetailsImplFacade(daoSaleDetails);
+    private final SaleDetailsFacade saleDetailsFacade = new SaleDetailsService(daoSaleDetails);
 
     // Service
     private final SaleService saleService = new SaleService(customersFacade, salesFacade, saleDetailsFacade, invoicesFacade, productsFacade, connectionProvider);

@@ -8,7 +8,7 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
+import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.mapper.SalesManagementMapper;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;

@@ -3,7 +3,7 @@ package com.hector.papeleriasaas.controller.company;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.*;
-import com.hector.papeleriasaas.facade.interfaces.CustomersFacade;
+import com.hector.papeleriasaas.service.interfaces.CustomersFacade;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.observer.*;
 import com.hector.papeleriasaas.service.ReportService;

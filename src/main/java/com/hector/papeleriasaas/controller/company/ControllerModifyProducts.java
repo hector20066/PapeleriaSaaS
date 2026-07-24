@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.controller.builder.ControllerModifyProductsBuild
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
-import com.hector.papeleriasaas.facade.interfaces.ProductsFacade;
+import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
