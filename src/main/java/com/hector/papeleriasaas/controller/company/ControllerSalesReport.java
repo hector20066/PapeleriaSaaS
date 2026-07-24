@@ -8,8 +8,6 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.impl.ProductServiceImpl;
-import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.mapper.DashboardCompanyMapper;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
@@ -17,6 +15,8 @@ import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportServiceImpl;
+import com.hector.papeleriasaas.service.interfaces.ProductService;
+import com.hector.papeleriasaas.service.interfaces.SaleService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.validator.SalesReportValidator;
@@ -43,8 +43,8 @@ public class ControllerSalesReport implements Observer {
     private final SalesReport salesReport;
     private final Subject subject;
 
-    private final SaleServiceImpl saleService;
-    private final ProductServiceImpl productService;
+    private final SaleService saleService;
+    private final ProductService productService;
 
     public ControllerSalesReport(ControllerSalesReportBuilder builder) {
         this.salesReport = builder.getSalesReport();

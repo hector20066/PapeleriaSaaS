@@ -6,13 +6,13 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.impl.DebtsServiceImpl;
-import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
 import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportServiceImpl;
+import com.hector.papeleriasaas.service.interfaces.DebtsService;
+import com.hector.papeleriasaas.service.interfaces.SaleService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
@@ -39,8 +39,8 @@ public class ControllerDebtReport implements Observer {
     private final DebtReport debtReport;
     private final Subject subject;
 
-    private final DebtsServiceImpl debtsService;
-    private final SaleServiceImpl saleService;
+    private final DebtsService debtsService;
+    private final SaleService saleService;
 
     public ControllerDebtReport(ControllerDebtReportBuilder builder) {
         this.debtReport = builder.getDebtReport();

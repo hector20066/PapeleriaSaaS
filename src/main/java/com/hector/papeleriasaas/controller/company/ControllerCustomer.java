@@ -2,12 +2,18 @@ package com.hector.papeleriasaas.controller.company;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.executor.*;
-import com.hector.papeleriasaas.service.impl.CustomerServiceImpl;
+import com.hector.papeleriasaas.executor.BackgroundExecutor;
+import com.hector.papeleriasaas.executor.ObserverExecutor;
+import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
-import com.hector.papeleriasaas.observer.*;
+import com.hector.papeleriasaas.observer.Observer;
+import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportServiceImpl;
-import com.hector.papeleriasaas.utils.*;
+import com.hector.papeleriasaas.service.interfaces.CustomerService;
+import com.hector.papeleriasaas.utils.MessageUtils;
+import com.hector.papeleriasaas.utils.ParserUtils;
+import com.hector.papeleriasaas.utils.SwingUtils;
+import com.hector.papeleriasaas.utils.ValidationUtils;
 import com.hector.papeleriasaas.validator.CustomerValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Customers;
 import com.hector.papeleriasaas.view.report.ReportViewer;
@@ -31,9 +37,9 @@ public class ControllerCustomer implements Observer {
     private final Customers customers;
     private final Subject subject;
 
-    private final CustomerServiceImpl customerService;
+    private final CustomerService customerService;
 
-    public ControllerCustomer(Customers customers, Subject subject, CustomerServiceImpl customerService) {
+    public ControllerCustomer(Customers customers, Subject subject, CustomerService customerService) {
         this.customers = customers;
         this.subject = subject;
 

@@ -1,8 +1,8 @@
 package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerInventory;
-import com.hector.papeleriasaas.service.impl.ProductServiceImpl;
 import com.hector.papeleriasaas.observer.Subject;
+import com.hector.papeleriasaas.service.interfaces.ProductService;
 import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
 import com.hector.papeleriasaas.view.content.panels.companies.ModifyProduct;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
@@ -18,7 +18,7 @@ public class ControllerInventoryBuilder {
     private ModifyProduct modifyProduct;
     private Subject subject;
 
-    private ProductServiceImpl productService;
+    private ProductService productService;
 
     public ControllerInventoryBuilder withViewInventory(Inventory inventory) {
         this.inventory = inventory;
@@ -40,7 +40,7 @@ public class ControllerInventoryBuilder {
         return this;
     }
 
-    public ControllerInventoryBuilder withProductService(ProductServiceImpl productService) {
+    public ControllerInventoryBuilder withProductService(ProductService productService) {
         this.productService = productService;
         return this;
     }
@@ -65,7 +65,7 @@ public class ControllerInventoryBuilder {
         return modifyProduct;
     }
 
-    public ProductServiceImpl getProductService() {
+    public ProductService getProductService() {
         return productService;
     }
 

@@ -8,14 +8,14 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.impl.ProductServiceImpl;
 import com.hector.papeleriasaas.mapper.SalesManagementMapper;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportServiceImpl;
-import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
+import com.hector.papeleriasaas.service.interfaces.ProductService;
+import com.hector.papeleriasaas.service.interfaces.SaleService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
@@ -46,8 +46,8 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
     private final SalesManagement salesManagement;
     private final Subject subject;
 
-    private final ProductServiceImpl productService;
-    private final SaleServiceImpl saleService;
+    private final ProductService productService;
+    private final SaleService saleService;
 
     private final List<OrderItemSaleDTO> orderList;
 

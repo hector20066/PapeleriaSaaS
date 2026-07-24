@@ -5,11 +5,11 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.impl.ProvidersServiceImpl;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportServiceImpl;
+import com.hector.papeleriasaas.service.interfaces.ProvidersService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
@@ -36,9 +36,9 @@ public class ControllerSuppliers implements Observer {
     private final Suppliers suppliers;
     private final Subject subject;
 
-    private final ProvidersServiceImpl providersService;
+    private final ProvidersService providersService;
 
-    public ControllerSuppliers(Suppliers suppliers, Subject subject, ProvidersServiceImpl providersService) {
+    public ControllerSuppliers(Suppliers suppliers, Subject subject, ProvidersService providersService) {
         this.suppliers = suppliers;
         this.subject = subject;
 

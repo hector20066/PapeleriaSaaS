@@ -2,7 +2,7 @@ package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerPurchaseProducts;
 import com.hector.papeleriasaas.observer.Subject;
-import com.hector.papeleriasaas.service.impl.PurchaseServiceImpl;
+import com.hector.papeleriasaas.service.interfaces.PurchaseService;
 import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
 
@@ -16,7 +16,7 @@ public class ControllerPurchaseProductsBuilder {
     private Inventory inventory;
     private Subject subject;
 
-    private PurchaseServiceImpl purchaseService;
+    private PurchaseService purchaseService;
 
     public ControllerPurchaseProductsBuilder withViewProductManagement(PurchaseProducts productManagement) {
         this.productManagement = productManagement;
@@ -33,7 +33,7 @@ public class ControllerPurchaseProductsBuilder {
         return this;
     }
 
-    public ControllerPurchaseProductsBuilder withPurchaseService(PurchaseServiceImpl purchaseService) {
+    public ControllerPurchaseProductsBuilder withPurchaseService(PurchaseService purchaseService) {
         this.purchaseService = purchaseService;
         return this;
     }
@@ -54,7 +54,7 @@ public class ControllerPurchaseProductsBuilder {
         return subject;
     }
 
-    public PurchaseServiceImpl getPurchaseService() {
+    public PurchaseService getPurchaseService() {
         return purchaseService;
     }
 

@@ -5,11 +5,11 @@ import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.service.impl.PurchaseServiceImpl;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.ReportServiceImpl;
+import com.hector.papeleriasaas.service.interfaces.PurchaseService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.validator.PurchasingReportValidator;
@@ -34,9 +34,9 @@ public class ControllerPurchasingReport implements Observer {
     private final PurchasingReport purchasingReport;
     private final Subject subject;
 
-    private final PurchaseServiceImpl purchaseService;
+    private final PurchaseService purchaseService;
 
-    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchaseServiceImpl purchaseService) {
+    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchaseService purchaseService) {
         this.purchasingReport = purchasingReport;
         this.subject = subject;
         this.purchaseService = purchaseService;

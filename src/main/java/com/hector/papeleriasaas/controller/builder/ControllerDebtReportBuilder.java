@@ -1,9 +1,9 @@
 package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerDebtReport;
-import com.hector.papeleriasaas.service.impl.DebtsServiceImpl;
-import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.observer.Subject;
+import com.hector.papeleriasaas.service.interfaces.DebtsService;
+import com.hector.papeleriasaas.service.interfaces.SaleService;
 import com.hector.papeleriasaas.view.content.panels.companies.DebtReport;
 
 /**
@@ -15,8 +15,8 @@ public class ControllerDebtReportBuilder {
     private DebtReport debtReport;
     private Subject subject;
 
-    private DebtsServiceImpl debtsService;
-    private SaleServiceImpl saleService;
+    private DebtsService debtsService;
+    private SaleService saleService;
 
     public ControllerDebtReportBuilder withViewDebtReport(DebtReport debtReport) {
         this.debtReport = debtReport;
@@ -28,12 +28,12 @@ public class ControllerDebtReportBuilder {
         return this;
     }
 
-    public ControllerDebtReportBuilder withDebtsService(DebtsServiceImpl debtsService) {
+    public ControllerDebtReportBuilder withDebtsService(DebtsService debtsService) {
         this.debtsService = debtsService;
         return this;
     }
 
-    public ControllerDebtReportBuilder withSaleService(SaleServiceImpl saleService) {
+    public ControllerDebtReportBuilder withSaleService(SaleService saleService) {
         this.saleService = saleService;
         return this;
     }
@@ -50,11 +50,11 @@ public class ControllerDebtReportBuilder {
         return subject;
     }
 
-    public DebtsServiceImpl getDebtsService() {
+    public DebtsService getDebtsService() {
         return debtsService;
     }
 
-    public SaleServiceImpl getSaleService() {
+    public SaleService getSaleService() {
         return saleService;
     }
 
