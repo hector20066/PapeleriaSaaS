@@ -172,8 +172,6 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
             BigDecimal amountPaidValue = ParserUtils.parseBigDecimal(amountPaid, "valor pagado");
             BigDecimal totalSaleValue = ParserUtils.parseBigDecimal(totalSale, "total de la venta");
 
-            SalesManagementValidator.amountPaidValueValidation(amountPaidValue, totalSaleValue);
-
             if (!(amountPaidValue.compareTo(totalSaleValue) >= 0)) {
                 SalesManagementValidator.validationsDebts(customerId, customerName);
             } else {
@@ -318,23 +316,6 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         }
     }
 
-    private void filterProducts() {
-        List<DTOProductDetails> listProducts = productService.getProductList();
-        String searchParameter = salesManagement.getTxt_search().getText().trim();
-        salesManagement.getJpl_content().removeAll();
-
-        if (searchParameter.equalsIgnoreCase("Buscar Producto") || searchParameter.isBlank()) {
-            listProducts.forEach(dto -> salesManagement.addProductPanel(dto, this));
-        } else {
-            listProducts.stream()
-                    .filter(dto -> dto.getDescription().toLowerCase().contains(searchParameter.toLowerCase()))
-                    .forEach(dto -> salesManagement.addProductPanel(dto, this));
-        }
-
-        salesManagement.getJpl_content().revalidate();
-        salesManagement.getJpl_content().repaint();
-    }
-
     private void cancelSale() {
         clearFields();
         salesManagement.clearPanel();
@@ -384,6 +365,23 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 filterProducts();
             }
         };
+    }
+
+    private void filterProducts() {
+        List<DTOProductDetails> listProducts = productService.getProductList();
+        String searchParameter = salesManagement.getTxt_search().getText().trim();
+        salesManagement.getJpl_content().removeAll();
+
+        if (searchParameter.equalsIgnoreCase("Buscar Producto") || searchParameter.isBlank()) {
+            listProducts.forEach(dto -> salesManagement.addProductPanel(dto, this));
+        } else {
+            listProducts.stream()
+                    .filter(dto -> dto.getDescription().toLowerCase().contains(searchParameter.toLowerCase()))
+                    .forEach(dto -> salesManagement.addProductPanel(dto, this));
+        }
+
+        salesManagement.getJpl_content().revalidate();
+        salesManagement.getJpl_content().repaint();
     }
 
 }

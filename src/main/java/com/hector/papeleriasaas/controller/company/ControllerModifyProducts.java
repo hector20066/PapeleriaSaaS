@@ -58,8 +58,6 @@ public class ControllerModifyProducts {
             BigDecimal purchasePriceValue = ParserUtils.parseBigDecimal(purchasePrice, "precio de compra");
             BigDecimal salePriceValue = ParserUtils.parseBigDecimal(salePrice, "precio de venta");
 
-            ModifyProductValidator.productValidation(productAmount, purchasePriceValue, salePriceValue);
-
             prepareUI();
             doInBackground(productId, product, productAmount, purchasePriceValue, salePriceValue);
         } catch (InvalidInputException e) {

@@ -89,7 +89,6 @@ public class ControllerPurchasingReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTOPurchaseDetails> list = purchaseService.findById(Integer.parseInt(param));
-                PurchasingReportValidator.listEmptyValidation(list, param);
 
                 SwingUtilities.invokeLater(() -> {
                     purchasingReport.getPurchaseList().setRowCount(0);

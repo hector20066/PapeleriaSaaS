@@ -107,15 +107,13 @@ public class ControllerCustomer implements Observer {
     private void doInBackground(String customer) {
         BackgroundExecutor.execute(() -> {
             try {
-                Optional<DTOCustomerDetails> dtoOptional = ValidationUtils.isNumeric(customer)
+                DTOCustomerDetails customerDetails = ValidationUtils.isNumeric(customer)
                         ? customerService.findById(ParserUtils.parseInteger(customer, "cedula"))
                         : customerService.findByName(customer);
 
-                CustomerValidator.optionalEmptyValidation(dtoOptional, customer);
-
                 SwingUtilities.invokeLater(() -> {
                     customers.getModel().setRowCount(0);
-                    customers.updatePanel(dtoOptional.get());
+                    customers.updatePanel(customerDetails);
                 });
             } catch (InvalidInputException e) {
                 SwingUtilities.invokeLater(() -> {

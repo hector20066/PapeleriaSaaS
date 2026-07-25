@@ -68,13 +68,13 @@ public class ControllerPurchaseProducts {
             String phone = productManagement.getTxt_phone().getText().trim();
             String email = productManagement.getTxt_email().getText().trim();
 
-            DTOProvider dtoSupplier = PurchaseProductMapper.getDTOProvider(nit, rSocial, address, phone, email);
+            DTOProvider dtoProvider = PurchaseProductMapper.getDTOProvider(nit, rSocial, address, phone, email);
             List<DTOProductCreate> listProducts = getProductsList();
             BigDecimal totalPaid = ParserUtils.parseBigDecimal(productManagement.getJlb_totalPurchases().getText().trim(),
                     "cantidad pagada");
 
             prepareUI();
-            doInBackground(dtoSupplier, listProducts, totalPaid);
+            doInBackground(dtoProvider, listProducts, totalPaid);
         } catch (InvalidInputException e) {
             MessageUtils.errorMessage(MessageUtils.userMessage(e), productManagement);
         }
@@ -104,10 +104,10 @@ public class ControllerPurchaseProducts {
         productManagement.getBtn_addProduct().setEnabled(false);
     }
 
-    private void doInBackground(DTOProvider dtoSupplier, List<DTOProductCreate> listProducts, BigDecimal totalPaid) {
+    private void doInBackground(DTOProvider dtoProvider, List<DTOProductCreate> listProducts, BigDecimal totalPaid) {
         BackgroundExecutor.execute(() -> {
             try {
-                purchaseService.registerPurchase(dtoSupplier, totalPaid, listProducts);
+                purchaseService.registerPurchase(dtoProvider, totalPaid, listProducts);
 
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.informationMessage("Compra registrada correctamente.", productManagement);

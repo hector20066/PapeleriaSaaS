@@ -25,7 +25,6 @@ import javax.swing.event.DocumentListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  *
@@ -87,15 +86,13 @@ public class ControllerSuppliers implements Observer {
     private void doInBackgroundSearch(String param) {
         BackgroundExecutor.execute(() -> {
             try {
-                Optional<DTOProvider> supplier = ValidationUtils.isNumeric(param)
+                DTOProvider dtoProvider = ValidationUtils.isNumeric(param)
                         ? providersService.findById(Integer.parseInt(param))
                         : providersService.findByName(param);
 
-                ProvidersValidator.providerEmptyValidation(supplier, param);
-
                 SwingUtilities.invokeLater(() -> {
                     suppliers.getModel().setRowCount(0);
-                    suppliers.updatePanel(supplier.get());
+                    suppliers.updatePanel(dtoProvider);
                 });
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> {

@@ -113,15 +113,13 @@ public class ControllerInventory implements Observer {
     private void doInBackgroundSearch(String product) {
         BackgroundExecutor.execute(() -> {
             try {
-                Optional<DTOProductDetails> dtoOptional = ValidationUtils.isNumeric(product)
+                DTOProductDetails dtoProduct = ValidationUtils.isNumeric(product)
                         ? productsFacade.findById(Integer.parseInt(product))
                         : productsFacade.findByName(product);
 
-                InventoryValidator.dtoProductEmptyValidation(dtoOptional, product);
-
                 SwingUtilities.invokeLater(() -> {
                     inventory.getInventoryList().setRowCount(0);
-                    inventory.updatePanel(dtoOptional.get());
+                    inventory.updatePanel(dtoProduct);
                 });
             } catch (DAOException e) {
                 SwingUtilities.invokeLater(() -> {

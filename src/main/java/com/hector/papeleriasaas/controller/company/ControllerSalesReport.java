@@ -100,7 +100,6 @@ public class ControllerSalesReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTOSaleDetails> list = saleService.findById(Integer.parseInt(param));
-                SalesReportValidator.listEmptyValidation(list, param);
 
                 SwingUtilities.invokeLater(() -> {
                     salesReport.getSalesList().setRowCount(0);
@@ -122,11 +121,9 @@ public class ControllerSalesReport implements Observer {
             try {
                 List<DTOSaleDetails> salesList = saleService.findByAll();
                 List<DTOProductDetails> productsList = productService.findByAll();
-                Optional<DTOProductBestSelling> bestSelling = productService.bestSelling();
+                DTOProductBestSelling bestSelling = productService.bestSelling();
 
-                SalesReportValidator.bestSellingEmptyValidation(bestSelling);
-
-                DTOReportSummary dtoSummary = DashboardCompanyMapper.getReportSummary(productsList, salesList, bestSelling.get());
+                DTOReportSummary dtoSummary = DashboardCompanyMapper.getReportSummary(productsList, salesList, bestSelling);
                 List<DTOChartSales> listChartData = DashboardCompanyMapper.getChartSalesData(salesList, LocalDate.now());
 
                 String compileReport = "/reports/ReporteVentas.jrxml";

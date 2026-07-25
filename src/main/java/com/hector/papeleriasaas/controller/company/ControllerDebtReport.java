@@ -104,10 +104,9 @@ public class ControllerDebtReport implements Observer {
             }
 
             BigDecimal passDecimal = ParserUtils.parseBigDecimal(strPass, "valor del abono");
-            DebtReportValidator.priceValueValidation(passDecimal, debt);
 
             prepareUI();
-            doInBackground(numSale, amountPaid.add(passDecimal));
+            doInBackground(amountPaid, debt, passDecimal, numSale);
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(MessageUtils.userMessage(e), debtReport);
         }
@@ -119,10 +118,10 @@ public class ControllerDebtReport implements Observer {
         debtReport.getBtn_export().setEnabled(false);
     }
 
-    private void doInBackground(int numSale, BigDecimal newAmountPaid) {
+    private void doInBackground(BigDecimal currentBalance, BigDecimal currentDebt, BigDecimal pass, int numSale) {
         BackgroundExecutor.execute(() -> {
             try {
-                saleService.modify(newAmountPaid, numSale);
+                saleService.modify(currentBalance, currentDebt, pass, numSale);
 
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.informationMessage("Abono registrado correctamente.", debtReport);
@@ -159,7 +158,6 @@ public class ControllerDebtReport implements Observer {
         BackgroundExecutor.execute(() -> {
             try {
                 List<DTODebtDetails> list = debtsService.findByCustomer(customer);
-                DebtReportValidator.debtListEmptyValidation(list, customer);
 
                 SwingUtilities.invokeLater(() -> {
                     debtReport.getDebtList().setRowCount(0);

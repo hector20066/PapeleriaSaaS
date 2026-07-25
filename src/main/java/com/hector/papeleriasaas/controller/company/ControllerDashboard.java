@@ -48,11 +48,9 @@ public class ControllerDashboard implements Observer {
             try {
                 List<DTOSaleDetails> salesList = saleService.findByAll();
                 List<DTOProductDetails> productsList = productService.findByAll();
-                Optional<DTOProductBestSelling> bestSelling = productService.bestSelling();
+                DTOProductBestSelling bestSelling = productService.bestSelling();
 
-                CompanyDashboardValidator.bestSellingEmptyValidation(bestSelling);
-
-                DTOReportSummary dto = DashboardCompanyMapper.getReportSummary(productsList, salesList, bestSelling.get());
+                DTOReportSummary dto = DashboardCompanyMapper.getReportSummary(productsList, salesList, bestSelling);
                 dashboard.updatePanel(dto.getTotalPurchases(), dto.getTotalSales(), dto.getTotalProfits(),
                         dto.getAmountProduct(), dto.getProductName());
                 loadGraphicInfo(salesList);
