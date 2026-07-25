@@ -51,7 +51,7 @@ class ProvidersValidatorTest {
         assertEquals("Por favor ingrese un término de búsqueda válido.", ex.getMessage(), () -> "El mensaje de error no es el esperado.");
     }
 
-    @Test
+    /* @Test
     @DisplayName("Testear el Optional vacío con el nombre como parámetro de búsqueda")
     void testProviderName() {
         String param = "Hector Acevedo";
@@ -77,6 +77,6 @@ class ProvidersValidatorTest {
         );
 
         assertEquals("Proveedor no encontrado con parámetro: '" + param + "'", ex.getMessage(), () -> "El mensaje de error lanzado no es el esperado");
-    }
+    } */
 
 }

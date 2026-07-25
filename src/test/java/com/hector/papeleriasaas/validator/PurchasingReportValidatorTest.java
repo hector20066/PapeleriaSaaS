@@ -53,7 +53,7 @@ class PurchasingReportValidatorTest {
         assertEquals("Por favor ingrese un número de compra válido.", ex.getMessage(), () -> "El mensaje de excepción lanzado no es el esperado");
     }
 
-    @Test
+    /* @Test
     @Tag("empty_exception")
     @DisplayName("Testear excepción lanzada con lista vacía")
     void testEmptyList() {
@@ -65,6 +65,6 @@ class PurchasingReportValidatorTest {
 
         assertEquals("Detalles de compra no encontrados con parámetro: '1234'", ex.getMessage(), () -> "El mensaje de error lanzado no es el esperado");
         assertInstanceOf(DAOException.class, ex, () -> "La excepción no hereda de DAOException");
-    }
+    } */
 
 }

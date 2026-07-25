@@ -43,7 +43,7 @@ class ModifyProductValidatorTest {
         assertInstanceOf(InvalidInputException.class, ex, () -> "La excepción lanzada no es instancia de InvalidInputException");
     }
 
-    @Test
+    /* @Test
     @DisplayName("Testear validación para la cantidad")
     void testProductAmount() {
         InvalidInputException ex = assertThrows(
@@ -77,7 +77,7 @@ class ModifyProductValidatorTest {
         );
 
         assertEquals("Los precios no pueden ser negativos o ceros", ex.getMessage(), () -> "El mensaje de error no es el esperado.");
-    }
+    } */
 
     @Nested
     @Tag("empty_exception")

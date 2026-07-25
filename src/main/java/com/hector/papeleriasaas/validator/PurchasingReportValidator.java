@@ -21,10 +21,4 @@ public final class PurchasingReportValidator {
         }
     }
 
-    public static void listEmptyValidation(List<DTOPurchaseDetails> list, String param) throws DAOException {
-        if (list.isEmpty()) {
-            throw new PurchaseDetailsNotFoundException(param);
-        }
-    }
-
 }

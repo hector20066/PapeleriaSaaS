@@ -31,14 +31,4 @@ public final class ModifyProductValidator {
         }
     }
 
-    public static void productValidation(int productAmount, BigDecimal purchasePriceValue, BigDecimal salePriceValue) throws InvalidInputException {
-        if (productAmount < 0) {
-            throw new InvalidInputException("La cantidad disponible no puede ser negativa.");
-        }
-
-        if (purchasePriceValue.signum() <= 0 || salePriceValue.signum() <= 0) {
-            throw new InvalidInputException("Los precios no pueden ser negativos o ceros");
-        }
-    }
-
 }

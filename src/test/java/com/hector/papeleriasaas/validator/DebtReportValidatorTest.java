@@ -44,7 +44,7 @@ class DebtReportValidatorTest {
         assertEquals("Esta deuda ya está pagada.", ex.getMessage(), () -> "El mensaje de error no es el esperado");
     }
 
-    @ParameterizedTest
+    /* @ParameterizedTest
     @CsvSource({"0, 0", "-1000.00, 800.00", "-20000.00, 15000.00"})
     @DisplayName("Testear abono menor que 0")
     void testPricePassValue(BigDecimal pass, BigDecimal debt) {
@@ -68,7 +68,7 @@ class DebtReportValidatorTest {
         );
 
         assertEquals("El abono no puede ser mayor que la deuda actual.", ex.getMessage(), () -> "El mensaje de error no es el esperado");
-    }
+    }*/
 
     @Test
     @DisplayName("Testear parámetro de búsqueda null")
@@ -107,7 +107,7 @@ class DebtReportValidatorTest {
         assertEquals("Por favor ingrese un nombre de cliente válido.", ex.getMessage(), () -> "El mensaje de error no es el esperado");
     }
 
-    @Test
+    /* @Test
     @Tag("empty_exception")
     @DisplayName("Testear lista de deudas vacía")
     void testDebtListEmpty() {
@@ -121,6 +121,6 @@ class DebtReportValidatorTest {
 
         assertEquals("No se han encontrado deudas para el parámetro de búsqueda: '" +param + "'", ex.getMessage(), () -> "El mensaje de error no es el esperado.");
         assertInstanceOf(DAOException.class, ex, () -> "La excepción lanzada no hereda de DAOException");
-    }
+    } */
 
 }

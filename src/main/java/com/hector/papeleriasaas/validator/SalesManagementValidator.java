@@ -47,16 +47,6 @@ public final class SalesManagementValidator {
         }
     }
 
-    public static void amountPaidValueValidation(BigDecimal amountPaidValue, BigDecimal totalSaleValue) throws InvalidInputException {
-        if (amountPaidValue.signum() < 0) {
-            throw new InvalidInputException("El valor pagado no puede ser negativo.");
-        }
-
-        if (totalSaleValue.signum() <= 0) {
-            throw new InvalidInputException("El total de la venta no puede ser menor o igual a 0");
-        }
-    }
-
     public static void searchInvalidParamValidation(String param) throws InvalidInputException {
         if (ValidationUtils.isInvalidInput(param, "Buscar Producto")) {
             throw new InvalidInputException("No se encontró el producto, por favor ingrese el nombre.");

@@ -24,25 +24,9 @@ public final class DebtReportValidator {
         }
     }
 
-    public static void priceValueValidation(BigDecimal pass, BigDecimal debt) throws InvalidInputException {
-        if (pass.signum() <= 0) {
-            throw new InvalidInputException("El abono debe ser mayor que cero.");
-        }
-
-        if (pass.compareTo(debt) > 0) {
-            throw new InvalidInputException("El abono no puede ser mayor que la deuda actual.");
-        }
-    }
-
     public static void searchParamValidation(String customer) throws InvalidInputException {
         if (ValidationUtils.isInvalidInput(customer, "Buscar Cliente")) {
             throw new InvalidInputException("Por favor ingrese un nombre de cliente válido.");
-        }
-    }
-
-    public static void debtListEmptyValidation(List<DTODebtDetails> list, String param) throws DAOException {
-        if (list.isEmpty()) {
-            throw new DebtNotFoundException(param);
         }
     }
 

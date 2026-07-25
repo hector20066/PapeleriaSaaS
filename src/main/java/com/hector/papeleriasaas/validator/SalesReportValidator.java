@@ -24,16 +24,4 @@ public final class SalesReportValidator {
         }
     }
 
-    public static void listEmptyValidation(List<DTOSaleDetails> list, String param) throws DAOException {
-        if (list.isEmpty()) {
-            throw new SaleDetailsNotFoundException(param);
-        }
-    }
-
-    public static void bestSellingEmptyValidation(Optional<DTOProductBestSelling> bestSelling) throws DAOException {
-        if (bestSelling.isEmpty()) {
-            throw new ProductNotFoundException();
-        }
-    }
-
 }

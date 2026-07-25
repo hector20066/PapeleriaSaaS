@@ -16,10 +16,4 @@ public final class ProvidersValidator {
         }
     }
 
-    public static void providerEmptyValidation(Optional<DTOProvider> supplier, String param) throws DAOException {
-        if (supplier.isEmpty()) {
-            throw new SupplierNotFoundException(param);
-        }
-    }
-
 }

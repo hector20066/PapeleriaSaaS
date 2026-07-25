@@ -13,7 +13,6 @@ import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
 import com.hector.papeleriasaas.service.interfaces.SaleService;
 import com.hector.papeleriasaas.utils.MessageUtils;
-import com.hector.papeleriasaas.validator.CompanyDashboardValidator;
 import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
 import com.hector.papeleriasaas.view.swing.model.ModelChart;
 
@@ -21,7 +20,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 /**
  *

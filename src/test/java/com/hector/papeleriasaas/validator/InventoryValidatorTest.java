@@ -66,7 +66,7 @@ class InventoryValidatorTest {
         assertEquals("Por favor ingrese un término de búsqueda válido.", ex.getMessage(), () -> "El mensaje de error no es el esperado");
     }
 
-    @ParameterizedTest
+    /* @ParameterizedTest
     @CsvSource({"Hector Acevedo", "1066726477"})
     @Tag("empty_exception")
     @DisplayName("Testar Optional de producto vacío")
@@ -79,6 +79,6 @@ class InventoryValidatorTest {
 
         assertEquals("Producto no encontrado con parámetro: '" + param + "'", ex.getMessage(), () -> "El mensaje de error no es el esperado");
         assertInstanceOf(DAOException.class, ex, () -> "La excepción lanzada no hereda de DAOException");
-    }
+    } */
 
 }

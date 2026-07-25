@@ -30,10 +30,4 @@ public final class CustomerValidator {
         }
     }
 
-    public static void optionalEmptyValidation(Optional<DTOCustomerDetails> dtoOptional, String param) throws DAOException {
-        if (dtoOptional.isEmpty()) {
-            throw new CustomerNotFoundException(param);
-        }
-    }
-
 }

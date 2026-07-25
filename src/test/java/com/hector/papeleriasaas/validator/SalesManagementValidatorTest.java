@@ -129,7 +129,7 @@ class SalesManagementValidatorTest {
         );
     }
 
-    @Test
+    /* @Test
     @DisplayName("Testear cantidad pagada negativa")
     void testAmountPaidValue() {
         InvalidInputException ex = assertThrows(
@@ -160,7 +160,7 @@ class SalesManagementValidatorTest {
                 () -> SalesManagementValidator.amountPaidValueValidation(new BigDecimal("25000.00"), new BigDecimal("26000.00")),
                 () -> "Se ha lanzado la excepción"
         );
-    }
+    } */
 
     @Test
     @DisplayName("Testear validación del parámetro de búsqueda")
