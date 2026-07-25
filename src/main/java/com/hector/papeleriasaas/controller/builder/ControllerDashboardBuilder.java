@@ -33,8 +33,8 @@ public class ControllerDashboardBuilder {
         return this;
     }
 
-    public ControllerDashboardBuilder withSaleService(SaleService salesFacade) {
-        this.saleService = salesFacade;
+    public ControllerDashboardBuilder withSaleService(SaleService saleService) {
+        this.saleService = saleService;
         return this;
     }
 
