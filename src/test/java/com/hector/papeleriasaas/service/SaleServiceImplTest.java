@@ -3,11 +3,14 @@ package com.hector.papeleriasaas.service;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
+import com.hector.papeleriasaas.model.dao.interfaces.DAOSales;
+import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
 import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.service.interfaces.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -31,19 +34,22 @@ import static org.mockito.Mockito.*;
 class SaleServiceImplTest {
 
     @Mock
-    private CustomersFacade customersFacade;
+    private DAOSales daoSales;
 
     @Mock
-    private SalesFacade salesFacade;
+    private CustomerService customersFacade;
 
     @Mock
-    private SaleDetailsFacade saleDetailsFacade;
+    private SaleService salesFacade;
 
     @Mock
-    private InvoicesFacade invoicesFacade;
+    private SaleDetailsService saleDetailsFacade;
 
     @Mock
-    private ProductsFacade productsFacade;
+    private InvoicesService invoicesFacade;
+
+    @Mock
+    private ProductService productsFacade;
 
     @Mock
     private ConnectionProvider provider;
@@ -85,7 +91,7 @@ class SaleServiceImplTest {
         verify(customersFacade).findById(connection, 1066726477);
         verify(customersFacade).add(connection, 1066726477, "Hector Acevedo", "3137762626");
         verify(customersFacade, never()).modify(connection, "3137762626", 1066726477);
-        verify(salesFacade).add(connection, 1066726477, new BigDecimal("25000.00"), new BigDecimal("25000.00"));
+        verify(daoSales).add(any(Connection.class), any(DTOSaleCreate.class));
         verify(saleDetailsFacade).add(connection, invoiceNumber, dto.getProductId(), dto.getAmount(), dto.getUnitPrice());
         verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
     }
@@ -105,7 +111,7 @@ class SaleServiceImplTest {
         verify(customersFacade).findById(connection, 1066726477);
         verify(customersFacade).modify(connection, "3137762626", 1066726477);
         verify(customersFacade, never()).add(connection, 1066726477, "Hector", "3137762626");
-        verify(salesFacade).add(connection, 1066726477, new BigDecimal("25000.00"), new BigDecimal("25000.00"));
+        verify(daoSales).add(any(Connection.class), any(DTOSaleCreate.class));
         verify(saleDetailsFacade).add(connection, invoiceNumber, dto.getProductId(), dto.getAmount(), dto.getUnitPrice());
         verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
     }
@@ -129,7 +135,7 @@ class SaleServiceImplTest {
 
         assertEquals(5, numSale, () -> "El numero de la venta no es el esperado");
 
-        verify(salesFacade).add(connection, null, new BigDecimal("25000.00"), new BigDecimal("25000.00"));
+        verify(daoSales).add(any(Connection.class), any(DTOSaleCreate.class));
         verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
 
         verifyNoInteractions(customersFacade);
@@ -150,7 +156,7 @@ class SaleServiceImplTest {
         verify(customersFacade).findById(connection, 1066726477);
         verify(customersFacade).modify(connection, "3137762626", 1066726477);
         verify(customersFacade, never()).add(connection, 1066726477, "Hector Acevedo", "3137762626");
-        verify(salesFacade).add(connection, 1066726477, new BigDecimal("25000.00"), new BigDecimal("25000.00"));
+        verify(daoSales).add(any(Connection.class), any(DTOSaleCreate.class));
 
         verify(saleDetailsFacade, never()).add(any(Connection.class), anyInt(), anyInt(), anyInt(), any(BigDecimal.class));
         verifyNoInteractions(saleDetailsFacade);
@@ -160,7 +166,7 @@ class SaleServiceImplTest {
 
     private void configureSuccessfulSale() throws SQLException, DAOException {
         when(provider.getConnection()).thenReturn(connection);
-        when(salesFacade.add(any(Connection.class), any(), any(BigDecimal.class), any(BigDecimal.class))).thenReturn(5);
+        when(daoSales.add(any(Connection.class), any())).thenReturn(5);
         when(invoicesFacade.add(any(Connection.class), any(DTOInvoiceCreate.class))).thenReturn(5);
     }
 

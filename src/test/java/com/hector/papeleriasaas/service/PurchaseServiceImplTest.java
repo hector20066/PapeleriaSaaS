@@ -3,14 +3,17 @@ package com.hector.papeleriasaas.service;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.PurchasePersistenceException;
+import com.hector.papeleriasaas.model.dao.interfaces.DAOPurchases;
+import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseCreate;
 import com.hector.papeleriasaas.service.impl.PurchaseServiceImpl;
-import com.hector.papeleriasaas.service.interfaces.ProductsFacade;
-import com.hector.papeleriasaas.service.interfaces.ProvidersFacade;
-import com.hector.papeleriasaas.service.interfaces.PurchaseDetailsFacade;
-import com.hector.papeleriasaas.service.interfaces.PurchasesFacade;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.service.interfaces.ProductService;
+import com.hector.papeleriasaas.service.interfaces.ProvidersService;
+import com.hector.papeleriasaas.service.interfaces.PurchaseDetailsService;
+import com.hector.papeleriasaas.service.interfaces.PurchaseService;
+import net.bytebuddy.asm.MemberSubstitution;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -33,16 +36,16 @@ import static org.mockito.Mockito.*;
 class PurchaseServiceImplTest {
 
     @Mock
-    private ProvidersFacade providersFacade;
+    private DAOPurchases daoPurchases;
 
     @Mock
-    private ProductsFacade productsFacade;
+    private ProvidersService providersFacade;
 
     @Mock
-    private PurchasesFacade purchasesFacade;
+    private ProductService productsFacade;
 
     @Mock
-    private PurchaseDetailsFacade purchaseDetailsFacade;
+    private PurchaseDetailsService purchaseDetailsFacade;
 
     @Mock
     private ConnectionProvider connectionProvider;
@@ -72,7 +75,7 @@ class PurchaseServiceImplTest {
     void testRegisterPurchase() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
-        when(purchasesFacade.add(any(Connection.class), anyInt(), any(BigDecimal.class))).thenReturn(5);
+        when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
         when(productsFacade.findByName(any(Connection.class), anyString())).thenReturn(Optional.empty());
         when(productsFacade.add(any(Connection.class), anyString(), any(BigDecimal.class), any(BigDecimal.class))).thenReturn(5);
 
@@ -84,7 +87,7 @@ class PurchaseServiceImplTest {
         verify(providersFacade).findById(connection, 10667224);
         verify(providersFacade).add(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
         verify(providersFacade, never()).modify(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
-        verify(purchasesFacade).add(connection, 10667224, new BigDecimal("45000.00"));
+        verify(daoPurchases).add(any(Connection.class), any(DTOPurchaseCreate.class));
         verify(productsFacade).findByName(connection, "Cuaderno Norma");
         verify(productsFacade).add(connection, "Cuaderno Norma", new BigDecimal("4500.00"), new BigDecimal("6000.00"));
         verify(productsFacade, never()).modify(connection, "Cuaderno Norma", 10, new BigDecimal("6000.00"), new BigDecimal("4500.00"), 5);
@@ -96,7 +99,7 @@ class PurchaseServiceImplTest {
     void testRegisterPurchaseProductExist() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(createDtoProvider()));
-        when(purchasesFacade.add(any(Connection.class), anyInt(), any(BigDecimal.class))).thenReturn(5);
+        when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
         when(productsFacade.findByName(any(Connection.class), anyString())).thenReturn(Optional.of(createDtoProductDetails()));
 
         DTOProvider dtoProvider = createDtoProvider();
@@ -107,7 +110,7 @@ class PurchaseServiceImplTest {
         verify(providersFacade).findById(connection, 10667224);
         verify(providersFacade, never()).add(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
         verify(providersFacade).modify(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
-        verify(purchasesFacade).add(connection, 10667224, new BigDecimal("45000.00"));
+        verify(daoPurchases).add(any(Connection.class), any(DTOPurchaseCreate.class));
         verify(productsFacade).findByName(connection, "Cuaderno Norma");
         verify(productsFacade, never()).add(connection, "Cuaderno Norma", new BigDecimal("4500.00"), new BigDecimal("6000.00"));
         verify(productsFacade).modify(connection, "Cuaderno Norma", 10, new BigDecimal("6000.00"), new BigDecimal("4500.00"), 5);
@@ -138,7 +141,7 @@ class PurchaseServiceImplTest {
     void testRegisterPurchaseEmptyList() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
-        when(purchasesFacade.add(any(Connection.class), anyInt(), any(BigDecimal.class))).thenReturn(5);
+        when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
 
         DTOProvider dtoProvider = createDtoProvider();
 
@@ -153,7 +156,7 @@ class PurchaseServiceImplTest {
         verify(providersFacade).findById(connection, 10667224);
         verify(providersFacade).add(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
         verify(providersFacade, never()).modify(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
-        verify(purchasesFacade).add(connection, 10667224, new BigDecimal("45000.00"));
+        verify(daoPurchases).add(any(Connection.class), any(DTOPurchaseCreate.class));
         verifyNoInteractions(purchaseDetailsFacade);
         verifyNoInteractions(productsFacade);
     }
@@ -164,7 +167,7 @@ class PurchaseServiceImplTest {
     void testRegisterPurchaseException() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
-        when(purchasesFacade.add(any(Connection.class), anyInt(), any(BigDecimal.class))).thenThrow(new PurchasePersistenceException("Error al agregar compra"));
+        when(daoPurchases.add(any(Connection.class), any())).thenThrow(new PurchasePersistenceException("Error al agregar compra"));
 
         DTOProvider dtoProvider = createDtoProvider();
 
