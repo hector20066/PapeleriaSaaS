@@ -14,7 +14,7 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
-import com.hector.papeleriasaas.service.interfaces.SaleService;
+import com.hector.papeleriasaas.service.interfaces.*;
 
 /**
  *
@@ -23,20 +23,20 @@ import com.hector.papeleriasaas.service.interfaces.SaleService;
 public class SaleServiceImpl implements SaleService {
 
     private final DAOSales daoSales;
-    private final CustomerServiceImpl customerFacade;
-    private final SaleDetailsServiceImpl saleDetailsFacade;
-    private final InvoicesServiceImpl invoiceFacade;
-    private final ProductServiceImpl productsFacade;
+    private final CustomerService customerService;
+    private final SaleDetailsService saleDetailsService;
+    private final InvoicesService invoicesService;
+    private final ProductService productService;
     private final ConnectionProvider connectionProvider;
 
     private int companyId = 0;
 
-    public SaleServiceImpl(DAOSales daoSales, CustomerServiceImpl customersFacade, SaleDetailsServiceImpl saleDetailsFacade, InvoicesServiceImpl invoicesFacade, ProductServiceImpl productsFacade, ConnectionProvider connectionProvider) {
+    public SaleServiceImpl(DAOSales daoSales, CustomerService customerService, SaleDetailsService saleDetailsService, InvoicesService invoicesService, ProductService productService, ConnectionProvider connectionProvider) {
         this.daoSales = daoSales;
-        this.customerFacade = customersFacade;
-        this.saleDetailsFacade = saleDetailsFacade;
-        this.invoiceFacade = invoicesFacade;
-        this.productsFacade = productsFacade;
+        this.customerService = customerService;
+        this.saleDetailsService = saleDetailsService;
+        this.invoicesService = invoicesService;
+        this.productService = productService;
         this.connectionProvider = connectionProvider;
     }
 
@@ -52,20 +52,20 @@ public class SaleServiceImpl implements SaleService {
 
             // Only process customer info if customerId is not null (sale with debt)
             if (customerId != null) {
-                if (customerFacade.findById(connection, customerId).isEmpty()) {
-                    customerFacade.add(connection, customerId, customerName, customerPhone);
+                if (customerService.findById(connection, customerId).isEmpty()) {
+                    customerService.add(connection, customerId, customerName, customerPhone);
                 } else {
-                    customerFacade.modify(connection, customerPhone, customerId);
+                    customerService.modify(connection, customerPhone, customerId);
                 }
             }
 
             int numSale = this.add(connection, customerId, amountPaid, totalSale);
 
             for (DTOSaleDetailsCreate product : products) {
-                saleDetailsFacade.add(connection, numSale, product.getProductId(), product.getAmount(), product.getUnitPrice());
+                saleDetailsService.add(connection, numSale, product.getProductId(), product.getAmount(), product.getUnitPrice());
             }
 
-            invoiceNumber = invoiceFacade.add(connection, new DTOInvoiceCreate(numSale, 1));
+            invoiceNumber = invoicesService.add(connection, new DTOInvoiceCreate(numSale, 1));
 
             connection.commit();
         } catch (SQLException | DAOException e) {
@@ -96,7 +96,7 @@ public class SaleServiceImpl implements SaleService {
     @Override
     public String checkLowStock() throws DAOException {
         StringBuilder productsOutOfStock = new StringBuilder();
-        List<DTOProductDetails> products = productsFacade.findByAll();
+        List<DTOProductDetails> products = productService.findByAll();
 
         products.stream()
                 .filter(product -> product.getAmount() < 5)

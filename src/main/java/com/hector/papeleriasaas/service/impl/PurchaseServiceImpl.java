@@ -8,6 +8,9 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseCreate;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
+import com.hector.papeleriasaas.service.interfaces.ProductService;
+import com.hector.papeleriasaas.service.interfaces.ProvidersService;
+import com.hector.papeleriasaas.service.interfaces.PurchaseDetailsService;
 import com.hector.papeleriasaas.service.interfaces.PurchaseService;
 
 import java.math.BigDecimal;
@@ -23,35 +26,35 @@ import java.util.Optional;
 public class PurchaseServiceImpl implements PurchaseService {
 
     private final DAOPurchases daoPurchases;
-    private final ProvidersServiceImpl providersFacade;
-    private final ProductServiceImpl productsFacade;
-    private final PurchaseDetailsServiceImpl purchaseDetailsFacade;
+    private final ProvidersService providersService;
+    private final ProductService productService;
+    private final PurchaseDetailsService purchaseDetailsService;
     private final ConnectionProvider connectionProvider;
 
     private int companyId = 0;
 
-    public PurchaseServiceImpl(DAOPurchases daoPurchases, ProvidersServiceImpl providersFacade, ProductServiceImpl productsFacade, PurchaseDetailsServiceImpl purchaseDetailsFacade, ConnectionProvider connectionProvider) {
+    public PurchaseServiceImpl(DAOPurchases daoPurchases, ProvidersService providersService, ProductService productService, PurchaseDetailsService purchaseDetailsService, ConnectionProvider connectionProvider) {
         this.daoPurchases = daoPurchases;
-        this.providersFacade = providersFacade;
-        this.productsFacade = productsFacade;
-        this.purchaseDetailsFacade = purchaseDetailsFacade;
+        this.providersService = providersService;
+        this.productService = productService;
+        this.purchaseDetailsService = purchaseDetailsService;
         this.connectionProvider = connectionProvider;
     }
 
     @Override
-    public void registerPurchase(DTOProvider dtoSupplier, BigDecimal totalPaid,
-                                 List<DTOProductCreate> products) throws SQLException, DAOException {
+    public void registerPurchase(DTOProvider dtoSupplier, BigDecimal totalPaid, List<DTOProductCreate> products)
+            throws SQLException, DAOException {
         Connection connection = null;
 
         try {
             connection = connectionProvider.getConnection();
             connection.setAutoCommit(false);
 
-            if (providersFacade.findById(connection, dtoSupplier.getNit()).isEmpty()) {
-                providersFacade.add(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
+            if (providersService.findById(connection, dtoSupplier.getNit()).isEmpty()) {
+                providersService.add(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
                         dtoSupplier.getPhone(), dtoSupplier.getEmail());
             } else {
-                providersFacade.modify(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
+                providersService.modify(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
                         dtoSupplier.getPhone(), dtoSupplier.getEmail());
             }
 
@@ -59,21 +62,21 @@ public class PurchaseServiceImpl implements PurchaseService {
 
             for (DTOProductCreate dtoProduct : products) {
                 int productId;
-                Optional<DTOProductDetails> dtoProductFound = productsFacade.findByName(connection, dtoProduct.getDescription());
+                Optional<DTOProductDetails> dtoProductFound = productService.findByName(connection, dtoProduct.getDescription());
 
                 if (dtoProductFound.isEmpty()) {
-                    productId = productsFacade.add(connection, dtoProduct.getDescription(), dtoProduct.getPurchasePrice(),
+                    productId = productService.add(connection, dtoProduct.getDescription(), dtoProduct.getPurchasePrice(),
                             dtoProduct.getSalePrice());
                 } else {
                     DTOProductDetails product = dtoProductFound.get();
 
-                    productsFacade.modify(connection, dtoProduct.getDescription(), product.getAmount(),
+                    productService.modify(connection, dtoProduct.getDescription(), product.getAmount(),
                             dtoProduct.getSalePrice(), dtoProduct.getPurchasePrice(), product.getId());
 
                     productId = product.getId();
                 }
 
-                purchaseDetailsFacade.add(connection, numPurchase, productId, dtoProduct.getAmount(),
+                purchaseDetailsService.add(connection, numPurchase, productId, dtoProduct.getAmount(),
                         dtoProduct.getPurchasePrice());
             }
 
