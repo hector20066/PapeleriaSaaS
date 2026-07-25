@@ -1,6 +1,7 @@
 package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.notfound.DebtNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAODebts;
 import com.hector.papeleriasaas.model.dto.DTODebtDetails;
 import com.hector.papeleriasaas.model.enums.PaymentStatus;
@@ -25,7 +26,13 @@ public class DebtsServiceImpl implements DebtsService {
 
     @Override
     public List<DTODebtDetails> findByCustomer(String customer) throws DAOException {
-        return daoDebts.findByCustomer(customer, companyId);
+        List<DTODebtDetails> list = daoDebts.findByCustomer(customer, companyId);
+
+        if (list.isEmpty()) {
+            throw new DebtNotFoundException(customer);
+        }
+
+        return list;
     }
 
     @Override
@@ -34,13 +41,25 @@ public class DebtsServiceImpl implements DebtsService {
     }
 
     @Override
-    public Optional<DTODebtDetails> findById(int id) throws DAOException {
-        return daoDebts.findById(id, companyId);
+    public DTODebtDetails findById(int id) throws DAOException {
+        Optional<DTODebtDetails> debtDetailsOptional = daoDebts.findById(id, companyId);
+
+        if (debtDetailsOptional.isEmpty()) {
+            throw new DebtNotFoundException(String.valueOf(id));
+        }
+
+        return debtDetailsOptional.get();
     }
 
     @Override
-    public Optional<DTODebtDetails> findById(Connection connection, int id) throws DAOException {
-        return daoDebts.findById(connection, id, companyId);
+    public DTODebtDetails findById(Connection connection, int id) throws DAOException {
+        Optional<DTODebtDetails> debtDetailsOptional = daoDebts.findById(connection, id, companyId);
+
+        if (debtDetailsOptional.isEmpty()) {
+            throw new DebtNotFoundException(String.valueOf(id));
+        }
+
+        return debtDetailsOptional.get();
     }
 
     @Override

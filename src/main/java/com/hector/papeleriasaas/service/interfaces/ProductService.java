@@ -13,11 +13,11 @@ public interface ProductService {
 
     List<DTOProductDetails> getProductList();
     int add(Connection connection, String description, BigDecimal purchasePrice, BigDecimal salePrice) throws DAOException;
-    Optional<DTOProductDetails> findByName(String product) throws DAOException;
-    Optional<DTOProductDetails> findByName(Connection connection, String product) throws DAOException;
-    Optional<DTOProductDetails> findById(int id) throws DAOException;
-    Optional<DTOProductDetails> findById(Connection connection, int id) throws DAOException;
-    Optional<DTOProductBestSelling> bestSelling() throws DAOException;
+    DTOProductDetails findByName(String product) throws DAOException;
+    DTOProductDetails findByName(Connection connection, String product) throws DAOException;
+    DTOProductDetails findById(int id) throws DAOException;
+    DTOProductDetails findById(Connection connection, int id) throws DAOException;
+    DTOProductBestSelling bestSelling() throws DAOException;
     List<DTOProductDetails> findByAll() throws DAOException;
     void modify(String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice, int id) throws DAOException;
     void modify(Connection connection, String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice, int id) throws DAOException;

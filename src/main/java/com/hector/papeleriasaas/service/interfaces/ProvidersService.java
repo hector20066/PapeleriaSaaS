@@ -9,12 +9,10 @@ import java.util.Optional;
 
 public interface ProvidersService {
 
-    void add(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException;
-    Optional<DTOProvider> findByName(String name) throws DAOException;
-    Optional<DTOProvider> findById(int id) throws DAOException;
-    Optional<DTOProvider> findById(Connection connection, int id) throws DAOException;
+    void registerProviderPurchase(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException;
+    DTOProvider findByName(String name) throws DAOException;
+    DTOProvider findById(int id) throws DAOException;
     List<DTOProvider> findByAll() throws DAOException;
-    void modify(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException;
     void delete(int id) throws DAOException;
     int countRecords() throws DAOException;
 

@@ -7,6 +7,12 @@ import java.util.List;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.PersistenceException;
+import com.hector.papeleriasaas.exception.dao.notfound.SaleDetailsNotFoundException;
+import com.hector.papeleriasaas.exception.dao.notfound.SaleNotFoundException;
+import com.hector.papeleriasaas.exception.dao.persistence.SaleDetailsPersistenceException;
+import com.hector.papeleriasaas.exception.dao.persistence.SalePersistenceException;
+import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOSales;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
@@ -15,6 +21,7 @@ import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
 import com.hector.papeleriasaas.service.interfaces.*;
+import com.hector.papeleriasaas.validator.DebtReportValidator;
 
 /**
  *
@@ -42,17 +49,25 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
-                             BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws SQLException, DAOException {
+                            BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws SQLException, DAOException {
         Connection connection = null;
         int invoiceNumber;
 
         try {
+            if (amountPaid.signum() < 0) {
+                throw new SalePersistenceException("El valor pagado no puede ser negativo.");
+            }
+
+            if (totalSale.signum() <= 0) {
+                throw new SalePersistenceException("El total de la venta no puede ser menor o igual a 0");
+            }
+
             connection = connectionProvider.getConnection();
             connection.setAutoCommit(false);
 
             // Only process customer info if customerId is not null (sale with debt)
             if (customerId != null) {
-                if (customerService.findById(connection, customerId).isEmpty()) {
+                if (customerService.findById(connection, customerId) == null) {
                     customerService.add(connection, customerId, customerName, customerPhone);
                 } else {
                     customerService.modify(connection, customerPhone, customerId);
@@ -113,7 +128,13 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public List<DTOSaleDetails> findById(int id) throws DAOException {
-        return daoSales.findById(id, companyId);
+        List<DTOSaleDetails> list = daoSales.findById(id, companyId);
+
+        if (list.isEmpty()) {
+            throw new SaleDetailsNotFoundException(String.valueOf(id));
+        }
+
+        return list;
     }
 
     @Override
@@ -127,9 +148,17 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    public void modify(BigDecimal totalPaid, int numSale) throws DAOException {
+    public void modify(BigDecimal currentBalance, BigDecimal currentDebt, BigDecimal pass, int numSale) throws DAOException {
+        if (pass.signum() <= 0) {
+            throw new SalePersistenceException("El abono debe ser mayor que cero.");
+        }
+
+        if (pass.compareTo(currentDebt) > 0) {
+            throw new SalePersistenceException("El abono no puede ser mayor que la deuda actual.");
+        }
+
         DTOSaleUpdate dto = new DTOSaleUpdate();
-        dto.setTotalPaid(totalPaid);
+        dto.setTotalPaid(currentBalance.add(pass));
         dto.setNumSale(numSale);
 
         daoSales.modify(dto);

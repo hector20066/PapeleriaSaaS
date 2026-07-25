@@ -1,6 +1,8 @@
 package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.notfound.SupplierNotFoundException;
+import com.hector.papeleriasaas.exception.dao.persistence.SupplierPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.service.interfaces.ProvidersService;
@@ -23,7 +25,8 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public void add(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException {
+    public void registerProviderPurchase(Connection connection, int nit, String rSocial, String address, String phone,
+                                         String email) throws DAOException {
         DTOProvider dto = new DTOProvider.Builder()
                 .nit(nit)
                 .rSocial(rSocial)
@@ -33,41 +36,38 @@ public class ProvidersServiceImpl implements ProvidersService {
                 .companyId(companyId)
                 .build();
 
-        daoProviders.add(connection, dto);
+        if (daoProviders.findById(connection, nit, companyId).isEmpty()) {
+            daoProviders.add(connection, dto);
+        } else {
+            daoProviders.modify(connection, dto);
+        }
     }
 
     @Override
-    public Optional<DTOProvider> findByName(String name) throws DAOException {
-        return daoProviders.findByName(name, companyId);
+    public DTOProvider findByName(String name) throws DAOException {
+        Optional<DTOProvider> dtoProvider = daoProviders.findByName(name, companyId);
+
+        if (dtoProvider.isEmpty()) {
+            throw new SupplierNotFoundException(name);
+        }
+
+        return dtoProvider.get();
     }
 
     @Override
-    public Optional<DTOProvider> findById(int id) throws DAOException {
-        return daoProviders.findById(id, companyId);
-    }
+    public DTOProvider findById(int id) throws DAOException {
+        Optional<DTOProvider> dtoProvider = daoProviders.findById(id, companyId);
 
-    @Override
-    public Optional<DTOProvider> findById(Connection connection, int id) throws DAOException {
-        return daoProviders.findById(connection, id, companyId);
+        if (dtoProvider.isEmpty()) {
+            throw new SupplierNotFoundException(String.valueOf(id));
+        }
+
+        return dtoProvider.get();
     }
 
     @Override
     public List<DTOProvider> findByAll() throws DAOException {
         return daoProviders.findByAll(companyId);
-    }
-
-    @Override
-    public void modify(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException {
-        DTOProvider dto = new DTOProvider.Builder()
-                .nit(nit)
-                .rSocial(rSocial)
-                .address(address)
-                .phone(phone)
-                .email(email)
-                .companyId(companyId)
-                .build();
-
-        daoProviders.modify(connection, dto);
     }
 
     @Override

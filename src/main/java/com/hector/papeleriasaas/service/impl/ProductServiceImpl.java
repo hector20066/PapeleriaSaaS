@@ -1,6 +1,8 @@
 package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
+import com.hector.papeleriasaas.exception.dao.persistence.ProductPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProducts;
 import com.hector.papeleriasaas.model.dto.product.*;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
@@ -39,28 +41,57 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<DTOProductDetails> findByName(String product) throws DAOException {
-        return daoProducts.findByName(product, companyId);
+    public DTOProductDetails findByName(String product) throws DAOException {
+        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findByName(product, companyId);
+
+        if (dtoProductDetailsOptional.isEmpty()) {
+            throw new ProductNotFoundException(product);
+        }
+
+        return dtoProductDetailsOptional.get();
     }
 
     @Override
-    public Optional<DTOProductDetails> findByName(Connection connection, String product) throws DAOException {
-        return daoProducts.findByName(connection, product, companyId);
+    public DTOProductDetails findByName(Connection connection, String product) throws DAOException {
+        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findByName(connection, product, companyId);
+
+        return dtoProductDetailsOptional.orElse(null);
+
     }
 
     @Override
-    public Optional<DTOProductDetails> findById(int id) throws DAOException {
-        return daoProducts.findById(id, companyId);
+    public DTOProductDetails findById(int id) throws DAOException {
+        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findById(id, companyId);
+
+        if (dtoProductDetailsOptional.isEmpty()) {
+            throw new ProductNotFoundException(String.valueOf(id));
+        }
+
+        return dtoProductDetailsOptional.get();
     }
 
     @Override
-    public Optional<DTOProductDetails> findById(Connection connection, int id) throws DAOException {
-        return daoProducts.findById(connection, id, companyId);
+    public DTOProductDetails findById(Connection connection, int id) throws DAOException {
+        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findById(connection, id, companyId);
+
+        return dtoProductDetailsOptional.orElse(null);
     }
 
     @Override
-    public Optional<DTOProductBestSelling> bestSelling() throws DAOException {
-        return daoProducts.bestSelling(companyId);
+    public DTOProductBestSelling bestSelling() throws DAOException {
+        Optional<DTOProductBestSelling> productBestSellingOptional = daoProducts.bestSelling(companyId);
+
+        DTOProductBestSelling bestSelling = new DTOProductBestSelling.Builder()
+                .id(0)
+                .description("")
+                .quantitySold(0)
+                .build();
+
+        if (productBestSellingOptional.isPresent()) {
+            bestSelling = productBestSellingOptional.get();
+        }
+
+        return bestSelling;
     }
 
     @Override
@@ -70,6 +101,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void modify(String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice, int id) throws DAOException {
+        if (amount < 0) {
+            throw new ProductPersistenceException("La cantidad disponible no puede ser negativa.");
+        }
+
+        if (purchasePrice.signum() <= 0 || salePrice.signum() < 0) {
+            throw new ProductPersistenceException("Los precios no pueden ser negativos o ceros");
+        }
+
         DTOProductUpdate dto = new DTOProductUpdate.Builder()
                 .description(description)
                 .amount(amount)
@@ -85,6 +124,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void modify(Connection connection, String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice,
                        int id) throws DAOException {
+        if (amount < 0) {
+            throw new ProductPersistenceException("La cantidad disponible no puede ser negativa.");
+        }
+
+        if (purchasePrice.signum() <= 0 || salePrice.signum() < 0) {
+            throw new ProductPersistenceException("Los precios no pueden ser negativos o ceros");
+        }
+        
         DTOProductUpdate dto = new DTOProductUpdate.Builder()
                 .description(description)
                 .amount(amount)

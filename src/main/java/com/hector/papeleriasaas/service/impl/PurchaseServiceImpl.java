@@ -2,6 +2,8 @@ package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.notfound.PurchaseDetailsNotFoundException;
+import com.hector.papeleriasaas.exception.dao.notfound.PurchaseNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOPurchases;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
@@ -50,30 +52,23 @@ public class PurchaseServiceImpl implements PurchaseService {
             connection = connectionProvider.getConnection();
             connection.setAutoCommit(false);
 
-            if (providersService.findById(connection, dtoSupplier.getNit()).isEmpty()) {
-                providersService.add(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
-                        dtoSupplier.getPhone(), dtoSupplier.getEmail());
-            } else {
-                providersService.modify(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(), dtoSupplier.getAddress(),
-                        dtoSupplier.getPhone(), dtoSupplier.getEmail());
-            }
+            providersService.registerProviderPurchase(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(),
+                    dtoSupplier.getAddress(), dtoSupplier.getPhone(), dtoSupplier.getEmail());
 
             int numPurchase = this.add(connection, dtoSupplier.getNit(), totalPaid);
 
             for (DTOProductCreate dtoProduct : products) {
                 int productId;
-                Optional<DTOProductDetails> dtoProductFound = productService.findByName(connection, dtoProduct.getDescription());
+                DTOProductDetails dtoProductFound = productService.findByName(connection, dtoProduct.getDescription());
 
-                if (dtoProductFound.isEmpty()) {
+                if (dtoProductFound == null) {
                     productId = productService.add(connection, dtoProduct.getDescription(), dtoProduct.getPurchasePrice(),
                             dtoProduct.getSalePrice());
                 } else {
-                    DTOProductDetails product = dtoProductFound.get();
+                    productService.modify(connection, dtoProduct.getDescription(), dtoProductFound.getAmount(),
+                            dtoProduct.getSalePrice(), dtoProduct.getPurchasePrice(), dtoProductFound.getId());
 
-                    productService.modify(connection, dtoProduct.getDescription(), product.getAmount(),
-                            dtoProduct.getSalePrice(), dtoProduct.getPurchasePrice(), product.getId());
-
-                    productId = product.getId();
+                    productId = dtoProductFound.getId();
                 }
 
                 purchaseDetailsService.add(connection, numPurchase, productId, dtoProduct.getAmount(),
@@ -105,12 +100,24 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public List<DTOPurchaseDetails> findById(int id) throws DAOException {
-        return daoPurchases.findById(id, companyId);
+        List<DTOPurchaseDetails> list = daoPurchases.findById(id, companyId);
+
+        if (list.isEmpty()) {
+            throw new PurchaseDetailsNotFoundException(String.valueOf(id));
+        }
+
+        return list;
     }
 
     @Override
     public List<DTOPurchaseDetails> findById(Connection connection, int id) throws DAOException {
-        return daoPurchases.findById(connection, id, companyId);
+        List<DTOPurchaseDetails> list = daoPurchases.findById(connection, id, companyId);
+
+        if (list.isEmpty()) {
+            throw new PurchaseDetailsNotFoundException(String.valueOf(id));
+        }
+
+        return list;
     }
 
     @Override
