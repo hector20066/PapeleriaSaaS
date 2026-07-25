@@ -4,7 +4,10 @@ import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.ProductPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProducts;
-import com.hector.papeleriasaas.model.dto.product.*;
+import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
+import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
+import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.model.dto.product.DTOProductUpdate;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
 import java.sql.*;

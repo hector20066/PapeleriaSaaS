@@ -3,11 +3,10 @@ package com.hector.papeleriasaas.service.impl;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.PurchaseDetailsNotFoundException;
-import com.hector.papeleriasaas.exception.dao.notfound.PurchaseNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOPurchases;
-import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseCreate;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
@@ -19,7 +18,6 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 /**
  *

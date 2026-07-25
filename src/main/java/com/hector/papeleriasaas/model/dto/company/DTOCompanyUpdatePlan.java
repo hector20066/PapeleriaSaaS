@@ -1,7 +1,5 @@
 package com.hector.papeleriasaas.model.dto.company;
 
-import com.hector.papeleriasaas.model.enums.Status;
-
 public class DTOCompanyUpdatePlan {
 
     private Integer id;

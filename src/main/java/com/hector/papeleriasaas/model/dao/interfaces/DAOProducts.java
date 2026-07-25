@@ -1,7 +1,10 @@
 package com.hector.papeleriasaas.model.dao.interfaces;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.model.dto.product.*;
+import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
+import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
+import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.model.dto.product.DTOProductUpdate;
 
 import java.sql.Connection;
 import java.util.List;

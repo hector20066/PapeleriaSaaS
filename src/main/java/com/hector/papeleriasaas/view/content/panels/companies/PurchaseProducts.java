@@ -1,12 +1,11 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
-import com.hector.papeleriasaas.view.swing.TableHeader;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.panels.RoundedPanel;
-import java.awt.Color;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 

@@ -1,17 +1,12 @@
 package com.hector.papeleriasaas.validator;
 
-import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
-import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public final class CustomerValidator {
 

@@ -4,15 +4,9 @@
  */
 package com.hector.papeleriasaas.view.swing.scroll;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JScrollBar;
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import java.awt.*;
 
 /**
  *

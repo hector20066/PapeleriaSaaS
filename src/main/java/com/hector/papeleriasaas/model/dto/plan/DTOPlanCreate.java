@@ -1,8 +1,8 @@
 package com.hector.papeleriasaas.model.dto.plan;
 
-import java.math.BigDecimal;
-
 import com.hector.papeleriasaas.model.enums.BillingCycle;
+
+import java.math.BigDecimal;
 
 public class DTOPlanCreate {
 

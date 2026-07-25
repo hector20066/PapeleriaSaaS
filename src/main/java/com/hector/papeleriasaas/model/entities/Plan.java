@@ -1,8 +1,8 @@
 package com.hector.papeleriasaas.model.entities;
 
-import java.math.BigDecimal;
-
 import com.hector.papeleriasaas.model.enums.BillingCycle;
+
+import java.math.BigDecimal;
 
 public class Plan {
 

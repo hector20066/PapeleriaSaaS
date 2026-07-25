@@ -4,7 +4,6 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanCreate;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 

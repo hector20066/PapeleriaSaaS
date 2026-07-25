@@ -1,6 +1,8 @@
 package com.hector.papeleriasaas.view.content;
 
-import com.hector.papeleriasaas.executor.*;
+import com.hector.papeleriasaas.executor.BackgroundExecutor;
+import com.hector.papeleriasaas.executor.ObserverExecutor;
+import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 
 import javax.swing.*;

@@ -1,7 +1,6 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
-import com.hector.papeleriasaas.view.swing.TableHeader;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.panels.RoundedPanel;
 

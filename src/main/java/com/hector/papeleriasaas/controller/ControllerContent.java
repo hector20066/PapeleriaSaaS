@@ -1,7 +1,9 @@
 package com.hector.papeleriasaas.controller;
 
 import com.hector.papeleriasaas.controller.builder.ControllerContentBuilder;
-import com.hector.papeleriasaas.executor.*;
+import com.hector.papeleriasaas.executor.BackgroundExecutor;
+import com.hector.papeleriasaas.executor.ObserverExecutor;
+import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.view.content.Content;

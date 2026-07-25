@@ -2,7 +2,6 @@ package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
-import com.hector.papeleriasaas.exception.dao.persistence.CustomerPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCustomers;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;

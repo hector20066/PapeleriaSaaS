@@ -4,9 +4,8 @@
  */
 package com.hector.papeleriasaas.view.swing.scroll;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JScrollBar;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *

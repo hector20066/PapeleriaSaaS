@@ -2,7 +2,6 @@ package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.SupplierNotFoundException;
-import com.hector.papeleriasaas.exception.dao.persistence.SupplierPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.service.interfaces.ProvidersService;

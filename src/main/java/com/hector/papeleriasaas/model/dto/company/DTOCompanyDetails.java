@@ -1,9 +1,9 @@
 package com.hector.papeleriasaas.model.dto.company;
 
+import com.hector.papeleriasaas.model.enums.Status;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import com.hector.papeleriasaas.model.enums.Status;
 
 public class DTOCompanyDetails {
 

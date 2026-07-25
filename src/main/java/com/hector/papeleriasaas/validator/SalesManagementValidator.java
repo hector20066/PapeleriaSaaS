@@ -7,8 +7,10 @@ import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public final class SalesManagementValidator {
 

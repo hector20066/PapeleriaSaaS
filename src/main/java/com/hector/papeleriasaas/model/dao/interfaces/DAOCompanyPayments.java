@@ -6,7 +6,6 @@ import com.hector.papeleriasaas.model.dto.companypayments.DTOPaymentCreate;
 import com.hector.papeleriasaas.model.dto.companypayments.DTOPaymentDetails;
 import com.hector.papeleriasaas.model.dto.companypayments.DTOPaymentSimpleDetails;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 

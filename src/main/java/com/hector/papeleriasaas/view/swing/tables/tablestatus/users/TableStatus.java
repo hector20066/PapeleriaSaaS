@@ -1,12 +1,9 @@
 package com.hector.papeleriasaas.view.swing.tables.tablestatus.users;
 
 import com.hector.papeleriasaas.model.enums.Status;
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import javax.swing.JLabel;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *

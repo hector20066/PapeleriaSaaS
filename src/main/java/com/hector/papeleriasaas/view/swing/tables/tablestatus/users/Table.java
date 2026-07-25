@@ -3,10 +3,10 @@ package com.hector.papeleriasaas.view.swing.tables.tablestatus.users;
 import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.view.swing.tables.tablestatus.TableHeader;
 
-import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
 /**
  *

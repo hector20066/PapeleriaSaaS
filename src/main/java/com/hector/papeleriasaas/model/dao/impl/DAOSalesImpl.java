@@ -1,14 +1,5 @@
 package com.hector.papeleriasaas.model.dao.impl;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.SalePersistenceException;
@@ -17,6 +8,10 @@ import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
 import com.hector.papeleriasaas.utils.SQLRepository;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *

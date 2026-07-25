@@ -6,13 +6,12 @@ package com.hector.papeleriasaas.view.content.panels.admin;
 
 import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.view.swing.scroll.ScrollBar;
-import java.awt.Color;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *

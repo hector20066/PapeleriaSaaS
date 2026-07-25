@@ -1,18 +1,9 @@
 package com.hector.papeleriasaas.service.impl;
 
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.exception.dao.PersistenceException;
 import com.hector.papeleriasaas.exception.dao.notfound.SaleDetailsNotFoundException;
-import com.hector.papeleriasaas.exception.dao.notfound.SaleNotFoundException;
-import com.hector.papeleriasaas.exception.dao.persistence.SaleDetailsPersistenceException;
 import com.hector.papeleriasaas.exception.dao.persistence.SalePersistenceException;
-import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOSales;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
@@ -21,7 +12,11 @@ import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
 import com.hector.papeleriasaas.service.interfaces.*;
-import com.hector.papeleriasaas.validator.DebtReportValidator;
+
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *

@@ -1,9 +1,9 @@
 package com.hector.papeleriasaas.model.entities;
 
+import com.hector.papeleriasaas.model.enums.PaymentStatus;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import com.hector.papeleriasaas.model.enums.PaymentStatus;
 
 public class CompanyPayment {
 

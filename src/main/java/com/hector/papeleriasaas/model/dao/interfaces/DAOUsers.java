@@ -1,11 +1,11 @@
 package com.hector.papeleriasaas.model.dao.interfaces;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.hector.papeleriasaas.auth.DTOUserLogin;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.user.*;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  *

@@ -1,7 +1,8 @@
 package com.hector.papeleriasaas.model.dao.interfaces;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.model.dto.purchase.*;
+import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseCreate;
+import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
 
 import java.sql.Connection;
 import java.util.List;

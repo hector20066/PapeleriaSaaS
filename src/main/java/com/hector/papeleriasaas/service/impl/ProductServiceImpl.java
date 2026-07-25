@@ -4,7 +4,10 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
 import com.hector.papeleriasaas.exception.dao.persistence.ProductPersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProducts;
-import com.hector.papeleriasaas.model.dto.product.*;
+import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
+import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
+import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.model.dto.product.DTOProductUpdate;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
 
 import java.math.BigDecimal;
@@ -131,7 +134,7 @@ public class ProductServiceImpl implements ProductService {
         if (purchasePrice.signum() <= 0 || salePrice.signum() < 0) {
             throw new ProductPersistenceException("Los precios no pueden ser negativos o ceros");
         }
-        
+
         DTOProductUpdate dto = new DTOProductUpdate.Builder()
                 .description(description)
                 .amount(amount)

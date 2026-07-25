@@ -7,7 +7,6 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductService {
 

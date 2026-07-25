@@ -4,7 +4,8 @@ import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.PurchasePersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOPurchases;
-import com.hector.papeleriasaas.model.dto.purchase.*;
+import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseCreate;
+import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
 import java.sql.*;

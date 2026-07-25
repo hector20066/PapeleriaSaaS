@@ -1,11 +1,7 @@
 package com.hector.papeleriasaas.validator;
 
-import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
-import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.utils.ValidationUtils;
-
-import java.util.Optional;
 
 public final class InventoryValidator {
 

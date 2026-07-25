@@ -1,6 +1,5 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
-import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 

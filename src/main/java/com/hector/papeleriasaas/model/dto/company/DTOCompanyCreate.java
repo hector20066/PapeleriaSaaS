@@ -1,8 +1,8 @@
 package com.hector.papeleriasaas.model.dto.company;
 
-import java.time.LocalDate;
-
 import com.hector.papeleriasaas.model.enums.Status;
+
+import java.time.LocalDate;
 
 public class DTOCompanyCreate {
 
