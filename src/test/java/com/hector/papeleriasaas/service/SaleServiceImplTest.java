@@ -79,7 +79,7 @@ class SaleServiceImplTest {
     @DisplayName("Testear el registro de la venta")
     void testRegisterSale() throws DAOException, SQLException {
         configureSuccessfulSale();
-        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
+        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(null);
 
         DTOSaleDetailsCreate dto = createSaleDTO();
 
@@ -100,7 +100,7 @@ class SaleServiceImplTest {
     @DisplayName("Testear el registro de la venta con cliente existente")
     void testRegisterSaleCustomerExist() throws DAOException, SQLException {
         configureSuccessfulSale();
-        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomerDetails.Builder().build()));
+        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(new DTOCustomerDetails.Builder().build());
         DTOSaleDetailsCreate dto = createSaleDTO();
 
         int invoiceNumber = saleService.registerSale(1066726477, "Hector Acevedo", "3137762626",
@@ -146,7 +146,7 @@ class SaleServiceImplTest {
     @DisplayName("Testear el registro de la venta con lista de productos vacía")
     void testRegisterSaleEmptyList() throws DAOException, SQLException {
         configureSuccessfulSale();
-        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(new DTOCustomerDetails.Builder().build()));
+        when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(new DTOCustomerDetails.Builder().build());
 
         int numSale = saleService.registerSale(1066726477, "Hector Acevedo",
                 "3137762626", new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList());

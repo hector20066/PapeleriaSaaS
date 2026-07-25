@@ -74,9 +74,8 @@ class PurchaseServiceImplTest {
     @DisplayName("Testear el registro de la compra")
     void testRegisterPurchase() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
-        when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
         when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
-        when(productsFacade.findByName(any(Connection.class), anyString())).thenReturn(Optional.empty());
+        when(productsFacade.findByName(any(Connection.class), anyString())).thenReturn(null);
         when(productsFacade.add(any(Connection.class), anyString(), any(BigDecimal.class), any(BigDecimal.class))).thenReturn(5);
 
         DTOProvider dtoProvider = createDtoProvider();
@@ -84,9 +83,6 @@ class PurchaseServiceImplTest {
 
         purchaseService.registerPurchase(dtoProvider, new BigDecimal("45000.00"), List.of(dtoProduct));
 
-        verify(providersFacade).findById(connection, 10667224);
-        verify(providersFacade).add(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
-        verify(providersFacade, never()).modify(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
         verify(daoPurchases).add(any(Connection.class), any(DTOPurchaseCreate.class));
         verify(productsFacade).findByName(connection, "Cuaderno Norma");
         verify(productsFacade).add(connection, "Cuaderno Norma", new BigDecimal("4500.00"), new BigDecimal("6000.00"));
@@ -98,18 +94,14 @@ class PurchaseServiceImplTest {
     @DisplayName("Testear el registro de la compra con producto Existente")
     void testRegisterPurchaseProductExist() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
-        when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.of(createDtoProvider()));
         when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
-        when(productsFacade.findByName(any(Connection.class), anyString())).thenReturn(Optional.of(createDtoProductDetails()));
+        when(productsFacade.findByName(any(Connection.class), anyString())).thenReturn(createDtoProductDetails());
 
         DTOProvider dtoProvider = createDtoProvider();
         DTOProductCreate dtoProduct = createDtoProduct();
 
         purchaseService.registerPurchase(dtoProvider, new BigDecimal("45000.00"), List.of(dtoProduct));
 
-        verify(providersFacade).findById(connection, 10667224);
-        verify(providersFacade, never()).add(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
-        verify(providersFacade).modify(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
         verify(daoPurchases).add(any(Connection.class), any(DTOPurchaseCreate.class));
         verify(productsFacade).findByName(connection, "Cuaderno Norma");
         verify(productsFacade, never()).add(connection, "Cuaderno Norma", new BigDecimal("4500.00"), new BigDecimal("6000.00"));
@@ -140,7 +132,6 @@ class PurchaseServiceImplTest {
     @DisplayName("Testear el registro de la compra con lista de productos vacía")
     void testRegisterPurchaseEmptyList() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
-        when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
         when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
 
         DTOProvider dtoProvider = createDtoProvider();
@@ -153,9 +144,6 @@ class PurchaseServiceImplTest {
         verify(connection, never()).rollback();
         verify(connectionProvider).getConnection();
 
-        verify(providersFacade).findById(connection, 10667224);
-        verify(providersFacade).add(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
-        verify(providersFacade, never()).modify(connection, 10667224, "Norma corporation", "Tr 24 16-25", "3137762626", "norma@normacorporation.com");
         verify(daoPurchases).add(any(Connection.class), any(DTOPurchaseCreate.class));
         verifyNoInteractions(purchaseDetailsFacade);
         verifyNoInteractions(productsFacade);
@@ -166,7 +154,6 @@ class PurchaseServiceImplTest {
     @DisplayName("Testear excepción lanzada al registrar la compra")
     void testRegisterPurchaseException() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
-        when(providersFacade.findById(any(Connection.class), anyInt())).thenReturn(Optional.empty());
         when(daoPurchases.add(any(Connection.class), any())).thenThrow(new PurchasePersistenceException("Error al agregar compra"));
 
         DTOProvider dtoProvider = createDtoProvider();
