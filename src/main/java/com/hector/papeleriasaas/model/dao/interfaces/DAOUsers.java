@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.model.dao.interfaces;
 
-import com.hector.papeleriasaas.auth.DTOUserLogin;
+import com.hector.papeleriasaas.auth.DTOAuthentication;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.user.*;
 
@@ -19,7 +19,7 @@ public interface DAOUsers {
     Optional<DTOUserDetails> findByUser(String user) throws DAOException;
     List<DTOUserDetails> findByAll() throws DAOException;
     List<DTOUserDetails> findByAll(int companyId) throws DAOException;
-    Optional<DTOUserLogin> validateCredentials(String user, int companyNit) throws DAOException;
+    Optional<DTOAuthentication> findByNitAndUser(String user, int companyNit) throws DAOException;
     void modify(DTOUserUpdate dto) throws DAOException;
     void modifyPassword(DTOUserUpdatePasswd dto) throws DAOException;
     void modifyPasswordCompany(DTOUserUpdatePasswdCompany dto) throws DAOException;
