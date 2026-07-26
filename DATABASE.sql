@@ -51,7 +51,7 @@ CREATE TABLE users (
     name VARCHAR(50),
     user VARCHAR(20),
     password VARCHAR(400),
-    role VARCHAR(20),
+    role VARCHAR(20), -- ROOT, ADMIN, EMPLOYEE, OTHER
     status VARCHAR(20), -- ACTIVE, INACTIVE
     id_company INT,
     FOREIGN KEY (id_company) REFERENCES companies(id) ON DELETE CASCADE,
