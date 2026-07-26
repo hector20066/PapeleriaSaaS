@@ -1,6 +1,7 @@
 package com.hector.papeleriasaas.model.dao.impl;
 
 import com.hector.papeleriasaas.auth.DTOAuthentication;
+import com.hector.papeleriasaas.auth.DTOAuthenticationRoot;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
@@ -186,6 +187,32 @@ public class DAOUsersImpl implements DAOUsers {
                         .userStatus(Status.valueOf(rs.getString("status")))
                         .companyId(rs.getInt("id_company"))
                         .companyStatus(Status.valueOf(rs.getString("company_status")))
+                        .build());
+            }
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
+    }
+
+    @Override
+    public Optional<DTOAuthenticationRoot> findAuthenticationRoot(String user) throws DAOException {
+        String sql = SQLRepository.get("sql/user/findAuthenticationRoot.sql");
+
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, user);
+            st.setString(2, String.valueOf(Roles.ROOT));
+
+            try (ResultSet rs = st.executeQuery()) {
+                if (!rs.next()) {
+                    return Optional.empty();
+                }
+
+                return Optional.of(new DTOAuthenticationRoot.Builder()
+                        .userId(rs.getInt("id"))
+                        .user(rs.getString("user"))
+                        .passwd(rs.getString("password"))
+                        .status(Status.valueOf(rs.getString("status")))
                         .build());
             }
         } catch (SQLException e) {

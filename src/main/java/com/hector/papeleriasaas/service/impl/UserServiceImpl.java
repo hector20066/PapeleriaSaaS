@@ -1,6 +1,7 @@
 package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.auth.DTOAuthentication;
+import com.hector.papeleriasaas.auth.DTOAuthenticationRoot;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOUsers;
@@ -94,6 +95,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<DTOAuthentication> findByNitAndUser(String user, int companyNit) throws DAOException {
         return daoUsers.findByNitAndUser(user, companyNit);
+    }
+
+    @Override
+    public Optional<DTOAuthenticationRoot> findAuthenticationRoot(String user) throws DAOException {
+        return daoUsers.findAuthenticationRoot(user);
     }
 
     @Override

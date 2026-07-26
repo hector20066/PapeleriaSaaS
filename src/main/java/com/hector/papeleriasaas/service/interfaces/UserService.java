@@ -1,6 +1,7 @@
 package com.hector.papeleriasaas.service.interfaces;
 
 import com.hector.papeleriasaas.auth.DTOAuthentication;
+import com.hector.papeleriasaas.auth.DTOAuthenticationRoot;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
 import com.hector.papeleriasaas.model.enums.Roles;
@@ -18,6 +19,7 @@ public interface UserService {
     List<DTOUserDetails> findByAll() throws DAOException;
     List<DTOUserDetails> findByAll(int companyId) throws DAOException;
     Optional<DTOAuthentication> findByNitAndUser(String user, int companyNit) throws DAOException;
+    Optional<DTOAuthenticationRoot> findAuthenticationRoot(String user) throws DAOException;
     void modify(int id, int identification, String name, String user, Roles role, Status status) throws DAOException;
     void modifyPassword(String passwd, int id) throws DAOException;
     void modifyPasswordCompany(String passwd, int id, int companyId) throws DAOException;

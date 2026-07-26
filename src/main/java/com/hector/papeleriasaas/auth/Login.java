@@ -20,18 +20,18 @@ public class Login {
         this.daoCompanies = daoCompanies;
     }
 
-    public DTOAuthentication login(String user, String passwd, int companyNit) throws DAOException {
+    public void login(String user, String passwd, int companyNit) throws DAOException {
         Optional<DTOAuthentication> dtoLoginOptional = daoUsers.findByNitAndUser(user, companyNit);
 
         if (dtoLoginOptional.isEmpty()) {
             throw new DataNotFoundException("No se ha encontrado el usuario con estas credenciales");
         }
 
+        DTOAuthentication dtoAuthentication = dtoLoginOptional.get();
+
         if (!BCryptEncryption.verifyPassword(passwd, dtoLoginOptional.get().getPasswd())) {
             throw new DataNotFoundException("Contraseña incorrecta");
         }
-
-        DTOAuthentication dtoAuthentication = dtoLoginOptional.get();
 
         if (dtoAuthentication.getUserStatus().equals(Status.INACTIVE)) {
             throw new DAOException("El usuario no esta activo");
@@ -45,8 +45,6 @@ public class Login {
         Optional<DTOCompanyDetails> companyDto = daoCompanies.findCompanyInfo(dtoAuthentication.getCompanyId());
 
         Session.login(userDto.orElseThrow(), companyDto.orElseThrow());
-
-        return dtoAuthentication;
     }
 
 }
