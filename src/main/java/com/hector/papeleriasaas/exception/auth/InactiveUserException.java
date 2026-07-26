@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.exception.auth;
 
-public class InactiveUserException extends Exception {
+public class InactiveUserException extends AuthException {
 
     public InactiveUserException() {
         super("El usuario se encuentra inactivo");
