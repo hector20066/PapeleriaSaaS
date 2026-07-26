@@ -24,13 +24,13 @@ public class Session {
         return company;
     }
 
-    /*public static int getCompanyId() {
+    public static Integer getCompanyId() {
         return company.getId();
     }
 
-    public static int getUserId() {
+    public static Integer getUserId() {
         return user.getId();
-    }*/
+    }
 
     public static void logout() {
         user = null;

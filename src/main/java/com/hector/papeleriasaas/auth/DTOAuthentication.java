@@ -2,7 +2,7 @@ package com.hector.papeleriasaas.auth;
 
 import com.hector.papeleriasaas.model.enums.Status;
 
-public class DTOLogin {
+public class DTOAuthentication {
 
     private Integer userId;
     private String user;
@@ -11,11 +11,11 @@ public class DTOLogin {
     private Integer companyId;
     private Status companyStatus;
 
-    public DTOLogin() {
+    public DTOAuthentication() {
 
     }
 
-    public DTOLogin(Builder builder) {
+    public DTOAuthentication(Builder builder) {
         this.userId = builder.userId;
         this.user = builder.user;
         this.passwd = builder.passwd;
@@ -87,8 +87,8 @@ public class DTOLogin {
             return this;
         }
 
-        public DTOLogin build() {
-            return new DTOLogin(this);
+        public DTOAuthentication build() {
+            return new DTOAuthentication(this);
         }
 
     }
