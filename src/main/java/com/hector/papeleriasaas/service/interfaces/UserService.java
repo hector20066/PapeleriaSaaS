@@ -17,12 +17,12 @@ public interface UserService {
     DTOUserDetails findById(Integer id) throws DAOException;
     DTOUserDetails findByUser(String user) throws DAOException;
     List<DTOUserDetails> findByAll() throws DAOException;
-    List<DTOUserDetails> findByAll(int companyId) throws DAOException;
+    List<DTOUserDetails> findByAllCompany() throws DAOException;
     Optional<DTOAuthentication> findByNitAndUser(String user, int companyNit) throws DAOException;
     Optional<DTOAuthenticationRoot> findAuthenticationRoot(String user) throws DAOException;
     void modify(int id, int identification, String name, String user, Roles role, Status status) throws DAOException;
     void modifyPassword(String passwd, int id) throws DAOException;
-    void modifyPasswordCompany(String passwd, int id, int companyId) throws DAOException;
+    void modifyPasswordCompany(String passwd, int id) throws DAOException;
     void delete(int id) throws DAOException;
 
 }

@@ -1,5 +1,7 @@
 package com.hector.papeleriasaas.service.impl;
 
+import com.hector.papeleriasaas.auth.Session;
+import com.hector.papeleriasaas.auth.SessionImpl;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.SaleDetailsNotFoundException;
@@ -31,15 +33,16 @@ public class SaleServiceImpl implements SaleService {
     private final ProductService productService;
     private final ConnectionProvider connectionProvider;
 
-    private int companyId = 0;
+    private final Session session;
 
-    public SaleServiceImpl(DAOSales daoSales, CustomerService customerService, SaleDetailsService saleDetailsService, InvoicesService invoicesService, ProductService productService, ConnectionProvider connectionProvider) {
+    public SaleServiceImpl(DAOSales daoSales, CustomerService customerService, SaleDetailsService saleDetailsService, InvoicesService invoicesService, ProductService productService, ConnectionProvider connectionProvider, Session session) {
         this.daoSales = daoSales;
         this.customerService = customerService;
         this.saleDetailsService = saleDetailsService;
         this.invoicesService = invoicesService;
         this.productService = productService;
         this.connectionProvider = connectionProvider;
+        this.session = session;
     }
 
     @Override
@@ -98,7 +101,7 @@ public class SaleServiceImpl implements SaleService {
         dto.setCustomerId(customerId);
         dto.setTotalPaid(totalPaid);
         dto.setTotalSale(totalSale);
-        dto.setCompanyId(companyId);
+        dto.setCompanyId(session.getCompanyId());
 
         return daoSales.add(connection, dto);
     }
@@ -123,7 +126,7 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public List<DTOSaleDetails> findById(int id) throws DAOException {
-        List<DTOSaleDetails> list = daoSales.findById(id, companyId);
+        List<DTOSaleDetails> list = daoSales.findById(id, session.getCompanyId());
 
         if (list.isEmpty()) {
             throw new SaleDetailsNotFoundException(String.valueOf(id));
@@ -134,12 +137,12 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public List<DTOSaleDetails> findById(Connection connection, int id) throws DAOException {
-        return daoSales.findById(connection, id, companyId);
+        return daoSales.findById(connection, id, session.getCompanyId());
     }
 
     @Override
     public List<DTOSaleDetails> findByAll() throws DAOException {
-        return daoSales.findByAll(companyId);
+        return daoSales.findByAll(session.getCompanyId());
     }
 
     @Override
@@ -170,7 +173,7 @@ public class SaleServiceImpl implements SaleService {
 
     @Override
     public int countRecords() throws DAOException {
-        return daoSales.countRecords(companyId);
+        return daoSales.countRecords(session.getCompanyId());
     }
 
 }

@@ -2,6 +2,8 @@ package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.auth.DTOAuthentication;
 import com.hector.papeleriasaas.auth.DTOAuthenticationRoot;
+import com.hector.papeleriasaas.auth.Session;
+import com.hector.papeleriasaas.auth.SessionImpl;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOUsers;
@@ -16,10 +18,11 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final DAOUsers daoUsers;
-    private int companyId = 0;
+    private final Session session;
 
-    public UserServiceImpl(DAOUsers daoUsers) {
+    public UserServiceImpl(DAOUsers daoUsers, Session session) {
         this.daoUsers = daoUsers;
+        this.session = session;
     }
 
     @Override
@@ -31,7 +34,7 @@ public class UserServiceImpl implements UserService {
                 .passwd(passwd)
                 .role(role)
                 .status(status)
-                .companyId(companyId)
+                .companyId(session.getCompanyId())
                 .build();
 
         return daoUsers.add(dto);
@@ -82,8 +85,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<DTOUserDetails> findByAll(int companyId) throws DAOException {
-        List<DTOUserDetails> list = daoUsers.findByAll(companyId);
+    public List<DTOUserDetails> findByAllCompany() throws DAOException {
+        List<DTOUserDetails> list = daoUsers.findByAll(session.getCompanyId());
 
         if (list.isEmpty()) {
             throw new DataNotFoundException();
@@ -124,8 +127,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void modifyPasswordCompany(String passwd, int id, int companyId) throws DAOException {
-        DTOUserUpdatePasswdCompany dto = new DTOUserUpdatePasswdCompany(passwd, id, companyId);
+    public void modifyPasswordCompany(String passwd, int id) throws DAOException {
+        DTOUserUpdatePasswdCompany dto = new DTOUserUpdatePasswdCompany(passwd, id, session.getCompanyId());
 
         daoUsers.modifyPasswordCompany(dto);
     }

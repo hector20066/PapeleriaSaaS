@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.service.impl;
 
+import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCustomers;
@@ -18,10 +19,11 @@ import java.util.Optional;
 public class CustomerServiceImpl implements CustomerService {
 
     private final DAOCustomers daoCustomers;
-    private int companyId = 0; // Se debe obtener
+    private final Session session;
 
-    public CustomerServiceImpl(DAOCustomers daoCustomers) {
+    public CustomerServiceImpl(DAOCustomers daoCustomers, Session session) {
         this.daoCustomers = daoCustomers;
+        this.session = session;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .identification(id)
                 .name(name)
                 .phone(phone)
-                .companyId(companyId)
+                .companyId(session.getCompanyId())
                 .build();
 
         daoCustomers.add(connection, dto);
@@ -38,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public DTOCustomerDetails findByName(String name) throws DAOException {
-        Optional<DTOCustomerDetails> customerOptional = daoCustomers.findByName(name, companyId);
+        Optional<DTOCustomerDetails> customerOptional = daoCustomers.findByName(name, session.getCompanyId());
 
         if (customerOptional.isEmpty()) {
             throw new CustomerNotFoundException(name);
@@ -68,7 +70,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<DTOCustomerDetails> findByAll() throws DAOException {
-        return daoCustomers.findByAll(companyId);
+        return daoCustomers.findByAll(session.getCompanyId());
     }
 
     @Override
@@ -76,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
         DTOCustomerCreate dto = new DTOCustomerCreate.Builder()
                 .phone(phone)
                 .identification(id)
-                .companyId(companyId)
+                .companyId(session.getCompanyId())
                 .build();
 
         daoCustomers.modify(connection, dto);
@@ -84,7 +86,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public int countRecords() throws DAOException {
-        return daoCustomers.countRecords(companyId);
+        return daoCustomers.countRecords(session.getCompanyId());
     }
 
 }

@@ -1,5 +1,7 @@
 package com.hector.papeleriasaas.service.impl;
 
+import com.hector.papeleriasaas.auth.Session;
+import com.hector.papeleriasaas.auth.SessionImpl;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
 import com.hector.papeleriasaas.exception.dao.persistence.ProductPersistenceException;
@@ -22,10 +24,11 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
     private final DAOProducts daoProducts;
-    private int companyId = 0; // se debe obtener
+    private final Session session;
 
-    public ProductServiceImpl(DAOProducts daoProducts) {
+    public ProductServiceImpl(DAOProducts daoProducts, Session session) {
         this.daoProducts = daoProducts;
+        this.session = session;
     }
 
     public List<DTOProductDetails> getProductList() {
@@ -38,14 +41,14 @@ public class ProductServiceImpl implements ProductService {
         dto.setDescription(description);
         dto.setPurchasePrice(purchasePrice);
         dto.setSalePrice(salePrice);
-        dto.setCompanyId(companyId);
+        dto.setCompanyId(session.getCompanyId());
 
         return daoProducts.add(connection, dto);
     }
 
     @Override
     public DTOProductDetails findByName(String product) throws DAOException {
-        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findByName(product, companyId);
+        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findByName(product, session.getCompanyId());
 
         if (dtoProductDetailsOptional.isEmpty()) {
             throw new ProductNotFoundException(product);
@@ -56,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public DTOProductDetails findByName(Connection connection, String product) throws DAOException {
-        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findByName(connection, product, companyId);
+        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findByName(connection, product, session.getCompanyId());
 
         return dtoProductDetailsOptional.orElse(null);
 
@@ -64,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public DTOProductDetails findById(int id) throws DAOException {
-        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findById(id, companyId);
+        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findById(id, session.getCompanyId());
 
         if (dtoProductDetailsOptional.isEmpty()) {
             throw new ProductNotFoundException(String.valueOf(id));
@@ -75,14 +78,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public DTOProductDetails findById(Connection connection, int id) throws DAOException {
-        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findById(connection, id, companyId);
+        Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findById(connection, id, session.getCompanyId());
 
         return dtoProductDetailsOptional.orElse(null);
     }
 
     @Override
     public DTOProductBestSelling bestSelling() throws DAOException {
-        Optional<DTOProductBestSelling> productBestSellingOptional = daoProducts.bestSelling(companyId);
+        Optional<DTOProductBestSelling> productBestSellingOptional = daoProducts.bestSelling(session.getCompanyId());
 
         DTOProductBestSelling bestSelling = new DTOProductBestSelling.Builder()
                 .id(0)
@@ -99,7 +102,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<DTOProductDetails> findByAll() throws DAOException {
-        return daoProducts.findByAll(companyId);
+        return daoProducts.findByAll(session.getCompanyId());
     }
 
     @Override
@@ -118,7 +121,7 @@ public class ProductServiceImpl implements ProductService {
                 .salePrice(salePrice)
                 .purchasePrice(purchasePrice)
                 .id(id)
-                .companyId(companyId)
+                .companyId(session.getCompanyId())
                 .build();
 
         daoProducts.modify(dto);
@@ -141,7 +144,7 @@ public class ProductServiceImpl implements ProductService {
                 .salePrice(salePrice)
                 .purchasePrice(purchasePrice)
                 .id(id)
-                .companyId(companyId)
+                .companyId(session.getCompanyId())
                 .build();
 
         daoProducts.modify(connection, dto);
@@ -149,12 +152,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(int id) throws DAOException {
-        daoProducts.delete(id, companyId);
+        daoProducts.delete(id, session.getCompanyId());
     }
 
     @Override
     public int countRecords() throws DAOException {
-        return daoProducts.countRecords(companyId);
+        return daoProducts.countRecords(session.getCompanyId());
     }
 
 }

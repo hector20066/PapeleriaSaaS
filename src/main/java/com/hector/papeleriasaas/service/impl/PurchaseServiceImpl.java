@@ -1,5 +1,7 @@
 package com.hector.papeleriasaas.service.impl;
 
+import com.hector.papeleriasaas.auth.Session;
+import com.hector.papeleriasaas.auth.SessionImpl;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.PurchaseDetailsNotFoundException;
@@ -31,14 +33,15 @@ public class PurchaseServiceImpl implements PurchaseService {
     private final PurchaseDetailsService purchaseDetailsService;
     private final ConnectionProvider connectionProvider;
 
-    private int companyId = 0;
+    private final Session session;
 
-    public PurchaseServiceImpl(DAOPurchases daoPurchases, ProvidersService providersService, ProductService productService, PurchaseDetailsService purchaseDetailsService, ConnectionProvider connectionProvider) {
+    public PurchaseServiceImpl(DAOPurchases daoPurchases, ProvidersService providersService, ProductService productService, PurchaseDetailsService purchaseDetailsService, ConnectionProvider connectionProvider, Session session) {
         this.daoPurchases = daoPurchases;
         this.providersService = providersService;
         this.productService = productService;
         this.purchaseDetailsService = purchaseDetailsService;
         this.connectionProvider = connectionProvider;
+        this.session = session;
     }
 
     @Override
@@ -91,14 +94,14 @@ public class PurchaseServiceImpl implements PurchaseService {
         DTOPurchaseCreate dto = new DTOPurchaseCreate();
         dto.setProviderId(providerId);
         dto.setTotalPurchase(totalPaid);
-        dto.setCompanyId(companyId);
+        dto.setCompanyId(session.getCompanyId());
 
         return daoPurchases.add(connection, dto);
     }
 
     @Override
     public List<DTOPurchaseDetails> findById(int id) throws DAOException {
-        List<DTOPurchaseDetails> list = daoPurchases.findById(id, companyId);
+        List<DTOPurchaseDetails> list = daoPurchases.findById(id, session.getCompanyId());
 
         if (list.isEmpty()) {
             throw new PurchaseDetailsNotFoundException(String.valueOf(id));
@@ -109,7 +112,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public List<DTOPurchaseDetails> findById(Connection connection, int id) throws DAOException {
-        List<DTOPurchaseDetails> list = daoPurchases.findById(connection, id, companyId);
+        List<DTOPurchaseDetails> list = daoPurchases.findById(connection, id, session.getCompanyId());
 
         if (list.isEmpty()) {
             throw new PurchaseDetailsNotFoundException(String.valueOf(id));
@@ -120,17 +123,17 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public List<DTOPurchaseDetails> findByAll() throws DAOException {
-        return daoPurchases.findByAll(companyId);
+        return daoPurchases.findByAll(session.getCompanyId());
     }
 
     @Override
     public void delete(int id) throws DAOException {
-        daoPurchases.delete(id, companyId);
+        daoPurchases.delete(id, session.getCompanyId());
     }
 
     @Override
     public int countRecords() throws DAOException {
-        return daoPurchases.countRecords(companyId);
+        return daoPurchases.countRecords(session.getCompanyId());
     }
 
 }
