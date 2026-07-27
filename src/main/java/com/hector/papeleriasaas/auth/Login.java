@@ -17,10 +17,12 @@ public class Login {
 
     private final UserService userService;
     private final CompaniesService companiesService;
+    private final Session session;
 
-    public Login(UserService userService, CompaniesService companiesService) {
+    public Login(UserService userService, CompaniesService companiesService, Session session) {
         this.userService = userService;
         this.companiesService = companiesService;
+        this.session = session;
     }
 
     public void login(String user, String passwd, Integer companyNit) throws AuthException, DAOException {
@@ -69,7 +71,7 @@ public class Login {
             throw new InactiveCompanyException("El usuario no esta activo");
         }
 
-        Session.login(dtoUser, dtoCompany);
+        session.login(dtoUser, dtoCompany);
     }
 
 }

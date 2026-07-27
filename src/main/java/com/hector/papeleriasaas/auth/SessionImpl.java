@@ -3,38 +3,44 @@ package com.hector.papeleriasaas.auth;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyDetails;
 import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
 
-public class Session {
+public class SessionImpl implements Session {
 
-    private static DTOUserDetails user;
-    private static DTOCompanyDetails company;
+    private DTOUserDetails user;
+    private DTOCompanyDetails company;
 
-    private Session() {
+    public SessionImpl() {
     }
 
-    public static void login(DTOUserDetails user, DTOCompanyDetails company) {
-        Session.user = user;
-        Session.company = company;
+    @Override
+    public void login(DTOUserDetails user, DTOCompanyDetails company) {
+        this.user = user;
+        this.company = company;
     }
 
-    public static DTOUserDetails getUser() {
+    @Override
+    public void logout() {
+        user = null;
+        company = null;
+    }
+
+    @Override
+    public DTOUserDetails getUser() {
         return user;
     }
 
-    public static DTOCompanyDetails getCompany() {
+    @Override
+    public DTOCompanyDetails getCompany() {
         return company;
     }
 
-    public static Integer getCompanyId() {
+    @Override
+    public Integer getCompanyId() {
         return company.getId();
     }
 
-    public static Integer getUserId() {
+    @Override
+    public Integer getUserId() {
         return user.getId();
-    }
-
-    public static void logout() {
-        user = null;
-        company = null;
     }
 
 }
