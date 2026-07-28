@@ -1,5 +1,7 @@
 package com.hector.papeleriasaas.controller;
 
+import com.hector.papeleriasaas.auth.Session;
+import com.hector.papeleriasaas.auth.SessionImpl;
 import com.hector.papeleriasaas.controller.builder.*;
 import com.hector.papeleriasaas.controller.company.ControllerCustomer;
 import com.hector.papeleriasaas.controller.company.ControllerPurchasingReport;
@@ -26,6 +28,8 @@ public class Coordinator {
 
     // Observer
     private ConcreteSubject subject;
+
+    private final Session session = new SessionImpl();
 
     // Views
     private Content content;
@@ -56,15 +60,15 @@ public class Coordinator {
     private final DAOSaleDetails daoSaleDetails = new DAOSaleDetailsImpl();
 
     // Services
-    private final CustomerService customerService = new CustomerServiceImpl(daoCustomers);
-    private final DebtsService debtsService = new DebtsServiceImpl(daoDebts);
+    private final CustomerService customerService = new CustomerServiceImpl(daoCustomers, session);
+    private final DebtsService debtsService = new DebtsServiceImpl(daoDebts, session);
     private final InvoicesService invoicesService = new InvoicesServiceImpl(daoInvoices);
-    private final ProductService productService = new ProductServiceImpl(daoProducts);
-    private final ProvidersService providersService = new ProvidersServiceImpl(daoProviders);
+    private final ProductService productService = new ProductServiceImpl(daoProducts, session);
+    private final ProvidersService providersService = new ProvidersServiceImpl(daoProviders, session);
     private final PurchaseDetailsService purchaseDetailsService = new PurchaseDetailsServiceImpl(daoPurchaseDetails);
-    private final PurchaseService purchaseService = new PurchaseServiceImpl(daoPurchases, providersService, productService, purchaseDetailsService, connectionProvider);
+    private final PurchaseService purchaseService = new PurchaseServiceImpl(daoPurchases, providersService, productService, purchaseDetailsService, connectionProvider, session);
     private final SaleDetailsService saleDetailsService = new SaleDetailsServiceImpl(daoSaleDetails);
-    private final SaleService saleService = new SaleServiceImpl(daoSales, customerService, saleDetailsService, invoicesService, productService, connectionProvider);
+    private final SaleService saleService = new SaleServiceImpl(daoSales, customerService, saleDetailsService, invoicesService, productService, connectionProvider, session);
 
     public void startApp() {
         subject = ConcreteSubject.getInstance();
