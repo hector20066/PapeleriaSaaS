@@ -135,7 +135,7 @@ public class ControllerContent {
         content.getBtn_suppliers().setBackground(color2);
         content.getBtn_customers().setBackground(color2);
 
-        NavigatorUtils.showPanels(dashboard);
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), dashboard);
         //coordinator.loadData();
     }
 
@@ -149,7 +149,7 @@ public class ControllerContent {
         content.getBtn_suppliers().setBackground(color2);
         content.getBtn_customers().setBackground(color2);
 
-        NavigatorUtils.showPanels(purchaseProducts);
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), purchaseProducts);
     }
 
     private void showSalesManagement() {
@@ -162,7 +162,7 @@ public class ControllerContent {
         content.getBtn_suppliers().setBackground(color2);
         content.getBtn_customers().setBackground(color2);
 
-        NavigatorUtils.showPanels(salesManagement);
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), salesManagement);
     }
 
     private void showSalesReport() {
@@ -175,7 +175,7 @@ public class ControllerContent {
         content.getBtn_suppliers().setBackground(color2);
         content.getBtn_customers().setBackground(color2);
 
-        NavigatorUtils.showPanels(salesReport);
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), salesReport);
         salesReport.getTxt_searchSale().setText("Buscar Venta");
     }
 
@@ -189,7 +189,7 @@ public class ControllerContent {
         content.getBtn_suppliers().setBackground(color2);
         content.getBtn_customers().setBackground(color2);
 
-        NavigatorUtils.showPanels(debtReport);
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), debtReport);
         debtReport.getTxt_searchCustomer().setText("Buscar Cliente");
     }
 
@@ -203,7 +203,7 @@ public class ControllerContent {
         content.getBtn_suppliers().setBackground(color2);
         content.getBtn_customers().setBackground(color2);
 
-        NavigatorUtils.showPanels(purchasingReport);
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), purchasingReport);
         purchasingReport.getTxt_search().setText("Buscar Compra");
     }
 
@@ -217,7 +217,7 @@ public class ControllerContent {
         content.getBtn_products().setBackground(color2);
         content.getBtn_suppliers().setBackground(color2);
 
-        NavigatorUtils.showPanels(customers);
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), customers);
         customers.getTxt_search().setText("Buscar Cliente");
     }
 
@@ -231,7 +231,7 @@ public class ControllerContent {
         content.getBtn_sales().setBackground(color2);
         content.getBtn_products().setBackground(color2);
 
-        NavigatorUtils.showPanels(suppliers);
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), suppliers);
         suppliers.getTxt_search().setText("Buscar proveedor");
     }
 

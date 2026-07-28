@@ -15,6 +15,7 @@ import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.validator.PurchaseProductValidator;
+import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProductsView;
 
@@ -178,7 +179,7 @@ public class ControllerPurchaseProducts {
     }
 
     private void showInventory() {
-        NavigatorUtils.showPanels(inventory);
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), inventory);
         inventory.getTxt_search().setText("Buscar Producto");
     }
 
