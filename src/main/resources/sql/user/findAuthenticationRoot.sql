@@ -2,7 +2,7 @@ SELECT
     id,
     user,
     password,
-    status,
+    status
 FROM users
 WHERE user = ?
   AND role = ?;
