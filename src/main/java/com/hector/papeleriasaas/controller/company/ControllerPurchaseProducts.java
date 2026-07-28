@@ -15,8 +15,8 @@ import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.validator.PurchaseProductValidator;
-import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
-import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
+import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
+import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProductsView;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -30,8 +30,8 @@ import java.util.List;
  */
 public class ControllerPurchaseProducts {
 
-    private final PurchaseProducts productManagement;
-    private final Inventory inventory;
+    private final PurchaseProductsView productManagement;
+    private final InventoryView inventory;
     private final Subject subject;
 
     private final PurchaseService purchaseService;

@@ -20,7 +20,7 @@ import com.hector.papeleriasaas.service.interfaces.SaleService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.validator.SalesReportValidator;
-import com.hector.papeleriasaas.view.content.panels.companies.SalesReport;
+import com.hector.papeleriasaas.view.content.panels.companies.SalesReportView;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -39,7 +39,7 @@ import java.util.Map;
  */
 public class ControllerSalesReport implements Observer {
 
-    private final SalesReport salesReport;
+    private final SalesReportView salesReport;
     private final Subject subject;
 
     private final SaleService saleService;

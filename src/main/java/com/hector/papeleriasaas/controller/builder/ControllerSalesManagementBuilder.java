@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.controller.company.ControllerSalesManagement;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
 import com.hector.papeleriasaas.service.interfaces.SaleService;
-import com.hector.papeleriasaas.view.content.panels.companies.SalesManagement;
+import com.hector.papeleriasaas.view.content.panels.companies.SalesManagementView;
 
 /**
  *
@@ -12,13 +12,13 @@ import com.hector.papeleriasaas.view.content.panels.companies.SalesManagement;
  */
 public class ControllerSalesManagementBuilder {
 
-    private SalesManagement salesManagement;
+    private SalesManagementView salesManagement;
     private Subject subject;
 
     private ProductService productService;
     private SaleService saleService;
 
-    public ControllerSalesManagementBuilder withViewSalesManagement(SalesManagement salesManagement) {
+    public ControllerSalesManagementBuilder withViewSalesManagement(SalesManagementView salesManagement) {
         this.salesManagement = salesManagement;
         return this;
     }
@@ -42,7 +42,7 @@ public class ControllerSalesManagementBuilder {
         return new ControllerSalesManagement(this);
     }
 
-    public SalesManagement getSalesManagement() {
+    public SalesManagementView getSalesManagement() {
         return salesManagement;
     }
 

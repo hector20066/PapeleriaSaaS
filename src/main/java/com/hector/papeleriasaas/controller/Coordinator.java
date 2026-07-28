@@ -15,7 +15,7 @@ import com.hector.papeleriasaas.observer.ConcreteSubject;
 import com.hector.papeleriasaas.service.impl.*;
 import com.hector.papeleriasaas.service.interfaces.*;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
-import com.hector.papeleriasaas.view.content.Content;
+import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.panels.companies.*;
 
 import java.awt.*;
@@ -32,17 +32,17 @@ public class Coordinator {
     private final Session session = new SessionImpl();
 
     // Views
-    private Content content;
-    private Dashboard dashboard;
-    private Customers customers;
-    private DebtReport debtReport;
-    private Inventory inventory;
-    private PurchaseProducts purchaseProducts;
-    private PurchasingReport purchasingReport;
-    private SalesManagement salesManagement;
-    private SalesReport salesReport;
-    private Suppliers suppliers;
-    private ModifyProduct modifyProduct;
+    private ContentView content;
+    private DashboardView dashboard;
+    private CustomersView customers;
+    private DebtReportView debtReport;
+    private InventoryView inventory;
+    private PurchaseProductsView purchaseProducts;
+    private PurchasingReportView purchasingReport;
+    private SalesManagementView salesManagement;
+    private SalesReportView salesReport;
+    private ProvidersView suppliers;
+    private ModifyProductView modifyProduct;
 
     // Connection
     private final DataBasePool dataBase = new DataBasePool();
@@ -84,17 +84,17 @@ public class Coordinator {
     }
 
     private void startViews() {
-        content = new Content();
-        dashboard = new Dashboard();
-        customers = new Customers();
-        debtReport = new DebtReport();
-        inventory = new Inventory();
-        purchaseProducts = new PurchaseProducts();
-        purchasingReport = new PurchasingReport();
-        salesManagement = new SalesManagement();
-        salesReport = new SalesReport();
-        suppliers = new Suppliers();
-        modifyProduct = new ModifyProduct();
+        content = new ContentView();
+        dashboard = new DashboardView();
+        customers = new CustomersView();
+        debtReport = new DebtReportView();
+        inventory = new InventoryView();
+        purchaseProducts = new PurchaseProductsView();
+        purchasingReport = new PurchasingReportView();
+        salesManagement = new SalesManagementView();
+        salesReport = new SalesReportView();
+        suppliers = new ProvidersView();
+        modifyProduct = new ModifyProductView();
     }
 
     private void startDrivers() {

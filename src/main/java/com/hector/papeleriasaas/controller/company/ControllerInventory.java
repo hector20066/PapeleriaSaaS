@@ -14,9 +14,9 @@ import com.hector.papeleriasaas.service.ReportServiceImpl;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
 import com.hector.papeleriasaas.utils.*;
 import com.hector.papeleriasaas.validator.InventoryValidator;
-import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
-import com.hector.papeleriasaas.view.content.panels.companies.ModifyProduct;
-import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
+import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
+import com.hector.papeleriasaas.view.content.panels.companies.ModifyProductView;
+import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProductsView;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -35,9 +35,9 @@ import java.util.Map;
  */
 public class ControllerInventory implements Observer {
 
-    private final Inventory inventory;
-    private final PurchaseProducts purchaseProducts;
-    private final ModifyProduct modifyProduct;
+    private final InventoryView inventory;
+    private final PurchaseProductsView purchaseProducts;
+    private final ModifyProductView modifyProduct;
     private final Subject subject;
 
     private final ProductService productsFacade;

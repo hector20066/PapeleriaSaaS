@@ -8,12 +8,12 @@ package com.hector.papeleriasaas.view.content.panels.admin;
  *
  * @author hlacevedo
  */
-public class Dashboard extends javax.swing.JPanel {
+public class DashboardView extends javax.swing.JPanel {
 
     /**
      * Creates new form Dashboard
      */
-    public Dashboard() {
+    public DashboardView() {
         initComponents();
     }
 

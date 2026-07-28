@@ -17,7 +17,7 @@ import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.validator.DebtReportValidator;
-import com.hector.papeleriasaas.view.content.panels.companies.DebtReport;
+import com.hector.papeleriasaas.view.content.panels.companies.DebtReportView;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -36,7 +36,7 @@ import java.util.Map;
  */
 public class ControllerDebtReport implements Observer {
 
-    private final DebtReport debtReport;
+    private final DebtReportView debtReport;
     private final Subject subject;
 
     private final DebtsService debtsService;

@@ -8,12 +8,12 @@ package com.hector.papeleriasaas.view.content.panels.admin;
  *
  * @author hlacevedo
  */
-public class PaymentHistory extends javax.swing.JPanel {
+public class PaymentHistoryView extends javax.swing.JPanel {
 
     /**
      * Creates new form PaymentHistory
      */
-    public PaymentHistory() {
+    public PaymentHistoryView() {
         initComponents();
     }
 

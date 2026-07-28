@@ -3,9 +3,9 @@ package com.hector.papeleriasaas.controller.builder;
 import com.hector.papeleriasaas.controller.company.ControllerInventory;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
-import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
-import com.hector.papeleriasaas.view.content.panels.companies.ModifyProduct;
-import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
+import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
+import com.hector.papeleriasaas.view.content.panels.companies.ModifyProductView;
+import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProductsView;
 
 /**
  *
@@ -13,24 +13,24 @@ import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
  */
 public class ControllerInventoryBuilder {
 
-    private Inventory inventory;
-    private PurchaseProducts purchaseProducts;
-    private ModifyProduct modifyProduct;
+    private InventoryView inventory;
+    private PurchaseProductsView purchaseProducts;
+    private ModifyProductView modifyProduct;
     private Subject subject;
 
     private ProductService productService;
 
-    public ControllerInventoryBuilder withViewInventory(Inventory inventory) {
+    public ControllerInventoryBuilder withViewInventory(InventoryView inventory) {
         this.inventory = inventory;
         return this;
     }
 
-    public ControllerInventoryBuilder withViewPurchaseProducts(PurchaseProducts purchaseProducts) {
+    public ControllerInventoryBuilder withViewPurchaseProducts(PurchaseProductsView purchaseProducts) {
         this.purchaseProducts = purchaseProducts;
         return this;
     }
 
-    public ControllerInventoryBuilder withViewModifyProducts(ModifyProduct modifyProduct) {
+    public ControllerInventoryBuilder withViewModifyProducts(ModifyProductView modifyProduct) {
         this.modifyProduct = modifyProduct;
         return this;
     }
@@ -53,15 +53,15 @@ public class ControllerInventoryBuilder {
         return subject;
     }
 
-    public PurchaseProducts getPurchaseProducts() {
+    public PurchaseProductsView getPurchaseProducts() {
         return purchaseProducts;
     }
 
-    public Inventory getInventory() {
+    public InventoryView getInventory() {
         return inventory;
     }
 
-    public ModifyProduct getModifyProduct() {
+    public ModifyProductView getModifyProduct() {
         return modifyProduct;
     }
 

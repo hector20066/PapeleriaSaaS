@@ -19,11 +19,11 @@ import java.time.LocalDate;
  *
  * @author Ing. Hector Acevedo
  */
-public class DebtReport extends javax.swing.JPanel {
+public class DebtReportView extends javax.swing.JPanel {
 
     DefaultTableModel debtList;
 
-    public DebtReport() {
+    public DebtReportView() {
         initComponents();
 
         this.debtList = (DefaultTableModel) jtbl_debts.getModel();

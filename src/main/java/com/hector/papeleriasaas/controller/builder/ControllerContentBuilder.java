@@ -2,7 +2,7 @@ package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.ControllerContent;
 import com.hector.papeleriasaas.controller.Coordinator;
-import com.hector.papeleriasaas.view.content.Content;
+import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.panels.companies.*;
 
 /**
@@ -11,58 +11,58 @@ import com.hector.papeleriasaas.view.content.panels.companies.*;
  */
 public class ControllerContentBuilder {
 
-    private Content content;
-    private Dashboard dashboard;
-    private PurchaseProducts purchaseProducts;
-    private SalesManagement salesManagement;
-    private SalesReport salesReport;
-    private PurchasingReport purchasingReport;
-    private DebtReport debtReport;
-    private Customers customers;
-    private Suppliers suppliers;
+    private ContentView content;
+    private DashboardView dashboard;
+    private PurchaseProductsView purchaseProducts;
+    private SalesManagementView salesManagement;
+    private SalesReportView salesReport;
+    private PurchasingReportView purchasingReport;
+    private DebtReportView debtReport;
+    private CustomersView customers;
+    private ProvidersView suppliers;
     private Coordinator coordinator;
 
-    public ControllerContentBuilder withViewContent(Content content) {
+    public ControllerContentBuilder withViewContent(ContentView content) {
         this.content = content;
         return this;
     }
 
-    public ControllerContentBuilder withViewDashboard(Dashboard dashboard) {
+    public ControllerContentBuilder withViewDashboard(DashboardView dashboard) {
         this.dashboard = dashboard;
         return this;
     }
 
-    public ControllerContentBuilder withViewPurchaseProducts(PurchaseProducts purchaseProducts) {
+    public ControllerContentBuilder withViewPurchaseProducts(PurchaseProductsView purchaseProducts) {
         this.purchaseProducts = purchaseProducts;
         return this;
     }
 
-    public ControllerContentBuilder withViewSalesManagement(SalesManagement salesManagement) {
+    public ControllerContentBuilder withViewSalesManagement(SalesManagementView salesManagement) {
         this.salesManagement = salesManagement;
         return this;
     }
 
-    public ControllerContentBuilder withViewSalesReport(SalesReport salesReport) {
+    public ControllerContentBuilder withViewSalesReport(SalesReportView salesReport) {
         this.salesReport = salesReport;
         return this;
     }
 
-    public ControllerContentBuilder withViewPurchasingReport(PurchasingReport purchasingReport) {
+    public ControllerContentBuilder withViewPurchasingReport(PurchasingReportView purchasingReport) {
         this.purchasingReport = purchasingReport;
         return this;
     }
 
-    public ControllerContentBuilder withViewDebtReport(DebtReport debtReport) {
+    public ControllerContentBuilder withViewDebtReport(DebtReportView debtReport) {
         this.debtReport = debtReport;
         return this;
     }
 
-    public ControllerContentBuilder withViewCustomers(Customers customers) {
+    public ControllerContentBuilder withViewCustomers(CustomersView customers) {
         this.customers = customers;
         return this;
     }
 
-    public ControllerContentBuilder withViewSuppliers(Suppliers suppliers) {
+    public ControllerContentBuilder withViewSuppliers(ProvidersView suppliers) {
         this.suppliers = suppliers;
         return this;
     }
@@ -76,39 +76,39 @@ public class ControllerContentBuilder {
         return new ControllerContent(this);
     }
 
-    public Content getContent() {
+    public ContentView getContent() {
         return content;
     }
 
-    public Dashboard getDashboard() {
+    public DashboardView getDashboard() {
         return dashboard;
     }
 
-    public PurchaseProducts getPurchaseProducts() {
+    public PurchaseProductsView getPurchaseProducts() {
         return purchaseProducts;
     }
 
-    public SalesManagement getSalesManagement() {
+    public SalesManagementView getSalesManagement() {
         return salesManagement;
     }
 
-    public SalesReport getSalesReport() {
+    public SalesReportView getSalesReport() {
         return salesReport;
     }
 
-    public PurchasingReport getPurchasingReport() {
+    public PurchasingReportView getPurchasingReport() {
         return purchasingReport;
     }
 
-    public DebtReport getDebtReport() {
+    public DebtReportView getDebtReport() {
         return debtReport;
     }
 
-    public Customers getCustomers() {
+    public CustomersView getCustomers() {
         return customers;
     }
 
-    public Suppliers getSuppliers() {
+    public ProvidersView getSuppliers() {
         return suppliers;
     }
 

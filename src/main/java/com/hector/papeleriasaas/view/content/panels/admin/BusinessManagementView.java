@@ -17,14 +17,14 @@ import java.time.LocalDate;
  *
  * @author hlacevedo
  */
-public class BusinessManagement extends javax.swing.JPanel {
+public class BusinessManagementView extends javax.swing.JPanel {
 
     DefaultTableModel companiesList;
 
     /**
      * Creates new form BusinessManagement
      */
-    public BusinessManagement() {
+    public BusinessManagementView() {
         initComponents();
 
         this.companiesList = (DefaultTableModel) table.getModel();

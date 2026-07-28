@@ -15,7 +15,7 @@ import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 import com.hector.papeleriasaas.validator.CustomerValidator;
-import com.hector.papeleriasaas.view.content.panels.companies.Customers;
+import com.hector.papeleriasaas.view.content.panels.companies.CustomersView;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -33,12 +33,12 @@ import java.util.Map;
  */
 public class ControllerCustomer implements Observer {
 
-    private final Customers customers;
+    private final CustomersView customers;
     private final Subject subject;
 
     private final CustomerService customerService;
 
-    public ControllerCustomer(Customers customers, Subject subject, CustomerService customerService) {
+    public ControllerCustomer(CustomersView customers, Subject subject, CustomerService customerService) {
         this.customers = customers;
         this.subject = subject;
 

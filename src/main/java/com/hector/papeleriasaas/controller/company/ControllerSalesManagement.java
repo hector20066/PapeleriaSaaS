@@ -21,7 +21,7 @@ import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 import com.hector.papeleriasaas.validator.SalesManagementValidator;
-import com.hector.papeleriasaas.view.content.panels.companies.SalesManagement;
+import com.hector.papeleriasaas.view.content.panels.companies.SalesManagementView;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
@@ -43,7 +43,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class ControllerSalesManagement implements Observer, ProductPanelListener {
 
-    private final SalesManagement salesManagement;
+    private final SalesManagementView salesManagement;
     private final Subject subject;
 
     private final ProductService productService;

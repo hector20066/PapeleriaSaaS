@@ -3,8 +3,8 @@ package com.hector.papeleriasaas.controller.builder;
 import com.hector.papeleriasaas.controller.company.ControllerPurchaseProducts;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.interfaces.PurchaseService;
-import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
-import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
+import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
+import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProductsView;
 
 /**
  *
@@ -12,18 +12,18 @@ import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProducts;
  */
 public class ControllerPurchaseProductsBuilder {
 
-    private PurchaseProducts productManagement;
-    private Inventory inventory;
+    private PurchaseProductsView productManagement;
+    private InventoryView inventory;
     private Subject subject;
 
     private PurchaseService purchaseService;
 
-    public ControllerPurchaseProductsBuilder withViewProductManagement(PurchaseProducts productManagement) {
+    public ControllerPurchaseProductsBuilder withViewProductManagement(PurchaseProductsView productManagement) {
         this.productManagement = productManagement;
         return this;
     }
 
-    public ControllerPurchaseProductsBuilder withViewInventory(Inventory inventory) {
+    public ControllerPurchaseProductsBuilder withViewInventory(InventoryView inventory) {
         this.inventory = inventory;
         return this;
     }
@@ -42,11 +42,11 @@ public class ControllerPurchaseProductsBuilder {
         return new ControllerPurchaseProducts(this);
     }
 
-    public PurchaseProducts getProductManagement() {
+    public PurchaseProductsView getProductManagement() {
         return productManagement;
     }
 
-    public Inventory getInventory() {
+    public InventoryView getInventory() {
         return inventory;
     }
 

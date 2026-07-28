@@ -12,12 +12,12 @@ import java.awt.event.*;
  *
  * @author Ing. Hector Acevedo
  */
-public class Content extends javax.swing.JFrame {
+public class ContentView extends javax.swing.JFrame {
 
     int x;
     int y;
 
-    public Content() {
+    public ContentView() {
         initComponents();
         initMoving(this);
         winButton.initEvent(this);

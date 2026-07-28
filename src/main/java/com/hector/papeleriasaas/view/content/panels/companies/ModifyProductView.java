@@ -10,9 +10,9 @@ import java.awt.event.ActionListener;
  *
  * @author Ing. Hector Acevedo
  */
-public class ModifyProduct extends javax.swing.JPanel {
+public class ModifyProductView extends javax.swing.JPanel {
 
-    public ModifyProduct() {
+    public ModifyProductView() {
         initComponents();
     }
 

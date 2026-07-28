@@ -13,11 +13,11 @@ import java.awt.event.FocusListener;
  *
  * @author Ing. Hector Acevedo
  */
-public class PurchaseProducts extends javax.swing.JPanel {
+public class PurchaseProductsView extends javax.swing.JPanel {
 
     DefaultTableModel productList;
 
-    public PurchaseProducts() {
+    public PurchaseProductsView() {
         initComponents();
 
         productList = (DefaultTableModel) jtbl_products.getModel();

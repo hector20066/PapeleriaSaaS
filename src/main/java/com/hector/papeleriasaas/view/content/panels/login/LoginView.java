@@ -8,12 +8,12 @@ package com.hector.papeleriasaas.view.content.panels.login;
  *
  * @author hlacevedo
  */
-public class SelectPlans extends javax.swing.JPanel {
+public class LoginView extends javax.swing.JPanel {
 
     /**
-     * Creates new form SelectPlans
+     * Creates new form Login
      */
-    public SelectPlans() {
+    public LoginView() {
         initComponents();
     }
 

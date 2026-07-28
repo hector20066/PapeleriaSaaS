@@ -8,12 +8,12 @@ package com.hector.papeleriasaas.view.content.panels.companies;
  *
  * @author hlacevedo
  */
-public class Company extends javax.swing.JPanel {
+public class CompanyView extends javax.swing.JPanel {
 
     /**
      * Creates new form Company
      */
-    public Company() {
+    public CompanyView() {
         initComponents();
     }
 

@@ -6,7 +6,7 @@ import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
-import com.hector.papeleriasaas.view.content.Content;
+import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.panels.companies.*;
 
 import javax.swing.*;
@@ -25,15 +25,15 @@ public class ControllerContent {
     private final Color color1 = new Color(60, 73, 89);
     private final Color color2 = new Color(42, 49, 64);
 
-    private final Content content;
-    private final Dashboard dashboard;
-    private final PurchaseProducts purchaseProducts;
-    private final SalesManagement salesManagement;
-    private final SalesReport salesReport;
-    private final DebtReport debtReport;
-    private final PurchasingReport purchasingReport;
-    private final Customers customers;
-    private final Suppliers suppliers;
+    private final ContentView content;
+    private final DashboardView dashboard;
+    private final PurchaseProductsView purchaseProducts;
+    private final SalesManagementView salesManagement;
+    private final SalesReportView salesReport;
+    private final DebtReportView debtReport;
+    private final PurchasingReportView purchasingReport;
+    private final CustomersView customers;
+    private final ProvidersView suppliers;
     private final Coordinator coordinator;
 
     private boolean expandedMenu = true;

@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.utils;
 
-import com.hector.papeleriasaas.view.content.Content;
+import com.hector.papeleriasaas.view.content.ContentView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,10 +12,10 @@ import java.awt.*;
 public class NavigatorUtils {
 
     public static void showPanels(JPanel panel) {
-        Content.getJpl_content().removeAll();
-        Content.getJpl_content().add(panel, BorderLayout.CENTER);
-        Content.getJpl_content().revalidate();
-        Content.getJpl_content().repaint();
+        ContentView.getJpl_content().removeAll();
+        ContentView.getJpl_content().add(panel, BorderLayout.CENTER);
+        ContentView.getJpl_content().revalidate();
+        ContentView.getJpl_content().repaint();
     }
 
 }

@@ -14,7 +14,7 @@ import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.utils.ValidationUtils;
 import com.hector.papeleriasaas.validator.ProvidersValidator;
-import com.hector.papeleriasaas.view.content.panels.companies.Suppliers;
+import com.hector.papeleriasaas.view.content.panels.companies.ProvidersView;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -32,12 +32,12 @@ import java.util.Map;
  */
 public class ControllerSuppliers implements Observer {
 
-    private final Suppliers suppliers;
+    private final ProvidersView suppliers;
     private final Subject subject;
 
     private final ProvidersService providersService;
 
-    public ControllerSuppliers(Suppliers suppliers, Subject subject, ProvidersService providersService) {
+    public ControllerSuppliers(ProvidersView suppliers, Subject subject, ProvidersService providersService) {
         this.suppliers = suppliers;
         this.subject = subject;
 

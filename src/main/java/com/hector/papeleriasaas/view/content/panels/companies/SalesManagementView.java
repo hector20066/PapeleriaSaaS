@@ -21,9 +21,9 @@ import java.util.Locale;
  *
  * @author Ing. Hector Acevedo
  */
-public class SalesManagement extends javax.swing.JPanel {
+public class SalesManagementView extends javax.swing.JPanel {
 
-    public SalesManagement() {
+    public SalesManagementView() {
         initComponents();
 
         jpl_content.setLayout(new BoxLayout(jpl_content, BoxLayout.Y_AXIS));

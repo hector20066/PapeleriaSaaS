@@ -8,12 +8,12 @@ package com.hector.papeleriasaas.view.content.panels.admin;
  *
  * @author hlacevedo
  */
-public class ManagePlans extends javax.swing.JPanel {
+public class ManagePlansView extends javax.swing.JPanel {
 
     /**
      * Creates new form ManagePlans
      */
-    public ManagePlans() {
+    public ManagePlansView() {
         initComponents();
     }
 

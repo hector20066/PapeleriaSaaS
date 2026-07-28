@@ -3,8 +3,8 @@ package com.hector.papeleriasaas.controller.builder;
 import com.hector.papeleriasaas.controller.company.ControllerModifyProducts;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
-import com.hector.papeleriasaas.view.content.panels.companies.Inventory;
-import com.hector.papeleriasaas.view.content.panels.companies.ModifyProduct;
+import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
+import com.hector.papeleriasaas.view.content.panels.companies.ModifyProductView;
 
 /**
  *
@@ -12,18 +12,18 @@ import com.hector.papeleriasaas.view.content.panels.companies.ModifyProduct;
  */
 public class ControllerModifyProductsBuilder {
 
-    private ModifyProduct modifyProduct;
-    private Inventory inventory;
+    private ModifyProductView modifyProduct;
+    private InventoryView inventory;
     private Subject subject;
 
     private ProductService productService;
 
-    public ControllerModifyProductsBuilder withViewModifyProduct(ModifyProduct modifyProduct) {
+    public ControllerModifyProductsBuilder withViewModifyProduct(ModifyProductView modifyProduct) {
         this.modifyProduct = modifyProduct;
         return this;
     }
 
-    public ControllerModifyProductsBuilder withViewInventory(Inventory inventory) {
+    public ControllerModifyProductsBuilder withViewInventory(InventoryView inventory) {
         this.inventory = inventory;
         return this;
     }
@@ -42,11 +42,11 @@ public class ControllerModifyProductsBuilder {
         return new ControllerModifyProducts(this);
     }
 
-    public ModifyProduct getModifyProduct() {
+    public ModifyProductView getModifyProduct() {
         return modifyProduct;
     }
 
-    public Inventory getInventory() {
+    public InventoryView getInventory() {
         return inventory;
     }
 

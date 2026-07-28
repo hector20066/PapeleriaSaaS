@@ -13,7 +13,7 @@ import com.hector.papeleriasaas.service.interfaces.PurchaseService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.SwingUtils;
 import com.hector.papeleriasaas.validator.PurchasingReportValidator;
-import com.hector.papeleriasaas.view.content.panels.companies.PurchasingReport;
+import com.hector.papeleriasaas.view.content.panels.companies.PurchasingReportView;
 import com.hector.papeleriasaas.view.report.ReportViewer;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -31,12 +31,12 @@ import java.util.Map;
  */
 public class ControllerPurchasingReport implements Observer {
 
-    private final PurchasingReport purchasingReport;
+    private final PurchasingReportView purchasingReport;
     private final Subject subject;
 
     private final PurchaseService purchaseService;
 
-    public ControllerPurchasingReport(PurchasingReport purchasingReport, Subject subject, PurchaseService purchaseService) {
+    public ControllerPurchasingReport(PurchasingReportView purchasingReport, Subject subject, PurchaseService purchaseService) {
         this.purchasingReport = purchasingReport;
         this.subject = subject;
         this.purchaseService = purchaseService;

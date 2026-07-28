@@ -8,12 +8,12 @@ package com.hector.papeleriasaas.view.content.panels.login;
  *
  * @author hlacevedo
  */
-public class CreateAccount extends javax.swing.JPanel {
+public class CreateAccountView extends javax.swing.JPanel {
 
     /**
      * Creates new form CreateAccount
      */
-    public CreateAccount() {
+    public CreateAccountView() {
         initComponents();
     }
 

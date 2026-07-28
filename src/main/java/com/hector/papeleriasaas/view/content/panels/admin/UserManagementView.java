@@ -8,12 +8,12 @@ package com.hector.papeleriasaas.view.content.panels.admin;
  *
  * @author hlacevedo
  */
-public class UserManagement extends javax.swing.JPanel {
+public class UserManagementView extends javax.swing.JPanel {
 
     /**
      * Creates new form UserManagement
      */
-    public UserManagement() {
+    public UserManagementView() {
         initComponents();
     }
 

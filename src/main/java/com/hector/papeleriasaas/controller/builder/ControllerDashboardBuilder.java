@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.controller.company.ControllerDashboard;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
 import com.hector.papeleriasaas.service.interfaces.SaleService;
-import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
+import com.hector.papeleriasaas.view.content.panels.companies.DashboardView;
 
 /**
  *
@@ -12,13 +12,13 @@ import com.hector.papeleriasaas.view.content.panels.companies.Dashboard;
  */
 public class ControllerDashboardBuilder {
 
-    private Dashboard dashboard;
+    private DashboardView dashboard;
     private Subject subject;
 
     private ProductService productService;
     private SaleService saleService;
 
-    public ControllerDashboardBuilder withViewDashboard(Dashboard dashboard) {
+    public ControllerDashboardBuilder withViewDashboard(DashboardView dashboard) {
         this.dashboard = dashboard;
         return this;
     }
@@ -42,7 +42,7 @@ public class ControllerDashboardBuilder {
         return new ControllerDashboard(this);
     }
 
-    public Dashboard getDashboard() {
+    public DashboardView getDashboard() {
         return dashboard;
     }
 

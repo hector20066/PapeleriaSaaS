@@ -15,11 +15,11 @@ import java.math.BigDecimal;
  *
  * @author Ing. Hector Acevedo
  */
-public class Inventory extends javax.swing.JPanel {
+public class InventoryView extends javax.swing.JPanel {
 
     DefaultTableModel inventoryList;
 
-    public Inventory() {
+    public InventoryView() {
         initComponents();
         
         this.inventoryList = (DefaultTableModel) jtbl_inventory.getModel();
