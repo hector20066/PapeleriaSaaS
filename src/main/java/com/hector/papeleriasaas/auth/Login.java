@@ -7,6 +7,7 @@ import com.hector.papeleriasaas.exception.auth.IncorrectPasswordException;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyDetails;
 import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
+import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.service.interfaces.CompaniesService;
 import com.hector.papeleriasaas.service.interfaces.UserService;
@@ -69,6 +70,10 @@ public class Login {
 
         if (userStatus.equals(Status.INACTIVE)) {
             throw new InactiveCompanyException("El usuario no esta activo");
+        }
+
+        if (dtoUser.getRole().equals(Roles.OTHER)) {
+            throw new AuthException("El rol de este usuario no tiene acceso al sistema");
         }
 
         session.login(dtoUser, dtoCompany);
