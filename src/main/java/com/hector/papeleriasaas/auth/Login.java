@@ -36,7 +36,7 @@ public class Login {
             Optional<DTOAuthenticationRoot> dtoLoginRootOptional = userService.findAuthenticationRoot(user);
 
             if (dtoLoginRootOptional.isEmpty()) {
-                throw new CredentialsNotFound();
+                throw new CredentialsNotFound("No se ha encontrado el administrador con estas credenciales");
             }
 
             DTOAuthenticationRoot dtoAuthenticationRoot = dtoLoginRootOptional.get();
