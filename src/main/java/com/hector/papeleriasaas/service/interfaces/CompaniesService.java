@@ -8,6 +8,10 @@ import com.hector.papeleriasaas.model.enums.Status;
 import java.sql.Connection;
 import java.util.List;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface CompaniesService {
 
     int add(Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException;

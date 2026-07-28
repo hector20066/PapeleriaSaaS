@@ -15,6 +15,10 @@ import com.hector.papeleriasaas.service.interfaces.UserService;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public class UserServiceImpl implements UserService {
 
     private final DAOUsers daoUsers;

@@ -7,6 +7,10 @@ import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import java.sql.Connection;
 import java.util.List;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface DebtsService {
 
     List<DTODebtDetails> findByCustomer(String customer) throws DAOException;

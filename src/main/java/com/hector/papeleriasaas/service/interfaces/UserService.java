@@ -10,6 +10,10 @@ import com.hector.papeleriasaas.model.enums.Status;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface UserService {
 
     int add(Integer identification, String name, String user, String passwd, Roles role, Status status) throws DAOException;

@@ -6,6 +6,10 @@ import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import java.sql.Connection;
 import java.util.List;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface ProvidersService {
 
     void registerProviderPurchase(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException;

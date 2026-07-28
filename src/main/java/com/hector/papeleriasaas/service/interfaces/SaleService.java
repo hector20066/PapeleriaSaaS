@@ -9,6 +9,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface SaleService {
 
     int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid, BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws SQLException, DAOException;

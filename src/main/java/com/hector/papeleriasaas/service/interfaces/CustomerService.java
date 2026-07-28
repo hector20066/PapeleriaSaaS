@@ -6,6 +6,10 @@ import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import java.sql.Connection;
 import java.util.List;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface CustomerService {
 
     void add(Connection connection, int id, String name, String phone) throws DAOException;

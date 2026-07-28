@@ -13,6 +13,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public class PlansServiceImpl implements PlansService {
 
     private final DAOPlans daoPlans;

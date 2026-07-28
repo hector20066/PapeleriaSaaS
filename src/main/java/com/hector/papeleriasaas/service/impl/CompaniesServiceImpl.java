@@ -12,6 +12,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public class CompaniesServiceImpl implements CompaniesService {
 
     private final DAOCompanies daoCompanies;

@@ -9,6 +9,10 @@ import com.hector.papeleriasaas.model.enums.PaymentStatus;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface CompanyPaymentsService {
 
     void add(int companyId, int planId, BigDecimal amountPaid, String paymentReference, String observations, PaymentStatus paymentStatus) throws DAOException;

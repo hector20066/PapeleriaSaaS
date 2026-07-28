@@ -8,6 +8,10 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.util.List;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface ProductService {
 
     List<DTOProductDetails> getProductList();

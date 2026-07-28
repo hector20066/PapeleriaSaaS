@@ -10,6 +10,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public interface PurchaseService {
 
     void registerPurchase(DTOProvider dtoProvider, BigDecimal totalPaid, List<DTOProductCreate> products) throws SQLException, DAOException;

@@ -7,6 +7,10 @@ import com.hector.papeleriasaas.service.interfaces.InvoicesService;
 
 import java.sql.Connection;
 
+/**
+ *
+ * @author Ing. Hector Acevedo
+ */
 public class InvoicesServiceImpl implements InvoicesService {
 
     private final DAOInvoices daoInvoices;
