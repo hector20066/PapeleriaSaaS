@@ -4,6 +4,15 @@
  */
 package com.hector.papeleriasaas.view.content.panels.login;
 
+import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
+import com.hector.papeleriasaas.view.swing.panels.PanelShadow;
+import java.awt.event.ActionListener;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 /**
  *
  * @author hlacevedo
@@ -15,6 +24,11 @@ public class LoginView extends javax.swing.JPanel {
      */
     public LoginView() {
         initComponents();
+        
+        Icon normalIcon = new ImageIcon(getClass().getResource("/image/eye.png"));
+        Icon iconOff = new ImageIcon(getClass().getResource("/image/eye-off.png"));
+        rbn_seePasswd.setIcon(normalIcon);
+        rbn_seePasswd.setSelectedIcon(iconOff);
     }
 
     /**
@@ -26,19 +40,219 @@ public class LoginView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        panelShadow1 = new com.hector.papeleriasaas.view.swing.panels.PanelShadow();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txt_nit = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txt_user = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jpwd_password = new javax.swing.JPasswordField();
+        jlb_forgetPasswd = new javax.swing.JLabel();
+        btn_login = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_register = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        rbn_seePasswd = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(42, 49, 64));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Inicio de Sesión");
+
+        jLabel3.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(42, 49, 64));
+        jLabel3.setText("Nit:");
+
+        txt_nit.setBackground(new java.awt.Color(242, 246, 253));
+        txt_nit.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        txt_nit.setForeground(new java.awt.Color(42, 49, 64));
+        txt_nit.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(42, 49, 64));
+        jLabel4.setText("Usuario");
+
+        txt_user.setBackground(new java.awt.Color(242, 246, 253));
+        txt_user.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        txt_user.setForeground(new java.awt.Color(42, 49, 64));
+        txt_user.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
+        jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(42, 49, 64));
+        jLabel5.setText("Contraseña");
+
+        jpwd_password.setBackground(new java.awt.Color(242, 246, 253));
+        jpwd_password.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jpwd_password.setForeground(new java.awt.Color(42, 49, 64));
+        jpwd_password.setText("jPasswordField1");
+        jpwd_password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
+        jlb_forgetPasswd.setForeground(new java.awt.Color(119, 141, 169));
+        jlb_forgetPasswd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlb_forgetPasswd.setText("¿Olvidaste tu contraseña?");
+        jlb_forgetPasswd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        btn_login.setBackground(new java.awt.Color(42, 49, 64));
+        btn_login.setText("Iniciar Sesión");
+        btn_login.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btn_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        btn_register.setBackground(new java.awt.Color(194, 203, 212));
+        btn_register.setForeground(new java.awt.Color(42, 49, 64));
+        btn_register.setText("Registrarme");
+        btn_register.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btn_register.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        rbn_seePasswd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rbn_seePasswd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eye.png"))); // NOI18N
+
+        javax.swing.GroupLayout panelShadow1Layout = new javax.swing.GroupLayout(panelShadow1);
+        panelShadow1.setLayout(panelShadow1Layout);
+        panelShadow1Layout.setHorizontalGroup(
+            panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelShadow1Layout.createSequentialGroup()
+                .addContainerGap(69, Short.MAX_VALUE)
+                .addGroup(panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addGroup(panelShadow1Layout.createSequentialGroup()
+                        .addGroup(panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlb_forgetPasswd, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jpwd_password, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_user, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbn_seePasswd))
+                    .addGroup(panelShadow1Layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShadow1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_register, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(173, 173, 173))
+        );
+        panelShadow1Layout.setVerticalGroup(
+            panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelShadow1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(jLabel2)
+                .addGap(60, 60, 60)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(rbn_seePasswd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpwd_password))
+                .addGap(40, 40, 40)
+                .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jlb_forgetPasswd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addComponent(btn_register, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
+        );
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/loginPapeleria.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setControllerLogin(ActionListener action) {
+        this.btn_login.addActionListener(action);
+    }
+    
+    public void setControllerRegister(ActionListener action) {
+        this.btn_register.addActionListener(action);
+    }
+    
+    public ButtonAction getBtn_login() {
+        return btn_login;
+    }
+
+    public ButtonAction getBtn_register() {
+        return btn_register;
+    }
+
+    public JLabel getJlb_forgetPasswd() {
+        return jlb_forgetPasswd;
+    }
+
+    public JPasswordField getJpwd_password() {
+        return jpwd_password;
+    }
+
+    public PanelShadow getPanelShadow1() {
+        return panelShadow1;
+    }
+
+    public JTextField getTxt_nit() {
+        return txt_nit;
+    }
+
+    public JTextField getTxt_user() {
+        return txt_user;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_login;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_register;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jlb_forgetPasswd;
+    private javax.swing.JPasswordField jpwd_password;
+    private com.hector.papeleriasaas.view.swing.panels.PanelShadow panelShadow1;
+    private javax.swing.JRadioButton rbn_seePasswd;
+    private javax.swing.JTextField txt_nit;
+    private javax.swing.JTextField txt_user;
     // End of variables declaration//GEN-END:variables
 }
