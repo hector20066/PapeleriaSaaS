@@ -12,9 +12,9 @@ import java.util.Locale;
  *
  * @author Ing. Hector Acevedo
  */
-public class DashboardView extends javax.swing.JPanel {
+public class DashboardCompanyView extends javax.swing.JPanel {
 
-    public DashboardView() {
+    public DashboardCompanyView() {
         initComponents();
         setData();
     }

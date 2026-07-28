@@ -13,7 +13,7 @@ import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
 import com.hector.papeleriasaas.service.interfaces.SaleService;
 import com.hector.papeleriasaas.utils.MessageUtils;
-import com.hector.papeleriasaas.view.content.panels.companies.DashboardView;
+import com.hector.papeleriasaas.view.content.panels.companies.DashboardCompanyView;
 import com.hector.papeleriasaas.view.swing.model.ModelChart;
 
 import javax.swing.*;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class ControllerDashboard implements Observer {
 
-    private final DashboardView dashboard;
+    private final DashboardCompanyView dashboard;
 
     private final ProductService productService;
     private final SaleService saleService;

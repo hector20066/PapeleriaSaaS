@@ -26,7 +26,7 @@ public class ControllerCompaniesMenu {
     private final Color color2 = new Color(42, 49, 64);
 
     private final CompaniesMenu companiesMenu;
-    private final DashboardView dashboard;
+    private final DashboardCompanyView dashboard;
     private final PurchaseProductsView purchaseProducts;
     private final SalesManagementView salesManagement;
     private final SalesReportView salesReport;

@@ -11,7 +11,7 @@ import com.hector.papeleriasaas.view.content.panels.companies.*;
 public class ControllerContentBuilder {
 
     private CompaniesMenu content;
-    private DashboardView dashboard;
+    private DashboardCompanyView dashboard;
     private PurchaseProductsView purchaseProducts;
     private SalesManagementView salesManagement;
     private SalesReportView salesReport;
@@ -26,7 +26,7 @@ public class ControllerContentBuilder {
         return this;
     }
 
-    public ControllerContentBuilder withViewDashboard(DashboardView dashboard) {
+    public ControllerContentBuilder withViewDashboard(DashboardCompanyView dashboard) {
         this.dashboard = dashboard;
         return this;
     }
@@ -79,7 +79,7 @@ public class ControllerContentBuilder {
         return content;
     }
 
-    public DashboardView getDashboard() {
+    public DashboardCompanyView getDashboard() {
         return dashboard;
     }
 

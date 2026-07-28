@@ -19,9 +19,11 @@ import com.hector.papeleriasaas.service.interfaces.*;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.IndexView;
-import com.hector.papeleriasaas.view.content.panels.admin.AdminMenu;
+import com.hector.papeleriasaas.view.content.panels.admin.*;
 import com.hector.papeleriasaas.view.content.panels.companies.*;
+import com.hector.papeleriasaas.view.content.panels.login.CreateAccountView;
 import com.hector.papeleriasaas.view.content.panels.login.LoginView;
+import com.hector.papeleriasaas.view.content.panels.login.SelectPlansView;
 
 import java.awt.*;
 
@@ -36,23 +38,35 @@ public class Coordinator {
 
     private final Session session = new SessionImpl();
 
-    // Views
-    private ContentView content;
+    private ContentView contentView;
+    private IndexView index;
+
+    // Login Views
+    private CreateAccountView createAccount;
+    private LoginView loginView;
+    private SelectPlansView selectPlans;
+
+    // Companies Views
     private CompaniesMenu companiesMenu;
-    private AdminMenu adminMenu;
-    private DashboardView dashboard;
+    private CompanyView companyView;
     private CustomersView customers;
+    private DashboardCompanyView dashboardCompany;
     private DebtReportView debtReport;
     private InventoryView inventory;
+    private ModifyProductView modifyProduct;
+    private ProvidersView providers;
     private PurchaseProductsView purchaseProducts;
     private PurchasingReportView purchasingReport;
     private SalesManagementView salesManagement;
     private SalesReportView salesReport;
-    private ProvidersView suppliers;
-    private ModifyProductView modifyProduct;
 
-    private LoginView loginView;
-    private IndexView index;
+    // Admin Views
+    private AdminMenu adminMenu;
+    private BusinessManagementView businessManagement;
+    private DashboardAdminView dashboardAdmin;
+    private ManagePlansView managePlans;
+    private PaymentHistoryView paymentHistory;
+    private UserManagementView userManagement;
 
     // Connection
     private final DataBasePool dataBase = new DataBasePool();
@@ -88,7 +102,7 @@ public class Coordinator {
     private final SaleService saleService = new SaleServiceImpl(daoSales, customerService, saleDetailsService, invoicesService, productService, connectionProvider, session);
     private final UserService userService = new UserServiceImpl(daoUsers, session);
 
-    private Login login = new Login(userService, companiesService, session);
+    private final Login login = new Login(userService, companiesService, session);
 
     public void startApp() {
         subject = ConcreteSubject.getInstance();
@@ -96,44 +110,60 @@ public class Coordinator {
         startDrivers();
 
         EventQueue.invokeLater(() -> {
-            content.setVisible(true);
-            content.setLocationRelativeTo(null);
+            contentView.setVisible(true);
+            contentView.setLocationRelativeTo(null);
             // loadData();
             NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
         });
     }
 
     private void startViews() {
-        content = new ContentView();
-        index = new IndexView();
-
-        adminMenu = new AdminMenu();
-        companiesMenu = new CompaniesMenu();
-        dashboard = new DashboardView();
-        customers = new CustomersView();
-        debtReport = new DebtReportView();
-        inventory = new InventoryView();
-        purchaseProducts = new PurchaseProductsView();
-        purchasingReport = new PurchasingReportView();
-        salesManagement = new SalesManagementView();
-        salesReport = new SalesReportView();
-        suppliers = new ProvidersView();
-        modifyProduct = new ModifyProductView();
-
-        loginView = new LoginView();
+        this.contentView = new ContentView();
+        this.index = new IndexView();
+        this.loginView = new LoginView();
+        this.createAccount = new CreateAccountView();
+        this.selectPlans = new SelectPlansView();
     }
 
     private void startDrivers() {
+        new ControllerLogin(loginView, this, login, session);
+        new ControllerIndex(index, loginView);
+    }
+
+    public void startCompaniesEnvironment() {
+        startCompaniesViews();
+        startCompaniesDrivers();
+
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), companiesMenu);
+        NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), dashboardCompany);
+    }
+
+    private void startCompaniesViews() {
+        this.companiesMenu = new CompaniesMenu();
+        this.companyView = new CompanyView();
+        this.customers = new CustomersView();
+        this.dashboardCompany = new DashboardCompanyView();
+        this.debtReport = new DebtReportView();
+        this.inventory = new InventoryView();
+        this.modifyProduct = new ModifyProductView();
+        this.providers = new ProvidersView();
+        this.purchaseProducts = new PurchaseProductsView();
+        this.purchasingReport = new PurchasingReportView();
+        this.salesManagement = new SalesManagementView();
+        this.salesReport = new SalesReportView();
+    }
+
+    private void startCompaniesDrivers() {
         new ControllerContentBuilder()
                 .withViewContent(companiesMenu)
-                .withViewDashboard(dashboard)
+                .withViewDashboard(dashboardCompany)
                 .withViewPurchaseProducts(purchaseProducts)
                 .withViewSalesManagement(salesManagement)
                 .withViewSalesReport(salesReport)
                 .withViewPurchasingReport(purchasingReport)
                 .withViewDebtReport(debtReport)
                 .withViewCustomers(customers)
-                .withViewSuppliers(suppliers)
+                .withViewSuppliers(providers)
                 .withCoordinator(this)
                 .build();
 
@@ -146,7 +176,7 @@ public class Coordinator {
                 .build();
 
         new ControllerDashboardBuilder()
-                .withViewDashboard(dashboard)
+                .withViewDashboard(dashboardCompany)
                 .withSubject(subject)
                 .withProductService(productService)
                 .withSaleService(saleService)
@@ -189,11 +219,31 @@ public class Coordinator {
 
         new ControllerPurchasingReport(purchasingReport, subject, purchaseService);
         new ControllerCustomer(customers, subject, customerService);
-        new ControllerSuppliers(suppliers, subject, providersService);
-
-        new ControllerIndex(index, loginView);
-        new ControllerLogin(loginView, content, dashboard, adminMenu, companiesMenu, login, session);
+        new ControllerSuppliers(providers, subject, providersService);
     }
+
+    public void startAdminEnvironment() {
+        startAdminViews();
+        startAdminDrivers();
+
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), adminMenu);
+        NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), dashboardAdmin);
+    }
+
+    private void startAdminViews() {
+        this.adminMenu = new AdminMenu();
+        this.businessManagement = new BusinessManagementView();
+        this.dashboardAdmin = new DashboardAdminView();
+        this.managePlans = new ManagePlansView();
+        this.paymentHistory = new PaymentHistoryView();
+        this.userManagement = new UserManagementView();
+    }
+
+    private void startAdminDrivers() {
+
+    }
+
+
 
     public void loadData() {
         subject.notifyObservers();
