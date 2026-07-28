@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.service;
 
+import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
@@ -56,6 +57,9 @@ class SaleServiceImplTest {
 
     @Mock
     private Connection connection;
+
+    @Mock
+    private Session session;
 
     @InjectMocks
     private SaleServiceImpl saleService;
