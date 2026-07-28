@@ -12,6 +12,10 @@ public class EmptyFieldException extends InvalidInputException {
         super("Los siguientes campos son requeridos: " + String.join(", ", fields) + ".");
     }
 
+    public EmptyFieldException(String message) {
+        super(message);
+    }
+
     public EmptyFieldException(String message, Throwable cause) {
         super(message, cause);
     }
