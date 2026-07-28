@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.controller;
 
 import com.hector.papeleriasaas.utils.NavigatorUtils;
-import com.hector.papeleriasaas.view.content.ContentStartView;
+import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.IndexView;
 import com.hector.papeleriasaas.view.content.panels.login.LoginView;
 
@@ -18,7 +18,7 @@ public class ControllerIndex {
     }
 
     private void connectEvents() {
-        index.setControllerLogin(e -> NavigatorUtils.showPanels(ContentStartView.getJpl_content(), loginView));
+        index.setControllerLogin(e -> NavigatorUtils.showPanels(ContentView.getJpl_content(), loginView));
     }
 
 }

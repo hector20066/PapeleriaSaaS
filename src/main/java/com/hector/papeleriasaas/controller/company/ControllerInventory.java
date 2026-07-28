@@ -14,7 +14,7 @@ import com.hector.papeleriasaas.service.ReportServiceImpl;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
 import com.hector.papeleriasaas.utils.*;
 import com.hector.papeleriasaas.validator.InventoryValidator;
-import com.hector.papeleriasaas.view.content.ContentView;
+import com.hector.papeleriasaas.view.content.panels.companies.CompaniesMenu;
 import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
 import com.hector.papeleriasaas.view.content.panels.companies.ModifyProductView;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProductsView;
@@ -153,7 +153,7 @@ public class ControllerInventory implements Observer {
                     .salePrice(salePrice)
                     .build());
 
-            NavigatorUtils.showPanels(ContentView.getJpl_content(), modifyProduct);
+            NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), modifyProduct);
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(MessageUtils.userMessage(e), inventory);
         }
@@ -206,7 +206,7 @@ public class ControllerInventory implements Observer {
     }
 
     private void back() {
-        NavigatorUtils.showPanels(ContentView.getJpl_content(), purchaseProducts);
+        NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), purchaseProducts);
     }
 
 }

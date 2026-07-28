@@ -1,5 +1,6 @@
-package com.hector.papeleriasaas.controller;
+package com.hector.papeleriasaas.controller.company;
 
+import com.hector.papeleriasaas.controller.Coordinator;
 import com.hector.papeleriasaas.controller.builder.ControllerContentBuilder;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;

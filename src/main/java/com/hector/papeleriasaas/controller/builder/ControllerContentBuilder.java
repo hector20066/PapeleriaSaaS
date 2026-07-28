@@ -1,8 +1,7 @@
 package com.hector.papeleriasaas.controller.builder;
 
-import com.hector.papeleriasaas.controller.ControllerContent;
+import com.hector.papeleriasaas.controller.company.ControllerCompaniesMenu;
 import com.hector.papeleriasaas.controller.Coordinator;
-import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.panels.companies.*;
 
 /**
@@ -11,7 +10,7 @@ import com.hector.papeleriasaas.view.content.panels.companies.*;
  */
 public class ControllerContentBuilder {
 
-    private ContentView content;
+    private CompaniesMenu content;
     private DashboardView dashboard;
     private PurchaseProductsView purchaseProducts;
     private SalesManagementView salesManagement;
@@ -22,7 +21,7 @@ public class ControllerContentBuilder {
     private ProvidersView suppliers;
     private Coordinator coordinator;
 
-    public ControllerContentBuilder withViewContent(ContentView content) {
+    public ControllerContentBuilder withViewContent(CompaniesMenu content) {
         this.content = content;
         return this;
     }
@@ -72,11 +71,11 @@ public class ControllerContentBuilder {
         return this;
     }
 
-    public ControllerContent build() {
-        return new ControllerContent(this);
+    public ControllerCompaniesMenu build() {
+        return new ControllerCompaniesMenu(this);
     }
 
-    public ContentView getContent() {
+    public CompaniesMenu getContent() {
         return content;
     }
 

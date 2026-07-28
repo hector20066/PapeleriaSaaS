@@ -10,7 +10,7 @@ import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.utils.ParserUtils;
 import com.hector.papeleriasaas.validator.ModifyProductValidator;
-import com.hector.papeleriasaas.view.content.ContentView;
+import com.hector.papeleriasaas.view.content.panels.companies.CompaniesMenu;
 import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
 import com.hector.papeleriasaas.view.content.panels.companies.ModifyProductView;
 
@@ -101,7 +101,7 @@ public class ControllerModifyProducts {
         modifyProduct.getBtn_modify().setText("Modificar");
         modifyProduct.getBtn_modify().setEnabled(true);
 
-        NavigatorUtils.showPanels(ContentView.getJpl_content(), inventory);
+        NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), inventory);
     }
 
 }

@@ -17,9 +17,9 @@ import com.hector.papeleriasaas.observer.ConcreteSubject;
 import com.hector.papeleriasaas.service.impl.*;
 import com.hector.papeleriasaas.service.interfaces.*;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
-import com.hector.papeleriasaas.view.content.ContentStartView;
 import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.IndexView;
+import com.hector.papeleriasaas.view.content.panels.admin.AdminMenu;
 import com.hector.papeleriasaas.view.content.panels.companies.*;
 import com.hector.papeleriasaas.view.content.panels.login.LoginView;
 
@@ -38,6 +38,8 @@ public class Coordinator {
 
     // Views
     private ContentView content;
+    private CompaniesMenu companiesMenu;
+    private AdminMenu adminMenu;
     private DashboardView dashboard;
     private CustomersView customers;
     private DebtReportView debtReport;
@@ -50,7 +52,6 @@ public class Coordinator {
     private ModifyProductView modifyProduct;
 
     private LoginView loginView;
-    private ContentStartView contentStartView;
     private IndexView index;
 
     // Connection
@@ -95,18 +96,19 @@ public class Coordinator {
         startDrivers();
 
         EventQueue.invokeLater(() -> {
-            contentStartView.setVisible(true);
-            contentStartView.setLocationRelativeTo(null);
+            content.setVisible(true);
+            content.setLocationRelativeTo(null);
             // loadData();
-            NavigatorUtils.showPanels(ContentStartView.getJpl_content(), index);
+            NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
         });
     }
 
     private void startViews() {
-        contentStartView = new ContentStartView();
+        content = new ContentView();
         index = new IndexView();
 
-        content = new ContentView();
+        adminMenu = new AdminMenu();
+        companiesMenu = new CompaniesMenu();
         dashboard = new DashboardView();
         customers = new CustomersView();
         debtReport = new DebtReportView();
@@ -123,7 +125,7 @@ public class Coordinator {
 
     private void startDrivers() {
         new ControllerContentBuilder()
-                .withViewContent(content)
+                .withViewContent(companiesMenu)
                 .withViewDashboard(dashboard)
                 .withViewPurchaseProducts(purchaseProducts)
                 .withViewSalesManagement(salesManagement)
@@ -190,7 +192,7 @@ public class Coordinator {
         new ControllerSuppliers(suppliers, subject, providersService);
 
         new ControllerIndex(index, loginView);
-        new ControllerLogin(loginView, content, contentStartView, dashboard, login);
+        new ControllerLogin(loginView, content, dashboard, adminMenu, companiesMenu, login, session);
     }
 
     public void loadData() {
