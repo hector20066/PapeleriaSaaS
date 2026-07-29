@@ -1,18 +1,18 @@
 package com.hector.papeleriasaas.controller.company;
 
+import com.hector.papeleriasaas.auth.Session;
+import com.hector.papeleriasaas.controller.ControllerContent;
 import com.hector.papeleriasaas.controller.Coordinator;
 import com.hector.papeleriasaas.controller.builder.ControllerContentBuilder;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
-import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
+import com.hector.papeleriasaas.view.content.ContentView;
+import com.hector.papeleriasaas.view.content.IndexView;
 import com.hector.papeleriasaas.view.content.panels.companies.*;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,10 +20,7 @@ import java.awt.event.MouseEvent;
  *
  * @author Ing. Hector Acevedo
  */
-public class ControllerCompaniesMenu {
-
-    private final Color color1 = new Color(60, 73, 89);
-    private final Color color2 = new Color(42, 49, 64);
+public class ControllerCompaniesMenu extends ControllerContent {
 
     private final CompaniesMenu companiesMenu;
     private final DashboardCompanyView dashboard;
@@ -34,10 +31,9 @@ public class ControllerCompaniesMenu {
     private final PurchasingReportView purchasingReport;
     private final CustomersView customers;
     private final ProvidersView suppliers;
+    private final IndexView index;
     private final Coordinator coordinator;
-
-    private boolean expandedMenu = true;
-    private Timer animation;
+    private Session session;
 
     public ControllerCompaniesMenu(ControllerContentBuilder builder) {
         this.companiesMenu = builder.getContent();
@@ -50,12 +46,15 @@ public class ControllerCompaniesMenu {
         this.customers = builder.getCustomers();
         this.suppliers = builder.getSuppliers();
         this.purchasingReport = builder.getPurchasingReport();
+        this.index = new IndexView();
 
         companiesMenu.getBtn_dashboard().setBackground(color1);
+
         connectEvents();
     }
 
-    private void connectEvents() {
+    @Override
+    public void connectEvents() {
         companiesMenu.setControllerMenu(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -70,58 +69,24 @@ public class ControllerCompaniesMenu {
         companiesMenu.setControllerDebtsReport(e -> showDebtDeport());
         companiesMenu.setControllerPurchaseReport(e -> showPurchasingReport());
         companiesMenu.setControllerCustomers(e -> showCustomers());
-        companiesMenu.setControllerProviders(e -> showSuppliers());
-        companiesMenu.setControllerLogout(e -> exit());
+        companiesMenu.setControllerProviders(e -> showProviders());
+        companiesMenu.setControllerLogout(e -> logout());
     }
 
-    private void menu() {
-        try {
-            int initialWidth = companiesMenu.getJpl_menu().getWidth();
-            int finalWidth = expandedMenu ? 50 : 219;
-            int passed = (finalWidth - initialWidth) / 14;
-
-            if (animation != null && animation.isRunning()) {
-                return;
-            }
-
-            animation = new Timer(15, null);
-            animation.addActionListener(new ActionListener() {
-                int currentWidth = initialWidth;
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    currentWidth += passed;
-                    boolean endAnimation = (passed > 0 && currentWidth >= finalWidth) || (passed < 0
-                            && currentWidth <= finalWidth);
-
-                    if (endAnimation) {
-                        currentWidth = finalWidth;
-                        animation.stop();
-                        expandedMenu = !expandedMenu;
-
-                        updateTexts(expandedMenu);
-                    }
-
-                    companiesMenu.getJpl_menu().setPreferredSize(new Dimension(currentWidth, companiesMenu.getJpl_menu().getHeight()));
-                    companiesMenu.getJpl_menu().revalidate();
-                    companiesMenu.getJpl_menu().repaint();
-                }
-            });
-
-            animation.start();
-        } catch (Exception e) {
-            MessageUtils.errorMessage("No fue posible cambiar el estado del menú.", null);
-        }
+    @Override
+    public JPanel getJpl_menu() {
+        return companiesMenu.getJpl_menu();
     }
 
-    private void updateTexts(boolean expandedMenu) {
+    @Override
+    public void updateTexts(boolean expandedMenu) {
         companiesMenu.getBtn_dashboard().setText(expandedMenu ? "  Dashboard" : "");
         companiesMenu.getBtn_products().setText(expandedMenu ? "  Realizar Compra" : "");
         companiesMenu.getBtn_sales().setText(expandedMenu ? "  Realizar Venta" : "");
         companiesMenu.getBtn_debtsReports().setText(expandedMenu ? "  Reporte Deudas" : "");
         companiesMenu.getBtn_salesReport().setText(expandedMenu ? "  Reporte Ventas" : "");
         companiesMenu.getBtn_purchaseReport().setText(expandedMenu ? "  Reporte Compras" : "");
-        companiesMenu.getBtn_exit().setText(expandedMenu ? "  Salir" : "");
+        companiesMenu.getBtn_exit().setText(expandedMenu ? "  Cerrar Sesión" : "");
         companiesMenu.getJlb_title().setText(expandedMenu ? "PAPELERIA" : "");
     }
 
@@ -221,7 +186,7 @@ public class ControllerCompaniesMenu {
         customers.getTxt_search().setText("Buscar Cliente");
     }
 
-    private void showSuppliers() {
+    private void showProviders() {
         companiesMenu.getBtn_suppliers().setBackground(color1);
         companiesMenu.getBtn_customers().setBackground(color2);
         companiesMenu.getBtn_purchaseReport().setBackground(color2);
@@ -235,11 +200,10 @@ public class ControllerCompaniesMenu {
         suppliers.getTxt_search().setText("Buscar proveedor");
     }
 
-    private void exit() {
-        ReportExecutor.shutdown();
-        ObserverExecutor.shutdown();
-        BackgroundExecutor.shutdown();
-        System.exit(0);
+    @Override
+    public void logout() {
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
+        // session.logout();
     }
 
 }

@@ -3,6 +3,7 @@ package com.hector.papeleriasaas.controller;
 import com.hector.papeleriasaas.auth.Login;
 import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.auth.SessionImpl;
+import com.hector.papeleriasaas.controller.admin.ControllerAdminMenu;
 import com.hector.papeleriasaas.controller.builder.*;
 import com.hector.papeleriasaas.controller.company.ControllerCustomer;
 import com.hector.papeleriasaas.controller.company.ControllerPurchasingReport;
@@ -227,7 +228,7 @@ public class Coordinator {
         startAdminDrivers();
 
         NavigatorUtils.showPanels(ContentView.getJpl_content(), adminMenu);
-        NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), dashboardAdmin);
+        NavigatorUtils.showPanels(AdminMenu.getJpl_content(), dashboardAdmin);
     }
 
     private void startAdminViews() {
@@ -240,7 +241,7 @@ public class Coordinator {
     }
 
     private void startAdminDrivers() {
-
+        new ControllerAdminMenu(adminMenu, businessManagement, dashboardAdmin, managePlans, paymentHistory, userManagement, index, session, this);
     }
 
 

@@ -53,7 +53,9 @@ public class ControllerLogin {
 
             Integer nit = nitStr.isBlank() ? 0 : Integer.parseInt(nitStr);
 
-            doInBackground(user, passwd, nit);
+            // coordinator.startAdminEnvironment();
+            coordinator.startCompaniesEnvironment();
+            // doInBackground(user, passwd, nit);
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(e.getMessage(), loginView);
         }

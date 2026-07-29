@@ -15,12 +15,12 @@ public abstract class ControllerContent {
     protected Timer animation;
 
     public ControllerContent() {
-        connectEvents();
+        
     }
 
     public abstract void connectEvents();
 
-    public void menu() {
+    public final void menu() {
         try {
             int initialWidth = getJpl_menu().getWidth();
             int finalWidth = expandedMenu ? 50 : 219;
