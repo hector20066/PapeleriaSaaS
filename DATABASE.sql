@@ -58,6 +58,19 @@ CREATE TABLE users (
     UNIQUE (id_company, user)
 );
 
+CREATE TABLE remember_tokens(
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    token CHAR(36) NOT NULL UNIQUE,
+    user_id INT NOT NULL,
+    company_id INT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP NOT NULL,
+    last_used_at TIMESTAMP,
+    device_name VARCHAR(100),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE
+);
+
 CREATE TABLE products (
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     description VARCHAR(100) NOT NULL,
