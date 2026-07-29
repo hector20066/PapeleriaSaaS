@@ -39,14 +39,14 @@ public class CompaniesMenu extends javax.swing.JPanel {
         jlb_title = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btn_sales = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
-        btn_exit = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_logout = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_products = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_salesReport = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_debtsReports = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         jSeparator1 = new javax.swing.JSeparator();
         btn_purchaseReport = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_customers = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
-        btn_suppliers = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_providers = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_dashboard = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         jpl_content = new javax.swing.JPanel();
 
@@ -91,13 +91,13 @@ public class CompaniesMenu extends javax.swing.JPanel {
         btn_sales.setBorderPainted(false);
         btn_sales.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
-        btn_exit.setBackground(new java.awt.Color(42, 49, 64));
-        btn_exit.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_exit.setForeground(new java.awt.Color(242, 242, 242));
-        btn_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/log-out.png"))); // NOI18N
-        btn_exit.setText("  Salir");
-        btn_exit.setBorderPainted(false);
-        btn_exit.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_logout.setBackground(new java.awt.Color(42, 49, 64));
+        btn_logout.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        btn_logout.setForeground(new java.awt.Color(242, 242, 242));
+        btn_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/log-out.png"))); // NOI18N
+        btn_logout.setText("  Cerrar Sesión");
+        btn_logout.setBorderPainted(false);
+        btn_logout.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
         btn_products.setBackground(new java.awt.Color(42, 49, 64));
         btn_products.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
@@ -142,13 +142,13 @@ public class CompaniesMenu extends javax.swing.JPanel {
         btn_customers.setBorderPainted(false);
         btn_customers.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
-        btn_suppliers.setBackground(new java.awt.Color(42, 49, 64));
-        btn_suppliers.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_suppliers.setForeground(new java.awt.Color(242, 242, 242));
-        btn_suppliers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/circle-user.png"))); // NOI18N
-        btn_suppliers.setText("  Proveedores");
-        btn_suppliers.setBorderPainted(false);
-        btn_suppliers.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_providers.setBackground(new java.awt.Color(42, 49, 64));
+        btn_providers.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        btn_providers.setForeground(new java.awt.Color(242, 242, 242));
+        btn_providers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/circle-user.png"))); // NOI18N
+        btn_providers.setText("  Proveedores");
+        btn_providers.setBorderPainted(false);
+        btn_providers.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
         btn_dashboard.setBackground(new java.awt.Color(42, 49, 64));
         btn_dashboard.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(42, 49, 64)));
@@ -162,14 +162,14 @@ public class CompaniesMenu extends javax.swing.JPanel {
         jpl_menuLayout.setHorizontalGroup(
             jpl_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btn_sales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_products, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_salesReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jlb_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_purchaseReport, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
             .addComponent(btn_debtsReports, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_customers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_suppliers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_providers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpl_menuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -201,11 +201,11 @@ public class CompaniesMenu extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(btn_customers, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btn_suppliers, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_providers, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addComponent(btn_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -280,12 +280,12 @@ public class CompaniesMenu extends javax.swing.JPanel {
         btn_customers.addActionListener(action);
     }
 
-    public void setControllerSuppliers(ActionListener action) {
-        btn_suppliers.addActionListener(action);
+    public void setControllerProviders(ActionListener action) {
+        btn_providers.addActionListener(action);
     }
 
-    public void setControllerExit(ActionListener action){
-        btn_exit.addActionListener(action);
+    public void setControllerLogout(ActionListener action){
+        btn_logout.addActionListener(action);
     }
 
     public ButtonAction getBtn_customers() {
@@ -301,7 +301,7 @@ public class CompaniesMenu extends javax.swing.JPanel {
     }
 
     public ButtonAction getBtn_exit() {
-        return btn_exit;
+        return btn_logout;
     }
 
     public ButtonAction getBtn_products() {
@@ -321,7 +321,7 @@ public class CompaniesMenu extends javax.swing.JPanel {
     }
 
     public ButtonAction getBtn_suppliers() {
-        return btn_suppliers;
+        return btn_providers;
     }
 
     public JLabel getJlb_title() {
@@ -340,12 +340,12 @@ public class CompaniesMenu extends javax.swing.JPanel {
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_customers;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_dashboard;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_debtsReports;
-    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_exit;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_logout;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_products;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_providers;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_purchaseReport;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_sales;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_salesReport;
-    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_suppliers;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel jlb_menu;

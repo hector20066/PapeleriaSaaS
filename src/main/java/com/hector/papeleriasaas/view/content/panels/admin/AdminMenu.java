@@ -38,12 +38,12 @@ public class AdminMenu extends javax.swing.JPanel {
         jpl_menu = new javax.swing.JPanel();
         jlb_title = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btn_sales = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
-        btn_exit = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
-        btn_products = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
-        btn_salesReport = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_companies = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_logout = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_plans = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_paymentHistory = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         jSeparator1 = new javax.swing.JSeparator();
-        btn_customers = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_users = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_dashboard = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         jpl_content = new javax.swing.JPanel();
 
@@ -80,48 +80,48 @@ public class AdminMenu extends javax.swing.JPanel {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/mdi--book-open-page-variant.png"))); // NOI18N
 
-        btn_sales.setBackground(new java.awt.Color(42, 49, 64));
-        btn_sales.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_sales.setForeground(new java.awt.Color(242, 242, 242));
-        btn_sales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/receipt-text.png"))); // NOI18N
-        btn_sales.setText("  Empresas");
-        btn_sales.setBorderPainted(false);
-        btn_sales.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_companies.setBackground(new java.awt.Color(42, 49, 64));
+        btn_companies.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        btn_companies.setForeground(new java.awt.Color(242, 242, 242));
+        btn_companies.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/receipt-text.png"))); // NOI18N
+        btn_companies.setText("  Empresas");
+        btn_companies.setBorderPainted(false);
+        btn_companies.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
-        btn_exit.setBackground(new java.awt.Color(42, 49, 64));
-        btn_exit.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_exit.setForeground(new java.awt.Color(242, 242, 242));
-        btn_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/log-out.png"))); // NOI18N
-        btn_exit.setText("  Salir");
-        btn_exit.setBorderPainted(false);
-        btn_exit.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_logout.setBackground(new java.awt.Color(42, 49, 64));
+        btn_logout.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        btn_logout.setForeground(new java.awt.Color(242, 242, 242));
+        btn_logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/log-out.png"))); // NOI18N
+        btn_logout.setText("  Cerrar Sesión");
+        btn_logout.setBorderPainted(false);
+        btn_logout.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
-        btn_products.setBackground(new java.awt.Color(42, 49, 64));
-        btn_products.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_products.setForeground(new java.awt.Color(242, 242, 242));
-        btn_products.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/shopping-basket.png"))); // NOI18N
-        btn_products.setText("  Planes");
-        btn_products.setBorderPainted(false);
-        btn_products.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_plans.setBackground(new java.awt.Color(42, 49, 64));
+        btn_plans.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        btn_plans.setForeground(new java.awt.Color(242, 242, 242));
+        btn_plans.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/shopping-basket.png"))); // NOI18N
+        btn_plans.setText("  Planes");
+        btn_plans.setBorderPainted(false);
+        btn_plans.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
-        btn_salesReport.setBackground(new java.awt.Color(42, 49, 64));
-        btn_salesReport.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_salesReport.setForeground(new java.awt.Color(242, 242, 242));
-        btn_salesReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/file-chart-line.png"))); // NOI18N
-        btn_salesReport.setText("  Historial de pagos");
-        btn_salesReport.setBorderPainted(false);
-        btn_salesReport.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_paymentHistory.setBackground(new java.awt.Color(42, 49, 64));
+        btn_paymentHistory.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        btn_paymentHistory.setForeground(new java.awt.Color(242, 242, 242));
+        btn_paymentHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/file-chart-line.png"))); // NOI18N
+        btn_paymentHistory.setText("  Historial de pagos");
+        btn_paymentHistory.setBorderPainted(false);
+        btn_paymentHistory.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
         jSeparator1.setBackground(new java.awt.Color(242, 242, 242));
         jSeparator1.setForeground(new java.awt.Color(242, 242, 242));
 
-        btn_customers.setBackground(new java.awt.Color(42, 49, 64));
-        btn_customers.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
-        btn_customers.setForeground(new java.awt.Color(242, 242, 242));
-        btn_customers.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/circle-user-round.png"))); // NOI18N
-        btn_customers.setText("  Usuarios");
-        btn_customers.setBorderPainted(false);
-        btn_customers.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_users.setBackground(new java.awt.Color(42, 49, 64));
+        btn_users.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        btn_users.setForeground(new java.awt.Color(242, 242, 242));
+        btn_users.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/circle-user-round.png"))); // NOI18N
+        btn_users.setText("  Usuarios");
+        btn_users.setBorderPainted(false);
+        btn_users.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
         btn_dashboard.setBackground(new java.awt.Color(42, 49, 64));
         btn_dashboard.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(42, 49, 64)));
@@ -134,12 +134,12 @@ public class AdminMenu extends javax.swing.JPanel {
         jpl_menu.setLayout(jpl_menuLayout);
         jpl_menuLayout.setHorizontalGroup(
             jpl_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_sales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_products, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_salesReport, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+            .addComponent(btn_companies, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_plans, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_paymentHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
             .addComponent(jlb_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_customers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_users, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpl_menuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1)
@@ -159,17 +159,17 @@ public class AdminMenu extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btn_sales, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_companies, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btn_products, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_plans, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btn_salesReport, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_paymentHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btn_customers, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_users, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
-                .addComponent(btn_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -220,48 +220,60 @@ public class AdminMenu extends javax.swing.JPanel {
         btn_dashboard.addActionListener(action);
     }
     
-    public void setControllerManageProduct(ActionListener action){
-        btn_products.addActionListener(action);
+    public void setControllerPlans(ActionListener action){
+        btn_plans.addActionListener(action);
     }
 
-    public void setControllerSalesReport(ActionListener action){
-        btn_salesReport.addActionListener(action);
+    public void setControllerPaymentHistory(ActionListener action){
+        btn_paymentHistory.addActionListener(action);
     }
 
-    public void setControllerSales(ActionListener action){
-        btn_sales.addActionListener(action);
+    public void setControllerCompanies(ActionListener action){
+        btn_companies.addActionListener(action);
     }
 
-    public void setControllerCustomers(ActionListener action) {
-        btn_customers.addActionListener(action);
+    public void setControllerUsers(ActionListener action) {
+        btn_users.addActionListener(action);
     }
 
-    public void setControllerExit(ActionListener action){
-        btn_exit.addActionListener(action);
+    public void setControllerLogout(ActionListener action){
+        btn_logout.addActionListener(action);
     }
 
-    public ButtonAction getBtn_customers() {
-        return btn_customers;
+    public ButtonAction getBtn_companies() {
+        return btn_companies;
     }
 
     public ButtonAction getBtn_dashboard() {
         return btn_dashboard;
     }
 
-    public ButtonAction getBtn_exit() {
-        return btn_exit;
+    public ButtonAction getBtn_logout() {
+        return btn_logout;
     }
 
-    public ButtonAction getBtn_products() {
-        return btn_products;
+    public ButtonAction getBtn_paymentHistory() {
+        return btn_paymentHistory;
     }
 
-    public ButtonAction getBtn_sales() {
-        return btn_sales;
+    public ButtonAction getBtn_plans() {
+        return btn_plans;
     }
 
-    public ButtonAction getBtn_salesReport() {
-        return btn_salesReport;
+    public ButtonAction getBtn_users() {
+        return btn_users;
+    }
+
+    public JLabel getJlb_menu() {
+        return jlb_menu;
+    }
+
+    public JPanel getJpl_body() {
+        return jpl_body;
+    }
+
+    public JPanel getJpl_head() {
+        return jpl_head;
     }
 
     public JLabel getJlb_title() {
@@ -277,12 +289,12 @@ public class AdminMenu extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_customers;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_companies;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_dashboard;
-    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_exit;
-    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_products;
-    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_sales;
-    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_salesReport;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_logout;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_paymentHistory;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_plans;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_users;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel jlb_menu;

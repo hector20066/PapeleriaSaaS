@@ -111,12 +111,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btn_sales" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btn_exit" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btn_products" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btn_salesReport" alignment="0" pref="211" max="32767" attributes="0"/>
+                  <Component id="btn_companies" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btn_logout" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btn_plans" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btn_paymentHistory" alignment="0" pref="211" max="32767" attributes="0"/>
                   <Component id="jlb_title" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btn_customers" alignment="0" max="32767" attributes="0"/>
+                  <Component id="btn_users" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jSeparator1" max="32767" attributes="0"/>
@@ -139,17 +139,17 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btn_dashboard" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="btn_sales" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="btn_companies" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="btn_products" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="btn_plans" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="btn_salesReport" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="btn_paymentHistory" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="btn_customers" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="btn_users" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace pref="214" max="32767" attributes="0"/>
-                      <Component id="btn_exit" min="-2" pref="45" max="-2" attributes="0"/>
+                      <Component id="btn_logout" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -176,7 +176,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_sales">
+            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_companies">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="40" green="31" red="2a" type="rgb"/>
@@ -202,7 +202,7 @@
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.hector.papeleriasaas.view.swing.buttons.ButtonAction()"/>
               </AuxValues>
             </Component>
-            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_exit">
+            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_logout">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="40" green="31" red="2a" type="rgb"/>
@@ -218,14 +218,14 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/image/log-out.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="  Salir"/>
+                <Property name="text" type="java.lang.String" value="  Cerrar Sesi&#xf3;n"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="SansSerif" size="14" style="1"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_products">
+            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_plans">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="40" green="31" red="2a" type="rgb"/>
@@ -248,7 +248,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_salesReport">
+            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_paymentHistory">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="40" green="31" red="2a" type="rgb"/>
@@ -281,7 +281,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_customers">
+            <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="btn_users">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="40" green="31" red="2a" type="rgb"/>

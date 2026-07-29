@@ -70,8 +70,8 @@ public class ControllerCompaniesMenu {
         companiesMenu.setControllerDebtsReport(e -> showDebtDeport());
         companiesMenu.setControllerPurchaseReport(e -> showPurchasingReport());
         companiesMenu.setControllerCustomers(e -> showCustomers());
-        companiesMenu.setControllerSuppliers(e -> showSuppliers());
-        companiesMenu.setControllerExit(e -> exit());
+        companiesMenu.setControllerProviders(e -> showSuppliers());
+        companiesMenu.setControllerLogout(e -> exit());
     }
 
     private void menu() {
