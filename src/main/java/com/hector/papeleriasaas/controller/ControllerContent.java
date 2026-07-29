@@ -15,7 +15,7 @@ public abstract class ControllerContent {
     protected Timer animation;
 
     public ControllerContent() {
-        
+
     }
 
     public abstract void connectEvents();

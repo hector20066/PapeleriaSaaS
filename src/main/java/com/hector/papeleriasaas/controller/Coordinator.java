@@ -87,6 +87,7 @@ public class Coordinator {
     private final DAOSales daoSales = new DAOSalesImpl(connectionProvider);
     private final DAOSaleDetails daoSaleDetails = new DAOSaleDetailsImpl();
     private final DAOUsers daoUsers = new DAOUsersImpl(connectionProvider);
+    private final DAORememberTokens daoRememberTokens = new DAORememberTokensImpl(connectionProvider);
 
     // Services
     private final CompaniesService companiesService = new CompaniesServiceImpl(daoCompanies);
@@ -102,8 +103,9 @@ public class Coordinator {
     private final SaleDetailsService saleDetailsService = new SaleDetailsServiceImpl(daoSaleDetails);
     private final SaleService saleService = new SaleServiceImpl(daoSales, customerService, saleDetailsService, invoicesService, productService, connectionProvider, session);
     private final UserService userService = new UserServiceImpl(daoUsers, session);
+    private final RememberTokensService rememberTokensService = new RememberTokensServiceImpl(daoRememberTokens);
 
-    private final Login login = new Login(userService, companiesService, session);
+    private final Login login = new Login(userService, companiesService, rememberTokensService, session);
 
     public void startApp() {
         subject = ConcreteSubject.getInstance();
