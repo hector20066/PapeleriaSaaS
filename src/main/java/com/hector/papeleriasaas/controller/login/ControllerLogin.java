@@ -11,9 +11,6 @@ import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
 import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.utils.MessageUtils;
-import com.hector.papeleriasaas.utils.NavigatorUtils;
-import com.hector.papeleriasaas.view.content.ContentView;
-import com.hector.papeleriasaas.view.content.panels.companies.CompaniesMenu;
 import com.hector.papeleriasaas.view.content.panels.login.LoginView;
 
 import javax.swing.*;
@@ -56,7 +53,7 @@ public class ControllerLogin {
 
             Integer nit = nitStr.isBlank() ? 0 : Integer.parseInt(nitStr);
 
-            // doInBackground(user, passwd, nit);
+            doInBackground(user, passwd, nit);
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(e.getMessage(), loginView);
         }
@@ -73,7 +70,6 @@ public class ControllerLogin {
                     case Roles.ROOT -> coordinator.startAdminEnvironment();
                     case Roles.ADMIN, Roles.EMPLOYEE -> coordinator.startCompaniesEnvironment();
                 }
-
             } catch (DAOException | AuthException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage(e.getMessage(), loginView);
