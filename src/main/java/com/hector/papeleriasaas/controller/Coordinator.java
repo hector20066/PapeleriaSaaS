@@ -119,7 +119,9 @@ public class Coordinator {
             boolean rememberEnabled = Boolean.parseBoolean(UserConfig.get("remember.enabled"));
             String token = UserConfig.get("remember.token");
 
-            login.autoLogin(token);
+            if (rememberEnabled && !token.isBlank()) {
+                login.autoLogin(token);
+            }
 
             EventQueue.invokeLater(() -> {
                 contentView.setVisible(true);
@@ -127,7 +129,7 @@ public class Coordinator {
 
                 // loadData();
 
-                if (rememberEnabled || !token.isBlank()) {
+                if (rememberEnabled && !token.isBlank()) {
                     Integer companyId = session.getCompanyId();
 
                     if (companyId == null || companyId == 0) {
