@@ -14,6 +14,7 @@ import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.view.content.panels.login.LoginView;
 
 import javax.swing.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ControllerLogin {
 
@@ -52,19 +53,19 @@ public class ControllerLogin {
             }
 
             Integer nit = nitStr.isBlank() ? 0 : Integer.parseInt(nitStr);
+            int remember = JOptionPane.showConfirmDialog(null, "¿Deseas guardar la sesión?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-            // coordinator.startAdminEnvironment();
-            coordinator.startCompaniesEnvironment();
-            // doInBackground(user, passwd, nit);
+            // coordinator.startCompaniesEnvironment();
+            doInBackground(user, passwd, nit, remember);
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(e.getMessage(), loginView);
         }
     }
 
-    private void doInBackground(String user, String passwd, Integer nit) {
+    private void doInBackground(String user, String passwd, Integer nit, int remember) {
         BackgroundExecutor.execute(() -> {
             try {
-                login.login(user, passwd, nit);
+                login.login(user, passwd, nit, remember);
 
                 DTOUserDetails dtoUser = session.getUser();
 

@@ -1,34 +1,35 @@
 package com.hector.papeleriasaas.auth;
 
-import com.hector.papeleriasaas.exception.auth.AuthException;
-import com.hector.papeleriasaas.exception.auth.CredentialsNotFound;
-import com.hector.papeleriasaas.exception.auth.InactiveCompanyException;
-import com.hector.papeleriasaas.exception.auth.IncorrectPasswordException;
+import com.hector.papeleriasaas.exception.auth.*;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyDetails;
+import com.hector.papeleriasaas.model.dto.remembertokens.DTORememberTokenDetails;
 import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
 import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.service.interfaces.CompaniesService;
+import com.hector.papeleriasaas.service.interfaces.RememberTokensService;
 import com.hector.papeleriasaas.service.interfaces.UserService;
 
+import javax.swing.*;
 import java.util.Optional;
 
 public class Login {
 
     private final UserService userService;
     private final CompaniesService companiesService;
+    private final RememberTokensService rememberTokensService;
     private final Session session;
 
-    public Login(UserService userService, CompaniesService companiesService, Session session) {
+    public Login(UserService userService, CompaniesService companiesService, RememberTokensService rememberTokensService, Session session) {
         this.userService = userService;
         this.companiesService = companiesService;
+        this.rememberTokensService = rememberTokensService;
         this.session = session;
     }
 
-    public void login(String user, String passwd, Integer companyNit) throws AuthException, DAOException {
+    public String login(String user, String passwd, Integer companyNit, int remember) throws AuthException, DAOException {
         String encryptPasswd;
-        Status userStatus;
         DTOUserDetails dtoUser;
         DTOCompanyDetails dtoCompany;
 
@@ -41,7 +42,6 @@ public class Login {
 
             DTOAuthenticationRoot dtoAuthenticationRoot = dtoLoginRootOptional.get();
             encryptPasswd = dtoAuthenticationRoot.getPasswd();
-            userStatus = dtoAuthenticationRoot.getStatus();
 
             dtoUser = userService.findById(dtoAuthenticationRoot.getUserId());
             dtoCompany = null;
@@ -54,7 +54,6 @@ public class Login {
 
             DTOAuthentication dtoAuthentication = dtoLoginOptional.get();
             encryptPasswd = dtoAuthentication.getPasswd();
-            userStatus = dtoAuthentication.getUserStatus();
 
             if (dtoAuthentication.getCompanyStatus().equals(Status.INACTIVE)) {
                 throw new InactiveCompanyException("Su empresa se encuentra inactiva, por favor realize el debido pago");
@@ -68,8 +67,34 @@ public class Login {
             throw new IncorrectPasswordException("Contraseña incorrecta");
         }
 
-        if (userStatus.equals(Status.INACTIVE)) {
-            throw new InactiveCompanyException("El usuario no esta activo");
+        Integer companyId = dtoCompany == null ? null : dtoCompany.getId();
+
+        createSession(dtoUser, dtoCompany);
+
+        return remember == JOptionPane.YES_OPTION
+                ? rememberTokensService.createToken(dtoUser.getId(), companyId)
+                : "";
+    }
+
+    public void autoLogin(String token) throws AuthException, DAOException {
+        DTORememberTokenDetails dtoToken = rememberTokensService.findByToken(token);
+        DTOUserDetails dtoUser = userService.findById(dtoToken.getUserId());
+        DTOCompanyDetails dtoCompany = null;
+
+        if (dtoToken.getCompanyId() != null) {
+            dtoCompany = companiesService.findCompanyInfo(dtoToken.getCompanyId());
+        }
+
+        if (dtoCompany != null && dtoCompany.getStatus() == Status.INACTIVE) {
+            throw new InactiveCompanyException("La empresa se encuentra inactiva.");
+        }
+
+        createSession(dtoUser, dtoCompany);
+    }
+
+    private void createSession(DTOUserDetails dtoUser, DTOCompanyDetails dtoCompany) throws AuthException {
+        if (dtoUser.getStatus() == Status.INACTIVE) {
+            throw new InactiveUserException("El usuario no está activo.");
         }
 
         if (dtoUser.getRole().equals(Roles.OTHER)) {

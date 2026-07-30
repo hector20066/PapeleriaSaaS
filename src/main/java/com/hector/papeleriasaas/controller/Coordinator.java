@@ -12,12 +12,15 @@ import com.hector.papeleriasaas.controller.login.ControllerLogin;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.ConnectionProviderImpl;
 import com.hector.papeleriasaas.database.DataBasePool;
+import com.hector.papeleriasaas.exception.auth.AuthException;
+import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dao.impl.*;
 import com.hector.papeleriasaas.model.dao.interfaces.*;
 import com.hector.papeleriasaas.observer.ConcreteSubject;
 import com.hector.papeleriasaas.service.impl.*;
 import com.hector.papeleriasaas.service.interfaces.*;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
+import com.hector.papeleriasaas.utils.UserConfig;
 import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.IndexView;
 import com.hector.papeleriasaas.view.content.panels.admin.*;
@@ -112,12 +115,33 @@ public class Coordinator {
         startViews();
         startDrivers();
 
-        EventQueue.invokeLater(() -> {
-            contentView.setVisible(true);
-            contentView.setLocationRelativeTo(null);
-            // loadData();
-            NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
-        });
+        try {
+            boolean rememberEnabled = Boolean.parseBoolean(UserConfig.get("remember.enabled"));
+            String token = UserConfig.get("remember.token");
+
+            login.autoLogin(token);
+
+            EventQueue.invokeLater(() -> {
+                contentView.setVisible(true);
+                contentView.setLocationRelativeTo(null);
+
+                // loadData();
+
+                if (rememberEnabled || !token.isBlank()) {
+                    Integer companyId = session.getCompanyId();
+
+                    if (companyId == null || companyId == 0) {
+                        startAdminEnvironment();
+                    } else {
+                        startCompaniesEnvironment();
+                    }
+                } else {
+                    NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
+                }
+            });
+        } catch (AuthException | DAOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void startViews() {
@@ -245,8 +269,6 @@ public class Coordinator {
     private void startAdminDrivers() {
         new ControllerAdminMenu(adminMenu, businessManagement, dashboardAdmin, managePlans, paymentHistory, userManagement, index, session, this);
     }
-
-
 
     public void loadData() {
         subject.notifyObservers();
