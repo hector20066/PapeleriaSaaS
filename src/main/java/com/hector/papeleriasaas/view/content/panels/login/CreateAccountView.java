@@ -52,6 +52,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         roundedPanel6 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
         txt_companyEmail = new javax.swing.JTextField();
         btn_showSelectPlan = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_back = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         jpl_selectPlan = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         panelShadow2 = new com.hector.papeleriasaas.view.swing.panels.PanelShadow();
@@ -74,6 +75,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         jrb_premium = new javax.swing.JRadioButton();
         btn_showUserInfo = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         jLabel12 = new javax.swing.JLabel();
+        btn_backCompanyInfo = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         jpl_userInfo = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         panelShadow3 = new com.hector.papeleriasaas.view.swing.panels.PanelShadow();
@@ -98,6 +100,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         cbx_role = new javax.swing.JComboBox<>();
         rbn_seePasswd = new javax.swing.JRadioButton();
         btn_showSummary = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_backSelectPlan = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         jpl_summary = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         panelShadow4 = new com.hector.papeleriasaas.view.swing.panels.PanelShadow();
@@ -124,6 +127,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         jlb_passwd = new javax.swing.JLabel();
         jlb_role = new javax.swing.JLabel();
         btn_registerCompany = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_userInfo = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
 
         jLabel23.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(42, 49, 64));
@@ -345,6 +349,12 @@ public class CreateAccountView extends javax.swing.JPanel {
         btn_showSelectPlan.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         btn_showSelectPlan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        btn_back.setBackground(new java.awt.Color(194, 203, 212));
+        btn_back.setForeground(new java.awt.Color(42, 49, 64));
+        btn_back.setText("Regresar");
+        btn_back.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btn_back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout panelShadow1Layout = new javax.swing.GroupLayout(panelShadow1);
         panelShadow1.setLayout(panelShadow1Layout);
         panelShadow1Layout.setHorizontalGroup(
@@ -380,6 +390,10 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btn_showSelectPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelShadow1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btn_back, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelShadow1Layout.setVerticalGroup(
             panelShadow1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,7 +418,9 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(btn_showSelectPlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(btn_back, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jpl_companyInfoLayout = new javax.swing.GroupLayout(jpl_companyInfo);
@@ -422,12 +438,13 @@ public class CreateAccountView extends javax.swing.JPanel {
             jpl_companyInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpl_companyInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jpl_companyInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jpl_companyInfoLayout.createSequentialGroup()
+                        .addGap(0, 7, Short.MAX_VALUE)
+                        .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 6, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jpl_companyInfoLayout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jpl_content.add(jpl_companyInfo, "card2");
@@ -598,6 +615,12 @@ public class CreateAccountView extends javax.swing.JPanel {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Actualmente solo contamos con un unico plan de beneficios.");
 
+        btn_backCompanyInfo.setBackground(new java.awt.Color(194, 203, 212));
+        btn_backCompanyInfo.setForeground(new java.awt.Color(42, 49, 64));
+        btn_backCompanyInfo.setText("Regresar");
+        btn_backCompanyInfo.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btn_backCompanyInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout panelShadow2Layout = new javax.swing.GroupLayout(panelShadow2);
         panelShadow2.setLayout(panelShadow2Layout);
         panelShadow2Layout.setHorizontalGroup(
@@ -609,7 +632,9 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addComponent(roundedPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelShadow2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btn_backCompanyInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(175, 175, 175)
                 .addComponent(btn_showUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -620,11 +645,17 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
-                .addGap(18, 18, 18)
-                .addComponent(roundedPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_showUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addGroup(panelShadow2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelShadow2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(roundedPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_showUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShadow2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_backCompanyInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout jpl_selectPlanLayout = new javax.swing.GroupLayout(jpl_selectPlan);
@@ -859,15 +890,18 @@ public class CreateAccountView extends javax.swing.JPanel {
         btn_showSummary.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         btn_showSummary.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        btn_backSelectPlan.setBackground(new java.awt.Color(194, 203, 212));
+        btn_backSelectPlan.setForeground(new java.awt.Color(42, 49, 64));
+        btn_backSelectPlan.setText("Regresar");
+        btn_backSelectPlan.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btn_backSelectPlan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout panelShadow3Layout = new javax.swing.GroupLayout(panelShadow3);
         panelShadow3.setLayout(panelShadow3Layout);
         panelShadow3Layout.setHorizontalGroup(
             panelShadow3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
-            .addGroup(panelShadow3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelShadow3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelShadow3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -878,10 +912,15 @@ public class CreateAccountView extends javax.swing.JPanel {
                         .addComponent(roundedPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel32)))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShadow3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_showSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelShadow3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelShadow3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShadow3Layout.createSequentialGroup()
+                        .addComponent(btn_backSelectPlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(168, 168, 168)
+                        .addComponent(btn_showSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panelShadow3Layout.setVerticalGroup(
             panelShadow3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -892,19 +931,25 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addComponent(jLabel30)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel31)
-                .addGap(51, 51, 51)
-                .addComponent(jLabel32)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roundedPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel33)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(roundedPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(roundedPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_showSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(panelShadow3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelShadow3Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(roundedPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(roundedPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(roundedPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_showSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(14, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShadow3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_backSelectPlan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout jpl_userInfoLayout = new javax.swing.GroupLayout(jpl_userInfo);
@@ -941,17 +986,17 @@ public class CreateAccountView extends javax.swing.JPanel {
         jLabel39.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(42, 49, 64));
         jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel39.setText("Crear Usuario");
+        jLabel39.setText("Información Ingresada");
 
         jLabel40.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(42, 49, 64));
         jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel40.setText("Por favor ingrese su informacion personal. Esta se usara para construir su usuario");
+        jLabel40.setText("Por favor verifique la informacion ingresada antes de registrarla en");
 
         jLabel42.setFont(new java.awt.Font("sansserif", 0, 15)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(42, 49, 64));
         jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel42.setText("de su cuenta");
+        jLabel42.setText("el sistema");
 
         jScrollPane1.setBackground(new java.awt.Color(242, 246, 253));
         jScrollPane1.setBorder(null);
@@ -1100,6 +1145,12 @@ public class CreateAccountView extends javax.swing.JPanel {
         btn_registerCompany.setText("Registrar Informacion");
         btn_registerCompany.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
 
+        btn_userInfo.setBackground(new java.awt.Color(194, 203, 212));
+        btn_userInfo.setForeground(new java.awt.Color(42, 49, 64));
+        btn_userInfo.setText("Regresar");
+        btn_userInfo.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btn_userInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout panelShadow4Layout = new javax.swing.GroupLayout(panelShadow4);
         panelShadow4.setLayout(panelShadow4Layout);
         panelShadow4Layout.setHorizontalGroup(
@@ -1112,7 +1163,9 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panelShadow4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btn_userInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(141, 141, 141)
                 .addComponent(btn_registerCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -1127,9 +1180,15 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addComponent(jLabel42)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_registerCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGroup(panelShadow4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelShadow4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_registerCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(34, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShadow4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_userInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout jpl_summaryLayout = new javax.swing.GroupLayout(jpl_summary);
@@ -1147,12 +1206,13 @@ public class CreateAccountView extends javax.swing.JPanel {
             jpl_summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpl_summaryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+                .addGroup(jpl_summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+                    .addGroup(jpl_summaryLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(panelShadow4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jpl_summaryLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelShadow4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jpl_content.add(jpl_summary, "card5");
@@ -1172,10 +1232,14 @@ public class CreateAccountView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btg_planGroup;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_back;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_backCompanyInfo;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_backSelectPlan;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_registerCompany;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_showSelectPlan;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_showSummary;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_showUserInfo;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_userInfo;
     private javax.swing.JComboBox<String> cbx_role;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
