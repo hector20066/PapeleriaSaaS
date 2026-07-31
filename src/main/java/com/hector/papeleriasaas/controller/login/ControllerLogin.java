@@ -11,21 +11,25 @@ import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
 import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.utils.MessageUtils;
+import com.hector.papeleriasaas.utils.NavigatorUtils;
+import com.hector.papeleriasaas.view.content.ContentView;
+import com.hector.papeleriasaas.view.content.panels.login.CreateAccountView;
 import com.hector.papeleriasaas.view.content.panels.login.LoginView;
 
 import javax.swing.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ControllerLogin {
 
     private final LoginView loginView;
+    private final CreateAccountView createAccountView;
     private final Coordinator coordinator;
 
     private final Login login;
     private final Session session;
 
-    public ControllerLogin(LoginView loginView, Coordinator coordinator, Login login, Session session) {
+    public ControllerLogin(LoginView loginView, CreateAccountView createAccountView, Coordinator coordinator, Login login, Session session) {
         this.loginView = loginView;
+        this.createAccountView = createAccountView;
         this.coordinator = coordinator;
         this.login = login;
         this.session = session;
@@ -83,7 +87,7 @@ public class ControllerLogin {
     }
 
     private void register() {
-
+        NavigatorUtils.showPanels(ContentView.getJpl_content(), createAccountView);
     }
 
 }
