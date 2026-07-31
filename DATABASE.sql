@@ -15,7 +15,7 @@ CREATE TABLE companies (
     nit INT UNIQUE NULL,
     name VARCHAR(100),
     address VARCHAR(50) NULL,
-    phone VARCHAR(15) NULL,
+    phone VARCHAR(15),
     email VARCHAR(60) NULL,
     registration_date DATE,
     status VARCHAR(30), -- ACTIVE, INACTIVE
