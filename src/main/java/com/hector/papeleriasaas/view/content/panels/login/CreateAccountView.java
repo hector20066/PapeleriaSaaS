@@ -359,6 +359,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         );
 
         btn_showSelectPlan.setText("Continuar");
+        btn_showSelectPlan.setEnabled(false);
         btn_showSelectPlan.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         btn_showSelectPlan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -620,6 +621,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         );
 
         btn_showUserInfo.setText("Continuar");
+        btn_showUserInfo.setEnabled(false);
         btn_showUserInfo.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         btn_showUserInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -900,6 +902,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         );
 
         btn_showSummary.setText("Continuar");
+        btn_showSummary.setEnabled(false);
         btn_showSummary.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         btn_showSummary.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
