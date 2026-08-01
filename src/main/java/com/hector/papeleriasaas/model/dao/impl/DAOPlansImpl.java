@@ -9,6 +9,7 @@ import com.hector.papeleriasaas.model.dto.plan.DTOPlanCreate;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
 import com.hector.papeleriasaas.model.enums.BillingCycle;
 import com.hector.papeleriasaas.utils.SQLRepository;
+import org.apache.poi.sl.draw.geom.GuideIf;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -63,6 +64,23 @@ public class DAOPlansImpl implements DAOPlans {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
+
+            try (ResultSet rs = st.executeQuery()) {
+                return rs.next()
+                        ? Optional.of(getDTOPlanDetails(rs))
+                        : Optional.empty();
+            }
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
+    }
+
+    @Override
+    public Optional<DTOPlanDetails> findByName(Connection connection, String planName) throws DAOException {
+        String sql = SQLRepository.get("sql/plan/findByName.sql");
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, planName);
 
             try (ResultSet rs = st.executeQuery()) {
                 return rs.next()
