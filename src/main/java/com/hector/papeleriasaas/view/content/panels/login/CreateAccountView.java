@@ -139,7 +139,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         jlb_passwd = new javax.swing.JLabel();
         jlb_role = new javax.swing.JLabel();
         btn_registerCompany = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
-        btn_userInfo = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_backUserInfo = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
 
         jLabel23.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(42, 49, 64));
@@ -1157,11 +1157,11 @@ public class CreateAccountView extends javax.swing.JPanel {
         btn_registerCompany.setText("Registrar Informacion");
         btn_registerCompany.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
 
-        btn_userInfo.setBackground(new java.awt.Color(194, 203, 212));
-        btn_userInfo.setForeground(new java.awt.Color(42, 49, 64));
-        btn_userInfo.setText("Regresar");
-        btn_userInfo.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        btn_userInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_backUserInfo.setBackground(new java.awt.Color(194, 203, 212));
+        btn_backUserInfo.setForeground(new java.awt.Color(42, 49, 64));
+        btn_backUserInfo.setText("Regresar");
+        btn_backUserInfo.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btn_backUserInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout panelShadow4Layout = new javax.swing.GroupLayout(panelShadow4);
         panelShadow4.setLayout(panelShadow4Layout);
@@ -1176,7 +1176,7 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panelShadow4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btn_userInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_backUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(141, 141, 141)
                 .addComponent(btn_registerCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -1199,7 +1199,7 @@ public class CreateAccountView extends javax.swing.JPanel {
                         .addContainerGap(34, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShadow4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_userInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_backUserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
 
@@ -1261,8 +1261,8 @@ public class CreateAccountView extends javax.swing.JPanel {
         this.btn_showUserInfo.addActionListener(action);
     }
 
-    public void setControllerUserInfo(ActionListener action) {
-        this.btn_userInfo.addActionListener(action);
+    public void setControllerBackUserInfo(ActionListener action) {
+        this.btn_backUserInfo.addActionListener(action);
     }
 
     public void setControllerBackCompanyInfo(ActionListener action) {
@@ -1306,7 +1306,7 @@ public class CreateAccountView extends javax.swing.JPanel {
     }
 
     public ButtonAction getBtn_userInfo() {
-        return btn_userInfo;
+        return btn_backUserInfo;
     }
 
     public JComboBox<String> getCbx_role() {
@@ -1430,11 +1430,11 @@ public class CreateAccountView extends javax.swing.JPanel {
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_back;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_backCompanyInfo;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_backSelectPlan;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_backUserInfo;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_registerCompany;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_showSelectPlan;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_showSummary;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_showUserInfo;
-    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_userInfo;
     private javax.swing.JComboBox<String> cbx_role;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
