@@ -94,19 +94,19 @@ public class Coordinator {
     private final DAORememberTokens daoRememberTokens = new DAORememberTokensImpl(connectionProvider);
 
     // Services
-    private final CompaniesService companiesService = new CompaniesServiceImpl(daoCompanies);
+    private final PlansService plansService = new PlansServiceImpl(daoPlans);
+    private final UserService userService = new UserServiceImpl(daoUsers, session);
+    private final CompaniesService companiesService = new CompaniesServiceImpl(daoCompanies, plansService, userService, connectionProvider);
     private final CompanyPaymentsService companyPaymentsService = new CompanyPaymentsServiceImpl(daoCompanyPayments);
     private final CustomerService customerService = new CustomerServiceImpl(daoCustomers, session);
     private final DebtsService debtsService = new DebtsServiceImpl(daoDebts, session);
     private final InvoicesService invoicesService = new InvoicesServiceImpl(daoInvoices);
-    private final PlansService plansService = new PlansServiceImpl(daoPlans);
     private final ProductService productService = new ProductServiceImpl(daoProducts, session);
     private final ProvidersService providersService = new ProvidersServiceImpl(daoProviders, session);
     private final PurchaseDetailsService purchaseDetailsService = new PurchaseDetailsServiceImpl(daoPurchaseDetails);
     private final PurchaseService purchaseService = new PurchaseServiceImpl(daoPurchases, providersService, productService, purchaseDetailsService, connectionProvider, session);
     private final SaleDetailsService saleDetailsService = new SaleDetailsServiceImpl(daoSaleDetails);
     private final SaleService saleService = new SaleServiceImpl(daoSales, customerService, saleDetailsService, invoicesService, productService, connectionProvider, session);
-    private final UserService userService = new UserServiceImpl(daoUsers, session);
     private final RememberTokensService rememberTokensService = new RememberTokensServiceImpl(daoRememberTokens);
 
     private final Login login = new Login(userService, companiesService, rememberTokensService, session);

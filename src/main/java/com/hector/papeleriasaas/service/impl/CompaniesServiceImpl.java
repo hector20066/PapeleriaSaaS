@@ -3,9 +3,11 @@ package com.hector.papeleriasaas.service.impl;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
+import com.hector.papeleriasaas.exception.dao.PersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanies;
 import com.hector.papeleriasaas.model.dto.company.*;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
+import com.hector.papeleriasaas.model.dto.user.DTOUserCreate;
 import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.service.interfaces.CompaniesService;
 import com.hector.papeleriasaas.service.interfaces.PlansService;
@@ -35,20 +37,31 @@ public class CompaniesServiceImpl implements CompaniesService {
         this.connectionProvider = connectionProvider;
     }
 
-    public void registerCompanyInfo() throws SQLException, DAOException {
+    public void registerCompanyInfo(String planName, DTOCompanyCreate dtoCompanyCreate, DTOUserCreate dtoUserCreate) throws SQLException, DAOException {
         Connection connection = null;
 
         try {
             connection = connectionProvider.getConnection();
             connection.setAutoCommit(false);
 
-            DTOPlanDetails plan = plansService.findByName(connection, "");
+            DTOPlanDetails plan = plansService.findByName(connection, planName);
 
             if (plan == null) {
                 throw new DataNotFoundException("No se ha encontrado este plan. Por favor verifique la información");
             }
 
             int planId = plan.getId();
+
+            dtoCompanyCreate.setPlanId(planId);
+
+            int companyId = add(connection, dtoCompanyCreate.getNit(), dtoCompanyCreate.getName(), dtoCompanyCreate.getAddress(),
+                    dtoCompanyCreate.getPhone(), dtoCompanyCreate.getEmail(), dtoCompanyCreate.getStatus(), planId);
+
+            if (companyId == 0) {
+                throw new PersistenceException("Ha ocurrido un error en el registro de la empresa");
+            }
+
+            userService.add(connection, dtoUserCreate.getIdentification(), dtoUserCreate.getName(), dtoUserCreate.getUser(), dtoUserCreate.getPasswd(), dtoUserCreate.getRole(), dtoUserCreate.getStatus(), companyId);
 
             connection.commit();
         } catch (SQLException | DAOException e) {
@@ -66,6 +79,14 @@ public class CompaniesServiceImpl implements CompaniesService {
 
     @Override
     public int add(Connection connection, Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException {
+        if (name.isBlank()) {
+            throw new PersistenceException("El nombre de la empresa es requerido");
+        }
+
+        if (phone.isBlank()) {
+            throw new PersistenceException("El teléfono es requerido");
+        }
+
         DTOCompanyCreate dto = new DTOCompanyCreate.Builder()
                 .nit(nit)
                 .name(name)
