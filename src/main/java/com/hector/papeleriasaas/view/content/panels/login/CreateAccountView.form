@@ -1750,7 +1750,7 @@
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jlb_companyName" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jlb_companyNit" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jbl_companyAddress" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jlb_companyAddress" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jlb_companyPhone" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jlb_companyEmail" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jlb_planName" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1795,7 +1795,7 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jlb_companyName" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jbl_companyAddress" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlb_companyAddress" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jlb_companyPhone" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1861,7 +1861,7 @@
                             <Property name="text" type="java.lang.String" value="Nombre:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jbl_companyAddress">
+                        <Component class="javax.swing.JLabel" name="jlb_companyAddress">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="sansserif" size="14" style="0"/>

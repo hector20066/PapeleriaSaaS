@@ -1,7 +1,9 @@
 package com.hector.papeleriasaas.view.content.panels.login;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -112,7 +114,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         jLabel41 = new javax.swing.JLabel();
         jlb_companyNit = new javax.swing.JLabel();
         jlb_companyName = new javax.swing.JLabel();
-        jbl_companyAddress = new javax.swing.JLabel();
+        jlb_companyAddress = new javax.swing.JLabel();
         jlb_companyPhone = new javax.swing.JLabel();
         jlb_companyEmail = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
@@ -1015,9 +1017,9 @@ public class CreateAccountView extends javax.swing.JPanel {
         jlb_companyName.setForeground(new java.awt.Color(42, 49, 64));
         jlb_companyName.setText("Nombre:");
 
-        jbl_companyAddress.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jbl_companyAddress.setForeground(new java.awt.Color(42, 49, 64));
-        jbl_companyAddress.setText("Dirección:");
+        jlb_companyAddress.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jlb_companyAddress.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_companyAddress.setText("Dirección:");
 
         jlb_companyPhone.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jlb_companyPhone.setForeground(new java.awt.Color(42, 49, 64));
@@ -1076,7 +1078,7 @@ public class CreateAccountView extends javax.swing.JPanel {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlb_companyName)
                                     .addComponent(jlb_companyNit)
-                                    .addComponent(jbl_companyAddress)
+                                    .addComponent(jlb_companyAddress)
                                     .addComponent(jlb_companyPhone)
                                     .addComponent(jlb_companyEmail)
                                     .addComponent(jlb_planName)
@@ -1110,7 +1112,7 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlb_companyName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbl_companyAddress)
+                .addComponent(jlb_companyAddress)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlb_companyPhone)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1229,6 +1231,189 @@ public class CreateAccountView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setControllerRegisterCompany(ActionListener action) {
+        this.btn_registerCompany.addActionListener(action);
+    }
+
+    public void setControllerBack(ActionListener action) {
+        this.btn_back.addActionListener(action);
+    }
+
+    public void setControllerShowSelectPlan(ActionListener action) {
+        this.btn_showSelectPlan.addActionListener(action);
+    }
+
+    public void setControllerShowSummary(ActionListener action) {
+        this.btn_showSummary.addActionListener(action);
+    }
+
+    public void setControllerShowUserInfo(ActionListener action) {
+        this.btn_showUserInfo.addActionListener(action);
+    }
+
+    public void setControllerUserInfo(ActionListener action) {
+        this.btn_userInfo.addActionListener(action);
+    }
+
+    public void setControllerBackCompanyInfo(ActionListener action) {
+        this.btn_backCompanyInfo.addActionListener(action);
+    }
+
+    public void setControllerBackSelectPlan(ActionListener action) {
+        this.btn_backSelectPlan.addActionListener(action);
+    }
+
+    public ButtonGroup getBtg_planGroup() {
+        return btg_planGroup;
+    }
+
+    public ButtonAction getBtn_back() {
+        return btn_back;
+    }
+
+    public ButtonAction getBtn_backCompanyInfo() {
+        return btn_backCompanyInfo;
+    }
+
+    public ButtonAction getBtn_backSelectPlan() {
+        return btn_backSelectPlan;
+    }
+
+    public ButtonAction getBtn_registerCompany() {
+        return btn_registerCompany;
+    }
+
+    public ButtonAction getBtn_showSelectPlan() {
+        return btn_showSelectPlan;
+    }
+
+    public ButtonAction getBtn_showSummary() {
+        return btn_showSummary;
+    }
+
+    public ButtonAction getBtn_showUserInfo() {
+        return btn_showUserInfo;
+    }
+
+    public ButtonAction getBtn_userInfo() {
+        return btn_userInfo;
+    }
+
+    public JComboBox<String> getCbx_role() {
+        return cbx_role;
+    }
+
+    public JLabel getJlb_companyAddress() {
+        return jlb_companyAddress;
+    }
+
+    public JLabel getJlb_companyEmail() {
+        return jlb_companyEmail;
+    }
+
+    public JLabel getJlb_companyName() {
+        return jlb_companyName;
+    }
+
+    public JLabel getJlb_companyNit() {
+        return jlb_companyNit;
+    }
+
+    public JLabel getJlb_companyPhone() {
+        return jlb_companyPhone;
+    }
+
+    public JLabel getJlb_passwd() {
+        return jlb_passwd;
+    }
+
+    public JLabel getJlb_planName() {
+        return jlb_planName;
+    }
+
+    public JLabel getJlb_planPrice() {
+        return jlb_planPrice;
+    }
+
+    public JLabel getJlb_role() {
+        return jlb_role;
+    }
+
+    public JLabel getJlb_userId() {
+        return jlb_userId;
+    }
+
+    public JLabel getJlb_userName() {
+        return jlb_userName;
+    }
+
+    public JLabel getJlb_username() {
+        return jlb_username;
+    }
+
+    public JPanel getJpl_companyInfo() {
+        return jpl_companyInfo;
+    }
+
+    public JPanel getJpl_content() {
+        return jpl_content;
+    }
+
+    public JPanel getJpl_selectPlan() {
+        return jpl_selectPlan;
+    }
+
+    public JPanel getJpl_summary() {
+        return jpl_summary;
+    }
+
+    public JPanel getJpl_userInfo() {
+        return jpl_userInfo;
+    }
+
+    public JRadioButton getJrb_premium() {
+        return jrb_premium;
+    }
+
+    public JRadioButton getRbn_seePasswd() {
+        return rbn_seePasswd;
+    }
+
+    public JTextField getTxt_companyAddress() {
+        return txt_companyAddress;
+    }
+
+    public JTextField getTxt_companyEmail() {
+        return txt_companyEmail;
+    }
+
+    public JTextField getTxt_companyName() {
+        return txt_companyName;
+    }
+
+    public JTextField getTxt_companyNit() {
+        return txt_companyNit;
+    }
+
+    public JTextField getTxt_companyPhone() {
+        return txt_companyPhone;
+    }
+
+    public JPasswordField getTxt_passwd() {
+        return txt_passwd;
+    }
+
+    public JTextField getTxt_userId() {
+        return txt_userId;
+    }
+
+    public JTextField getTxt_userName() {
+        return txt_userName;
+    }
+
+    public JTextField getTxt_username() {
+        return txt_username;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btg_planGroup;
@@ -1289,7 +1474,7 @@ public class CreateAccountView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel jbl_companyAddress;
+    private javax.swing.JLabel jlb_companyAddress;
     private javax.swing.JLabel jlb_companyEmail;
     private javax.swing.JLabel jlb_companyName;
     private javax.swing.JLabel jlb_companyNit;
