@@ -10,6 +10,8 @@ import com.hector.papeleriasaas.model.enums.BillingCycle;
 import com.hector.papeleriasaas.service.interfaces.PlansService;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,11 +42,15 @@ public class PlansServiceImpl implements PlansService {
     public DTOPlanDetails findById(int id) throws DAOException {
         Optional<DTOPlanDetails> dtoPlanDetailsOptional = daoPlans.findById(id);
 
-        if (dtoPlanDetailsOptional.isEmpty()) {
-            throw new DataNotFoundException();
-        }
+        return dtoPlanDetailsOptional.orElse(null);
 
-        return dtoPlanDetailsOptional.get();
+    }
+
+    @Override
+    public DTOPlanDetails findByName(Connection connection, String planName) throws DAOException {
+        Optional<DTOPlanDetails> dtoPlanDetailsOptional = daoPlans.findByName(connection, planName);
+
+        return dtoPlanDetailsOptional.orElse(null);
     }
 
     @Override
