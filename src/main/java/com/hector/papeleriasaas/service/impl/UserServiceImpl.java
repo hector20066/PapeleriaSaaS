@@ -1,9 +1,6 @@
 package com.hector.papeleriasaas.service.impl;
 
-import com.hector.papeleriasaas.auth.DTOAuthentication;
-import com.hector.papeleriasaas.auth.DTOAuthenticationRoot;
-import com.hector.papeleriasaas.auth.Session;
-import com.hector.papeleriasaas.auth.SessionImpl;
+import com.hector.papeleriasaas.auth.*;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOUsers;
@@ -36,7 +33,7 @@ public class UserServiceImpl implements UserService {
                 .identification(identification)
                 .name(name)
                 .user(user)
-                .passwd(passwd)
+                .passwd(encryptPasswd(passwd))
                 .role(role)
                 .status(status)
                 .companyId(session.getCompanyId())
@@ -46,18 +43,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status) throws DAOException {
+    public int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws DAOException {
         DTOUserCreate dto = new DTOUserCreate.Builder()
                 .identification(identification)
                 .name(name)
                 .user(user)
-                .passwd(passwd)
+                .passwd(encryptPasswd(passwd))
                 .role(role)
                 .status(status)
-                .companyId(session.getCompanyId())
+                .companyId(companyId)
                 .build();
 
         return daoUsers.add(connection, dto);
+    }
+
+    private String encryptPasswd(String plainPasswd) {
+        return BCryptEncryption.encryptPassword(plainPasswd);
     }
 
     @Override
