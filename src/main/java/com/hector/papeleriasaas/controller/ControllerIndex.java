@@ -22,7 +22,10 @@ public class ControllerIndex {
 
     private void connectEvents() {
         index.setControllerLogin(e -> NavigatorUtils.showPanels(ContentView.getJpl_content(), loginView));
-        index.setControllerRegister(e -> NavigatorUtils.showPanels(ContentView.getJpl_content(), createAccountView));
+        index.setControllerRegister(e -> {
+            NavigatorUtils.showPanels(ContentView.getJpl_content(), createAccountView);
+            createAccountView.setAnteriorView("Index");
+        });
     }
 
 }

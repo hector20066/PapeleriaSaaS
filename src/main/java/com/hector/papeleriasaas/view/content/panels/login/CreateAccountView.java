@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
  */
 public class CreateAccountView extends javax.swing.JPanel {
 
+    private String anteriorView;
+
     public CreateAccountView() {
         initComponents();
         
@@ -23,6 +25,14 @@ public class CreateAccountView extends javax.swing.JPanel {
         jpl_content.add(jpl_selectPlan, "selectPlan");
         jpl_content.add(jpl_userInfo, "userInfo");
         jpl_content.add(jpl_summary, "summary");
+    }
+
+    public void setAnteriorView(String anteriorView) {
+        this.anteriorView = anteriorView;
+    }
+
+    public String getAnteriorView() {
+        return anteriorView;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -88,6 +88,7 @@ public class ControllerLogin {
 
     private void register() {
         NavigatorUtils.showPanels(ContentView.getJpl_content(), createAccountView);
+        createAccountView.setAnteriorView("Login");
     }
 
 }

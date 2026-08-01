@@ -8,6 +8,7 @@ import com.hector.papeleriasaas.controller.builder.*;
 import com.hector.papeleriasaas.controller.company.ControllerCustomer;
 import com.hector.papeleriasaas.controller.company.ControllerPurchasingReport;
 import com.hector.papeleriasaas.controller.company.ControllerSuppliers;
+import com.hector.papeleriasaas.controller.login.ControllerCreateAccount;
 import com.hector.papeleriasaas.controller.login.ControllerLogin;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.ConnectionProviderImpl;
@@ -157,6 +158,7 @@ public class Coordinator {
     private void startDrivers() {
         new ControllerLogin(loginView, createAccount, this, login, session);
         new ControllerIndex(index, loginView, createAccount);
+        new ControllerCreateAccount(createAccount, index, loginView);
     }
 
     public void startCompaniesEnvironment() {
