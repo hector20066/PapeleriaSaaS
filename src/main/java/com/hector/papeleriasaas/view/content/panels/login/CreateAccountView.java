@@ -4,6 +4,7 @@ import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -99,7 +100,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         txt_userId = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
         roundedPanel9 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
-        txt_userName = new javax.swing.JTextField();
+        txt_personName = new javax.swing.JTextField();
         roundedPanel10 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
         roundedPanel11 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
         txt_username = new javax.swing.JTextField();
@@ -107,7 +108,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         roundedPanel12 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
-        txt_passwd = new javax.swing.JPasswordField();
+        jpld_passwd = new javax.swing.JPasswordField();
         jLabel37 = new javax.swing.JLabel();
         cbx_role = new javax.swing.JComboBox<>();
         rbn_seePasswd = new javax.swing.JRadioButton();
@@ -752,10 +753,10 @@ public class CreateAccountView extends javax.swing.JPanel {
         roundedPanel9.setBackground(new java.awt.Color(242, 246, 253));
         roundedPanel9.setBorderColor(new java.awt.Color(119, 141, 169));
 
-        txt_userName.setBackground(new java.awt.Color(242, 246, 253));
-        txt_userName.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        txt_userName.setForeground(new java.awt.Color(42, 49, 64));
-        txt_userName.setBorder(null);
+        txt_personName.setBackground(new java.awt.Color(242, 246, 253));
+        txt_personName.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        txt_personName.setForeground(new java.awt.Color(42, 49, 64));
+        txt_personName.setBorder(null);
 
         javax.swing.GroupLayout roundedPanel9Layout = new javax.swing.GroupLayout(roundedPanel9);
         roundedPanel9.setLayout(roundedPanel9Layout);
@@ -763,14 +764,14 @@ public class CreateAccountView extends javax.swing.JPanel {
             roundedPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt_userName, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                .addComponent(txt_personName, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                 .addContainerGap())
         );
         roundedPanel9Layout.setVerticalGroup(
             roundedPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt_userName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_personName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -817,10 +818,10 @@ public class CreateAccountView extends javax.swing.JPanel {
         roundedPanel12.setBackground(new java.awt.Color(242, 246, 253));
         roundedPanel12.setBorderColor(new java.awt.Color(119, 141, 169));
 
-        txt_passwd.setBackground(new java.awt.Color(242, 246, 253));
-        txt_passwd.setForeground(new java.awt.Color(42, 49, 64));
-        txt_passwd.setText("jPasswordField1");
-        txt_passwd.setBorder(null);
+        jpld_passwd.setBackground(new java.awt.Color(242, 246, 253));
+        jpld_passwd.setForeground(new java.awt.Color(42, 49, 64));
+        jpld_passwd.setText("jPasswordField1");
+        jpld_passwd.setBorder(null);
 
         javax.swing.GroupLayout roundedPanel12Layout = new javax.swing.GroupLayout(roundedPanel12);
         roundedPanel12.setLayout(roundedPanel12Layout);
@@ -828,14 +829,14 @@ public class CreateAccountView extends javax.swing.JPanel {
             roundedPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt_passwd, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                .addComponent(jpld_passwd, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                 .addContainerGap())
         );
         roundedPanel12Layout.setVerticalGroup(
             roundedPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txt_passwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpld_passwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -970,8 +971,8 @@ public class CreateAccountView extends javax.swing.JPanel {
             jpl_userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpl_userInfoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelShadow3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -982,9 +983,9 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addGroup(jpl_userInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpl_userInfoLayout.createSequentialGroup()
-                        .addGap(0, 14, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(panelShadow3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 14, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1209,8 +1210,8 @@ public class CreateAccountView extends javax.swing.JPanel {
             jpl_summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpl_summaryLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelShadow4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -1219,7 +1220,7 @@ public class CreateAccountView extends javax.swing.JPanel {
             .addGroup(jpl_summaryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpl_summaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpl_summaryLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(panelShadow4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1271,6 +1272,26 @@ public class CreateAccountView extends javax.swing.JPanel {
 
     public void setControllerBackSelectPlan(ActionListener action) {
         this.btn_backSelectPlan.addActionListener(action);
+    }
+
+    public void jrbPremiumAction(ActionListener action) {
+        jrb_premium.addActionListener(action);
+    }
+    
+    public void addFieldsCompanyInfo(DocumentListener listen) {
+        txt_companyNit.getDocument().addDocumentListener(listen);
+        txt_companyName.getDocument().addDocumentListener(listen);
+        txt_companyAddress.getDocument().addDocumentListener(listen);
+        txt_companyPhone.getDocument().addDocumentListener(listen);
+        txt_companyEmail.getDocument().addDocumentListener(listen);
+    }
+
+    public void addFieldsUserInfo(DocumentListener listen) {
+        txt_userId.getDocument().addDocumentListener(listen);
+        txt_personName.getDocument().addDocumentListener(listen);
+        txt_username.getDocument().addDocumentListener(listen);
+        jpld_passwd.getDocument().addDocumentListener(listen);
+
     }
 
     public ButtonGroup getBtg_planGroup() {
@@ -1409,16 +1430,16 @@ public class CreateAccountView extends javax.swing.JPanel {
         return txt_companyPhone;
     }
 
-    public JPasswordField getTxt_passwd() {
-        return txt_passwd;
+    public JPasswordField getJpld_passwd() {
+        return jpld_passwd;
     }
 
     public JTextField getTxt_userId() {
         return txt_userId;
     }
 
-    public JTextField getTxt_userName() {
-        return txt_userName;
+    public JTextField getTxt_personName() {
+        return txt_personName;
     }
 
     public JTextField getTxt_username() {
@@ -1501,6 +1522,7 @@ public class CreateAccountView extends javax.swing.JPanel {
     private javax.swing.JPanel jpl_selectPlan;
     private javax.swing.JPanel jpl_summary;
     private javax.swing.JPanel jpl_userInfo;
+    private javax.swing.JPasswordField jpld_passwd;
     private javax.swing.JRadioButton jrb_premium;
     private com.hector.papeleriasaas.view.swing.panels.PanelShadow panelShadow1;
     private com.hector.papeleriasaas.view.swing.panels.PanelShadow panelShadow2;
@@ -1524,9 +1546,8 @@ public class CreateAccountView extends javax.swing.JPanel {
     private javax.swing.JTextField txt_companyName;
     private javax.swing.JTextField txt_companyNit;
     private javax.swing.JTextField txt_companyPhone;
-    private javax.swing.JPasswordField txt_passwd;
+    private javax.swing.JTextField txt_personName;
     private javax.swing.JTextField txt_userId;
-    private javax.swing.JTextField txt_userName;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }
