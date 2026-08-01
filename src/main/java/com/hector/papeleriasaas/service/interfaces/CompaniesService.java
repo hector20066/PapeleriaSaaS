@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface CompaniesService {
 
-    int add(Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException;
+    int add(Connection connection, Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException;
     DTOCompanySimpleDetails findById(int id) throws DAOException;
     DTOCompanySimpleDetails findByName(String name) throws DAOException;
     DTOCompanySimpleDetails findByNit(int nit) throws DAOException;

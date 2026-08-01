@@ -5,6 +5,7 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanies;
 import com.hector.papeleriasaas.model.dto.company.*;
+import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
 import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.service.interfaces.CompaniesService;
 import com.hector.papeleriasaas.service.interfaces.PlansService;
@@ -34,13 +35,32 @@ public class CompaniesServiceImpl implements CompaniesService {
         this.connectionProvider = connectionProvider;
     }
 
-    public void registerCompanyInfo() {
+    public void registerCompanyInfo() throws SQLException, DAOException {
         Connection connection = null;
 
         try {
             connection = connectionProvider.getConnection();
-        } catch (SQLException | DAOException e) {
+            connection.setAutoCommit(false);
 
+            DTOPlanDetails plan = plansService.findByName(connection, "");
+
+            if (plan == null) {
+                throw new DataNotFoundException("No se ha encontrado este plan. Por favor verifique la información");
+            }
+
+            int planId = plan.getId();
+
+            connection.commit();
+        } catch (SQLException | DAOException e) {
+            if (connection != null) {
+                connection.rollback();
+            }
+
+            throw e;
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
     }
 
@@ -57,7 +77,7 @@ public class CompaniesServiceImpl implements CompaniesService {
                 .planId(planId)
                 .build();
 
-        return daoCompanies.add(dto);
+        return daoCompanies.add(connection, dto);
     }
 
     @Override
