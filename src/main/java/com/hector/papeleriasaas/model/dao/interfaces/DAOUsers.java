@@ -6,6 +6,7 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.user.*;
 import com.hector.papeleriasaas.model.enums.Roles;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 public interface DAOUsers {
 
     int add(DTOUserCreate dto) throws DAOException;
+    int add(Connection connection, DTOUserCreate dto) throws DAOException;
     Optional<DTOUserDetails> findByIdentification(int identification) throws DAOException;
     Optional<DTOUserDetails> findById(int id) throws DAOException;
     Optional<DTOUserDetails> findByUser(String user) throws DAOException;

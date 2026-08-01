@@ -35,29 +35,44 @@ public class DAOUsersImpl implements DAOUsers {
 
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            st.setInt(1, dto.getIdentification());
-            st.setString(2, dto.getName());
-            st.setString(3, dto.getUser());
-            st.setString(4, dto.getPasswd());
-            st.setString(5, String.valueOf(dto.getRole()));
-            st.setString(6, String.valueOf(dto.getStatus()));
-            st.setInt(7, dto.getCompanyId());
-
-            int affectedRows = st.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
-            }
-
-            try (ResultSet rs = st.getGeneratedKeys()) {
-                if (rs.next()) {
-                    return rs.getInt(1);
-                } else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
-                }
-            }
+            return registerUser(st, dto);
         } catch (SQLException e) {
             throw new PersistenceException();
+        }
+    }
+
+    @Override
+    public int add(Connection connection, DTOUserCreate dto) throws DAOException {
+        String sql = SQLRepository.get("sql/user/insert.sql");
+
+        try (PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            return registerUser(st, dto);
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
+    }
+
+    private int registerUser(PreparedStatement st, DTOUserCreate dto) throws SQLException {
+        st.setInt(1, dto.getIdentification());
+        st.setString(2, dto.getName());
+        st.setString(3, dto.getUser());
+        st.setString(4, dto.getPasswd());
+        st.setString(5, String.valueOf(dto.getRole()));
+        st.setString(6, String.valueOf(dto.getStatus()));
+        st.setInt(7, dto.getCompanyId());
+
+        int affectedRows = st.executeUpdate();
+
+        if (affectedRows == 0) {
+            throw new SQLException("Creating user failed, no rows affected.");
+        }
+
+        try (ResultSet rs = st.getGeneratedKeys()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
         }
     }
 

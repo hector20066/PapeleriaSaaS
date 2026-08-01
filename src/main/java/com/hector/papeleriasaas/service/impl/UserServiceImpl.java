@@ -12,6 +12,7 @@ import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.service.interfaces.UserService;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,21 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         return daoUsers.add(dto);
+    }
+
+    @Override
+    public int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status) throws DAOException {
+        DTOUserCreate dto = new DTOUserCreate.Builder()
+                .identification(identification)
+                .name(name)
+                .user(user)
+                .passwd(passwd)
+                .role(role)
+                .status(status)
+                .companyId(session.getCompanyId())
+                .build();
+
+        return daoUsers.add(connection, dto);
     }
 
     @Override

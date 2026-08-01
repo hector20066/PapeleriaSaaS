@@ -7,6 +7,7 @@ import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
 import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.model.enums.Status;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 public interface UserService {
 
     int add(Integer identification, String name, String user, String passwd, Roles role, Status status) throws DAOException;
+    int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status) throws DAOException;
     DTOUserDetails findByIdentification(Integer identification) throws DAOException;
     DTOUserDetails findById(Integer id) throws DAOException;
     DTOUserDetails findByUser(String user) throws DAOException;

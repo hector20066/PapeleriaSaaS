@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 public interface DAOCompanies {
 
-    int add(DTOCompanyCreate dto) throws DAOException;
+    int add(Connection connection, DTOCompanyCreate dto) throws DAOException;
     Optional<DTOCompanySimpleDetails> findByName(String name) throws DAOException;
     Optional<DTOCompanySimpleDetails> findByNit(int nit) throws DAOException;
     Optional<DTOCompanyDetails> findCompanyInfo(int id) throws DAOException;

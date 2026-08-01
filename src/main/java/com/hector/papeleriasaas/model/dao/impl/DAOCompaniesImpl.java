@@ -27,11 +27,10 @@ public class DAOCompaniesImpl implements DAOCompanies {
     }
 
     @Override
-    public int add(DTOCompanyCreate dto) throws DAOException {
+    public int add(Connection connection, DTOCompanyCreate dto) throws DAOException {
         String sql = SQLRepository.get("sql/company/insert.sql");
 
-        try (Connection connection = connectionProvider.getConnection();
-             PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             if (dto.getNit() != null) {
                 st.setInt(1, dto.getNit());
             } else {
