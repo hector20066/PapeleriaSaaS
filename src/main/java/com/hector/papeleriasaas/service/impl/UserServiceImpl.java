@@ -43,6 +43,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int add(Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws DAOException {
+        DTOUserCreate dto = new DTOUserCreate.Builder()
+                .identification(identification)
+                .name(name)
+                .user(user)
+                .passwd(encryptPasswd(passwd))
+                .role(role)
+                .status(status)
+                .companyId(companyId)
+                .build();
+
+        return daoUsers.add(dto);
+    }
+
+    @Override
     public int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws DAOException {
         DTOUserCreate dto = new DTOUserCreate.Builder()
                 .identification(identification)

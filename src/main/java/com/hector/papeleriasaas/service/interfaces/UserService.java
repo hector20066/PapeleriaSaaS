@@ -18,6 +18,7 @@ import java.util.Optional;
 public interface UserService {
 
     int add(Integer identification, String name, String user, String passwd, Roles role, Status status) throws DAOException;
+    int add(Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws DAOException;
     int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws DAOException;
     DTOUserDetails findByIdentification(Integer identification) throws DAOException;
     DTOUserDetails findById(Integer id) throws DAOException;
