@@ -1,11 +1,14 @@
 package com.hector.papeleriasaas.service.interfaces;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.model.dto.company.DTOCompanyCreate;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyDetails;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanySimpleDetails;
+import com.hector.papeleriasaas.model.dto.user.DTOUserCreate;
 import com.hector.papeleriasaas.model.enums.Status;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -14,7 +17,7 @@ import java.util.List;
  */
 public interface CompaniesService {
 
-    int add(Connection connection, Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException;
+    void registerCompanyInfo(String planName, DTOCompanyCreate dtoCompanyCreate, DTOUserCreate dtoUserCreate) throws SQLException, DAOException;
     DTOCompanySimpleDetails findById(int id) throws DAOException;
     DTOCompanySimpleDetails findByName(String name) throws DAOException;
     DTOCompanySimpleDetails findByNit(int nit) throws DAOException;

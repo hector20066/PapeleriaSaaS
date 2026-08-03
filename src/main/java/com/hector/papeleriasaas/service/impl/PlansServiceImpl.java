@@ -47,6 +47,13 @@ public class PlansServiceImpl implements PlansService {
     }
 
     @Override
+    public DTOPlanDetails findByName(String planName) throws DAOException {
+        Optional<DTOPlanDetails> dtoPlanDetailsOptional = daoPlans.findByName(planName);
+
+        return dtoPlanDetailsOptional.orElse(null);
+    }
+
+    @Override
     public DTOPlanDetails findByName(Connection connection, String planName) throws DAOException {
         Optional<DTOPlanDetails> dtoPlanDetailsOptional = daoPlans.findByName(connection, planName);
 
