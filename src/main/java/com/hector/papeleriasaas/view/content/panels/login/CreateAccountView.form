@@ -1759,7 +1759,7 @@
                                                       <Component id="jlb_planName" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jlb_planPrice" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jlb_userId" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jlb_userName" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jlb_personName" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jlb_username" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jlb_passwd" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Component id="jlb_role" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1818,7 +1818,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jlb_userId" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jlb_userName" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlb_personName" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="jlb_username" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -1956,7 +1956,7 @@
                             <Property name="text" type="java.lang.String" value="Cedula:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jlb_userName">
+                        <Component class="javax.swing.JLabel" name="jlb_personName">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="sansserif" size="14" style="0"/>

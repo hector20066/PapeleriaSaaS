@@ -1,5 +1,6 @@
 package com.hector.papeleriasaas.view.content.panels.login;
 
+import com.hector.papeleriasaas.view.content.panels.dto.DTOCreateAccountViewSummary;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 
 import javax.swing.*;
@@ -135,7 +136,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         jLabel51 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jlb_userId = new javax.swing.JLabel();
-        jlb_userName = new javax.swing.JLabel();
+        jlb_personName = new javax.swing.JLabel();
         jlb_username = new javax.swing.JLabel();
         jlb_passwd = new javax.swing.JLabel();
         jlb_role = new javax.swing.JLabel();
@@ -1063,9 +1064,9 @@ public class CreateAccountView extends javax.swing.JPanel {
         jlb_userId.setForeground(new java.awt.Color(42, 49, 64));
         jlb_userId.setText("Cedula:");
 
-        jlb_userName.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jlb_userName.setForeground(new java.awt.Color(42, 49, 64));
-        jlb_userName.setText("Nombre:");
+        jlb_personName.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jlb_personName.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_personName.setText("Nombre:");
 
         jlb_username.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jlb_username.setForeground(new java.awt.Color(42, 49, 64));
@@ -1098,7 +1099,7 @@ public class CreateAccountView extends javax.swing.JPanel {
                                     .addComponent(jlb_planName)
                                     .addComponent(jlb_planPrice)
                                     .addComponent(jlb_userId)
-                                    .addComponent(jlb_userName)
+                                    .addComponent(jlb_personName)
                                     .addComponent(jlb_username)
                                     .addComponent(jlb_passwd)
                                     .addComponent(jlb_role)))
@@ -1146,7 +1147,7 @@ public class CreateAccountView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jlb_userId)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlb_userName)
+                .addComponent(jlb_personName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlb_username)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1245,6 +1246,21 @@ public class CreateAccountView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void loadDataSummary(DTOCreateAccountViewSummary dtoCreateAccountViewSummary) {
+        this.jlb_companyNit.setText("NIT: " + dtoCreateAccountViewSummary.getCompanyNit());
+        this.jlb_companyName.setText("Nombre: " + dtoCreateAccountViewSummary.getCompanyName());
+        this.jlb_companyPhone.setText("Teléfono: " + dtoCreateAccountViewSummary.getCompanyPhone());
+        this.jlb_companyAddress.setText("Dirección: " + dtoCreateAccountViewSummary.getCompanyAddress());
+        this.jlb_companyEmail.setText("Correo: " + dtoCreateAccountViewSummary.getCompanyEmail());
+
+        this.jlb_planName.setText(dtoCreateAccountViewSummary.getPlanName());
+
+        this.jlb_userId.setText("Cedula: " + dtoCreateAccountViewSummary.getUserId());
+        this.jlb_personName.setText("Nombre: " + dtoCreateAccountViewSummary.getPersonName());
+        this.jlb_username.setText("Usuario: " + dtoCreateAccountViewSummary.getUsername());
+        this.jlb_role.setText("Rol: " + dtoCreateAccountViewSummary.getRole());
+    }
+
     public void setControllerRegisterCompany(ActionListener action) {
         this.btn_registerCompany.addActionListener(action);
     }
@@ -1277,6 +1293,10 @@ public class CreateAccountView extends javax.swing.JPanel {
         this.btn_backSelectPlan.addActionListener(action);
     }
 
+    public void setControllerSeePasswd(ActionListener action) {
+        this.rbn_seePasswd.addActionListener(action);
+    }
+
     public void jrbPremiumAction(ActionListener action) {
         jrb_premium.addActionListener(action);
     }
@@ -1294,7 +1314,6 @@ public class CreateAccountView extends javax.swing.JPanel {
         txt_personName.getDocument().addDocumentListener(listen);
         txt_username.getDocument().addDocumentListener(listen);
         jpld_passwd.getDocument().addDocumentListener(listen);
-
     }
 
     public ButtonGroup getBtg_planGroup() {
@@ -1378,7 +1397,7 @@ public class CreateAccountView extends javax.swing.JPanel {
     }
 
     public JLabel getJlb_userName() {
-        return jlb_userName;
+        return jlb_personName;
     }
 
     public JLabel getJlb_username() {
@@ -1449,6 +1468,35 @@ public class CreateAccountView extends javax.swing.JPanel {
         return txt_username;
     }
 
+    public void resetUI() {
+        this.jlb_companyNit.setText("NIT:");
+        this.jlb_companyName.setText("Nombre:");
+        this.jlb_companyPhone.setText("Teléfono:");
+        this.jlb_companyAddress.setText("Dirección:");
+        this.jlb_companyEmail.setText("Correo:");
+
+        this.jlb_planName.setText("");
+        this.jlb_planPrice.setText("Valor a pagar: $");
+
+        this.jlb_userId.setText("Cedula:");
+        this.jlb_personName.setText("Nombre:");
+        this.jlb_username.setText("Usuario");
+        this.jlb_role.setText("Rol:");
+
+        txt_companyNit.setText("");
+        txt_companyName.setText("");
+        txt_companyPhone.setText("");
+        txt_companyAddress.setText("");
+        txt_companyEmail.setText("");
+
+        jrb_premium.setSelected(false);
+
+        txt_userId.setText("");
+        txt_personName.setText("");
+        txt_username.setText("");
+        jpld_passwd.setText("");
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btg_planGroup;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_back;
@@ -1514,11 +1562,11 @@ public class CreateAccountView extends javax.swing.JPanel {
     private javax.swing.JLabel jlb_companyNit;
     private javax.swing.JLabel jlb_companyPhone;
     private javax.swing.JLabel jlb_passwd;
+    private javax.swing.JLabel jlb_personName;
     private javax.swing.JLabel jlb_planName;
     private javax.swing.JLabel jlb_planPrice;
     private javax.swing.JLabel jlb_role;
     private javax.swing.JLabel jlb_userId;
-    private javax.swing.JLabel jlb_userName;
     private javax.swing.JLabel jlb_username;
     private javax.swing.JPanel jpl_companyInfo;
     private javax.swing.JPanel jpl_content;
