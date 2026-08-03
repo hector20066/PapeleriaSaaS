@@ -48,6 +48,11 @@
                   </Group>
                   <EmptySpace pref="54" max="32767" attributes="0"/>
               </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="buttonAction1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -59,7 +64,9 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                   <Component id="roundedPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="130" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="buttonAction1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="63" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -171,6 +178,11 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="com.hector.papeleriasaas.view.swing.buttons.ButtonAction" name="buttonAction1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Registrar Nuevo Usuario"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
