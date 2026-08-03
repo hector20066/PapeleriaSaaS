@@ -76,19 +76,35 @@ public class DAOPlansImpl implements DAOPlans {
     }
 
     @Override
+    public Optional<DTOPlanDetails> findByName(String planName) throws DAOException {
+        String sql = SQLRepository.get("sql/plan/findByName.sql");
+
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            return findByName(st, planName);
+        } catch (SQLException e) {
+            throw new PersistenceException();
+        }
+    }
+
+    @Override
     public Optional<DTOPlanDetails> findByName(Connection connection, String planName) throws DAOException {
         String sql = SQLRepository.get("sql/plan/findByName.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, planName);
-
-            try (ResultSet rs = st.executeQuery()) {
-                return rs.next()
-                        ? Optional.of(getDTOPlanDetails(rs))
-                        : Optional.empty();
-            }
+            return findByName(st, planName);
         } catch (SQLException e) {
             throw new PersistenceException();
+        }
+    }
+
+    private Optional<DTOPlanDetails> findByName(PreparedStatement st, String planName) throws SQLException {
+        st.setString(1, planName);
+
+        try (ResultSet rs = st.executeQuery()) {
+            return rs.next()
+                    ? Optional.of(getDTOPlanDetails(rs))
+                    : Optional.empty();
         }
     }
 

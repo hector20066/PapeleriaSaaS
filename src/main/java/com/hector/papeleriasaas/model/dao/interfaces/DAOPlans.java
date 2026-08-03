@@ -16,6 +16,7 @@ public interface DAOPlans {
 
     int add(DTOPlanCreate dto) throws DAOException;
     Optional<DTOPlanDetails> findById(int id) throws DAOException;
+    Optional<DTOPlanDetails> findByName(String planName) throws DAOException;
     Optional<DTOPlanDetails> findByName(Connection connection, String planName) throws DAOException;
     List<DTOPlanDetails> findByAll() throws DAOException;
     void modify(DTOPlanDetails dto) throws DAOException;
