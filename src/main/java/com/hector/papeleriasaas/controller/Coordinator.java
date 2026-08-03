@@ -158,7 +158,7 @@ public class Coordinator {
     private void startDrivers() {
         new ControllerLogin(loginView, createAccount, this, login, session);
         new ControllerIndex(index, loginView, createAccount);
-        new ControllerCreateAccount(createAccount, index, loginView);
+        new ControllerCreateAccount(createAccount, index, loginView, companiesService, plansService);
     }
 
     public void startCompaniesEnvironment() {
