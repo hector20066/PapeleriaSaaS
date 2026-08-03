@@ -12,7 +12,9 @@ import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.service.interfaces.PlansService;
 import com.hector.papeleriasaas.service.interfaces.UserService;
-import net.bytebuddy.asm.MemberSubstitution;
+import org.apache.commons.lang3.builder.ToStringExclude;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -47,6 +49,7 @@ class CompaniesServiceImplTest {
     private CompaniesServiceImpl companiesService;
 
     @Test
+    @DisplayName("Testear conexión y el manejo de la transacción")
     void testRegisterCompanyConnection() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(plansService.findByName(any(Connection.class), anyString())).thenReturn(new DTOPlanDetails.Builder().id(12345).build());
@@ -62,6 +65,7 @@ class CompaniesServiceImplTest {
     }
 
     @Test
+    @DisplayName("Testear el registro de la empresa y el usuario")
     void testRegisterCompany() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(plansService.findByName(any(Connection.class), anyString())).thenReturn(new DTOPlanDetails.Builder().id(12345).build());
@@ -85,6 +89,8 @@ class CompaniesServiceImplTest {
     }
 
     @Test
+    @Tag("exception")
+    @DisplayName("Testear excepción cuando no se encuentra el plan")
     void testRegisterCompanyExceptions() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(plansService.findByName(any(Connection.class), anyString())).thenThrow(new DataNotFoundException("No se ha encontrado el plan, verifique el nombre"));
@@ -115,6 +121,8 @@ class CompaniesServiceImplTest {
     }
 
     @Test
+    @Tag("exception")
+    @DisplayName("Testear excepción lanzada al registrar la empresa")
     void testRegisterCompanyExceptionAdd() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(plansService.findByName(any(Connection.class), anyString())).thenReturn(new DTOPlanDetails.Builder().id(12345).build());
