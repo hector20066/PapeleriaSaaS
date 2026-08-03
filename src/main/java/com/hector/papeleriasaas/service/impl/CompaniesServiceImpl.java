@@ -37,6 +37,7 @@ public class CompaniesServiceImpl implements CompaniesService {
         this.connectionProvider = connectionProvider;
     }
 
+    @Override
     public void registerCompanyInfo(String planName, DTOCompanyCreate dtoCompanyCreate, DTOUserCreate dtoUserCreate) throws SQLException, DAOException {
         Connection connection = null;
 
@@ -77,8 +78,7 @@ public class CompaniesServiceImpl implements CompaniesService {
         }
     }
 
-    @Override
-    public int add(Connection connection, Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException {
+    private int add(Connection connection, Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException {
         if (name.isBlank()) {
             throw new PersistenceException("El nombre de la empresa es requerido");
         }

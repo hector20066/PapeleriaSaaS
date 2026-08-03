@@ -16,6 +16,7 @@ public interface PlansService {
 
     int add(String name, BigDecimal price, String description, BillingCycle billingCycle) throws DAOException;
     DTOPlanDetails findById(int id) throws DAOException;
+    DTOPlanDetails findByName(String planName) throws DAOException;
     DTOPlanDetails findByName(Connection connection, String planName) throws DAOException;
     List<DTOPlanDetails> findByAll() throws DAOException;
     void modify(String name, BigDecimal price, String description, BillingCycle billingCycle, int id) throws DAOException;
