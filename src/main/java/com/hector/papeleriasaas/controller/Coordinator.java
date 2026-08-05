@@ -4,6 +4,8 @@ import com.hector.papeleriasaas.auth.Login;
 import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.auth.SessionImpl;
 import com.hector.papeleriasaas.controller.admin.ControllerAdminMenu;
+import com.hector.papeleriasaas.controller.admin.ControllerRegisterUsers;
+import com.hector.papeleriasaas.controller.admin.ControllerUserManagement;
 import com.hector.papeleriasaas.controller.builder.*;
 import com.hector.papeleriasaas.controller.company.ControllerCustomer;
 import com.hector.papeleriasaas.controller.company.ControllerPurchasingReport;
@@ -72,6 +74,7 @@ public class Coordinator {
     private ManagePlansView managePlans;
     private PaymentHistoryView paymentHistory;
     private UserManagementView userManagement;
+    private RegisterUsersView registerUsersView;
 
     // Connection
     private final DataBasePool dataBase = new DataBasePool();
@@ -268,10 +271,13 @@ public class Coordinator {
         this.managePlans = new ManagePlansView();
         this.paymentHistory = new PaymentHistoryView();
         this.userManagement = new UserManagementView();
+        this.registerUsersView = new RegisterUsersView();
     }
 
     private void startAdminDrivers() {
         new ControllerAdminMenu(adminMenu, businessManagement, dashboardAdmin, managePlans, paymentHistory, userManagement, index, session, this);
+        new ControllerRegisterUsers(registerUsersView, subject, userService);
+        new ControllerUserManagement(userManagement, registerUsersView);
     }
 
     public void loadData() {
