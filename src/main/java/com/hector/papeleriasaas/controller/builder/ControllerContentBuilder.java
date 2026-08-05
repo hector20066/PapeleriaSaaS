@@ -1,6 +1,7 @@
 package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.auth.Login;
+import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.controller.company.ControllerCompaniesMenu;
 import com.hector.papeleriasaas.controller.Coordinator;
 import com.hector.papeleriasaas.controller.login.ControllerLogin;
@@ -25,6 +26,7 @@ public class ControllerContentBuilder {
     private Coordinator coordinator;
     private IndexView indexView;
     private Login login;
+    private Session session;
 
     public ControllerContentBuilder withViewContent(CompaniesMenu content) {
         this.content = content;
@@ -86,6 +88,11 @@ public class ControllerContentBuilder {
         return this;
     }
 
+    public ControllerContentBuilder withSession(Session session) {
+        this.session = session;
+        return this;
+    }
+
     public ControllerCompaniesMenu build() {
         return new ControllerCompaniesMenu(this);
     }
@@ -136,6 +143,10 @@ public class ControllerContentBuilder {
 
     public Login getLogin() {
         return login;
+    }
+
+    public Session getSession() {
+        return session;
     }
 
 }

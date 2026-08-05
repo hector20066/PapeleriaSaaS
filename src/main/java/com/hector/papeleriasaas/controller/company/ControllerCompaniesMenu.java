@@ -6,9 +6,6 @@ import com.hector.papeleriasaas.controller.ControllerContent;
 import com.hector.papeleriasaas.controller.Coordinator;
 import com.hector.papeleriasaas.controller.builder.ControllerContentBuilder;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.executor.BackgroundExecutor;
-import com.hector.papeleriasaas.executor.ObserverExecutor;
-import com.hector.papeleriasaas.executor.ReportExecutor;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.view.content.ContentView;
@@ -37,6 +34,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
     private final IndexView index;
     private final Coordinator coordinator;
     private final Login login;
+    private final Session session;
 
     public ControllerCompaniesMenu(ControllerContentBuilder builder) {
         this.companiesMenu = builder.getContent();
@@ -51,8 +49,10 @@ public class ControllerCompaniesMenu extends ControllerContent {
         this.purchasingReport = builder.getPurchasingReport();
         this.index = builder.getIndexView();
         this.login = builder.getLogin();
+        this.session = builder.getSession();
 
         companiesMenu.getBtn_dashboard().setBackground(color1);
+        companiesMenu.getJlb_title().setText(session.getCompany().getName());
 
         connectEvents();
     }
@@ -91,7 +91,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_salesReport().setText(expandedMenu ? "  Reporte Ventas" : "");
         companiesMenu.getBtn_purchaseReport().setText(expandedMenu ? "  Reporte Compras" : "");
         companiesMenu.getBtn_exit().setText(expandedMenu ? "  Cerrar Sesión" : "");
-        companiesMenu.getJlb_title().setText(expandedMenu ? "PAPELERIA" : "");
+        companiesMenu.getJlb_title().setText(expandedMenu ? session.getCompany().getName() : "");
     }
 
     private void showDashboard() {
@@ -209,6 +209,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
         try {
             NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
             login.logout();
+            coordinator.logoutCompany();
         } catch (DAOException e) {
             MessageUtils.errorMessage("Ha ocurrido un error al cerrar la sesión.", companiesMenu);
         }

@@ -138,6 +138,7 @@ public class ControllerAdminMenu extends ControllerContent {
         try {
             NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
             login.logout();
+            coordinator.logoutAdmin();
         } catch (DAOException e) {
             MessageUtils.warningMessage("Ha ocurrido un error al cerrar la sesión.", adminMenu);
         }

@@ -200,6 +200,7 @@ public class Coordinator {
                 .withCoordinator(this)
                 .withViewIndex(index)
                 .withLogin(login)
+                .withSession(session)
                 .build();
 
         new ControllerInventoryBuilder()
