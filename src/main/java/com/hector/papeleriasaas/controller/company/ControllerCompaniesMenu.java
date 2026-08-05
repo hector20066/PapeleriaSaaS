@@ -1,12 +1,15 @@
 package com.hector.papeleriasaas.controller.company;
 
+import com.hector.papeleriasaas.auth.Login;
 import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.controller.ControllerContent;
 import com.hector.papeleriasaas.controller.Coordinator;
 import com.hector.papeleriasaas.controller.builder.ControllerContentBuilder;
+import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.executor.ReportExecutor;
+import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.IndexView;
@@ -33,7 +36,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
     private final ProvidersView suppliers;
     private final IndexView index;
     private final Coordinator coordinator;
-    private Session session;
+    private final Login login;
 
     public ControllerCompaniesMenu(ControllerContentBuilder builder) {
         this.companiesMenu = builder.getContent();
@@ -46,7 +49,8 @@ public class ControllerCompaniesMenu extends ControllerContent {
         this.customers = builder.getCustomers();
         this.suppliers = builder.getSuppliers();
         this.purchasingReport = builder.getPurchasingReport();
-        this.index = new IndexView();
+        this.index = builder.getIndexView();
+        this.login = builder.getLogin();
 
         companiesMenu.getBtn_dashboard().setBackground(color1);
 
@@ -202,8 +206,12 @@ public class ControllerCompaniesMenu extends ControllerContent {
 
     @Override
     public void logout() {
-        NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
-        // session.logout();
+        try {
+            NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
+            login.logout();
+        } catch (DAOException e) {
+            MessageUtils.errorMessage("Ha ocurrido un error al cerrar la sesión.", companiesMenu);
+        }
     }
 
 }

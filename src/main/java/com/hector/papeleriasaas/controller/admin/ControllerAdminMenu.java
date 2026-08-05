@@ -1,8 +1,11 @@
 package com.hector.papeleriasaas.controller.admin;
 
+import com.hector.papeleriasaas.auth.Login;
 import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.controller.ControllerContent;
 import com.hector.papeleriasaas.controller.Coordinator;
+import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.view.content.ContentView;
 import com.hector.papeleriasaas.view.content.IndexView;
@@ -23,10 +26,11 @@ public class ControllerAdminMenu extends ControllerContent {
     private final IndexView index;
     private final Session session;
     private final Coordinator coordinator;
+    private final Login login;
 
     public ControllerAdminMenu(AdminMenu adminMenu, BusinessManagementView businessManagementView, DashboardAdminView dashboardAdminView,
                                ManagePlansView managePlansView, PaymentHistoryView paymentHistoryView, UserManagementView userManagementView,
-                               IndexView index, Session session, Coordinator coordinator) {
+                               IndexView index, Session session, Coordinator coordinator, Login login) {
         this.adminMenu = adminMenu;
         this.businessManagementView = businessManagementView;
         this.dashboardAdminView = dashboardAdminView;
@@ -36,6 +40,7 @@ public class ControllerAdminMenu extends ControllerContent {
         this.index = index;
         this.session = session;
         this.coordinator = coordinator;
+        this.login = login;
 
         connectEvents();
     }
@@ -130,8 +135,12 @@ public class ControllerAdminMenu extends ControllerContent {
 
     @Override
     public void logout() {
-        NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
-        session.logout();
+        try {
+            NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
+            login.logout();
+        } catch (DAOException e) {
+            MessageUtils.warningMessage("Ha ocurrido un error al cerrar la sesión.", adminMenu);
+        }
     }
 
 }
