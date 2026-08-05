@@ -40,6 +40,7 @@ public class ControllerLogin {
     private void connectEvents() {
         loginView.setControllerLogin(e -> login());
         loginView.setControllerRegister(e -> register());
+        loginView.setControllerSeePasswd(e -> seePassword());
     }
 
     private void login() {
@@ -71,7 +72,6 @@ public class ControllerLogin {
         BackgroundExecutor.execute(() -> {
             try {
                 login.login(user, passwd, nit, remember);
-
                 DTOUserDetails dtoUser = session.getUser();
 
                 switch (dtoUser.getRole()) {
@@ -89,6 +89,14 @@ public class ControllerLogin {
     private void register() {
         NavigatorUtils.showPanels(ContentView.getJpl_content(), createAccountView);
         createAccountView.setAnteriorView("Login");
+    }
+
+    private void seePassword() {
+        if (loginView.getRbn_seePasswd().isSelected()) {
+            loginView.getJpwd_password().setEchoChar((char) 0);
+        } else {
+            loginView.getJpwd_password().setEchoChar('•');
+        }
     }
 
 }
