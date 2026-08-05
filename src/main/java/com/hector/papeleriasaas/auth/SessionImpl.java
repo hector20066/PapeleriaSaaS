@@ -35,7 +35,7 @@ public class SessionImpl implements Session {
 
     @Override
     public Integer getCompanyId() {
-        return company.getId();
+        return company == null ? null : company.getId();
     }
 
     @Override

@@ -5,11 +5,13 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyDetails;
 import com.hector.papeleriasaas.model.dto.remembertokens.DTORememberTokenDetails;
 import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
+import com.hector.papeleriasaas.model.entities.User;
 import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.service.interfaces.CompaniesService;
 import com.hector.papeleriasaas.service.interfaces.RememberTokensService;
 import com.hector.papeleriasaas.service.interfaces.UserService;
+import com.hector.papeleriasaas.utils.UserConfig;
 
 import javax.swing.*;
 import java.util.Optional;
@@ -102,6 +104,16 @@ public class Login {
         }
 
         session.login(dtoUser, dtoCompany);
+    }
+
+    public void logout() throws DAOException {
+        session.logout();
+
+        String token = UserConfig.get("remember.token");
+        rememberTokensService.deleteByToken(token);
+
+        UserConfig.set("remember.enabled", "false");
+        UserConfig.set("remember.token", "");
     }
 
 }
