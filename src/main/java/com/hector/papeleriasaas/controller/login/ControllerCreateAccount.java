@@ -10,6 +10,7 @@ import com.hector.papeleriasaas.model.dto.company.DTOCompanyCreate;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
 import com.hector.papeleriasaas.model.dto.user.DTOUserCreate;
 import com.hector.papeleriasaas.model.enums.Roles;
+import com.hector.papeleriasaas.model.enums.Status;
 import com.hector.papeleriasaas.service.interfaces.CompaniesService;
 import com.hector.papeleriasaas.service.interfaces.PlansService;
 import com.hector.papeleriasaas.utils.MessageUtils;
@@ -110,7 +111,7 @@ public class ControllerCreateAccount {
                 throw new InvalidInputException("Por favor seleccione el plan");
             }
 
-            prepareUI(dtoCompanyCreate, dtoUserCreate, planName);
+            prepareUI();
             doInBackground(planName, dtoCompanyCreate, dtoUserCreate);
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(e.getMessage(), createAccountView);
@@ -134,6 +135,7 @@ public class ControllerCreateAccount {
                 .address(address)
                 .phone(phone)
                 .email(email)
+                .status(Status.ACTIVE)
                 .build();
     }
 
@@ -157,25 +159,14 @@ public class ControllerCreateAccount {
                 .user(user)
                 .passwd(passwd)
                 .role(Roles.ADMIN)
+                .status(Status.ACTIVE)
                 .build();
     }
 
-    private void prepareUI(DTOCompanyCreate dtoCompanyCreate, DTOUserCreate dtoUserCreate, String planName) {
+    private void prepareUI() {
         createAccountView.getBtn_registerCompany().setEnabled(false);
         createAccountView.getBtn_registerCompany().setText("Registrando...");
         createAccountView.getBtn_userInfo().setEnabled(false);
-
-        createAccountView.loadDataSummary(new DTOCreateAccountViewSummary.Builder()
-                .companyNit(String.valueOf(dtoCompanyCreate.getNit()))
-                .companyName(dtoCompanyCreate.getName())
-                .companyPhone(dtoCompanyCreate.getPhone())
-                .companyAddress(dtoCompanyCreate.getAddress())
-                .companyEmail(dtoCompanyCreate.getEmail())
-                .planName(planName)
-                .userId(String.valueOf(dtoUserCreate.getIdentification()))
-                .personName(dtoUserCreate.getName())
-                .username(dtoUserCreate.getUser())
-                .role(dtoUserCreate.getRole().getValue()).build());
     }
 
     private void doInBackground(String planName, DTOCompanyCreate dtoCompanyCreate, DTOUserCreate dtoUserCreate) {
@@ -219,7 +210,33 @@ public class ControllerCreateAccount {
     }
 
     private void showSummary() {
-        actionAfter();
+        try {
+            DTOCompanyCreate dtoCompanyCreate = getDTOCompanyCreate();
+            DTOUserCreate dtoUserCreate = getDTOUserCreate();
+            String planName = createAccountView.getJrb_premium().isSelected()
+                    ? "Plan Premium"
+                    : "";
+
+            createAccountView.loadDataSummary(getDTOCreateAccountViewSummary(dtoCompanyCreate, dtoUserCreate, planName));
+            actionAfter();
+        } catch (InvalidInputException e) {
+            MessageUtils.warningMessage(e.getMessage(), createAccountView);
+        }
+    }
+
+    private DTOCreateAccountViewSummary getDTOCreateAccountViewSummary(DTOCompanyCreate dtoCompanyCreate, DTOUserCreate dtoUserCreate, String planName) {
+        return new DTOCreateAccountViewSummary.Builder()
+                .companyNit(String.valueOf(dtoCompanyCreate.getNit()))
+                .companyName(dtoCompanyCreate.getName())
+                .companyPhone(dtoCompanyCreate.getPhone())
+                .companyAddress(dtoCompanyCreate.getAddress())
+                .companyEmail(dtoCompanyCreate.getEmail())
+                .planName(planName)
+                .userId(String.valueOf(dtoUserCreate.getIdentification()))
+                .personName(dtoUserCreate.getName())
+                .username(dtoUserCreate.getUser())
+                .role(dtoUserCreate.getRole().getValue())
+                .build();
     }
 
     private void showUserInfo() {
