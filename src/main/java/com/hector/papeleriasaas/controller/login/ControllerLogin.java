@@ -60,8 +60,6 @@ public class ControllerLogin {
             Integer nit = nitStr.isBlank() ? 0 : Integer.parseInt(nitStr);
             int remember = JOptionPane.showConfirmDialog(null, "¿Deseas guardar la sesión?", "", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-            // coordinator.startCompaniesEnvironment();
-            // coordinator.startAdminEnvironment();
             doInBackground(user, passwd, nit, remember);
         } catch (InvalidInputException e) {
             MessageUtils.warningMessage(e.getMessage(), loginView);
