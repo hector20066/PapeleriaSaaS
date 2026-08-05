@@ -131,8 +131,6 @@ public class Coordinator {
                 contentView.setVisible(true);
                 contentView.setLocationRelativeTo(null);
 
-                // loadData();
-
                 if (rememberEnabled && !token.isBlank()) {
                     Integer companyId = session.getCompanyId();
 
@@ -141,6 +139,8 @@ public class Coordinator {
                     } else {
                         startCompaniesEnvironment();
                     }
+
+                    loadData();
                 } else {
                     NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
                 }
@@ -278,6 +278,31 @@ public class Coordinator {
         new ControllerAdminMenu(adminMenu, businessManagement, dashboardAdmin, managePlans, paymentHistory, userManagement, index, session, this);
         new ControllerRegisterUsers(registerUsersView, subject, userService);
         new ControllerUserManagement(userManagement, registerUsersView);
+    }
+
+    public void logoutAdmin() {
+        this.adminMenu = null;
+        this.businessManagement = null;
+        this.dashboardAdmin = null;
+        this.managePlans = null;
+        this.paymentHistory = null;
+        this.userManagement = null;
+        this.registerUsersView = null;
+    }
+
+    public void logoutCompany() {
+        this.companiesMenu = null;
+        this.companyView = null;
+        this.customers = null;
+        this.dashboardCompany = null;
+        this.debtReport = null;
+        this.inventory = null;
+        this.modifyProduct = null;
+        this.providers = null;
+        this.purchaseProducts = null;
+        this.purchasingReport = null;
+        this.salesManagement = null;
+        this.salesReport = null;
     }
 
     public void loadData() {
