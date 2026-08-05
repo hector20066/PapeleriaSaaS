@@ -202,14 +202,9 @@ public class DAOProductsImpl implements DAOProducts {
     public void modify(DTOProductUpdate dto) throws DAOException {
         String sql = SQLRepository.get("sql/product/modify.sql");
 
-        try (Connection connection = connectionProvider.getConnection()) {
-            try (PreparedStatement st = connection.prepareStatement(sql)) {
-                modifyData(st, dto);
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                throw e;
-            }
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            modifyData(st, dto);
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al modificar producto", e);
         }
@@ -243,19 +238,13 @@ public class DAOProductsImpl implements DAOProducts {
     public void delete(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/product/delete.sql");
 
-        try (Connection connection = connectionProvider.getConnection()) {
-            try (PreparedStatement st = connection.prepareStatement(sql)) {
-                st.setInt(1, id);
-                st.setInt(2, companyId);
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
+            st.setInt(2, companyId);
 
-                if (st.executeUpdate() == 0) {
-                    throw new SQLException("producto no existe con id: " + id);
-                }
-
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                throw e;
+            if (st.executeUpdate() == 0) {
+                throw new SQLException("producto no existe con id: " + id);
             }
         } catch (SQLException e) {
             throw new ProductPersistenceException("Error al eliminar producto", e);

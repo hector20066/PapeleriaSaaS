@@ -34,7 +34,7 @@ public class DAOCompaniesImpl implements DAOCompanies {
             if (dto.getNit() != null) {
                 st.setInt(1, dto.getNit());
             } else {
-                st.setInt(1, Types.INTEGER);
+                st.setNull(1, Types.INTEGER);
             }
 
             st.setString(2, dto.getName());

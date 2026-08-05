@@ -59,7 +59,12 @@ public class DAOUsersImpl implements DAOUsers {
         st.setString(4, dto.getPasswd());
         st.setString(5, String.valueOf(dto.getRole()));
         st.setString(6, String.valueOf(dto.getStatus()));
-        st.setInt(7, dto.getCompanyId());
+
+        if (dto.getCompanyId() != null) {
+            st.setInt(7, dto.getCompanyId());
+        } else {
+            st.setNull(7, Types.INTEGER);
+        }
 
         int affectedRows = st.executeUpdate();
 

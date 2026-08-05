@@ -170,19 +170,13 @@ public class DAOProvidersImpl implements DAOProviders {
     public void delete(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/provider/delete.sql");
 
-        try (Connection connection = connectionProvider.getConnection()) {
-            try (PreparedStatement st = connection.prepareStatement(sql)) {
-                st.setInt(1, id);
-                st.setInt(2, companyId);
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
+            st.setInt(2, companyId);
 
-                if (st.executeUpdate() == 0) {
-                    throw new SQLException("proveedor no existe con nit: " + id);
-                }
-
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                throw e;
+            if (st.executeUpdate() == 0) {
+                throw new SQLException("proveedor no existe con nit: " + id);
             }
         } catch (SQLException e) {
             throw new SupplierPersistenceException("Error al eliminar proveedor", e);

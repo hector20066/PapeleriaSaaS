@@ -132,14 +132,9 @@ public class DAOSalesImpl implements DAOSales {
     public void modify(DTOSaleUpdate dto) throws DAOException {
         String sql = SQLRepository.get("sql/sale/modify.sql");
 
-        try (Connection connection = connectionProvider.getConnection()) {
-            try (PreparedStatement st = connection.prepareStatement(sql)) {
-                modifyData(st, dto);
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                throw e;
-            }
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            modifyData(st, dto);
         } catch (SQLException e) {
             throw new SalePersistenceException("Error al modificar venta", e);
         }

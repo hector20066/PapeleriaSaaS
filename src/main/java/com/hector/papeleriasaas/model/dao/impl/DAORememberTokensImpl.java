@@ -2,6 +2,7 @@ package com.hector.papeleriasaas.model.dao.impl;
 
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.exception.dao.PersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAORememberTokens;
 import com.hector.papeleriasaas.model.dto.remembertokens.DTORememberTokenCreate;
@@ -73,7 +74,10 @@ public class DAORememberTokensImpl implements DAORememberTokens {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, token);
-            st.executeUpdate();
+
+            if (st.executeUpdate() == 0) {
+                throw new DataNotFoundException("No se ha encontrado este token.");
+            }
         } catch (SQLException e) {
             throw new PersistenceException("Error al actualizar la fecha de uso del token", e);
         }
@@ -81,13 +85,15 @@ public class DAORememberTokensImpl implements DAORememberTokens {
 
     @Override
     public void deleteByToken(String token) throws DAOException {
-
         String sql = SQLRepository.get("sql/rememberToken/deleteByToken.sql");
 
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, token);
-            st.executeUpdate();
+
+            if (st.executeUpdate() == 0) {
+                throw new DataNotFoundException("No se ha encontrado este token.");
+            }
         } catch (SQLException e) {
             throw new PersistenceException("Error al eliminar el token", e);
         }
@@ -100,7 +106,10 @@ public class DAORememberTokensImpl implements DAORememberTokens {
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, userId);
-            st.executeUpdate();
+
+            if (st.executeUpdate() == 0) {
+                throw new DataNotFoundException("No se ha encontrado el usuario con id: " + userId);
+            }
         } catch (SQLException e) {
             throw new PersistenceException("Error al eliminar los tokens del usuario", e);
         }

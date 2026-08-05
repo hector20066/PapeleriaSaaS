@@ -129,19 +129,13 @@ public class DAOPurchasesImpl implements DAOPurchases {
     public void delete(int id, int companyId) throws DAOException {
         String sql = SQLRepository.get("sql/purchase/delete.sql");
 
-        try (Connection connection = connectionProvider.getConnection()) {
-            try (PreparedStatement st = connection.prepareStatement(sql)) {
-                st.setInt(1, id);
-                st.setInt(2, companyId);
+        try (Connection connection = connectionProvider.getConnection();
+             PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
+            st.setInt(2, companyId);
 
-                if (st.executeUpdate() == 0) {
-                    throw new SQLException("compra no existe con numero: " + id);
-                }
-
-                connection.commit();
-            } catch (SQLException e) {
-                connection.rollback();
-                throw e;
+            if (st.executeUpdate() == 0) {
+                throw new SQLException("compra no existe con numero: " + id);
             }
         } catch (SQLException e) {
             throw new PurchasePersistenceException("Error al eliminar compra", e);
