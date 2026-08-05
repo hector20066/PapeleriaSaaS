@@ -823,7 +823,6 @@ public class CreateAccountView extends javax.swing.JPanel {
 
         jpld_passwd.setBackground(new java.awt.Color(242, 246, 253));
         jpld_passwd.setForeground(new java.awt.Color(42, 49, 64));
-        jpld_passwd.setText("jPasswordField1");
         jpld_passwd.setBorder(null);
 
         javax.swing.GroupLayout roundedPanel12Layout = new javax.swing.GroupLayout(roundedPanel12);
@@ -1468,7 +1467,7 @@ public class CreateAccountView extends javax.swing.JPanel {
         return txt_username;
     }
 
-    public void resetUI() {
+    public void clearUI() {
         this.jlb_companyNit.setText("NIT:");
         this.jlb_companyName.setText("Nombre:");
         this.jlb_companyPhone.setText("Teléfono:");

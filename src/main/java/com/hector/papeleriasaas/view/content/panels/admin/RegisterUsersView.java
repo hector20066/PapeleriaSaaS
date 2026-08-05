@@ -7,6 +7,8 @@ package com.hector.papeleriasaas.view.content.panels.admin;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.panels.RoundedPanel;
 import java.awt.event.ActionListener;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -23,6 +25,11 @@ public class RegisterUsersView extends javax.swing.JPanel {
      */
     public RegisterUsersView() {
         initComponents();
+        
+        Icon normalIcon = new ImageIcon(getClass().getResource("/image/eye.png"));
+        Icon iconOff = new ImageIcon(getClass().getResource("/image/eye-off.png"));
+        rbn_seePasswd.setIcon(normalIcon);
+        rbn_seePasswd.setSelectedIcon(iconOff);
     }
 
     /**
@@ -163,7 +170,6 @@ public class RegisterUsersView extends javax.swing.JPanel {
 
         jpld_passwd.setBackground(new java.awt.Color(242, 242, 242));
         jpld_passwd.setForeground(new java.awt.Color(42, 49, 64));
-        jpld_passwd.setText("jPasswordField1");
         jpld_passwd.setBorder(null);
 
         javax.swing.GroupLayout roundedPanel12Layout = new javax.swing.GroupLayout(roundedPanel12);
@@ -267,7 +273,6 @@ public class RegisterUsersView extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btn_register, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
@@ -357,6 +362,15 @@ public class RegisterUsersView extends javax.swing.JPanel {
 
     public JTextField getTxt_username() {
         return txt_username;
+    }
+
+    public void clearUI() {
+        txt_companyId.setText("");
+        txt_personName.setText("");
+        txt_userId.setText("");
+        txt_username.setText("");
+        jpld_passwd.setText("");
+        cbx_role.setSelectedIndex(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

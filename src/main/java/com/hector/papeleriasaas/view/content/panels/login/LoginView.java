@@ -7,11 +7,7 @@ package com.hector.papeleriasaas.view.content.panels.login;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.panels.PanelShadow;
 import java.awt.event.ActionListener;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 /**
  *
@@ -87,7 +83,6 @@ public class LoginView extends javax.swing.JPanel {
         jpwd_password.setBackground(new java.awt.Color(242, 246, 253));
         jpwd_password.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jpwd_password.setForeground(new java.awt.Color(42, 49, 64));
-        jpwd_password.setText("jPasswordField1");
         jpwd_password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         jlb_forgetPasswd.setForeground(new java.awt.Color(119, 141, 169));
@@ -183,12 +178,13 @@ public class LoginView extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 41, Short.MAX_VALUE)
+                        .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 33, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
-                .addComponent(panelShadow1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -209,6 +205,10 @@ public class LoginView extends javax.swing.JPanel {
     
     public void setControllerRegister(ActionListener action) {
         this.btn_register.addActionListener(action);
+    }
+
+    public void setControllerSeePasswd(ActionListener action) {
+        rbn_seePasswd.addActionListener(action);
     }
     
     public ButtonAction getBtn_login() {
@@ -237,6 +237,10 @@ public class LoginView extends javax.swing.JPanel {
 
     public JTextField getTxt_user() {
         return txt_user;
+    }
+
+    public JRadioButton getRbn_seePasswd() {
+        return rbn_seePasswd;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,6 +4,8 @@
  */
 package com.hector.papeleriasaas.view.content.panels.admin;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author hlacevedo
@@ -32,7 +34,7 @@ public class UserManagementView extends javax.swing.JPanel {
         roundedPanel1 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table1 = new com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table();
-        buttonAction1 = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_registerUser = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("Usuarios Registrados");
@@ -77,7 +79,8 @@ public class UserManagementView extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        buttonAction1.setText("Registrar Nuevo Usuario");
+        btn_registerUser.setText("Registrar Nuevo Usuario");
+        btn_registerUser.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,7 +100,7 @@ public class UserManagementView extends javax.swing.JPanel {
                 .addContainerGap(54, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(buttonAction1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_registerUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
@@ -110,8 +113,8 @@ public class UserManagementView extends javax.swing.JPanel {
                 .addGap(64, 64, 64)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(buttonAction1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addComponent(btn_registerUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -126,9 +129,12 @@ public class UserManagementView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setControllerRegisterUser(ActionListener action) {
+        btn_registerUser.addActionListener(action);
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction buttonAction1;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_registerUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
