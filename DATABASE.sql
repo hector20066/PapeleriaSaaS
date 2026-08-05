@@ -53,8 +53,8 @@ CREATE TABLE users (
     password VARCHAR(400),
     role VARCHAR(20), -- ROOT, ADMIN, EMPLOYEE, OTHER
     status VARCHAR(20), -- ACTIVE, INACTIVE
-    id_company INT,
-    FOREIGN KEY (id_company) REFERENCES companies(id) ON DELETE CASCADE,
+    id_company INT NULL,
+    FOREIGN KEY (id_company) REFERENCES companies(id) ON DELETE SET NULL,
     UNIQUE (id_company, user)
 );
 

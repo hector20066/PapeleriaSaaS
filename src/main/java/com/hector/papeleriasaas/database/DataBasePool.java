@@ -34,7 +34,7 @@ public final class DataBasePool {
         config.setKeepaliveTime(300000);
 
         config.setPoolName("Papelería");
-        config.setAutoCommit(false);
+        config.setAutoCommit(true);
 
         this.dataSource = new HikariDataSource(config);
     }
