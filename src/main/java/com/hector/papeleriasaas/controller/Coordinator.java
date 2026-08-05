@@ -139,8 +139,6 @@ public class Coordinator {
                     } else {
                         startCompaniesEnvironment();
                     }
-
-                    loadData();
                 } else {
                     NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
                 }
@@ -167,6 +165,7 @@ public class Coordinator {
     public void startCompaniesEnvironment() {
         startCompaniesViews();
         startCompaniesDrivers();
+        loadData();
 
         NavigatorUtils.showPanels(ContentView.getJpl_content(), companiesMenu);
         NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), dashboardCompany);
@@ -199,6 +198,8 @@ public class Coordinator {
                 .withViewCustomers(customers)
                 .withViewSuppliers(providers)
                 .withCoordinator(this)
+                .withViewIndex(index)
+                .withLogin(login)
                 .build();
 
         new ControllerInventoryBuilder()
@@ -259,6 +260,7 @@ public class Coordinator {
     public void startAdminEnvironment() {
         startAdminViews();
         startAdminDrivers();
+        loadData();
 
         NavigatorUtils.showPanels(ContentView.getJpl_content(), adminMenu);
         NavigatorUtils.showPanels(AdminMenu.getJpl_content(), dashboardAdmin);
@@ -275,7 +277,7 @@ public class Coordinator {
     }
 
     private void startAdminDrivers() {
-        new ControllerAdminMenu(adminMenu, businessManagement, dashboardAdmin, managePlans, paymentHistory, userManagement, index, session, this);
+        new ControllerAdminMenu(adminMenu, businessManagement, dashboardAdmin, managePlans, paymentHistory, userManagement, index, session, this, login);
         new ControllerRegisterUsers(registerUsersView, subject, userService);
         new ControllerUserManagement(userManagement, registerUsersView);
     }
