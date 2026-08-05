@@ -6,6 +6,7 @@ import com.hector.papeleriasaas.model.dao.interfaces.DAORememberTokens;
 import com.hector.papeleriasaas.model.dto.remembertokens.DTORememberTokenCreate;
 import com.hector.papeleriasaas.model.dto.remembertokens.DTORememberTokenDetails;
 import com.hector.papeleriasaas.service.interfaces.RememberTokensService;
+import com.hector.papeleriasaas.utils.UserConfig;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -34,6 +35,9 @@ public class RememberTokensServiceImpl implements RememberTokensService {
                 .build();
 
         daoRememberTokens.add(dto);
+
+        UserConfig.set("remember.enabled", "true");
+        UserConfig.set("remember.token", token);
 
         return token;
     }
