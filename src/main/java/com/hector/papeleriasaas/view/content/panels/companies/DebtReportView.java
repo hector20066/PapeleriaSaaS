@@ -35,8 +35,6 @@ public class DebtReportView extends javax.swing.JPanel {
         p.setBackground(Color.WHITE);
         spTable.setCorner(JScrollPane.UPPER_RIGHT_CORNER, p);
 
-        jtbl_debts.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("54000.00"), new BigDecimal("50000.00"), new BigDecimal("4000.00"), PaymentStatus.PENDING});
-        jtbl_debts.addRow(new Object[]{12345, "Hector Acevedo", "3137762626", 32042, LocalDate.now(), new BigDecimal("524000.00"), new BigDecimal("50000.00"), new BigDecimal("5000.00"), PaymentStatus.PENDING});
         txt_search.setText("Buscar Cliente");
         txt_search.setForeground(new Color(114, 142, 166));
     }

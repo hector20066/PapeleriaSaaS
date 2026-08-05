@@ -122,8 +122,10 @@ public class DashboardCompanyView extends javax.swing.JPanel {
                 "Ventas", String.valueOf(totalSales), "Total ventas"));
         card3.setData(new CartModel(new ImageIcon(getClass().getResource("/image/flag.png")),
                 "Ganancias", String.valueOf(totalDebts), "Ganancias totales"));
+
+        String productBestSelling = product.isBlank() ? "No hay producto" : product;
         card4.setData(new CartModel(new ImageIcon(getClass().getResource("/image/productBestSelling.png")),
-                product, String.valueOf(amountProduct), "Producto mas vendido"));
+                productBestSelling, String.valueOf(amountProduct), "Producto mas vendido"));
     }
     
     private void setData(){

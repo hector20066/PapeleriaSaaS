@@ -25,11 +25,6 @@ public class InventoryView extends javax.swing.JPanel {
         this.inventoryList = (DefaultTableModel) jtbl_inventory.getModel();
         configureTableScrollPane();
         
-        inventoryList.addRow(new Object[]{1234, "Producto 1", 25, new BigDecimal("45000.00"), new BigDecimal("50000.00"), "Norma", new BigDecimal("5000.00")});
-        inventoryList.addRow(new Object[]{1234, "Producto 2", 25, new BigDecimal("45000.00"), new BigDecimal("50000.00"), "Norma", new BigDecimal("5000.00")});
-        inventoryList.addRow(new Object[]{1234, "Producto 1", 25, new BigDecimal("45000.00"), new BigDecimal("50000.00"), "Norma", new BigDecimal("5000.00")});
-        inventoryList.addRow(new Object[]{1234, "Producto 1", 25, new BigDecimal("45000.00"), new BigDecimal("50000.00"), "Norma", new BigDecimal("5000.00")});
-        
         txt_search.setText("Buscar Producto");
         txt_search.setForeground(new Color(114, 142, 166));
     }
