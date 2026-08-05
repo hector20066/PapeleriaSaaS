@@ -3,8 +3,8 @@ SELECT
     p.description,
     SUM(sd.amount) AS quantity_sold
 FROM products p
-    LEFT JOIN sales_details sd ON p.id = sd.id_producto
+    LEFT JOIN sales_details sd ON p.id = sd.product_id
 WHERE p.id_company = ?
-GROUP BY p.id, p.descripcion
+GROUP BY p.id, p.description
 ORDER BY quantity_sold DESC
 LIMIT 1;
