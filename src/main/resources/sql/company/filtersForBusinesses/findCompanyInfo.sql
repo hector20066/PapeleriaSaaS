@@ -7,7 +7,7 @@ SELECT
     c.registration_date,
     c.status,
     p.name AS plan_name,
-    p.amount AS plan_price
+    p.price AS plan_price
 FROM companies c
     JOIN plans p ON p.id = c.plan_id
 WHERE c.id = ?;
