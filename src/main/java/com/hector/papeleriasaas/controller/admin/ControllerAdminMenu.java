@@ -70,7 +70,7 @@ public class ControllerAdminMenu extends ControllerContent {
         adminMenu.getBtn_paymentHistory().setText(expandedMenu ? "  Historial de pagos" : "");
         adminMenu.getBtn_users().setText(expandedMenu ? "  Usuarios" : "");
         adminMenu.getBtn_logout().setText(expandedMenu ? "  Cerrar Sesión" : "");
-        adminMenu.getJlb_title().setText(expandedMenu ? "Papelería SaaS" : "");
+        adminMenu.getJlb_title().setText(expandedMenu ? session.getCompany().getName() : "");
     }
 
     @Override
