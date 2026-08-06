@@ -450,9 +450,9 @@ BEGIN
     SET v_sale_number = LAST_INSERT_ID();
 
     INSERT INTO sales (sale_number, customer_id, sale_date, total_paid, total_sale, id_company)
-    VALUES (v_sale_number, p_customer_id, CURDATE(), p_total_paid, p_total_sale, p_id_company);
+    VALUES (v_sale_number,p_customer_id,CURDATE(),p_total_paid,p_total_sale,p_id_company);
 
-    SELECT v_sale_number AS sale_number;
+    SELECT LAST_INSERT_ID() AS sale_id;
 END $$
 
 DELIMITER ;
@@ -475,9 +475,9 @@ BEGIN
     SET v_purchase_number = LAST_INSERT_ID();
 
     INSERT INTO purchases (purchase_number, provider_id, purchase_date, total_purchase, id_company)
-    VALUES (v_purchase_number, p_provider_id, CURDATE(), p_total_purchase, p_id_company);
+    VALUES (v_purchase_number,p_provider_id,CURDATE(),p_total_purchase,p_id_company);
 
-    SELECT v_purchase_number AS purchase_number;
+    SELECT LAST_INSERT_ID() AS purchase_id;
 END $$
 
 DELIMITER ;
