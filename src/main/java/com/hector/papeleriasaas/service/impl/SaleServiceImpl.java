@@ -72,13 +72,13 @@ public class SaleServiceImpl implements SaleService {
                 }
             }
 
-            int numSale = this.add(connection, customerId, amountPaid, totalSale);
+            int saleId = this.add(connection, customerId, amountPaid, totalSale);
 
             for (DTOSaleDetailsCreate product : products) {
-                saleDetailsService.add(connection, numSale, product.getProductId(), product.getAmount(), product.getUnitPrice());
+                saleDetailsService.add(connection, saleId, product.getProductId(), product.getAmount(), product.getUnitPrice());
             }
 
-            invoiceNumber = invoicesService.add(connection, new DTOInvoiceCreate(numSale, 1));
+            invoiceNumber = invoicesService.add(connection, new DTOInvoiceCreate(saleId, 1));
 
             connection.commit();
         } catch (SQLException | DAOException e) {

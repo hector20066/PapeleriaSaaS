@@ -1,7 +1,6 @@
 package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.auth.Session;
-import com.hector.papeleriasaas.auth.SessionImpl;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.PurchaseDetailsNotFoundException;
@@ -53,10 +52,10 @@ public class PurchaseServiceImpl implements PurchaseService {
             connection = connectionProvider.getConnection();
             connection.setAutoCommit(false);
 
-            providersService.registerProviderPurchase(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(),
+            int providerId = providersService.registerProviderPurchase(connection, dtoSupplier.getNit(), dtoSupplier.getRSocial(),
                     dtoSupplier.getAddress(), dtoSupplier.getPhone(), dtoSupplier.getEmail());
 
-            int numPurchase = this.add(connection, dtoSupplier.getNit(), totalPaid);
+            int purchaseId = this.add(connection, providerId, totalPaid);
 
             for (DTOProductCreate dtoProduct : products) {
                 int productId;
@@ -72,7 +71,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                     productId = dtoProductFound.getId();
                 }
 
-                purchaseDetailsService.add(connection, numPurchase, productId, dtoProduct.getAmount(),
+                purchaseDetailsService.add(connection, purchaseId, productId, dtoProduct.getAmount(),
                         dtoProduct.getPurchasePrice());
             }
 
@@ -82,6 +81,7 @@ public class PurchaseServiceImpl implements PurchaseService {
                 connection.rollback();
             }
 
+            e.printStackTrace();
             throw e;
         } finally {
             if (connection != null) {

@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ProvidersService {
 
-    void registerProviderPurchase(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException;
+    int registerProviderPurchase(Connection connection, int nit, String rSocial, String address, String phone, String email) throws DAOException;
     DTOProvider findByName(String name) throws DAOException;
     DTOProvider findById(int id) throws DAOException;
     List<DTOProvider> findByAll() throws DAOException;

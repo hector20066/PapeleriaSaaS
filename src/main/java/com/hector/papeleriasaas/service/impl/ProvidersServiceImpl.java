@@ -27,7 +27,7 @@ public class ProvidersServiceImpl implements ProvidersService {
     }
 
     @Override
-    public void registerProviderPurchase(Connection connection, int nit, String rSocial, String address, String phone,
+    public int registerProviderPurchase(Connection connection, int nit, String rSocial, String address, String phone,
                                          String email) throws DAOException {
         DTOProvider dto = new DTOProvider.Builder()
                 .nit(nit)
@@ -38,11 +38,17 @@ public class ProvidersServiceImpl implements ProvidersService {
                 .companyId(session.getCompanyId())
                 .build();
 
-        if (daoProviders.findById(connection, nit, session.getCompanyId()).isEmpty()) {
-            daoProviders.add(connection, dto);
+        Optional<DTOProvider> dtoProvider = daoProviders.findById(connection, nit, session.getCompanyId());
+        Integer providerId;
+
+        if (dtoProvider.isEmpty()) {
+            providerId = daoProviders.add(connection, dto);
         } else {
             daoProviders.modify(connection, dto);
+            providerId = dtoProvider.get().getId();
         }
+
+        return providerId;
     }
 
     @Override
