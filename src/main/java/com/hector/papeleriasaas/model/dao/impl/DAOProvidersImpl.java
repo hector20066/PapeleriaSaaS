@@ -7,10 +7,7 @@ import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.utils.SQLRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +28,7 @@ public class DAOProvidersImpl implements DAOProviders {
     public int add(Connection connection, DTOProvider dto) throws DAOException {
         String sql = SQLRepository.get("sql/provider/insert.sql");
 
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
+        try (PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             st.setInt(1, dto.getNit());
             st.setString(2, dto.getRSocial());
             st.setString(3, dto.getAddress());
