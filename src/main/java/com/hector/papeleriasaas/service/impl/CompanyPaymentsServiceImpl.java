@@ -59,24 +59,12 @@ public class CompanyPaymentsServiceImpl implements CompanyPaymentsService {
 
     @Override
     public List<DTOPaymentCompanyDetails> findByCompany(int companyId) throws DAOException {
-        List<DTOPaymentCompanyDetails> list = daoCompanyPayments.findByCompany(companyId);
-
-        if (list.isEmpty()) {
-            throw new DataNotFoundException();
-        }
-
-        return list;
+        return daoCompanyPayments.findByCompany(companyId);
     }
 
     @Override
     public List<DTOPaymentSimpleDetails> findByAll() throws DAOException {
-        List<DTOPaymentSimpleDetails> list = daoCompanyPayments.findByAll();
-
-        if (list.isEmpty()) {
-            throw new DataNotFoundException();
-        }
-
-        return list;
+        return daoCompanyPayments.findByAll();
     }
 
 }
