@@ -10,13 +10,21 @@ import java.awt.*;
  * @author hlacevedo
  */
 public class TableStatus extends JLabel {
+
+    private static final Color DEFAULT_FOREGROUND = Color.WHITE;
+    private static final Color SELECTED_FOREGROUND = new Color(15, 89, 140);
+    private static final Color DEFAULT_BACKGROUND_START = new Color(186, 123, 247);
+    private static final Color DEFAULT_BACKGROUND_END = new Color(167, 94, 236);
+    private static final Color SELECTED_BACKGROUND_START = new Color(229, 240, 249);
+    private static final Color SELECTED_BACKGROUND_END = new Color(210, 231, 246);
+    private boolean selected;
     
     public Status getType() {
         return type;
     }
 
     public TableStatus() {
-        setForeground(Color.WHITE);
+        setForeground(DEFAULT_FOREGROUND);
     }
 
     private Status type;
@@ -27,6 +35,12 @@ public class TableStatus extends JLabel {
         repaint();
     }
 
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        setForeground(selected ? SELECTED_FOREGROUND : DEFAULT_FOREGROUND);
+        repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics graphics) {
         if (type != null) {
@@ -34,8 +48,10 @@ public class TableStatus extends JLabel {
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             GradientPaint g = null;
             
-            if (type == Status.INACTIVE) {
-                g = new GradientPaint(0, 0, new Color(186, 123, 247), 0, getHeight(), new Color(167, 94, 236));
+            if (selected) {
+                g = new GradientPaint(0, 0, SELECTED_BACKGROUND_START, 0, getHeight(), SELECTED_BACKGROUND_END);
+            } else if (type == Status.INACTIVE) {
+                g = new GradientPaint(0, 0, DEFAULT_BACKGROUND_START, 0, getHeight(), DEFAULT_BACKGROUND_END);
             } else if (type == Status.ACTIVE) {
                 g = new GradientPaint(0, 0, new Color(142, 142, 250), 0, getHeight(), new Color(123, 123, 245));
             }

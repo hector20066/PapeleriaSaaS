@@ -6,6 +6,7 @@ import com.hector.papeleriasaas.view.swing.tables.tablestatus.TableHeader;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
 /**
@@ -17,6 +18,7 @@ public class Table extends JTable {
     private static final Color ROW_BACKGROUND = Color.WHITE;
     private static final Color ROW_FOREGROUND = new Color(102, 102, 102);
     private static final Color SELECTED_ROW_FOREGROUND = new Color(15, 89, 140);
+    private static final Color SELECTED_ROW_BACKGROUND = new Color(230, 241, 250);
 
     private boolean isStatusColumn(int viewColumn) {
         return convertColumnIndexToModel(viewColumn) == getModel().getColumnCount() - 1;
@@ -57,7 +59,7 @@ public class Table extends JTable {
             public Component getTableCellRendererComponent(JTable jtable, Object o, boolean selected, boolean bln1, int i, int i1) {
                 if (!isStatusColumn(i1) || !(o instanceof PaymentStatus type)) {
                     Component com = super.getTableCellRendererComponent(jtable, o, selected, bln1, i, i1);
-                    com.setBackground(ROW_BACKGROUND);
+                    com.setBackground(selected ? SELECTED_ROW_BACKGROUND : ROW_BACKGROUND);
 
                     if (com instanceof JComponent component) {
                         component.setBorder(noFocusBorder);
@@ -72,7 +74,8 @@ public class Table extends JTable {
                     return com;
                 } else {
                     CellStatus cell = new CellStatus(type);
-                    cell.setBackground(ROW_BACKGROUND);
+                    cell.setSelected(selected);
+                    cell.setBackground(selected ? SELECTED_ROW_BACKGROUND : ROW_BACKGROUND);
                     return cell;
                 }
             }
@@ -82,6 +85,21 @@ public class Table extends JTable {
     public void addRow(Object[] row) {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.addRow(row);
+    }
+
+    @Override
+    public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+        Component component = super.prepareRenderer(renderer, row, column);
+        boolean selected = isRowSelected(row);
+
+        if (component instanceof JComponent jComponent) {
+            jComponent.setOpaque(true);
+        }
+
+        component.setBackground(selected ? SELECTED_ROW_BACKGROUND : ROW_BACKGROUND);
+        component.setForeground(selected ? SELECTED_ROW_FOREGROUND : ROW_FOREGROUND);
+
+        return component;
     }
     
 }
