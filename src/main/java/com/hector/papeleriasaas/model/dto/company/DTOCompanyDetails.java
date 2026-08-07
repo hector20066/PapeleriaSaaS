@@ -12,6 +12,7 @@ public class DTOCompanyDetails {
     private String name;
     private String address;
     private String phone;
+    private String email;
     private LocalDate registrationDate;
     private Status status;
     private String planName;
@@ -27,6 +28,7 @@ public class DTOCompanyDetails {
         this.name = builder.name;
         this.address = builder.address;
         this.phone = builder.phone;
+        this.email = builder.email;
         this.registrationDate = builder.registrationDate;
         this.status = builder.status;
         this.planName = builder.planName;
@@ -53,6 +55,10 @@ public class DTOCompanyDetails {
         return phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public LocalDate getRegistrationDate() {
         return registrationDate;
     }
@@ -76,6 +82,7 @@ public class DTOCompanyDetails {
         private String name;
         private String address;
         private String phone;
+        private String email;
         private LocalDate registrationDate;
         private Status status;
         private String planName;
@@ -103,6 +110,11 @@ public class DTOCompanyDetails {
 
         public Builder phone(String phone) {
             this.phone = phone;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
             return this;
         }
 

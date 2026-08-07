@@ -159,6 +159,7 @@ public class DAOCompaniesImpl implements DAOCompanies {
                 .name(rs.getString("name"))
                 .address(rs.getString("address"))
                 .phone(rs.getString("phone"))
+                .email(rs.getString("email"))
                 .registrationDate(rs.getDate("registration_date").toLocalDate())
                 .status(Status.valueOf(rs.getString("status")))
                 .planName(rs.getString("plan_name"))
