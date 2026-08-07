@@ -4,17 +4,72 @@
  */
 package com.hector.papeleriasaas.view.content.panels.companies;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hector.papeleriasaas.model.dto.company.DTOCompanyDetails;
+import com.hector.papeleriasaas.model.dto.companypayments.DTOPaymentCompanyDetails;
+import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
+import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
+import com.hector.papeleriasaas.model.enums.Status;
+import com.hector.papeleriasaas.view.swing.scroll.ScrollBar;
+import com.hector.papeleriasaas.view.swing.tables.tablestatus.debts.Table;
+import java.awt.Color;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hlacevedo
  */
 public class CompanyView extends javax.swing.JPanel {
 
+    DefaultTableModel usersList;
+    DefaultTableModel paymentsList;
+    
     /**
      * Creates new form Company
      */
     public CompanyView() {
         initComponents();
+        
+        this.usersList = (DefaultTableModel) jtbl_users.getModel();
+        configureTableScrollPane(spTableUsers, jtbl_users);
+        
+        spTableUsers.setVerticalScrollBar(new ScrollBar());
+        spTableUsers.getVerticalScrollBar().setBackground(new Color(223, 229, 234));
+        JPanel panelUsers = new JPanel();
+        panelUsers.setBackground(Color.WHITE);
+        spTableUsers.setCorner(JScrollPane.UPPER_RIGHT_CORNER, panelUsers);
+        
+        this.paymentsList = (DefaultTableModel) jtbl_paymentHistory.getModel();
+        configureTableScrollPane(spTablePayment, jtbl_paymentHistory);
+        
+        spTablePayment.setVerticalScrollBar(new ScrollBar());
+        spTablePayment.getVerticalScrollBar().setBackground(new Color(223, 229, 234));
+        JPanel panelPayments = new JPanel();
+        panelPayments.setBackground(Color.WHITE);
+        spTablePayment.setCorner(JScrollPane.UPPER_RIGHT_CORNER, panelPayments);
+        
+        scroll.getVerticalScrollBar().setUnitIncrement(15);
+    }
+    
+    private void configureTableScrollPane(JScrollPane spTable, JTable table) {
+        Color background = new Color(223, 229, 234);
+        spTable.setBorder(BorderFactory.createEmptyBorder());
+        spTable.setViewportBorder(BorderFactory.createEmptyBorder());
+        spTable.setBackground(background);
+        spTable.getViewport().setBackground(background);
+        spTable.getViewport().setBorder(null);
+        spTable.setFocusable(false);
+        spTable.getViewport().setFocusable(false);
+        spTable.setColumnHeaderView(table.getTableHeader());
     }
 
     /**
@@ -27,54 +82,72 @@ public class CompanyView extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jlb_companyName = new javax.swing.JLabel();
+        scroll = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jlb_companyId = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         roundedPanel1 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
-        jLabel6 = new javax.swing.JLabel();
+        jlb_address = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         roundedPanel2 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
-        jLabel8 = new javax.swing.JLabel();
+        jlb_phone = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         roundedPanel3 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
-        jLabel10 = new javax.swing.JLabel();
+        jlb_email = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbx_status = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         roundedPanel4 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
-        jLabel14 = new javax.swing.JLabel();
+        jlb_registerDate = new javax.swing.JLabel();
         roundedPanel5 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        jlb_planName = new javax.swing.JLabel();
+        jlb_planPrice = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         roundedPanel6 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        table1 = new com.hector.papeleriasaas.view.swing.tables.tablestatus.debts.Table();
+        spTablePayment = new javax.swing.JScrollPane();
+        jtbl_paymentHistory = new com.hector.papeleriasaas.view.swing.tables.tablestatus.debts.Table();
         jLabel19 = new javax.swing.JLabel();
         roundedPanel7 = new com.hector.papeleriasaas.view.swing.panels.RoundedPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        table2 = new com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table();
+        spTableUsers = new javax.swing.JScrollPane();
+        jtbl_users = new com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
+        jlb_companyNit = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(242, 242, 242));
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
-        jLabel1.setText("Company Name");
+        jlb_companyName.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        jlb_companyName.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_companyName.setText("Company Name");
 
+        scroll.setBorder(null);
+
+        jPanel2.setBackground(new java.awt.Color(242, 242, 242));
+
+        jLabel2.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(42, 49, 64));
         jLabel2.setText("ID de la Empresa:");
 
-        jLabel4.setText("10673264");
+        jlb_companyId.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jlb_companyId.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_companyId.setText("10673264");
 
+        jLabel5.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(42, 49, 64));
         jLabel5.setText("Direccion");
 
-        jLabel6.setText("Tr 24 16-25");
+        roundedPanel1.setBackground(new java.awt.Color(242, 242, 242));
+        roundedPanel1.setForeground(new java.awt.Color(42, 49, 64));
+        roundedPanel1.setBorderColor(new java.awt.Color(119, 141, 169));
+
+        jlb_address.setBackground(new java.awt.Color(242, 242, 242));
+        jlb_address.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jlb_address.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_address.setText("Tr 24 16-25");
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
@@ -82,20 +155,28 @@ public class CompanyView extends javax.swing.JPanel {
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                .addComponent(jlb_address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlb_address)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel7.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(42, 49, 64));
         jLabel7.setText("Teléfono");
 
-        jLabel8.setText("3137762626");
+        roundedPanel2.setBackground(new java.awt.Color(242, 242, 242));
+        roundedPanel2.setBorderColor(new java.awt.Color(119, 141, 169));
+
+        jlb_phone.setBackground(new java.awt.Color(242, 242, 242));
+        jlb_phone.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jlb_phone.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_phone.setText("3137762626");
 
         javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
         roundedPanel2.setLayout(roundedPanel2Layout);
@@ -103,20 +184,28 @@ public class CompanyView extends javax.swing.JPanel {
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                .addComponent(jlb_phone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         roundedPanel2Layout.setVerticalGroup(
             roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8)
+                .addComponent(jlb_phone)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel9.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(42, 49, 64));
         jLabel9.setText("Correo");
 
-        jLabel10.setText("hectorluisacevedocontreras00@gmail.com");
+        roundedPanel3.setBackground(new java.awt.Color(242, 242, 242));
+        roundedPanel3.setBorderColor(new java.awt.Color(119, 141, 169));
+
+        jlb_email.setBackground(new java.awt.Color(242, 242, 242));
+        jlb_email.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jlb_email.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_email.setText("hectorluisacevedocontreras00@gmail.com");
 
         javax.swing.GroupLayout roundedPanel3Layout = new javax.swing.GroupLayout(roundedPanel3);
         roundedPanel3.setLayout(roundedPanel3Layout);
@@ -124,27 +213,42 @@ public class CompanyView extends javax.swing.JPanel {
             roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlb_email, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                 .addContainerGap())
         );
         roundedPanel3Layout.setVerticalGroup(
             roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel10)
+                .addComponent(jlb_email)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel11.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(42, 49, 64));
         jLabel11.setText("Estado");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo" }));
+        cbx_status.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        cbx_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo" }));
+
+        jSeparator1.setBackground(new java.awt.Color(119, 141, 169));
+        jSeparator1.setForeground(new java.awt.Color(119, 141, 169));
 
         jLabel12.setFont(new java.awt.Font("sansserif", 1, 20)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(42, 49, 64));
         jLabel12.setText("Informacion de Pagos");
 
+        jLabel13.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(42, 49, 64));
         jLabel13.setText("Fecha de Registro");
 
-        jLabel14.setText("27-05-2026");
+        roundedPanel4.setBackground(new java.awt.Color(242, 242, 242));
+        roundedPanel4.setBorderColor(new java.awt.Color(119, 141, 169));
+
+        jlb_registerDate.setBackground(new java.awt.Color(242, 242, 242));
+        jlb_registerDate.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        jlb_registerDate.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_registerDate.setText("27-05-2026");
 
         javax.swing.GroupLayout roundedPanel4Layout = new javax.swing.GroupLayout(roundedPanel4);
         roundedPanel4.setLayout(roundedPanel4Layout);
@@ -152,23 +256,27 @@ public class CompanyView extends javax.swing.JPanel {
             roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                .addComponent(jlb_registerDate, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addContainerGap())
         );
         roundedPanel4Layout.setVerticalGroup(
             roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14)
+                .addComponent(jlb_registerDate)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel16.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel16.setText("Plan Premium");
+        roundedPanel5.setBackground(new java.awt.Color(242, 242, 242));
 
-        jLabel17.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel17.setText("Valor: $");
+        jlb_planName.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jlb_planName.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_planName.setText("Plan Premium");
+
+        jlb_planPrice.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jlb_planPrice.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_planPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlb_planPrice.setText("Valor: $");
 
         javax.swing.GroupLayout roundedPanel5Layout = new javax.swing.GroupLayout(roundedPanel5);
         roundedPanel5.setLayout(roundedPanel5Layout);
@@ -176,9 +284,9 @@ public class CompanyView extends javax.swing.JPanel {
             roundedPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel5Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 613, Short.MAX_VALUE)
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlb_planName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlb_planPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
         roundedPanel5Layout.setVerticalGroup(
@@ -186,20 +294,24 @@ public class CompanyView extends javax.swing.JPanel {
             .addGroup(roundedPanel5Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(roundedPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17))
+                    .addComponent(jlb_planName)
+                    .addComponent(jlb_planPrice))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+        jLabel15.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(42, 49, 64));
         jLabel15.setText("Plan Actual.");
 
         jLabel18.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(42, 49, 64));
         jLabel18.setText("Historial de Pagos");
 
         roundedPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        roundedPanel6.setDrawBorder(false);
 
-        table1.setBackground(new java.awt.Color(255, 255, 255));
-        table1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbl_paymentHistory.setBackground(new java.awt.Color(255, 255, 255));
+        jtbl_paymentHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -215,7 +327,7 @@ public class CompanyView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(table1);
+        spTablePayment.setViewportView(jtbl_paymentHistory);
 
         javax.swing.GroupLayout roundedPanel6Layout = new javax.swing.GroupLayout(roundedPanel6);
         roundedPanel6.setLayout(roundedPanel6Layout);
@@ -223,24 +335,26 @@ public class CompanyView extends javax.swing.JPanel {
             roundedPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
+                .addComponent(spTablePayment)
                 .addContainerGap())
         );
         roundedPanel6Layout.setVerticalGroup(
             roundedPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spTablePayment, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel19.setFont(new java.awt.Font("sansserif", 1, 20)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(42, 49, 64));
         jLabel19.setText("Usuarios Registrados");
 
         roundedPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        roundedPanel7.setDrawBorder(false);
 
-        table2.setBackground(new java.awt.Color(255, 255, 255));
-        table2.setModel(new javax.swing.table.DefaultTableModel(
+        jtbl_users.setBackground(new java.awt.Color(255, 255, 255));
+        jtbl_users.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -248,7 +362,7 @@ public class CompanyView extends javax.swing.JPanel {
                 "ID", "Nombre", "Usuario", "Rol", "Estado"
             }
         ));
-        jScrollPane4.setViewportView(table2);
+        spTableUsers.setViewportView(jtbl_users);
 
         javax.swing.GroupLayout roundedPanel7Layout = new javax.swing.GroupLayout(roundedPanel7);
         roundedPanel7.setLayout(roundedPanel7Layout);
@@ -256,16 +370,19 @@ public class CompanyView extends javax.swing.JPanel {
             roundedPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
+                .addComponent(spTableUsers)
                 .addContainerGap())
         );
         roundedPanel7Layout.setVerticalGroup(
             roundedPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spTableUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jSeparator2.setBackground(new java.awt.Color(119, 141, 169));
+        jSeparator2.setForeground(new java.awt.Color(119, 141, 169));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -273,35 +390,39 @@ public class CompanyView extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7)))
-                        .addGap(456, 456, 456))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(roundedPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(92, 92, 92)
-                                .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
                             .addComponent(jLabel9)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(cbx_status, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(roundedPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(562, 562, 562))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(152, 152, 152))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jlb_companyId))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -312,29 +433,30 @@ public class CompanyView extends javax.swing.JPanel {
                                 .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel13)
                             .addComponent(jLabel15)
-                            .addComponent(roundedPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(roundedPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
                             .addComponent(jLabel12)
                             .addComponent(jLabel19))))
-                .addGap(26, 53, Short.MAX_VALUE))
+                .addGap(59, 59, 59))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(roundedPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(roundedPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(17, 17, 17))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(roundedPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(roundedPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(51, 51, 51))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1052, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
                     .addComponent(jSeparator2))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,7 +464,7 @@ public class CompanyView extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(jlb_companyId))
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -358,7 +480,7 @@ public class CompanyView extends javax.swing.JPanel {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbx_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -377,18 +499,19 @@ public class CompanyView extends javax.swing.JPanel {
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(roundedPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 27, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jLabel18)
                 .addGap(18, 18, 18)
                 .addComponent(roundedPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51))
         );
 
-        jScrollPane1.setViewportView(jPanel2);
+        scroll.setViewportView(jPanel2);
 
-        jLabel3.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Nit.");
+        jlb_companyNit.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jlb_companyNit.setForeground(new java.awt.Color(42, 49, 64));
+        jlb_companyNit.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jlb_companyNit.setText("Nit.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -396,21 +519,21 @@ public class CompanyView extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlb_companyName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(643, 643, 643)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlb_companyNit, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
-            .addComponent(jScrollPane1)
+            .addComponent(scroll)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                    .addComponent(jlb_companyName)
+                    .addComponent(jlb_companyNit))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE))
+                .addComponent(scroll, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -425,35 +548,131 @@ public class CompanyView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void loadData(DTOCompanyDetails dtoCompanyDetails) {
+        jlb_companyName.setText(dtoCompanyDetails.getName());
+        jlb_companyId.setText(String.valueOf(dtoCompanyDetails.getId()));
+        jlb_companyNit.setText("Nit. " + dtoCompanyDetails.getNit());
+        jlb_address.setText(dtoCompanyDetails.getAddress());
+        jlb_email.setText(dtoCompanyDetails.getEmail());
+        jlb_phone.setText(dtoCompanyDetails.getPhone());
+        
+        cbx_status.removeAllItems();
+        cbx_status.addItem(dtoCompanyDetails.getStatus().getValue());
+
+        jlb_registerDate.setText(dtoCompanyDetails.getRegistrationDate().toString());
+        jlb_planName.setText(dtoCompanyDetails.getPlanName());
+        jlb_planPrice.setText("Valor: $" + dtoCompanyDetails.getPlanPrice());
+    }
+
+    public void loadUsers(DTOUserDetails dto) {
+        Integer id = dto.getId();
+        String name = dto.getName();
+        String user = dto.getUser();
+        String role = dto.getRole().toString();
+        Status status = dto.getStatus();
+
+        Object[] data = new Object[]{id, name, user, role, status};
+        usersList.addRow(data);
+    }
+
+    public void loadPayments(DTOPaymentCompanyDetails dtoPaymentCompanyDetails) {
+        String plan = dtoPaymentCompanyDetails.getPlanName();
+        BigDecimal amountPaid = dtoPaymentCompanyDetails.getAmountPaid();
+        LocalDate paymentDate = dtoPaymentCompanyDetails.getPaymentDate();
+        LocalDate expirationDate = dtoPaymentCompanyDetails.getExpirationDate();
+        Status status = dtoPaymentCompanyDetails.getStatus();
+
+        Object[] data = new Object[]{plan, amountPaid, paymentDate, expirationDate, status};
+        paymentsList.addRow(data);
+    }
+
+    public void loadPlanInfo(DTOPlanDetails dtoPlanDetails) {
+
+    }
+
+    public JComboBox<String> getCbx_status() {
+        return cbx_status;
+    }
+
+    public JLabel getJlb_address() {
+        return jlb_address;
+    }
+
+    public JLabel getJlb_companyId() {
+        return jlb_companyId;
+    }
+
+    public JLabel getJlb_companyName() {
+        return jlb_companyName;
+    }
+
+    public JLabel getJlb_companyNit() {
+        return jlb_companyNit;
+    }
+
+    public JLabel getJlb_email() {
+        return jlb_email;
+    }
+
+    public JLabel getJlb_phone() {
+        return jlb_phone;
+    }
+
+    public JLabel getJlb_planName() {
+        return jlb_planName;
+    }
+
+    public JLabel getJlb_planPrice() {
+        return jlb_planPrice;
+    }
+
+    public JLabel getJlb_registerDate() {
+        return jlb_registerDate;
+    }
+
+    public Table getJtbl_paymentHistory() {
+        return jtbl_paymentHistory;
+    }
+
+    public com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table getJtbl_users() {
+        return jtbl_users;
+    }
+
+    public DefaultTableModel getUsersList() {
+        return usersList;
+    }
+
+    public DefaultTableModel getPaymentsList() {
+        return paymentsList;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JComboBox<String> cbx_status;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel jlb_address;
+    private javax.swing.JLabel jlb_companyId;
+    private javax.swing.JLabel jlb_companyName;
+    private javax.swing.JLabel jlb_companyNit;
+    private javax.swing.JLabel jlb_email;
+    private javax.swing.JLabel jlb_phone;
+    private javax.swing.JLabel jlb_planName;
+    private javax.swing.JLabel jlb_planPrice;
+    private javax.swing.JLabel jlb_registerDate;
+    private com.hector.papeleriasaas.view.swing.tables.tablestatus.debts.Table jtbl_paymentHistory;
+    private com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table jtbl_users;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel1;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel2;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel3;
@@ -461,7 +680,8 @@ public class CompanyView extends javax.swing.JPanel {
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel5;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel6;
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel7;
-    private com.hector.papeleriasaas.view.swing.tables.tablestatus.debts.Table table1;
-    private com.hector.papeleriasaas.view.swing.tables.tablestatus.users.Table table2;
+    private javax.swing.JScrollPane scroll;
+    private javax.swing.JScrollPane spTablePayment;
+    private javax.swing.JScrollPane spTableUsers;
     // End of variables declaration//GEN-END:variables
 }

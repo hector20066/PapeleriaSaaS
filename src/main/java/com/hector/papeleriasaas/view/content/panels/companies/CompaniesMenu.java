@@ -48,6 +48,7 @@ public class CompaniesMenu extends javax.swing.JPanel {
         btn_customers = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_providers = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         btn_dashboard = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
+        btn_myProfile = new com.hector.papeleriasaas.view.swing.buttons.ButtonAction();
         jpl_content = new javax.swing.JPanel();
 
         jpl_body.setBackground(new java.awt.Color(242, 242, 242));
@@ -157,6 +158,14 @@ public class CompaniesMenu extends javax.swing.JPanel {
         btn_dashboard.setBorderPainted(false);
         btn_dashboard.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 
+        btn_myProfile.setBackground(new java.awt.Color(42, 49, 64));
+        btn_myProfile.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
+        btn_myProfile.setForeground(new java.awt.Color(242, 242, 242));
+        btn_myProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/circle-user.png"))); // NOI18N
+        btn_myProfile.setText("Mi Información");
+        btn_myProfile.setBorderPainted(false);
+        btn_myProfile.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jpl_menuLayout = new javax.swing.GroupLayout(jpl_menu);
         jpl_menu.setLayout(jpl_menuLayout);
         jpl_menuLayout.setHorizontalGroup(
@@ -171,13 +180,14 @@ public class CompaniesMenu extends javax.swing.JPanel {
             .addComponent(btn_customers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_providers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpl_menuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addGroup(jpl_menuLayout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(btn_dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jpl_menuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator1)
+                .addContainerGap())
+            .addComponent(btn_myProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jpl_menuLayout.setVerticalGroup(
             jpl_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,9 +212,11 @@ public class CompaniesMenu extends javax.swing.JPanel {
                 .addComponent(btn_customers, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btn_providers, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(0, 0, 0)
+                .addComponent(btn_myProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -283,6 +295,10 @@ public class CompaniesMenu extends javax.swing.JPanel {
     public void setControllerProviders(ActionListener action) {
         btn_providers.addActionListener(action);
     }
+    
+    public void setControllerMyProfile(ActionListener action) {
+        btn_myProfile.addActionListener(action);
+    }
 
     public void setControllerLogout(ActionListener action){
         btn_logout.addActionListener(action);
@@ -298,10 +314,6 @@ public class CompaniesMenu extends javax.swing.JPanel {
 
     public ButtonAction getBtn_debtsReports() {
         return btn_debtsReports;
-    }
-
-    public ButtonAction getBtn_exit() {
-        return btn_logout;
     }
 
     public ButtonAction getBtn_products() {
@@ -320,7 +332,15 @@ public class CompaniesMenu extends javax.swing.JPanel {
         return btn_salesReport;
     }
 
-    public ButtonAction getBtn_suppliers() {
+    public ButtonAction getBtn_logout() {
+        return btn_logout;
+    }
+
+    public ButtonAction getBtn_myProfile() {
+        return btn_myProfile;
+    }
+
+    public ButtonAction getBtn_providers() {
         return btn_providers;
     }
 
@@ -341,6 +361,7 @@ public class CompaniesMenu extends javax.swing.JPanel {
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_dashboard;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_debtsReports;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_logout;
+    private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_myProfile;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_products;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_providers;
     private com.hector.papeleriasaas.view.swing.buttons.ButtonAction btn_purchaseReport;
