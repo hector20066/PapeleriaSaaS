@@ -4,6 +4,7 @@ SELECT
     c.name,
     c.address,
     c.phone,
+    c.email,
     c.registration_date,
     c.status,
     p.name AS plan_name,
