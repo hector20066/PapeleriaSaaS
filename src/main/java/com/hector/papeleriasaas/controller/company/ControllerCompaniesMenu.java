@@ -31,6 +31,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
     private final PurchasingReportView purchasingReport;
     private final CustomersView customers;
     private final ProvidersView suppliers;
+    private final CompanyView companyView;
     private final IndexView index;
     private final Coordinator coordinator;
     private final Login login;
@@ -48,6 +49,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
         this.suppliers = builder.getSuppliers();
         this.purchasingReport = builder.getPurchasingReport();
         this.index = builder.getIndexView();
+        this.companyView = builder.getCompanyView();
         this.login = builder.getLogin();
         this.session = builder.getSession();
 
@@ -74,6 +76,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.setControllerPurchaseReport(e -> showPurchasingReport());
         companiesMenu.setControllerCustomers(e -> showCustomers());
         companiesMenu.setControllerProviders(e -> showProviders());
+        companiesMenu.setControllerMyProfile(e -> showMyProfile());
         companiesMenu.setControllerLogout(e -> logout());
     }
 
@@ -90,7 +93,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_debtsReports().setText(expandedMenu ? "  Reporte Deudas" : "");
         companiesMenu.getBtn_salesReport().setText(expandedMenu ? "  Reporte Ventas" : "");
         companiesMenu.getBtn_purchaseReport().setText(expandedMenu ? "  Reporte Compras" : "");
-        companiesMenu.getBtn_exit().setText(expandedMenu ? "  Cerrar Sesión" : "");
+        companiesMenu.getBtn_logout().setText(expandedMenu ? "  Cerrar Sesión" : "");
         companiesMenu.getJlb_title().setText(expandedMenu ? session.getCompany().getName() : "");
     }
 
@@ -101,11 +104,12 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_debtsReports().setBackground(color2);
         companiesMenu.getBtn_salesReport().setBackground(color2);
         companiesMenu.getBtn_purchaseReport().setBackground(color2);
-        companiesMenu.getBtn_suppliers().setBackground(color2);
+        companiesMenu.getBtn_providers().setBackground(color2);
         companiesMenu.getBtn_customers().setBackground(color2);
+        companiesMenu.getBtn_myProfile().setBackground(color2);
 
         NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), dashboard);
-        //coordinator.loadData();
+        coordinator.loadData();
     }
 
     private void showPurchaseProducts() {
@@ -115,8 +119,9 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_debtsReports().setBackground(color2);
         companiesMenu.getBtn_salesReport().setBackground(color2);
         companiesMenu.getBtn_purchaseReport().setBackground(color2);
-        companiesMenu.getBtn_suppliers().setBackground(color2);
+        companiesMenu.getBtn_providers().setBackground(color2);
         companiesMenu.getBtn_customers().setBackground(color2);
+        companiesMenu.getBtn_myProfile().setBackground(color2);
 
         NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), purchaseProducts);
     }
@@ -128,8 +133,9 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_debtsReports().setBackground(color2);
         companiesMenu.getBtn_salesReport().setBackground(color2);
         companiesMenu.getBtn_purchaseReport().setBackground(color2);
-        companiesMenu.getBtn_suppliers().setBackground(color2);
+        companiesMenu.getBtn_providers().setBackground(color2);
         companiesMenu.getBtn_customers().setBackground(color2);
+        companiesMenu.getBtn_myProfile().setBackground(color2);
 
         NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), salesManagement);
     }
@@ -141,8 +147,9 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_products().setBackground(color2);
         companiesMenu.getBtn_debtsReports().setBackground(color2);
         companiesMenu.getBtn_purchaseReport().setBackground(color2);
-        companiesMenu.getBtn_suppliers().setBackground(color2);
+        companiesMenu.getBtn_providers().setBackground(color2);
         companiesMenu.getBtn_customers().setBackground(color2);
+        companiesMenu.getBtn_myProfile().setBackground(color2);
 
         NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), salesReport);
         salesReport.getTxt_searchSale().setText("Buscar Venta");
@@ -155,8 +162,9 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_sales().setBackground(color2);
         companiesMenu.getBtn_products().setBackground(color2);
         companiesMenu.getBtn_purchaseReport().setBackground(color2);
-        companiesMenu.getBtn_suppliers().setBackground(color2);
+        companiesMenu.getBtn_providers().setBackground(color2);
         companiesMenu.getBtn_customers().setBackground(color2);
+        companiesMenu.getBtn_myProfile().setBackground(color2);
 
         NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), debtReport);
         debtReport.getTxt_searchCustomer().setText("Buscar Cliente");
@@ -169,8 +177,9 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_dashboard().setBackground(color2);
         companiesMenu.getBtn_sales().setBackground(color2);
         companiesMenu.getBtn_products().setBackground(color2);
-        companiesMenu.getBtn_suppliers().setBackground(color2);
+        companiesMenu.getBtn_providers().setBackground(color2);
         companiesMenu.getBtn_customers().setBackground(color2);
+        companiesMenu.getBtn_myProfile().setBackground(color2);
 
         NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), purchasingReport);
         purchasingReport.getTxt_search().setText("Buscar Compra");
@@ -184,14 +193,31 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_dashboard().setBackground(color2);
         companiesMenu.getBtn_sales().setBackground(color2);
         companiesMenu.getBtn_products().setBackground(color2);
-        companiesMenu.getBtn_suppliers().setBackground(color2);
+        companiesMenu.getBtn_providers().setBackground(color2);
+        companiesMenu.getBtn_myProfile().setBackground(color2);
 
         NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), customers);
         customers.getTxt_search().setText("Buscar Cliente");
     }
 
     private void showProviders() {
-        companiesMenu.getBtn_suppliers().setBackground(color1);
+        companiesMenu.getBtn_providers().setBackground(color1);
+        companiesMenu.getBtn_customers().setBackground(color2);
+        companiesMenu.getBtn_purchaseReport().setBackground(color2);
+        companiesMenu.getBtn_debtsReports().setBackground(color2);
+        companiesMenu.getBtn_salesReport().setBackground(color2);
+        companiesMenu.getBtn_dashboard().setBackground(color2);
+        companiesMenu.getBtn_sales().setBackground(color2);
+        companiesMenu.getBtn_products().setBackground(color2);
+        companiesMenu.getBtn_myProfile().setBackground(color2);
+
+        NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), suppliers);
+        suppliers.getTxt_search().setText("Buscar proveedor");
+    }
+
+    private void showMyProfile() {
+        companiesMenu.getBtn_myProfile().setBackground(color1);
+        companiesMenu.getBtn_providers().setBackground(color2);
         companiesMenu.getBtn_customers().setBackground(color2);
         companiesMenu.getBtn_purchaseReport().setBackground(color2);
         companiesMenu.getBtn_debtsReports().setBackground(color2);
@@ -200,8 +226,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
         companiesMenu.getBtn_sales().setBackground(color2);
         companiesMenu.getBtn_products().setBackground(color2);
 
-        NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), suppliers);
-        suppliers.getTxt_search().setText("Buscar proveedor");
+        NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), companyView);
     }
 
     @Override

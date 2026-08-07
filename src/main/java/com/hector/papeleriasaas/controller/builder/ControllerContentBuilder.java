@@ -25,6 +25,7 @@ public class ControllerContentBuilder {
     private ProvidersView suppliers;
     private Coordinator coordinator;
     private IndexView indexView;
+    private CompanyView companyView;
     private Login login;
     private Session session;
 
@@ -80,6 +81,11 @@ public class ControllerContentBuilder {
 
     public ControllerContentBuilder withViewIndex(IndexView index) {
         this.indexView = index;
+        return this;
+    }
+
+    public ControllerContentBuilder withCompanyView(CompanyView companyView) {
+        this.companyView = companyView;
         return this;
     }
 
@@ -139,6 +145,10 @@ public class ControllerContentBuilder {
 
     public IndexView getIndexView() {
         return indexView;
+    }
+
+    public CompanyView getCompanyView() {
+        return companyView;
     }
 
     public Login getLogin() {

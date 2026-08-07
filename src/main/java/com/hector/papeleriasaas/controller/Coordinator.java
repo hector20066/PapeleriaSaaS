@@ -7,6 +7,7 @@ import com.hector.papeleriasaas.controller.admin.ControllerAdminMenu;
 import com.hector.papeleriasaas.controller.admin.ControllerRegisterUsers;
 import com.hector.papeleriasaas.controller.admin.ControllerUserManagement;
 import com.hector.papeleriasaas.controller.builder.*;
+import com.hector.papeleriasaas.controller.company.ControllerCompanyView;
 import com.hector.papeleriasaas.controller.company.ControllerCustomer;
 import com.hector.papeleriasaas.controller.company.ControllerPurchasingReport;
 import com.hector.papeleriasaas.controller.company.ControllerSuppliers;
@@ -199,6 +200,7 @@ public class Coordinator {
                 .withViewSuppliers(providers)
                 .withCoordinator(this)
                 .withViewIndex(index)
+                .withCompanyView(companyView)
                 .withLogin(login)
                 .withSession(session)
                 .build();
@@ -256,6 +258,7 @@ public class Coordinator {
         new ControllerPurchasingReport(purchasingReport, subject, purchaseService);
         new ControllerCustomer(customers, subject, customerService);
         new ControllerSuppliers(providers, subject, providersService);
+        new ControllerCompanyView(companyView, session, subject, userService, plansService, companyPaymentsService);
     }
 
     public void startAdminEnvironment() {
