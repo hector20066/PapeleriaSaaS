@@ -8,12 +8,14 @@ import com.hector.papeleriasaas.exception.dao.notfound.SaleDetailsNotFoundExcept
 import com.hector.papeleriasaas.exception.dao.persistence.SalePersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOSales;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
+import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
 import com.hector.papeleriasaas.service.interfaces.*;
+import org.apache.batik.css.engine.value.svg12.ICCNamedColor;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -46,7 +48,7 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    public int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
+    public int registerSale(Integer customerIdentification, String customerName, String customerPhone, BigDecimal amountPaid,
                             BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws SQLException, DAOException {
         Connection connection = null;
         int invoiceNumber;
@@ -63,12 +65,17 @@ public class SaleServiceImpl implements SaleService {
             connection = connectionProvider.getConnection();
             connection.setAutoCommit(false);
 
+            Integer customerId = null;
+
             // Only process customer info if customerId is not null (sale with debt)
-            if (customerId != null) {
-                if (customerService.findById(connection, customerId) == null) {
-                    customerService.add(connection, customerId, customerName, customerPhone);
+            if (customerIdentification != null) {
+                DTOCustomerDetails dtoCustomerDetails = customerService.findById(connection, customerIdentification);
+
+                if (dtoCustomerDetails == null) {
+                    customerId = customerService.add(connection, customerIdentification, customerName, customerPhone);
                 } else {
-                    customerService.modify(connection, customerPhone, customerId);
+                    customerService.modify(connection, customerPhone, customerIdentification);
+                    customerId = dtoCustomerDetails.getId();
                 }
             }
 
@@ -158,6 +165,7 @@ public class SaleServiceImpl implements SaleService {
         DTOSaleUpdate dto = new DTOSaleUpdate();
         dto.setTotalPaid(currentBalance.add(pass));
         dto.setNumSale(numSale);
+        dto.setCompanyId(session.getCompanyId());
 
         daoSales.modify(dto);
     }
@@ -167,6 +175,7 @@ public class SaleServiceImpl implements SaleService {
         DTOSaleUpdate dto = new DTOSaleUpdate();
         dto.setTotalPaid(totalPaid);
         dto.setNumSale(numSale);
+        dto.setCompanyId(session.getCompanyId());
 
         daoSales.modify(connection, dto);
     }

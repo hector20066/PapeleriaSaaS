@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface CustomerService {
 
-    void add(Connection connection, int id, String name, String phone) throws DAOException;
+    int add(Connection connection, int id, String name, String phone) throws DAOException;
     DTOCustomerDetails findByName(String name) throws DAOException;
     DTOCustomerDetails findById(int id) throws DAOException;
     DTOCustomerDetails findById(Connection connection, int id) throws DAOException;

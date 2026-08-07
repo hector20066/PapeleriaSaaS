@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void add(Connection connection, int id, String name, String phone) throws DAOException {
+    public int add(Connection connection, int id, String name, String phone) throws DAOException {
         DTOCustomerCreate dto = new DTOCustomerCreate.Builder()
                 .identification(id)
                 .name(name)
@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .companyId(session.getCompanyId())
                 .build();
 
-        daoCustomers.add(connection, dto);
+        return daoCustomers.add(connection, dto);
     }
 
     @Override
