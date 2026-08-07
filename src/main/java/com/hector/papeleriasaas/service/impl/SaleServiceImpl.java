@@ -1,7 +1,6 @@
 package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.auth.Session;
-import com.hector.papeleriasaas.auth.SessionImpl;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.SaleDetailsNotFoundException;
@@ -15,7 +14,6 @@ import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleDetails;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleUpdate;
 import com.hector.papeleriasaas.service.interfaces.*;
-import org.apache.batik.css.engine.value.svg12.ICCNamedColor;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
