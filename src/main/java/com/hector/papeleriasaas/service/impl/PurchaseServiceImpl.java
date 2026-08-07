@@ -81,7 +81,6 @@ public class PurchaseServiceImpl implements PurchaseService {
                 connection.rollback();
             }
 
-            e.printStackTrace();
             throw e;
         } finally {
             if (connection != null) {

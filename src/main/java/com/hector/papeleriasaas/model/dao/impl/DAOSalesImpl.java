@@ -42,7 +42,7 @@ public class DAOSalesImpl implements DAOSales {
 
             try (ResultSet rs = cs.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("sale_number");
+                    return rs.getInt("sale_id");
                 }
 
                 throw new SQLException("No se genero la venta");

@@ -27,7 +27,6 @@ public class DAOPurchasesImpl implements DAOPurchases {
     @Override
     public int add(Connection connection, DTOPurchaseCreate dto) throws DAOException {
         String sql = SQLRepository.get("sql/purchase/insert.sql");
-        IO.println("Id del proveedor : " + dto.getProviderId());
 
         try (CallableStatement cs = connection.prepareCall(sql)) {
             cs.setInt(1, dto.getProviderId());
@@ -36,13 +35,12 @@ public class DAOPurchasesImpl implements DAOPurchases {
 
             try (ResultSet rs = cs.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt("purchase_number");
+                    return rs.getInt("purchase_id");
                 }
 
                 throw new SQLException("No se genero la compra");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new PurchasePersistenceException("Error al agregar compra", e);
         }
     }
