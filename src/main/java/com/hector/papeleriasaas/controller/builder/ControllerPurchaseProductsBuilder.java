@@ -2,6 +2,8 @@ package com.hector.papeleriasaas.controller.builder;
 
 import com.hector.papeleriasaas.controller.company.ControllerPurchaseProducts;
 import com.hector.papeleriasaas.observer.Subject;
+import com.hector.papeleriasaas.service.interfaces.ProductService;
+import com.hector.papeleriasaas.service.interfaces.ProvidersService;
 import com.hector.papeleriasaas.service.interfaces.PurchaseService;
 import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
 import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProductsView;
@@ -16,7 +18,9 @@ public class ControllerPurchaseProductsBuilder {
     private InventoryView inventory;
     private Subject subject;
 
+    private ProductService productService;
     private PurchaseService purchaseService;
+    private ProvidersService providersService;
 
     public ControllerPurchaseProductsBuilder withViewProductManagement(PurchaseProductsView productManagement) {
         this.productManagement = productManagement;
@@ -33,8 +37,18 @@ public class ControllerPurchaseProductsBuilder {
         return this;
     }
 
+    public ControllerPurchaseProductsBuilder withProductService(ProductService productService) {
+        this.productService = productService;
+        return this;
+    }
+
     public ControllerPurchaseProductsBuilder withPurchaseService(PurchaseService purchaseService) {
         this.purchaseService = purchaseService;
+        return this;
+    }
+
+    public ControllerPurchaseProductsBuilder withProviderService(ProvidersService providerService) {
+        this.providersService = providerService;
         return this;
     }
 
@@ -54,8 +68,16 @@ public class ControllerPurchaseProductsBuilder {
         return subject;
     }
 
+    public ProductService getProductService() {
+        return productService;
+    }
+
     public PurchaseService getPurchaseService() {
         return purchaseService;
+    }
+
+    public ProvidersService getProvidersService() {
+        return providersService;
     }
 
 }
