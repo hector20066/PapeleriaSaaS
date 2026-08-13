@@ -31,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
         this.session = session;
     }
 
+    @Override
     public List<DTOProductDetails> getProductList() {
         return daoProducts.getProductList();
     }
