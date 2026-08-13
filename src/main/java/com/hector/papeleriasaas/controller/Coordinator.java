@@ -95,6 +95,7 @@ public class Coordinator {
     private final DAOSales daoSales = new DAOSalesImpl(connectionProvider);
     private final DAOSaleDetails daoSaleDetails = new DAOSaleDetailsImpl();
     private final DAOUsers daoUsers = new DAOUsersImpl(connectionProvider);
+    private final DAOProviderProducts daoProviderProducts = new DAOProviderProductsImpl(connectionProvider);
     private final DAORememberTokens daoRememberTokens = new DAORememberTokensImpl(connectionProvider);
 
     // Services
@@ -108,7 +109,8 @@ public class Coordinator {
     private final ProductService productService = new ProductServiceImpl(daoProducts, session);
     private final ProvidersService providersService = new ProvidersServiceImpl(daoProviders, session);
     private final PurchaseDetailsService purchaseDetailsService = new PurchaseDetailsServiceImpl(daoPurchaseDetails);
-    private final PurchaseService purchaseService = new PurchaseServiceImpl(daoPurchases, providersService, productService, purchaseDetailsService, connectionProvider, session);
+    private final ProviderProductsService providerProductsService = new ProviderProductsServiceImpl(daoProviderProducts);
+    private final PurchaseService purchaseService = new PurchaseServiceImpl(daoPurchases, providersService, productService, purchaseDetailsService, providerProductsService, connectionProvider, session);
     private final SaleDetailsService saleDetailsService = new SaleDetailsServiceImpl(daoSaleDetails);
     private final SaleService saleService = new SaleServiceImpl(daoSales, customerService, saleDetailsService, invoicesService, productService, connectionProvider, session);
     private final RememberTokensService rememberTokensService = new RememberTokensServiceImpl(daoRememberTokens);
