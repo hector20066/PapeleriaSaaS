@@ -10,10 +10,7 @@ import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseCreate;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseDetails;
-import com.hector.papeleriasaas.service.interfaces.ProductService;
-import com.hector.papeleriasaas.service.interfaces.ProvidersService;
-import com.hector.papeleriasaas.service.interfaces.PurchaseDetailsService;
-import com.hector.papeleriasaas.service.interfaces.PurchaseService;
+import com.hector.papeleriasaas.service.interfaces.*;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -30,15 +27,19 @@ public class PurchaseServiceImpl implements PurchaseService {
     private final ProvidersService providersService;
     private final ProductService productService;
     private final PurchaseDetailsService purchaseDetailsService;
+    private final ProviderProductsService providerProductsService;
     private final ConnectionProvider connectionProvider;
 
     private final Session session;
 
-    public PurchaseServiceImpl(DAOPurchases daoPurchases, ProvidersService providersService, ProductService productService, PurchaseDetailsService purchaseDetailsService, ConnectionProvider connectionProvider, Session session) {
+    public PurchaseServiceImpl(DAOPurchases daoPurchases, ProvidersService providersService, ProductService productService,
+                               PurchaseDetailsService purchaseDetailsService, ProviderProductsService providerProductsService,
+                               ConnectionProvider connectionProvider, Session session) {
         this.daoPurchases = daoPurchases;
         this.providersService = providersService;
         this.productService = productService;
         this.purchaseDetailsService = purchaseDetailsService;
+        this.providerProductsService = providerProductsService;
         this.connectionProvider = connectionProvider;
         this.session = session;
     }
@@ -64,6 +65,8 @@ public class PurchaseServiceImpl implements PurchaseService {
                 if (dtoProductFound == null) {
                     productId = productService.add(connection, dtoProduct.getDescription(), dtoProduct.getPurchasePrice(),
                             dtoProduct.getSalePrice());
+
+                    providerProductsService.add(connection, providerId, productId);
                 } else {
                     productService.modify(connection, dtoProduct.getDescription(), dtoProductFound.getAmount(),
                             dtoProduct.getSalePrice(), dtoProduct.getPurchasePrice(), dtoProductFound.getId());
