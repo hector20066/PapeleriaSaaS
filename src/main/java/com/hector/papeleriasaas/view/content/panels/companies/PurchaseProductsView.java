@@ -1,6 +1,7 @@
 package com.hector.papeleriasaas.view.content.panels.companies;
 
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
+import com.hector.papeleriasaas.model.dto.provider.DTOProviderDetails;
 import com.hector.papeleriasaas.view.swing.buttons.ButtonAction;
 import com.hector.papeleriasaas.view.swing.panels.RoundedPanel;
 
@@ -506,6 +507,14 @@ public class PurchaseProductsView extends javax.swing.JPanel {
         txt_product.setText(dtoProduct.getDescription());
         txt_salePrice.setText(String.valueOf(dtoProduct.getSalePrice()));
         txt_purchasePrice.setText(String.valueOf(dtoProduct.getPurchasePrice()));
+    }
+
+    public void loadProvider(DTOProviderDetails dtoProviderDetails) {
+        txt_rSocial.setText(dtoProviderDetails.getrSocial());
+        txt_nit.setText(dtoProviderDetails.getNit().toString());
+        txt_address.setText(dtoProviderDetails.getAddress());
+        txt_phone.setText(dtoProviderDetails.getPhone());
+        txt_email.setText(dtoProviderDetails.getEmail());
     }
     
     public void setControllerRegister(ActionListener action) {
