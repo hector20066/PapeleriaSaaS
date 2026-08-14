@@ -242,6 +242,7 @@ public class Coordinator {
                 .withSubject(subject)
                 .withPurchaseService(purchaseService)
                 .withProductService(productService)
+                .withProviderProductsService(providerProductsService)
                 .build();
 
         new ControllerSalesManagementBuilder()
