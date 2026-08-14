@@ -3,12 +3,20 @@ package com.hector.papeleriasaas.controller.company;
 import com.hector.papeleriasaas.business.PurchaseProductCalculator;
 import com.hector.papeleriasaas.controller.builder.ControllerPurchaseProductsBuilder;
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
+import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.mapper.PurchaseProductMapper;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
+import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
+import com.hector.papeleriasaas.model.dto.provider.DTOProviderDetails;
+import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
+import com.hector.papeleriasaas.service.interfaces.ProductService;
+import com.hector.papeleriasaas.service.interfaces.ProviderProductsService;
+import com.hector.papeleriasaas.service.interfaces.ProvidersService;
 import com.hector.papeleriasaas.service.interfaces.PurchaseService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
@@ -24,25 +32,33 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
  * @author Ing. Hector Acevedo
  */
-public class ControllerPurchaseProducts {
+public class ControllerPurchaseProducts implements Observer {
 
     private final PurchaseProductsView productManagement;
     private final InventoryView inventory;
     private final Subject subject;
 
+    private final ProductService productService;
     private final PurchaseService purchaseService;
+    private final ProviderProductsService providerProductsService;
+    private boolean loadingProducts;
 
     public ControllerPurchaseProducts(ControllerPurchaseProductsBuilder builder) {
         this.productManagement = builder.getProductManagement();
         this.inventory = builder.getInventory();
         this.subject = builder.getSubject();
 
+        this.productService = builder.getProductService();
         this.purchaseService = builder.getPurchaseService();
+        this.providerProductsService = builder.getProviderProductsService();
+
+        this.subject.register(this);
 
         connectEvents();
     }
@@ -53,12 +69,38 @@ public class ControllerPurchaseProducts {
         productManagement.setControllerSeeInventory(e -> showInventory());
         productManagement.setControllerDeleteOrder(e -> deleteOrder());
         productManagement.setControllerCancelPurchase(e -> clearFields());
+        productManagement.setControllerSelectProduct(e -> selectProduct());
 
         productManagement.setControllerTxt_rSocialFocus(SwingUtils.addFocusListener(productManagement.getTxt_rSocial(), "R. Social"));
         productManagement.setControllerTxt_supplierNitFocus(SwingUtils.addFocusListener(productManagement.getTxt_nit(), "Nit"));
         productManagement.setControllerTxt_phoneFocus(SwingUtils.addFocusListener(productManagement.getTxt_phone(), "Telefono"));
         productManagement.setControllerTxt_addressFocus(SwingUtils.addFocusListener(productManagement.getTxt_address(), "Direccion"));
         productManagement.setControllerTxt_emailFocus(SwingUtils.addFocusListener(productManagement.getTxt_email(), "Correo"));
+    }
+
+    @Override
+    public void update() {
+        ObserverExecutor.execute(() -> {
+            try {
+                List<DTOProductDetails> productsList = productService.findByAll();
+
+                SwingUtilities.invokeLater(() -> loadData(productsList));
+            } catch (DAOException e) {
+                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage(e.getMessage(), productManagement));
+            }
+        });
+    }
+
+    private void loadData(List<DTOProductDetails> productLists) {
+        loadingProducts = true;
+
+        try {
+            productManagement.getCbx_productList().removeAllItems();
+            productManagement.getCbx_productList().addItem("Seleccione un producto");
+            productLists.forEach(productManagement::loadProductList);
+        } finally {
+            loadingProducts = false;
+        }
     }
 
     private void registerPurchase() {
@@ -128,14 +170,9 @@ public class ControllerPurchaseProducts {
     private void clearFields() {
         resetUI();
         cleanFieldsProducts();
+        cleanFieldsProvider();
 
-        productManagement.getTxt_nit().setText("Nit");
-        productManagement.getTxt_rSocial().setText("R. Social");
-        productManagement.getTxt_address().setText("Direccion");
-        productManagement.getTxt_phone().setText("Telefono");
-        productManagement.getTxt_email().setText("Correo");
         productManagement.getJlb_totalPurchases().setText("0.00");
-
         productManagement.getProductList().setRowCount(0);
     }
 
@@ -171,13 +208,6 @@ public class ControllerPurchaseProducts {
         }
     }
 
-    private void cleanFieldsProducts() {
-        productManagement.getTxt_product().setText("");
-        productManagement.getTxt_amount().setText("");
-        productManagement.getTxt_purchasePrice().setText("");
-        productManagement.getTxt_salePrice().setText("");
-    }
-
     private void showInventory() {
         NavigatorUtils.showPanels(CompaniesMenu.getJpl_content(), inventory);
         inventory.getTxt_search().setText("Buscar Producto");
@@ -205,6 +235,65 @@ public class ControllerPurchaseProducts {
         }
 
         return totalPaidList;
+    }
+
+    private void selectProduct() {
+        try {
+            if (loadingProducts) {
+                return;
+            }
+
+            String product = (String) productManagement.getCbx_productList().getSelectedItem();
+
+            if (product == null || product.equalsIgnoreCase("Seleccione un producto")) {
+                cleanFieldsProducts();
+                return;
+            }
+
+            Optional<DTOProductDetails> dtoProductDetailsOptional = productService.getProductList().stream()
+                    .filter(p -> p.getDescription().equalsIgnoreCase(product))
+                    .findFirst();
+
+            if (dtoProductDetailsOptional.isPresent()) {
+                DTOProductDetails dtoProductDetails = dtoProductDetailsOptional.get();
+                productManagement.loadProduct(dtoProductDetails);
+
+                BackgroundExecutor.execute(() -> {
+                    try {
+                        Optional<DTOProviderDetails> dtoProviderDetails = providerProductsService.findProviderProducts(dtoProductDetails.getId());
+
+                        if (dtoProviderDetails.isEmpty()) {
+                            throw new DataNotFoundException("No se ha encontrado el proveedor");
+                        }
+
+                        SwingUtilities.invokeLater(() -> productManagement.loadProvider(dtoProviderDetails.get()));
+                    } catch (DAOException e) {
+                        cleanFieldsProvider();
+                        SwingUtilities.invokeLater(() -> MessageUtils.errorMessage(e.getMessage(), productManagement));
+                    }
+                });
+            } else {
+                throw new DataNotFoundException("No se ha encontrado el producto. Lamentamos los inconvenientes");
+            }
+        } catch (DAOException e) {
+            MessageUtils.warningMessage(e.getMessage(), productManagement);
+        }
+    }
+
+    private void cleanFieldsProducts() {
+        productManagement.getTxt_product().setText("");
+        productManagement.getTxt_amount().setText("");
+        productManagement.getTxt_purchasePrice().setText("");
+        productManagement.getTxt_salePrice().setText("");
+        productManagement.getCbx_productList().setSelectedIndex(0);
+    }
+
+    private void cleanFieldsProvider() {
+        productManagement.getTxt_nit().setText("Nit");
+        productManagement.getTxt_rSocial().setText("R. Social");
+        productManagement.getTxt_address().setText("Direccion");
+        productManagement.getTxt_phone().setText("Telefono");
+        productManagement.getTxt_email().setText("Correo");
     }
 
 }
