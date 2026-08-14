@@ -3,6 +3,7 @@ package com.hector.papeleriasaas.controller.builder;
 import com.hector.papeleriasaas.controller.company.ControllerPurchaseProducts;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
+import com.hector.papeleriasaas.service.interfaces.ProviderProductsService;
 import com.hector.papeleriasaas.service.interfaces.ProvidersService;
 import com.hector.papeleriasaas.service.interfaces.PurchaseService;
 import com.hector.papeleriasaas.view.content.panels.companies.InventoryView;
@@ -20,7 +21,7 @@ public class ControllerPurchaseProductsBuilder {
 
     private ProductService productService;
     private PurchaseService purchaseService;
-    private ProvidersService providersService;
+    private ProviderProductsService providerProductsService;
 
     public ControllerPurchaseProductsBuilder withViewProductManagement(PurchaseProductsView productManagement) {
         this.productManagement = productManagement;
@@ -47,8 +48,8 @@ public class ControllerPurchaseProductsBuilder {
         return this;
     }
 
-    public ControllerPurchaseProductsBuilder withProviderService(ProvidersService providerService) {
-        this.providersService = providerService;
+    public ControllerPurchaseProductsBuilder withProviderProductsService(ProviderProductsService providerProductsService) {
+        this.providerProductsService = providerProductsService;
         return this;
     }
 
@@ -76,8 +77,8 @@ public class ControllerPurchaseProductsBuilder {
         return purchaseService;
     }
 
-    public ProvidersService getProvidersService() {
-        return providersService;
+    public ProviderProductsService getProviderProductsService() {
+        return providerProductsService;
     }
 
 }
