@@ -37,13 +37,14 @@ public class DAOProviderProductsImpl implements DAOProviderProducts {
     }
 
     @Override
-    public List<DTOProviderDetails> findProviderProducts(Integer productId) throws DAOException {
+    public List<DTOProviderDetails> findProviderProducts(Integer productId, Integer companyId) throws DAOException {
         String sql = SQLRepository.get("sql/providerProducts/findProviderProduct.sql");
         List<DTOProviderDetails> list = new ArrayList<>();
 
         try (Connection connection = connectionProvider.getConnection();
              PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, productId);
+            st.setInt(2, companyId);
 
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
