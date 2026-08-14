@@ -9,6 +9,6 @@ import java.util.List;
 public interface ProviderProductsService {
 
     void add(Connection connection, Integer providerId, Integer productId) throws DAOException;
-    List<DTOProviderDetails> findProviderProducts(Integer productId, Integer companyId) throws DAOException;
+    List<DTOProviderDetails> findProviderProducts(Integer productId) throws DAOException;
 
 }
