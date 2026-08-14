@@ -109,7 +109,7 @@ public class Coordinator {
     private final ProductService productService = new ProductServiceImpl(daoProducts, session);
     private final ProvidersService providersService = new ProvidersServiceImpl(daoProviders, session);
     private final PurchaseDetailsService purchaseDetailsService = new PurchaseDetailsServiceImpl(daoPurchaseDetails);
-    private final ProviderProductsService providerProductsService = new ProviderProductsServiceImpl(daoProviderProducts);
+    private final ProviderProductsService providerProductsService = new ProviderProductsServiceImpl(daoProviderProducts, session);
     private final PurchaseService purchaseService = new PurchaseServiceImpl(daoPurchases, providersService, productService, purchaseDetailsService, providerProductsService, connectionProvider, session);
     private final SaleDetailsService saleDetailsService = new SaleDetailsServiceImpl(daoSaleDetails);
     private final SaleService saleService = new SaleServiceImpl(daoSales, customerService, saleDetailsService, invoicesService, productService, connectionProvider, session);
