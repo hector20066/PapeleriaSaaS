@@ -22,8 +22,8 @@ public class ProviderProductsServiceImpl implements ProviderProductsService {
     }
 
     @Override
-    public List<DTOProviderDetails> findProviderProducts(Integer productId) throws DAOException {
-        return daoProviderProducts.findProviderProducts(productId);
+    public List<DTOProviderDetails> findProviderProducts(Integer productId, Integer companyId) throws DAOException {
+        return daoProviderProducts.findProviderProducts(productId, companyId);
     }
 
 }
