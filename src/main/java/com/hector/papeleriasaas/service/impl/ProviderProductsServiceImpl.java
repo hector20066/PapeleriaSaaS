@@ -7,7 +7,7 @@ import com.hector.papeleriasaas.model.dto.provider.DTOProviderDetails;
 import com.hector.papeleriasaas.service.interfaces.ProviderProductsService;
 
 import java.sql.Connection;
-import java.util.List;
+import java.util.Optional;
 
 public class ProviderProductsServiceImpl implements ProviderProductsService {
 
@@ -25,7 +25,7 @@ public class ProviderProductsServiceImpl implements ProviderProductsService {
     }
 
     @Override
-    public List<DTOProviderDetails> findProviderProducts(Integer productId) throws DAOException {
+    public Optional<DTOProviderDetails> findProviderProducts(Integer productId) throws DAOException {
         return daoProviderProducts.findProviderProducts(productId, session.getCompanyId());
     }
 
