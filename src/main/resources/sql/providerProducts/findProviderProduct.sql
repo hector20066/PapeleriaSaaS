@@ -8,4 +8,5 @@ SELECT
 FROM provider_products pp
 JOIN products p ON p.id = pp.product_id
 JOIN providers pr ON pr.id = pp.provider_id
-WHERE p.id = ?;
+WHERE p.id = ?
+  AND p.id_company = ?;
