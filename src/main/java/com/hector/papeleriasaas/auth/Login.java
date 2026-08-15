@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.auth;
 
 import com.hector.papeleriasaas.exception.auth.*;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyDetails;
 import com.hector.papeleriasaas.model.dto.remembertokens.DTORememberTokenDetails;
 import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
@@ -30,7 +30,7 @@ public class Login {
         this.session = session;
     }
 
-    public String login(String user, String passwd, Integer companyNit, int remember) throws AuthException, DAOException {
+    public String login(String user, String passwd, Integer companyNit, int remember) throws AuthException, ServiceException {
         String encryptPasswd;
         DTOUserDetails dtoUser;
         DTOCompanyDetails dtoCompany;
@@ -78,7 +78,7 @@ public class Login {
                 : "";
     }
 
-    public void autoLogin(String token) throws AuthException, DAOException {
+    public void autoLogin(String token) throws AuthException, ServiceException {
         DTORememberTokenDetails dtoToken = rememberTokensService.findByToken(token);
         DTOUserDetails dtoUser = userService.findById(dtoToken.getUserId());
         DTOCompanyDetails dtoCompany = null;
@@ -106,7 +106,7 @@ public class Login {
         session.login(dtoUser, dtoCompany);
     }
 
-    public void logout() throws DAOException {
+    public void logout() throws ServiceException {
         session.logout();
 
         String token = UserConfig.get("remember.token");

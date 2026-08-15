@@ -3,7 +3,7 @@ package com.hector.papeleriasaas.controller.company;
 import com.hector.papeleriasaas.business.SalesManagementCalculator;
 import com.hector.papeleriasaas.controller.builder.ControllerSalesManagementBuilder;
 import com.hector.papeleriasaas.controller.dto.OrderItemSaleDTO;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
@@ -32,7 +32,6 @@ import javax.swing.event.DocumentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -88,7 +87,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
             try {
                 List<DTOProductDetails> dto = productService.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(dto));
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los productos. "
                         + MessageUtils.userMessage(e), salesManagement));
             }
@@ -212,7 +211,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 String lowStock = saleService.checkLowStock();
 
                 SwingUtilities.invokeLater(() -> generateInvoice(invoiceNumber, customerName, customerId, totalSale, lowStock, amountPaid));
-            } catch (DAOException | SQLException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage(MessageUtils.userMessage(e), salesManagement);
                     resetUI();
@@ -311,7 +310,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
 
             salesManagement.clearPanel();
             salesManagement.addProductPanel(product.get(), this);
-        } catch (InvalidInputException | DAOException e) {
+        } catch (InvalidInputException | ServiceException e) {
             MessageUtils.warningMessage(e.getMessage(), salesManagement);
         }
     }

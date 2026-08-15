@@ -5,7 +5,7 @@ import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.controller.ControllerContent;
 import com.hector.papeleriasaas.controller.Coordinator;
 import com.hector.papeleriasaas.controller.builder.ControllerContentBuilder;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.view.content.ContentView;
@@ -235,7 +235,7 @@ public class ControllerCompaniesMenu extends ControllerContent {
             NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
             login.logout();
             coordinator.logoutCompany();
-        } catch (DAOException e) {
+        } catch (ServiceException e) {
             MessageUtils.errorMessage("Ha ocurrido un error al cerrar la sesión.", companiesMenu);
         }
     }

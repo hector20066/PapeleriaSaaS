@@ -1,5 +1,7 @@
 package com.hector.papeleriasaas.utils;
 
+import com.hector.papeleriasaas.exception.service.ServiceException;
+
 import javax.swing.*;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutionException;
@@ -27,6 +29,12 @@ public class MessageUtils {
     }
 
     public static String userMessage(Throwable throwable) {
+        if (throwable instanceof ServiceException serviceException
+                && serviceException.getMessage() != null
+                && !serviceException.getMessage().isBlank()) {
+            return serviceException.getMessage();
+        }
+
         Throwable cause = rootCause(throwable);
         String message = cause.getMessage();
 

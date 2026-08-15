@@ -3,7 +3,7 @@ package com.hector.papeleriasaas.controller.company;
 import com.hector.papeleriasaas.controller.builder.ControllerDashboardBuilder;
 import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
 import com.hector.papeleriasaas.mapper.DashboardCompanyMapper;
 import com.hector.papeleriasaas.model.dto.product.DTOProductBestSelling;
@@ -52,7 +52,7 @@ public class ControllerDashboard implements Observer {
                 dashboard.updatePanel(dto.getTotalPurchases(), dto.getTotalSales(), dto.getTotalProfits(),
                         dto.getAmountProduct(), dto.getProductName());
                 loadGraphicInfo(salesList);
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el dashboard. "
                         + MessageUtils.userMessage(e), dashboard));
             }

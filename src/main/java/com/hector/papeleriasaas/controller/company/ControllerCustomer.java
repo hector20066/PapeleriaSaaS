@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.controller.company;
 
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
@@ -79,7 +79,7 @@ public class ControllerCustomer implements Observer {
                 int totalRecords = customerService.countRecords();
 
                 SwingUtilities.invokeLater(() -> loadData(customersList, totalRecords));
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar los clientes. "
                         + MessageUtils.userMessage(e), customers));
             }
@@ -120,7 +120,7 @@ public class ControllerCustomer implements Observer {
                     customers.getTxt_search().setText("Buscar Cliente");
                     subject.notifyObservers();
                 });
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("No fue posible buscar el cliente. " + MessageUtils.userMessage(e),
                             customers);
@@ -140,7 +140,7 @@ public class ControllerCustomer implements Observer {
 
                 JasperPrint report = ReportServiceImpl.generate(customersList, compileReport, params);
                 ReportViewer.show(report);
-            } catch (DAOException | JRException e) {
+            } catch (ServiceException | JRException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("Ha ocurrido un error al generar el "
                         + "reporte", customers));
             }

@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.controller.company;
 
 import com.hector.papeleriasaas.controller.builder.ControllerModifyProductsBuilder;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.observer.Subject;
@@ -81,7 +81,7 @@ public class ControllerModifyProducts {
                     subject.notifyObservers();
                     resetUI();
                 });
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("No fue posible actualizar el producto. " + MessageUtils.userMessage(e),
                             modifyProduct);

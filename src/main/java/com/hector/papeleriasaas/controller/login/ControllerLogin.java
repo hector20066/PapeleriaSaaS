@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.auth.Login;
 import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.controller.Coordinator;
 import com.hector.papeleriasaas.exception.auth.AuthException;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
@@ -76,7 +76,7 @@ public class ControllerLogin {
                     case Roles.ROOT -> coordinator.startAdminEnvironment();
                     case Roles.ADMIN, Roles.EMPLOYEE -> coordinator.startCompaniesEnvironment();
                 }
-            } catch (DAOException | AuthException e) {
+            } catch (ServiceException | AuthException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage(e.getMessage(), loginView);
                 });

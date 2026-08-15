@@ -4,7 +4,7 @@ import com.hector.papeleriasaas.auth.Login;
 import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.controller.ControllerContent;
 import com.hector.papeleriasaas.controller.Coordinator;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
 import com.hector.papeleriasaas.view.content.ContentView;
@@ -139,7 +139,7 @@ public class ControllerAdminMenu extends ControllerContent {
             NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
             login.logout();
             coordinator.logoutAdmin();
-        } catch (DAOException e) {
+        } catch (ServiceException e) {
             MessageUtils.warningMessage("Ha ocurrido un error al cerrar la sesión.", adminMenu);
         }
     }

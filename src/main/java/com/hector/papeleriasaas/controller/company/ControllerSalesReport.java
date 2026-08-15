@@ -3,7 +3,7 @@ package com.hector.papeleriasaas.controller.company;
 import com.hector.papeleriasaas.controller.builder.ControllerSalesReportBuilder;
 import com.hector.papeleriasaas.controller.dto.DTOChartSales;
 import com.hector.papeleriasaas.controller.dto.DTOReportSummary;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
@@ -71,7 +71,7 @@ public class ControllerSalesReport implements Observer {
             try {
                 List<DTOSaleDetails> list = saleService.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de ventas. "
                         + MessageUtils.userMessage(e), salesReport));
             }
@@ -104,7 +104,7 @@ public class ControllerSalesReport implements Observer {
                     salesReport.getSalesList().setRowCount(0);
                     list.forEach(salesReport::updatePanel);
                 });
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("No fue posible buscar la venta. " + MessageUtils.userMessage(e),
                             salesReport);
@@ -137,7 +137,7 @@ public class ControllerSalesReport implements Observer {
 
                 JasperPrint report = ReportServiceImpl.generate(salesList, compileReport, params);
                 ReportViewer.show(report);
-            } catch (DAOException | JRException e) {
+            } catch (ServiceException | JRException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("Ha ocurrido un error al generar el "
                         + "reporte", salesReport));
             }

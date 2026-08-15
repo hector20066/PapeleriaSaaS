@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.controller.admin;
 
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
@@ -99,7 +99,7 @@ public class ControllerRegisterUsers {
             try {
                 int result = userService.add(dto.getIdentification(), dto.getName(), dto.getUser(), dto.getPasswd(), dto.getRole(), dto.getStatus(), dto.getCompanyId());
                 SwingUtilities.invokeLater(() -> messageSuccess(result));
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("Ha ocurrido un error al registrar la información.\nError: " + e.getMessage(), registerUsersView);
                     resetUI();

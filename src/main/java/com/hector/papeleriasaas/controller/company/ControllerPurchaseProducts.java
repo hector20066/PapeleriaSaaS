@@ -2,8 +2,8 @@ package com.hector.papeleriasaas.controller.company;
 
 import com.hector.papeleriasaas.business.PurchaseProductCalculator;
 import com.hector.papeleriasaas.controller.builder.ControllerPurchaseProductsBuilder;
-import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
+import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
@@ -28,7 +28,6 @@ import com.hector.papeleriasaas.view.content.panels.companies.PurchaseProductsVi
 
 import javax.swing.*;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,7 +83,7 @@ public class ControllerPurchaseProducts implements Observer {
                 List<DTOProductDetails> productsList = productService.findByAll();
 
                 SwingUtilities.invokeLater(() -> loadData(productsList));
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage(e.getMessage(), productManagement));
             }
         });
@@ -156,7 +155,7 @@ public class ControllerPurchaseProducts implements Observer {
                     subject.notifyObservers();
                     clearFields();
                 });
-            } catch (DAOException | SQLException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("La operación fue interrumpida. Intente registrar la compra nuevamente.",
                             productManagement);
@@ -253,11 +252,11 @@ public class ControllerPurchaseProducts implements Observer {
             DTOProductDetails dtoProductDetails = productService.getProductList().stream()
                     .filter(p -> p.getDescription().equalsIgnoreCase(product))
                     .findFirst()
-                    .orElseThrow(() -> new DataNotFoundException("No se ha encontrado el producto. Lamentamos los inconvenientes"));
+                    .orElseThrow(() -> new ServiceDataNotFoundException("No se ha encontrado el producto. Lamentamos los inconvenientes"));
 
             productManagement.loadProduct(dtoProductDetails);
             loadProvider(dtoProductDetails.getId());
-        } catch (DAOException e) {
+        } catch (ServiceException e) {
             MessageUtils.warningMessage(e.getMessage(), productManagement);
         }
     }
@@ -268,11 +267,11 @@ public class ControllerPurchaseProducts implements Observer {
                 Optional<DTOProviderDetails> dtoProviderDetails = providerProductsService.findProviderProducts(productId);
 
                 if (dtoProviderDetails.isEmpty()) {
-                    throw new DataNotFoundException("No se ha encontrado el proveedor");
+                    throw new ServiceDataNotFoundException("No se ha encontrado el proveedor");
                 }
 
                 SwingUtilities.invokeLater(() -> productManagement.loadProvider(dtoProviderDetails.get()));
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 cleanFieldsProvider();
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage(e.getMessage(), productManagement));
             }

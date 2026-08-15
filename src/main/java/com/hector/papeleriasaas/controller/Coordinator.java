@@ -17,7 +17,7 @@ import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.database.ConnectionProviderImpl;
 import com.hector.papeleriasaas.database.DataBasePool;
 import com.hector.papeleriasaas.exception.auth.AuthException;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.model.dao.impl.*;
 import com.hector.papeleriasaas.model.dao.interfaces.*;
 import com.hector.papeleriasaas.observer.ConcreteSubject;
@@ -146,7 +146,7 @@ public class Coordinator {
                     NavigatorUtils.showPanels(ContentView.getJpl_content(), index);
                 }
             });
-        } catch (AuthException | DAOException e) {
+        } catch (AuthException | ServiceException e) {
             e.printStackTrace();
         }
     }

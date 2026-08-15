@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.validator;
 
-import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
@@ -55,9 +55,9 @@ public final class SalesManagementValidator {
         }
     }
 
-    public static void emptyProductValidation(Optional<DTOProductDetails> product, String param) throws ProductNotFoundException {
+    public static void emptyProductValidation(Optional<DTOProductDetails> product, String param) throws ServiceDataNotFoundException {
         if (product.isEmpty()) {
-            throw new ProductNotFoundException(param);
+            throw new ServiceDataNotFoundException("No se encontró el producto: " + param);
         }
     }
 

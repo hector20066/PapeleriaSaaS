@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.controller.company;
 
 import com.hector.papeleriasaas.controller.builder.ControllerDebtReportBuilder;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
@@ -71,7 +71,7 @@ public class ControllerDebtReport implements Observer {
             try {
                 List<DTODebtDetails> list = debtsService.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(list));
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el reporte de deudas. "
                         + MessageUtils.userMessage(e), debtReport));
             }
@@ -128,7 +128,7 @@ public class ControllerDebtReport implements Observer {
                     resetUI();
                     subject.notifyObservers();
                 });
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("No fue posible registrar el abono. " + MessageUtils.userMessage(e),
                             debtReport);
@@ -163,7 +163,7 @@ public class ControllerDebtReport implements Observer {
                     debtReport.getDebtList().setRowCount(0);
                     list.forEach(debtReport::updatePanel);
                 });
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("No fue posible buscar las deudas del cliente. "
                             + MessageUtils.userMessage(e), debtReport);
@@ -192,7 +192,7 @@ public class ControllerDebtReport implements Observer {
                     listDebts.forEach(debtReport::updatePanel);
                     debtReport.getCbo_status().setEnabled(true);
                 });
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("No fue posible cargar las deudas. " + MessageUtils.userMessage(e),
                             debtReport);
@@ -211,7 +211,7 @@ public class ControllerDebtReport implements Observer {
 
                 JasperPrint report = ReportServiceImpl.generate(debtDetails, compileReport, params);
                 ReportViewer.show(report);
-            } catch (DAOException | JRException e) {
+            } catch (ServiceException | JRException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("Ha ocurrido un error al generar el "
                         + "reporte", debtReport));
             }

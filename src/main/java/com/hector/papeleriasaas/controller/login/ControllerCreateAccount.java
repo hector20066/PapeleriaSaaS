@@ -1,6 +1,6 @@
 package com.hector.papeleriasaas.controller.login;
 
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
@@ -28,7 +28,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 
 public class ControllerCreateAccount {
 
@@ -178,7 +177,7 @@ public class ControllerCreateAccount {
                     MessageUtils.informationMessage("Se ha registrado la informacion de la Papelería", createAccountView);
                     NavigatorUtils.showPanels(ContentView.getJpl_content(), loginView);
                 });
-            } catch (SQLException | DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("Ha ocurrido un error durante el registro.\nError: " + e.getMessage(), createAccountView);
                     resetUI();
@@ -254,7 +253,7 @@ public class ControllerCreateAccount {
                     BigDecimal price = dto == null ? BigDecimal.ZERO : dto.getPrice();
                     createAccountView.getJlb_planPrice().setText(price.toString());
                 });
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 throw new RuntimeException(e);
             }
         });

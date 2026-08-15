@@ -1,7 +1,7 @@
 package com.hector.papeleriasaas.controller.company;
 
 import com.hector.papeleriasaas.controller.builder.ControllerInventoryBuilder;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.executor.BackgroundExecutor;
 import com.hector.papeleriasaas.executor.ObserverExecutor;
@@ -88,7 +88,7 @@ public class ControllerInventory implements Observer {
             try {
                 List<DTOProductDetails> productList = productsFacade.findByAll();
                 SwingUtilities.invokeLater(() -> loadData(productList));
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("No fue posible cargar el inventario. "
                         + MessageUtils.userMessage(e), inventory));
             }
@@ -121,7 +121,7 @@ public class ControllerInventory implements Observer {
                     inventory.getInventoryList().setRowCount(0);
                     inventory.updatePanel(dtoProduct);
                 });
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("No fue posible buscar el producto. " + MessageUtils.userMessage(e),
                             inventory);
@@ -168,7 +168,7 @@ public class ControllerInventory implements Observer {
 
                 JasperPrint report = ReportServiceImpl.generate(productList, compileReport, params);
                 ReportViewer.show(report);
-            } catch (DAOException | JRException e) {
+            } catch (ServiceException | JRException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage("Ha ocurrido un error al generar el "
                         + "reporte", inventory));
             }
@@ -196,7 +196,7 @@ public class ControllerInventory implements Observer {
                     MessageUtils.informationMessage("Producto eliminado correctamente.", inventory);
                     subject.notifyObservers();
                 });
-            } catch (DAOException e) {
+            } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> {
                     MessageUtils.errorMessage("No fue posible eliminar el producto. " + MessageUtils.userMessage(e),
                             inventory);
