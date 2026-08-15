@@ -16,7 +16,6 @@ import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
 import com.hector.papeleriasaas.service.interfaces.ProviderProductsService;
-import com.hector.papeleriasaas.service.interfaces.ProvidersService;
 import com.hector.papeleriasaas.service.interfaces.PurchaseService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.utils.NavigatorUtils;
@@ -247,37 +246,37 @@ public class ControllerPurchaseProducts implements Observer {
 
             if (product == null || product.equalsIgnoreCase("Seleccione un producto")) {
                 cleanFieldsProducts();
+                cleanFieldsProvider();
                 return;
             }
 
-            Optional<DTOProductDetails> dtoProductDetailsOptional = productService.getProductList().stream()
+            DTOProductDetails dtoProductDetails = productService.getProductList().stream()
                     .filter(p -> p.getDescription().equalsIgnoreCase(product))
-                    .findFirst();
+                    .findFirst()
+                    .orElseThrow(() -> new DataNotFoundException("No se ha encontrado el producto. Lamentamos los inconvenientes"));
 
-            if (dtoProductDetailsOptional.isPresent()) {
-                DTOProductDetails dtoProductDetails = dtoProductDetailsOptional.get();
-                productManagement.loadProduct(dtoProductDetails);
-
-                BackgroundExecutor.execute(() -> {
-                    try {
-                        Optional<DTOProviderDetails> dtoProviderDetails = providerProductsService.findProviderProducts(dtoProductDetails.getId());
-
-                        if (dtoProviderDetails.isEmpty()) {
-                            throw new DataNotFoundException("No se ha encontrado el proveedor");
-                        }
-
-                        SwingUtilities.invokeLater(() -> productManagement.loadProvider(dtoProviderDetails.get()));
-                    } catch (DAOException e) {
-                        cleanFieldsProvider();
-                        SwingUtilities.invokeLater(() -> MessageUtils.errorMessage(e.getMessage(), productManagement));
-                    }
-                });
-            } else {
-                throw new DataNotFoundException("No se ha encontrado el producto. Lamentamos los inconvenientes");
-            }
+            productManagement.loadProduct(dtoProductDetails);
+            loadProvider(dtoProductDetails.getId());
         } catch (DAOException e) {
             MessageUtils.warningMessage(e.getMessage(), productManagement);
         }
+    }
+
+    private void loadProvider(Integer productId) {
+        BackgroundExecutor.execute(() -> {
+            try {
+                Optional<DTOProviderDetails> dtoProviderDetails = providerProductsService.findProviderProducts(productId);
+
+                if (dtoProviderDetails.isEmpty()) {
+                    throw new DataNotFoundException("No se ha encontrado el proveedor");
+                }
+
+                SwingUtilities.invokeLater(() -> productManagement.loadProvider(dtoProviderDetails.get()));
+            } catch (DAOException e) {
+                cleanFieldsProvider();
+                SwingUtilities.invokeLater(() -> MessageUtils.errorMessage(e.getMessage(), productManagement));
+            }
+        });
     }
 
     private void cleanFieldsProducts() {
