@@ -11,10 +11,9 @@ import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
 import com.hector.papeleriasaas.service.interfaces.ProductService;
+import com.hector.papeleriasaas.service.interfaces.ProviderProductsService;
 import com.hector.papeleriasaas.service.interfaces.ProvidersService;
 import com.hector.papeleriasaas.service.interfaces.PurchaseDetailsService;
-import com.hector.papeleriasaas.service.interfaces.PurchaseService;
-import net.bytebuddy.asm.MemberSubstitution;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -28,7 +27,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -46,7 +44,10 @@ class PurchaseServiceImplTest {
     private ProductService productsFacade;
 
     @Mock
-    private PurchaseDetailsService purchaseDetailsFacade;
+    private PurchaseDetailsService purchaseDetailsService;
+
+    @Mock
+    private ProviderProductsService providerProductsService;
 
     @Mock
     private ConnectionProvider connectionProvider;
@@ -81,6 +82,7 @@ class PurchaseServiceImplTest {
         when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
         when(productsFacade.findByName(any(Connection.class), anyString())).thenReturn(null);
         when(productsFacade.add(any(Connection.class), anyString(), any(BigDecimal.class), any(BigDecimal.class))).thenReturn(5);
+        when(providersFacade.registerProviderPurchase(any(Connection.class), anyInt(), anyString(), anyString(), anyString(), anyString())).thenReturn(5);
 
         DTOProvider dtoProvider = createDtoProvider();
         DTOProductCreate dtoProduct = createDtoProduct();
@@ -91,7 +93,8 @@ class PurchaseServiceImplTest {
         verify(productsFacade).findByName(connection, "Cuaderno Norma");
         verify(productsFacade).add(connection, "Cuaderno Norma", new BigDecimal("4500.00"), new BigDecimal("6000.00"));
         verify(productsFacade, never()).modify(connection, "Cuaderno Norma", 10, new BigDecimal("6000.00"), new BigDecimal("4500.00"), 5);
-        verify(purchaseDetailsFacade).add(connection, 5, 5, 10, new BigDecimal("4500.00"));
+        verify(purchaseDetailsService).add(connection, 5, 5, 10, new BigDecimal("4500.00"));
+        verify(providerProductsService).add(connection, 5, 5);
     }
 
     @Test
@@ -110,7 +113,8 @@ class PurchaseServiceImplTest {
         verify(productsFacade).findByName(connection, "Cuaderno Norma");
         verify(productsFacade, never()).add(connection, "Cuaderno Norma", new BigDecimal("4500.00"), new BigDecimal("6000.00"));
         verify(productsFacade).modify(connection, "Cuaderno Norma", 10, new BigDecimal("6000.00"), new BigDecimal("4500.00"), 5);
-        verify(purchaseDetailsFacade).add(connection, 5, 5, 10, new BigDecimal("4500.00"));
+        verify(purchaseDetailsService).add(connection, 5, 5, 10, new BigDecimal("4500.00"));
+        verify(providerProductsService, never()).add(connection, 5, 5);
     }
 
     private DTOProductDetails createDtoProductDetails() {
@@ -149,8 +153,9 @@ class PurchaseServiceImplTest {
         verify(connectionProvider).getConnection();
 
         verify(daoPurchases).add(any(Connection.class), any(DTOPurchaseCreate.class));
-        verifyNoInteractions(purchaseDetailsFacade);
+        verifyNoInteractions(purchaseDetailsService);
         verifyNoInteractions(productsFacade);
+        verifyNoInteractions(providerProductsService);
     }
 
     @Test
