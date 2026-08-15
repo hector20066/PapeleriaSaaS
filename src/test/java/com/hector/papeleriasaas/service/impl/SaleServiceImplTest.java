@@ -1,13 +1,13 @@
-package com.hector.papeleriasaas.service;
+package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
 import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOSales;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
-import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
 import com.hector.papeleriasaas.model.dto.DTOSaleDetailsCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
 import com.hector.papeleriasaas.model.dto.invoice.DTOInvoiceCreate;
@@ -27,7 +27,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -180,17 +179,17 @@ class SaleServiceImplTest {
     @DisplayName("Testear excepción lanzada al registrar la venta")
     void testRegisterSaleException() throws SQLException, ServiceException {
         when(provider.getConnection()).thenReturn(connection);
-        when(customersFacade.findById(any(Connection.class), anyInt())).thenThrow(new CustomerNotFoundException("1066726477"));
+        when(customersFacade.findById(any(Connection.class), anyInt())).thenThrow(new ServiceDataNotFoundException("Cliente no encontrado con parámetro: '1066726477'"));
 
-        CustomerNotFoundException ex = assertThrows(
-                CustomerNotFoundException.class,
+        ServiceDataNotFoundException ex = assertThrows(
+                ServiceDataNotFoundException.class,
                 () -> saleService.registerSale(1066726477, "Hector Acevedo", "3137762626",
                         new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList()),
                 () -> "La excepción lanzada no es la esperada"
         );
 
         assertEquals("Cliente no encontrado con parámetro: '1066726477'", ex.getMessage(), () -> "El mensaje de error no es el esperado");
-        assertInstanceOf(DAOException.class, ex, () -> "La instancia no hereda de la Excepción esperada");
+        assertInstanceOf(ServiceException.class, ex, () -> "La instancia no hereda de la Excepción esperada");
 
         verify(connection).setAutoCommit(false);
         verify(connection).rollback();

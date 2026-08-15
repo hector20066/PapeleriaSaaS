@@ -2,6 +2,8 @@ package com.hector.papeleriasaas.validator;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.ProductNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.validation.EmptyFieldException;
 import com.hector.papeleriasaas.exception.validation.InvalidInputException;
 import com.hector.papeleriasaas.exception.validation.InvalidNumberInputException;
@@ -198,14 +200,14 @@ class SalesManagementValidatorTest {
     @Test
     @Tag("empty_exception")
     void testEmptyProduct() {
-        ProductNotFoundException ex = assertThrows(
-                ProductNotFoundException.class,
+        ServiceDataNotFoundException ex = assertThrows(
+                ServiceDataNotFoundException.class,
                 () -> SalesManagementValidator.emptyProductValidation(Optional.empty(), "Cuaderno Norma"),
                 () -> "La excepción lanzada no es la esperada"
         );
 
-        assertEquals("Producto no encontrado con parámetro: 'Cuaderno Norma'", ex.getMessage(), () -> "El mensaje no es el esperado");
-        assertInstanceOf(DAOException.class, ex, () -> "La excepción no hereda de DAOException");
+        assertEquals("No se encontró el producto: Cuaderno Norma", ex.getMessage(), () -> "El mensaje no es el esperado");
+        assertInstanceOf(ServiceException.class, ex, () -> "La excepción no hereda de ServiceException");
     }
 
 }

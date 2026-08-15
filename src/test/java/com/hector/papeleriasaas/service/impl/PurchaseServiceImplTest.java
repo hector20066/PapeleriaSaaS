@@ -163,18 +163,18 @@ class PurchaseServiceImplTest {
     @DisplayName("Testear excepción lanzada al registrar la compra")
     void testRegisterPurchaseException() throws SQLException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
-        when(daoPurchases.add(any(Connection.class), any())).thenThrow(new PurchasePersistenceException("Error al agregar compra"));
+        when(daoPurchases.add(any(Connection.class), any())).thenThrow(new PurchasePersistenceException());
 
         DTOProvider dtoProvider = createDtoProvider();
 
-        PurchasePersistenceException ex = assertThrows(
-                PurchasePersistenceException.class,
+        ServiceException ex = assertThrows(
+                ServiceException.class,
                 () -> purchaseService.registerPurchase(dtoProvider, new BigDecimal("45000.00"), Collections.emptyList()),
                 () -> "La excepción lanzada no es la esperada"
         );
 
-        assertInstanceOf(DAOException.class, ex, () -> "La excepción lanzada no hereda de DAOException");
-        assertEquals("Error al agregar compra", ex.getMessage(), () -> "El mensaje de error lanzado no es el esperado");
+        assertInstanceOf(ServiceException.class, ex, () -> "La excepción lanzada no hereda de DAOException");
+        assertEquals("No fue posible registrar la compra.", ex.getMessage(), () -> "El mensaje de error lanzado no es el esperado");
 
         verify(connection).setAutoCommit(false);
         verify(connection).rollback();

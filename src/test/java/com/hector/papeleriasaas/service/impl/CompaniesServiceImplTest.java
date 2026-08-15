@@ -4,6 +4,9 @@ import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.exception.dao.PersistenceException;
+import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
+import com.hector.papeleriasaas.exception.service.ServicePersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanies;
 import com.hector.papeleriasaas.model.dto.company.DTOCompanyCreate;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
@@ -22,6 +25,7 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.management.ServiceNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -50,7 +54,7 @@ class CompaniesServiceImplTest {
 
     @Test
     @DisplayName("Testear conexión y el manejo de la transacción")
-    void testRegisterCompanyConnection() throws SQLException, DAOException {
+    void testRegisterCompanyConnection() throws SQLException, DAOException, ServiceException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(plansService.findByName(any(Connection.class), anyString())).thenReturn(new DTOPlanDetails.Builder().id(12345).build());
         when(daoCompanies.add(any(Connection.class), any(DTOCompanyCreate.class))).thenReturn(4);
@@ -66,7 +70,7 @@ class CompaniesServiceImplTest {
 
     @Test
     @DisplayName("Testear el registro de la empresa y el usuario")
-    void testRegisterCompany() throws SQLException, DAOException {
+    void testRegisterCompany() throws SQLException, DAOException, ServiceException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(plansService.findByName(any(Connection.class), anyString())).thenReturn(new DTOPlanDetails.Builder().id(12345).build());
         when(daoCompanies.add(any(Connection.class), any(DTOCompanyCreate.class))).thenReturn(4);
@@ -91,9 +95,9 @@ class CompaniesServiceImplTest {
     @Test
     @Tag("exception")
     @DisplayName("Testear excepción cuando no se encuentra el plan")
-    void testRegisterCompanyExceptions() throws SQLException, DAOException {
+    void testRegisterCompanyExceptions() throws SQLException, DAOException, ServiceException {
         when(connectionProvider.getConnection()).thenReturn(connection);
-        when(plansService.findByName(any(Connection.class), anyString())).thenThrow(new DataNotFoundException("No se ha encontrado el plan, verifique el nombre"));
+        when(plansService.findByName(any(Connection.class), anyString())).thenThrow(new ServiceDataNotFoundException("No se ha encontrado el plan, verifique el nombre"));
 
         DTOCompanyCreate dtoCompanyCreate = new DTOCompanyCreate.Builder().name("Papelia Saas").phone("3137762626").build();
         DTOUserCreate dtoUser = new DTOUserCreate.Builder()
@@ -105,12 +109,12 @@ class CompaniesServiceImplTest {
                 .status(Status.ACTIVE)
                 .build();
 
-        DataNotFoundException ex = assertThrows(DataNotFoundException.class,
+        ServiceDataNotFoundException ex = assertThrows(ServiceDataNotFoundException.class,
                 () -> companiesService.registerCompanyInfo("Plan Premium", dtoCompanyCreate, dtoUser),
                 () -> "La excepción lanzada no es la esperada"
         );
 
-        assertInstanceOf(DAOException.class, ex, () -> "La excepción lanzada no hereda de DAOException");
+        assertInstanceOf(ServiceException.class, ex, () -> "La excepción lanzada no hereda de ServiceException");
         assertEquals("No se ha encontrado el plan, verifique el nombre", ex.getMessage());
 
         verify(connection).rollback();
@@ -123,7 +127,7 @@ class CompaniesServiceImplTest {
     @Test
     @Tag("exception")
     @DisplayName("Testear excepción lanzada al registrar la empresa")
-    void testRegisterCompanyExceptionAdd() throws SQLException, DAOException {
+    void testRegisterCompanyExceptionAdd() throws SQLException, DAOException, ServiceException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(plansService.findByName(any(Connection.class), anyString())).thenReturn(new DTOPlanDetails.Builder().id(12345).build());
         when(daoCompanies.add(any(Connection.class), any(DTOCompanyCreate.class))).thenReturn(0);
@@ -138,7 +142,7 @@ class CompaniesServiceImplTest {
                 .status(Status.ACTIVE)
                 .build();
 
-        PersistenceException ex = assertThrows(PersistenceException.class,
+        ServicePersistenceException ex = assertThrows(ServicePersistenceException.class,
                 () -> companiesService.registerCompanyInfo("Plan Premium", dtoCompanyCreate, dtoUser),
                 () -> "La excepción lanzada no es la esperada"
         );
