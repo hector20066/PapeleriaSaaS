@@ -4,6 +4,9 @@ import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.PurchaseDetailsNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
+import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServicePersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOPurchases;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
@@ -46,7 +49,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public void registerPurchase(DTOProvider dtoSupplier, BigDecimal totalPaid, List<DTOProductCreate> products)
-            throws SQLException, DAOException {
+            throws ServiceException {
         Connection connection = null;
 
         try {
@@ -81,14 +84,33 @@ public class PurchaseServiceImpl implements PurchaseService {
             connection.commit();
         } catch (SQLException | DAOException e) {
             if (connection != null) {
-                connection.rollback();
+                rollback(connection);
             }
 
+            throw new ServicePersistenceException("No fue posible registrar la compra.", e);
+        } catch (ServiceException e) {
+            if (connection != null) {
+                rollback(connection);
+            }
             throw e;
         } finally {
             if (connection != null) {
-                connection.close();
+                close(connection);
             }
+        }
+    }
+
+    private void rollback(Connection connection) {
+        try {
+            connection.rollback();
+        } catch (SQLException ignored) {
+        }
+    }
+
+    private void close(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException ignored) {
         }
     }
 
@@ -102,40 +124,65 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     @Override
-    public List<DTOPurchaseDetails> findById(int id) throws DAOException {
-        List<DTOPurchaseDetails> list = daoPurchases.findById(id, session.getCompanyId());
+    public List<DTOPurchaseDetails> findById(int id) throws ServiceException {
+        try {
+            List<DTOPurchaseDetails> list = daoPurchases.findById(id, session.getCompanyId());
 
-        if (list.isEmpty()) {
-            throw new PurchaseDetailsNotFoundException(String.valueOf(id));
+            if (list.isEmpty()) {
+                throw new ServiceDataNotFoundException(String.valueOf(id));
+            }
+
+            return list;
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
-
-        return list;
     }
 
     @Override
-    public List<DTOPurchaseDetails> findById(Connection connection, int id) throws DAOException {
-        List<DTOPurchaseDetails> list = daoPurchases.findById(connection, id, session.getCompanyId());
+    public List<DTOPurchaseDetails> findById(Connection connection, int id) throws ServiceException {
+        try {
+            List<DTOPurchaseDetails> list = daoPurchases.findById(connection, id, session.getCompanyId());
 
-        if (list.isEmpty()) {
-            throw new PurchaseDetailsNotFoundException(String.valueOf(id));
+            if (list.isEmpty()) {
+                throw new ServiceDataNotFoundException(String.valueOf(id));
+            }
+
+            return list;
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
-
-        return list;
     }
 
     @Override
-    public List<DTOPurchaseDetails> findByAll() throws DAOException {
-        return daoPurchases.findByAll(session.getCompanyId());
+    public List<DTOPurchaseDetails> findByAll() throws ServiceException {
+        try {
+            return daoPurchases.findByAll(session.getCompanyId());
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
     }
 
     @Override
-    public void delete(int id) throws DAOException {
-        daoPurchases.delete(id, session.getCompanyId());
+    public void delete(int id) throws ServiceException {
+        try {
+            daoPurchases.delete(id, session.getCompanyId());
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
     }
 
     @Override
-    public int countRecords() throws DAOException {
-        return daoPurchases.countRecords(session.getCompanyId());
+    public int countRecords() throws ServiceException {
+        try {
+            return daoPurchases.countRecords(session.getCompanyId());
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
     }
 
 }

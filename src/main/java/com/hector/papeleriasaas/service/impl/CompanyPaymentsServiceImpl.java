@@ -1,6 +1,9 @@
 package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
+import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServicePersistenceException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanyPayments;
 import com.hector.papeleriasaas.model.dto.companypayments.DTOPaymentCompanyDetails;
@@ -28,43 +31,63 @@ public class CompanyPaymentsServiceImpl implements CompanyPaymentsService {
     }
 
     @Override
-    public void add(int companyId, int planId, BigDecimal amountPaid, String paymentReference, String observations, PaymentStatus paymentStatus) throws DAOException {
-        LocalDate paymentDate = LocalDate.now();
-        LocalDate expirationDate = paymentDate.plusMonths(1);
+    public void add(int companyId, int planId, BigDecimal amountPaid, String paymentReference, String observations, PaymentStatus paymentStatus) throws ServiceException {
+        try {
+            LocalDate paymentDate = LocalDate.now();
+            LocalDate expirationDate = paymentDate.plusMonths(1);
 
-        DTOPaymentCreate dto = new DTOPaymentCreate.Builder()
-                .companyId(companyId)
-                .planId(planId)
-                .amountPaid(amountPaid)
-                .paymentDate(paymentDate)
-                .expirationDate(expirationDate)
-                .paymentReference(paymentReference)
-                .observations(observations)
-                .paymentStatus(paymentStatus)
-                .build();
+            DTOPaymentCreate dto = new DTOPaymentCreate.Builder()
+                    .companyId(companyId)
+                    .planId(planId)
+                    .amountPaid(amountPaid)
+                    .paymentDate(paymentDate)
+                    .expirationDate(expirationDate)
+                    .paymentReference(paymentReference)
+                    .observations(observations)
+                    .paymentStatus(paymentStatus)
+                    .build();
 
-        daoCompanyPayments.add(dto);
-    }
+            daoCompanyPayments.add(dto);
 
-    @Override
-    public DTOPaymentDetails findById(int id, int companyId) throws DAOException {
-        Optional<DTOPaymentDetails> dtoPaymentDetailsOptional = daoCompanyPayments.findById(id, companyId);
-
-        if (dtoPaymentDetailsOptional.isEmpty()) {
-            throw new DataNotFoundException();
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
-
-        return dtoPaymentDetailsOptional.get();
     }
 
     @Override
-    public List<DTOPaymentCompanyDetails> findByCompany(int companyId) throws DAOException {
-        return daoCompanyPayments.findByCompany(companyId);
+    public DTOPaymentDetails findById(int id, int companyId) throws ServiceException {
+        try {
+            Optional<DTOPaymentDetails> dtoPaymentDetailsOptional = daoCompanyPayments.findById(id, companyId);
+
+            if (dtoPaymentDetailsOptional.isEmpty()) {
+                throw new ServiceDataNotFoundException();
+            }
+
+            return dtoPaymentDetailsOptional.get();
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
     }
 
     @Override
-    public List<DTOPaymentSimpleDetails> findByAll() throws DAOException {
-        return daoCompanyPayments.findByAll();
+    public List<DTOPaymentCompanyDetails> findByCompany(int companyId) throws ServiceException {
+        try {
+            return daoCompanyPayments.findByCompany(companyId);
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
+    }
+
+    @Override
+    public List<DTOPaymentSimpleDetails> findByAll() throws ServiceException {
+        try {
+            return daoCompanyPayments.findByAll();
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
     }
 
 }

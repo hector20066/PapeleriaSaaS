@@ -2,7 +2,7 @@ package com.hector.papeleriasaas.service.interfaces;
 
 import com.hector.papeleriasaas.auth.DTOAuthentication;
 import com.hector.papeleriasaas.auth.DTOAuthenticationRoot;
-import com.hector.papeleriasaas.exception.dao.DAOException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
 import com.hector.papeleriasaas.model.enums.Roles;
 import com.hector.papeleriasaas.model.enums.Status;
@@ -17,19 +17,19 @@ import java.util.Optional;
  */
 public interface UserService {
 
-    int add(Integer identification, String name, String user, String passwd, Roles role, Status status) throws DAOException;
-    int add(Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws DAOException;
-    int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws DAOException;
-    DTOUserDetails findByIdentification(Integer identification) throws DAOException;
-    DTOUserDetails findById(Integer id) throws DAOException;
-    DTOUserDetails findByUser(String user) throws DAOException;
-    List<DTOUserDetails> findByAll() throws DAOException;
-    List<DTOUserDetails> findByAllCompany() throws DAOException;
-    Optional<DTOAuthentication> findByNitAndUser(String user, int companyNit) throws DAOException;
-    Optional<DTOAuthenticationRoot> findAuthenticationRoot(String user) throws DAOException;
-    void modify(int id, int identification, String name, String user, Roles role, Status status) throws DAOException;
-    void modifyPassword(String passwd, int id) throws DAOException;
-    void modifyPasswordCompany(String passwd, int id) throws DAOException;
-    void delete(int id) throws DAOException;
+    int add(Integer identification, String name, String user, String passwd, Roles role, Status status) throws ServiceException;
+    int add(Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws ServiceException;
+    int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws ServiceException;
+    DTOUserDetails findByIdentification(Integer identification) throws ServiceException;
+    DTOUserDetails findById(Integer id) throws ServiceException;
+    DTOUserDetails findByUser(String user) throws ServiceException;
+    List<DTOUserDetails> findByAll() throws ServiceException;
+    List<DTOUserDetails> findByAllCompany() throws ServiceException;
+    Optional<DTOAuthentication> findByNitAndUser(String user, int companyNit) throws ServiceException;
+    Optional<DTOAuthenticationRoot> findAuthenticationRoot(String user) throws ServiceException;
+    void modify(int id, int identification, String name, String user, Roles role, Status status) throws ServiceException;
+    void modifyPassword(String passwd, int id) throws ServiceException;
+    void modifyPasswordCompany(String passwd, int id) throws ServiceException;
+    void delete(int id) throws ServiceException;
 
 }

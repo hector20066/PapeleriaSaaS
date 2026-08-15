@@ -4,6 +4,9 @@ import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.exception.dao.PersistenceException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
+import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServicePersistenceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCompanies;
 import com.hector.papeleriasaas.model.dto.company.*;
 import com.hector.papeleriasaas.model.dto.plan.DTOPlanDetails;
@@ -38,7 +41,7 @@ public class CompaniesServiceImpl implements CompaniesService {
     }
 
     @Override
-    public void registerCompanyInfo(String planName, DTOCompanyCreate dtoCompanyCreate, DTOUserCreate dtoUserCreate) throws SQLException, DAOException {
+    public void registerCompanyInfo(String planName, DTOCompanyCreate dtoCompanyCreate, DTOUserCreate dtoUserCreate) throws ServiceException {
         Connection connection = null;
 
         try {
@@ -48,7 +51,7 @@ public class CompaniesServiceImpl implements CompaniesService {
             DTOPlanDetails plan = plansService.findByName(connection, planName);
 
             if (plan == null) {
-                throw new DataNotFoundException("No se ha encontrado este plan. Por favor verifique la información");
+                throw new ServiceDataNotFoundException("No se ha encontrado este plan. Por favor verifique la información");
             }
 
             int planId = plan.getId();
@@ -67,24 +70,44 @@ public class CompaniesServiceImpl implements CompaniesService {
             connection.commit();
         } catch (SQLException | DAOException e) {
             if (connection != null) {
-                connection.rollback();
+                rollback(connection);
+            }
+
+            throw new ServicePersistenceException("No fue posible registrar la empresa.", e);
+        } catch (ServiceException e) {
+            if (connection != null) {
+                rollback(connection);
             }
 
             throw e;
         } finally {
             if (connection != null) {
-                connection.close();
+                close(connection);
             }
         }
     }
 
-    private int add(Connection connection, Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException {
+    private void rollback(Connection connection) {
+        try {
+            connection.rollback();
+        } catch (SQLException ignored) {
+        }
+    }
+
+    private void close(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException ignored) {
+        }
+    }
+
+    private int add(Connection connection, Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException, ServiceException {
         if (name.isBlank()) {
-            throw new PersistenceException("El nombre de la empresa es requerido");
+            throw new ServicePersistenceException("El nombre de la empresa es requerido");
         }
 
         if (phone.isBlank()) {
-            throw new PersistenceException("El teléfono es requerido");
+            throw new ServicePersistenceException("El teléfono es requerido");
         }
 
         DTOCompanyCreate dto = new DTOCompanyCreate.Builder()
@@ -102,101 +125,151 @@ public class CompaniesServiceImpl implements CompaniesService {
     }
 
     @Override
-    public DTOCompanySimpleDetails findById(int id) throws DAOException {
-        Optional<DTOCompanySimpleDetails> dtoCompanySimpleDetailsOptional = daoCompanies.findById(id);
+    public DTOCompanySimpleDetails findById(int id) throws ServiceException {
+        try {
+            Optional<DTOCompanySimpleDetails> dtoCompanySimpleDetailsOptional = daoCompanies.findById(id);
 
-        if (dtoCompanySimpleDetailsOptional.isEmpty()) {
-            throw new DataNotFoundException();
+            if (dtoCompanySimpleDetailsOptional.isEmpty()) {
+                throw new ServiceDataNotFoundException();
+            }
+
+            return dtoCompanySimpleDetailsOptional.get();
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
-
-        return dtoCompanySimpleDetailsOptional.get();
     }
 
     @Override
-    public DTOCompanySimpleDetails findByName(String name) throws DAOException {
-        Optional<DTOCompanySimpleDetails> dtoCompanySimpleDetailsOptional = daoCompanies.findByName(name);
+    public DTOCompanySimpleDetails findByName(String name) throws ServiceException {
+        try {
+            Optional<DTOCompanySimpleDetails> dtoCompanySimpleDetailsOptional = daoCompanies.findByName(name);
 
-        if (dtoCompanySimpleDetailsOptional.isEmpty()) {
-            throw new DataNotFoundException();
+            if (dtoCompanySimpleDetailsOptional.isEmpty()) {
+                throw new ServiceDataNotFoundException();
+            }
+
+            return dtoCompanySimpleDetailsOptional.get();
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
-
-        return dtoCompanySimpleDetailsOptional.get();
     }
 
     @Override
-    public DTOCompanySimpleDetails findByNit(int nit) throws DAOException {
-        Optional<DTOCompanySimpleDetails> dtoCompanySimpleDetailsOptional = daoCompanies.findByNit(nit);
+    public DTOCompanySimpleDetails findByNit(int nit) throws ServiceException {
+        try {
+            Optional<DTOCompanySimpleDetails> dtoCompanySimpleDetailsOptional = daoCompanies.findByNit(nit);
 
-        if (dtoCompanySimpleDetailsOptional.isEmpty()) {
-            throw new DataNotFoundException();
+            if (dtoCompanySimpleDetailsOptional.isEmpty()) {
+                throw new ServiceDataNotFoundException();
+            }
+
+            return dtoCompanySimpleDetailsOptional.get();
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
-
-        return dtoCompanySimpleDetailsOptional.get();
     }
 
     @Override
-    public DTOCompanyDetails findCompanyInfo(int id) throws DAOException {
-        Optional<DTOCompanyDetails> dtoCompanyDetailsOptional = daoCompanies.findCompanyInfo(id);
+    public DTOCompanyDetails findCompanyInfo(int id) throws ServiceException {
+        try {
+            Optional<DTOCompanyDetails> dtoCompanyDetailsOptional = daoCompanies.findCompanyInfo(id);
 
-        if (dtoCompanyDetailsOptional.isEmpty()) {
-            throw new DataNotFoundException();
+            if (dtoCompanyDetailsOptional.isEmpty()) {
+                throw new ServiceDataNotFoundException();
+            }
+
+            return dtoCompanyDetailsOptional.get();
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
-
-        return dtoCompanyDetailsOptional.get();
     }
 
     @Override
-    public DTOCompanyDetails findCompanyInfo(Connection connection, int id) throws DAOException {
-        Optional<DTOCompanyDetails> dtoCompanyDetailsOptional = daoCompanies.findCompanyInfo(connection, id);
+    public DTOCompanyDetails findCompanyInfo(Connection connection, int id) throws ServiceException {
+        try {
+            Optional<DTOCompanyDetails> dtoCompanyDetailsOptional = daoCompanies.findCompanyInfo(connection, id);
 
-        if (dtoCompanyDetailsOptional.isEmpty()) {
-            throw new DataNotFoundException();
+            if (dtoCompanyDetailsOptional.isEmpty()) {
+                throw new ServiceDataNotFoundException();
+            }
+
+            return dtoCompanyDetailsOptional.get();
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
-
-        return dtoCompanyDetailsOptional.get();
     }
 
     @Override
-    public List<DTOCompanySimpleDetails> findByAll() throws DAOException {
-        List<DTOCompanySimpleDetails> list = daoCompanies.findByAll();
+    public List<DTOCompanySimpleDetails> findByAll() throws ServiceException {
+        try {
+            List<DTOCompanySimpleDetails> list = daoCompanies.findByAll();
 
-        if (list.isEmpty()) {
-            throw new DataNotFoundException();
+            if (list.isEmpty()) {
+                throw new ServiceDataNotFoundException();
+            }
+
+            return list;
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
-
-        return list;
     }
 
     @Override
-    public void modify(String name, String address, String phone, String email, int id) throws DAOException {
-        DTOCompanyUpdate dto = new DTOCompanyUpdate.Builder()
-                .name(name)
-                .address(address)
-                .phone(phone)
-                .email(email)
-                .id(id)
-                .build();
+    public void modify(String name, String address, String phone, String email, int id) throws ServiceException {
+        try {
+            DTOCompanyUpdate dto = new DTOCompanyUpdate.Builder()
+                    .name(name)
+                    .address(address)
+                    .phone(phone)
+                    .email(email)
+                    .id(id)
+                    .build();
 
-        daoCompanies.modify(dto);
+            daoCompanies.modify(dto);
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
     }
 
     @Override
-    public void modifyPlan(int planId, int id) throws DAOException {
-        DTOCompanyUpdatePlan dto = new DTOCompanyUpdatePlan(id, planId);
+    public void modifyPlan(int planId, int id) throws ServiceException {
+        try {
+            DTOCompanyUpdatePlan dto = new DTOCompanyUpdatePlan(id, planId);
 
-        daoCompanies.modifyPlan(dto);
+            daoCompanies.modifyPlan(dto);
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
     }
 
     @Override
-    public void modifyStatus(Status status, int id) throws DAOException {
-        DTOCompanyUpdateStatus dto = new DTOCompanyUpdateStatus(id, status);
+    public void modifyStatus(Status status, int id) throws ServiceException {
+        try {
+            DTOCompanyUpdateStatus dto = new DTOCompanyUpdateStatus(id, status);
 
-        daoCompanies.modifyStatus(dto);
+            daoCompanies.modifyStatus(dto);
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
     }
 
     @Override
-    public void delete(int id) throws DAOException {
-        daoCompanies.delete(id);
+    public void delete(int id) throws ServiceException {
+        try {
+            daoCompanies.delete(id);
+
+        } catch (DAOException e) {
+            throw new ServicePersistenceException("No fue posible completar la operación.", e);
+        }
     }
 
 }
