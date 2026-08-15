@@ -4,6 +4,7 @@ import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOSales;
 import com.hector.papeleriasaas.model.dto.sale.DTOSaleCreate;
 import com.hector.papeleriasaas.service.impl.SaleServiceImpl;
@@ -66,7 +67,7 @@ class SaleServiceImplTest {
 
     @Test
     @DisplayName("Testear la conexión y la transacción")
-    void testConnection() throws DAOException, SQLException {
+    void testConnection() throws SQLException, ServiceException {
         when(provider.getConnection()).thenReturn(connection);
 
         saleService.registerSale(1066726477, "Hector Acevedo", "3137762626",
@@ -81,7 +82,7 @@ class SaleServiceImplTest {
 
     @Test
     @DisplayName("Testear el registro de la venta")
-    void testRegisterSale() throws DAOException, SQLException {
+    void testRegisterSale() throws SQLException, DAOException, ServiceException {
         configureSuccessfulSale();
         when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(null);
 
@@ -102,7 +103,7 @@ class SaleServiceImplTest {
 
     @Test
     @DisplayName("Testear el registro de la venta con cliente existente")
-    void testRegisterSaleCustomerExist() throws DAOException, SQLException {
+    void testRegisterSaleCustomerExist() throws SQLException, DAOException, ServiceException {
         configureSuccessfulSale();
         when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(new DTOCustomerDetails.Builder().build());
         DTOSaleDetailsCreate dto = createSaleDTO();
@@ -131,7 +132,7 @@ class SaleServiceImplTest {
 
     @Test
     @DisplayName("Testear el registro de la venta sin cliente")
-    void testRegisterSaleCustomerNull() throws DAOException, SQLException {
+    void testRegisterSaleCustomerNull() throws SQLException,DAOException, ServiceException {
         configureSuccessfulSale();
 
         int numSale = saleService.registerSale(null, null, null,
@@ -148,7 +149,7 @@ class SaleServiceImplTest {
 
     @Test
     @DisplayName("Testear el registro de la venta con lista de productos vacía")
-    void testRegisterSaleEmptyList() throws DAOException, SQLException {
+    void testRegisterSaleEmptyList() throws SQLException, DAOException, ServiceException {
         configureSuccessfulSale();
         when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(new DTOCustomerDetails.Builder().build());
 
@@ -168,7 +169,7 @@ class SaleServiceImplTest {
         verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
     }
 
-    private void configureSuccessfulSale() throws SQLException, DAOException {
+    private void configureSuccessfulSale() throws SQLException, DAOException, ServiceException {
         when(provider.getConnection()).thenReturn(connection);
         when(daoSales.add(any(Connection.class), any())).thenReturn(5);
         when(invoicesFacade.add(any(Connection.class), any(DTOInvoiceCreate.class))).thenReturn(5);
@@ -177,7 +178,7 @@ class SaleServiceImplTest {
     @Test
     @Tag("exception")
     @DisplayName("Testear excepción lanzada al registrar la venta")
-    void testRegisterSaleException() throws DAOException, SQLException {
+    void testRegisterSaleException() throws SQLException, ServiceException {
         when(provider.getConnection()).thenReturn(connection);
         when(customersFacade.findById(any(Connection.class), anyInt())).thenThrow(new CustomerNotFoundException("1066726477"));
 
@@ -205,7 +206,7 @@ class SaleServiceImplTest {
 
     @Test
     @DisplayName("Testear verificación de stock bajo")
-    void testCheckLowStock() throws DAOException {
+    void testCheckLowStock() throws ServiceException {
         when(productsFacade.findByAll()).thenReturn(Arrays.asList(
                 new DTOProductDetails.Builder().amount(3).description("Cuaderno").build(),
                 new DTOProductDetails.Builder().amount(5).description("Lapicero").build(),
@@ -221,7 +222,7 @@ class SaleServiceImplTest {
 
     @Test
     @DisplayName("Testear verificación de stock bajo sin productos")
-    void testCheckLowStockEmpty() throws DAOException {
+    void testCheckLowStockEmpty() throws ServiceException {
         when(productsFacade.findByAll()).thenReturn(Collections.emptyList());
 
         String lowStock = saleService.checkLowStock();

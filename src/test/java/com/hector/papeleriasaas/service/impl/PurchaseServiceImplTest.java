@@ -1,12 +1,12 @@
-package com.hector.papeleriasaas.service;
+package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.dao.persistence.PurchasePersistenceException;
+import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOPurchases;
 import com.hector.papeleriasaas.model.dto.purchase.DTOPurchaseCreate;
-import com.hector.papeleriasaas.service.impl.PurchaseServiceImpl;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.model.dto.product.DTOProductCreate;
 import com.hector.papeleriasaas.model.dto.product.DTOProductDetails;
@@ -63,7 +63,7 @@ class PurchaseServiceImplTest {
 
     @Test
     @DisplayName("Testear la conexión")
-    void testConnection() throws SQLException, DAOException {
+    void testConnection() throws SQLException, ServiceException {
         when(connectionProvider.getConnection()).thenReturn(connection);
 
         purchaseService.registerPurchase(createDtoProvider(), new BigDecimal("45000.00"), Collections.emptyList());
@@ -77,7 +77,7 @@ class PurchaseServiceImplTest {
 
     @Test
     @DisplayName("Testear el registro de la compra")
-    void testRegisterPurchase() throws SQLException, DAOException {
+    void testRegisterPurchase() throws SQLException, DAOException, ServiceException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
         when(productsFacade.findByName(any(Connection.class), anyString())).thenReturn(null);
@@ -99,7 +99,7 @@ class PurchaseServiceImplTest {
 
     @Test
     @DisplayName("Testear el registro de la compra con producto Existente")
-    void testRegisterPurchaseProductExist() throws SQLException, DAOException {
+    void testRegisterPurchaseProductExist() throws SQLException, DAOException, ServiceException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
         when(productsFacade.findByName(any(Connection.class), anyString())).thenReturn(createDtoProductDetails());
@@ -138,7 +138,7 @@ class PurchaseServiceImplTest {
 
     @Test
     @DisplayName("Testear el registro de la compra con lista de productos vacía")
-    void testRegisterPurchaseEmptyList() throws SQLException, DAOException {
+    void testRegisterPurchaseEmptyList() throws SQLException, ServiceException, DAOException {
         when(connectionProvider.getConnection()).thenReturn(connection);
         when(daoPurchases.add(any(Connection.class), any(DTOPurchaseCreate.class))).thenReturn(5);
 
