@@ -62,6 +62,7 @@ public class SalesManagementView extends javax.swing.JPanel {
         txt_amountPaid = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        txt_customerEmail = new javax.swing.JTextField();
         scrollProducts = new javax.swing.JScrollPane();
         jpl_content = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -185,6 +186,11 @@ public class SalesManagementView extends javax.swing.JPanel {
         jLabel14.setForeground(new java.awt.Color(42, 49, 64));
         jLabel14.setText("$");
 
+        txt_customerEmail.setBackground(new java.awt.Color(223, 229, 234));
+        txt_customerEmail.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txt_customerEmail.setForeground(new java.awt.Color(119, 141, 169));
+        txt_customerEmail.setText("Correo");
+
         javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
         roundedPanel2.setLayout(roundedPanel2Layout);
         roundedPanel2Layout.setHorizontalGroup(
@@ -203,11 +209,14 @@ public class SalesManagementView extends javax.swing.JPanel {
                                     .addGroup(roundedPanel2Layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_customerName, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                                            .addGroup(roundedPanel2Layout.createSequentialGroup()
-                                                .addComponent(txt_customerId, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txt_customerPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                                            .addComponent(txt_customerName, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel2Layout.createSequentialGroup()
+                                                .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(txt_customerEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                                                    .addGroup(roundedPanel2Layout.createSequentialGroup()
+                                                        .addComponent(txt_customerId, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(txt_customerPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)))
                                                 .addGap(4, 4, 4)))))))
                         .addGap(22, 22, 22))
                     .addGroup(roundedPanel2Layout.createSequentialGroup()
@@ -253,7 +262,9 @@ public class SalesManagementView extends javax.swing.JPanel {
                 .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_customerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_customerPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(txt_customerEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orderItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -629,6 +640,10 @@ public class SalesManagementView extends javax.swing.JPanel {
     public void setControllerTxt_amountPaidFocus(FocusListener listen) {
         txt_amountPaid.addFocusListener(listen);
     }
+    
+    public void setControllerTxt_email(FocusListener listen) {
+        txt_customerEmail.addFocusListener(listen);
+    }
 
     public JButton getBtn_search() {
         return btn_search;
@@ -685,6 +700,10 @@ public class SalesManagementView extends javax.swing.JPanel {
     public JTextField getTxt_customerPhone() {
         return txt_customerPhone;
     }
+    
+    public JTextField getTxt_customerEmail() {
+        return txt_customerEmail;
+    }
 
     public JTextField getTxt_search() {
         return txt_search;
@@ -721,6 +740,7 @@ public class SalesManagementView extends javax.swing.JPanel {
     private com.hector.papeleriasaas.view.swing.panels.RoundedPanel roundedPanel2;
     private javax.swing.JScrollPane scrollProducts;
     private javax.swing.JTextField txt_amountPaid;
+    private javax.swing.JTextField txt_customerEmail;
     private javax.swing.JTextField txt_customerId;
     private javax.swing.JTextField txt_customerName;
     private javax.swing.JTextField txt_customerPhone;

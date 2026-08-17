@@ -162,7 +162,7 @@ public class CompaniesMenu extends javax.swing.JPanel {
         btn_myProfile.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 13, 1, 1, new java.awt.Color(0, 0, 0)));
         btn_myProfile.setForeground(new java.awt.Color(242, 242, 242));
         btn_myProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/circle-user.png"))); // NOI18N
-        btn_myProfile.setText("Mi Información");
+        btn_myProfile.setText("  Mi Información");
         btn_myProfile.setBorderPainted(false);
         btn_myProfile.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
 

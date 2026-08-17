@@ -274,6 +274,7 @@ public class PurchaseProductsView extends javax.swing.JPanel {
         scrollBar1.setBackground(new java.awt.Color(242, 242, 242));
 
         roundedPanel2.setBackground(new java.awt.Color(242, 242, 242));
+        roundedPanel2.setBorderColor(new java.awt.Color(119, 141, 169));
 
         txt_product.setBackground(new java.awt.Color(242, 242, 242));
         txt_product.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -297,6 +298,7 @@ public class PurchaseProductsView extends javax.swing.JPanel {
         );
 
         roundedPanel4.setBackground(new java.awt.Color(242, 242, 242));
+        roundedPanel4.setBorderColor(new java.awt.Color(119, 141, 169));
 
         txt_purchasePrice.setBackground(new java.awt.Color(242, 242, 242));
         txt_purchasePrice.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -320,6 +322,7 @@ public class PurchaseProductsView extends javax.swing.JPanel {
         );
 
         roundedPanel5.setBackground(new java.awt.Color(242, 242, 242));
+        roundedPanel5.setBorderColor(new java.awt.Color(119, 141, 169));
 
         txt_amount.setBackground(new java.awt.Color(242, 242, 242));
         txt_amount.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -343,6 +346,7 @@ public class PurchaseProductsView extends javax.swing.JPanel {
         );
 
         roundedPanel6.setBackground(new java.awt.Color(242, 242, 242));
+        roundedPanel6.setBorderColor(new java.awt.Color(119, 141, 169));
 
         txt_salePrice.setBackground(new java.awt.Color(242, 242, 242));
         txt_salePrice.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N

@@ -221,11 +221,16 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txt_customerName" pref="314" max="32767" attributes="0"/>
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="txt_customerId" pref="149" max="32767" attributes="0"/>
-                                                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="txt_customerPhone" pref="149" max="32767" attributes="0"/>
+                                                  <Component id="txt_customerName" pref="318" max="32767" attributes="0"/>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Component id="txt_customerEmail" alignment="0" pref="314" max="32767" attributes="0"/>
+                                                          <Group type="102" attributes="0">
+                                                              <Component id="txt_customerId" pref="151" max="32767" attributes="0"/>
+                                                              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="txt_customerPhone" pref="151" max="32767" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
                                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -290,7 +295,9 @@
                           <Component id="txt_customerId" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_customerPhone" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_customerEmail" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="orderItemList" pref="0" max="32767" attributes="0"/>
@@ -304,7 +311,7 @@
                               <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_amountPaid" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -312,7 +319,7 @@
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="btn_sale" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="btn_cancelSale" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   </Group>
@@ -489,6 +496,20 @@
                   <Color blue="40" green="31" red="2a" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="$"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txt_customerEmail">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ea" green="e5" red="df" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="SansSerif" size="14" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="a9" green="8d" red="77" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Correo"/>
               </Properties>
             </Component>
           </SubComponents>
