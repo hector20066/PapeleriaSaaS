@@ -7,7 +7,6 @@ import com.hector.papeleriasaas.model.dto.user.DTOUserDetails;
 import com.hector.papeleriasaas.observer.Observer;
 import com.hector.papeleriasaas.observer.Subject;
 import com.hector.papeleriasaas.service.interfaces.CompanyPaymentsService;
-import com.hector.papeleriasaas.service.interfaces.PlansService;
 import com.hector.papeleriasaas.service.interfaces.UserService;
 import com.hector.papeleriasaas.utils.MessageUtils;
 import com.hector.papeleriasaas.view.content.panels.companies.CompanyView;
@@ -22,16 +21,15 @@ public class ControllerCompanyView implements Observer {
     private final Subject subject;
 
     private final UserService userService;
-    private final PlansService plansService;
     private final CompanyPaymentsService companyPaymentsService;
 
-    public ControllerCompanyView(CompanyView companyView, Session session, Subject subject, UserService userService, PlansService plansService, CompanyPaymentsService companyPaymentsService) {
+    public ControllerCompanyView(CompanyView companyView, Session session, Subject subject, UserService userService,
+                                 CompanyPaymentsService companyPaymentsService) {
         this.companyView = companyView;
         this.session = session;
         this.subject = subject;
 
         this.userService = userService;
-        this.plansService = plansService;
         this.companyPaymentsService = companyPaymentsService;
 
         this.subject.register(this);
@@ -57,6 +55,9 @@ public class ControllerCompanyView implements Observer {
     }
 
     private void loadData(List<DTOUserDetails> listUsers, List<DTOPaymentCompanyDetails> paymentsList) {
+        companyView.getPaymentsList().setRowCount(0);
+        companyView.getUsersList().setRowCount(0);
+
         listUsers.forEach(companyView::loadUsers);
         paymentsList.forEach(companyView::loadPayments);
     }
