@@ -262,7 +262,7 @@ public class Coordinator {
         new ControllerPurchasingReport(purchasingReport, subject, purchaseService);
         new ControllerCustomer(customers, subject, customerService);
         new ControllerSuppliers(providers, subject, providersService);
-        new ControllerCompanyView(companyView, session, subject, userService, plansService, companyPaymentsService);
+        new ControllerCompanyView(companyView, session, subject, userService, companyPaymentsService);
     }
 
     public void startAdminEnvironment() {
