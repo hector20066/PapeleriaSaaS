@@ -31,7 +31,8 @@ public class CompanyPaymentsServiceImpl implements CompanyPaymentsService {
     }
 
     @Override
-    public void add(int companyId, int planId, BigDecimal amountPaid, String paymentReference, String observations, PaymentStatus paymentStatus) throws ServiceException {
+    public void add(int companyId, int planId, BigDecimal amountPaid, String paymentReference, String observations,
+                    PaymentStatus paymentStatus) throws ServiceException {
         try {
             LocalDate paymentDate = LocalDate.now();
             LocalDate expirationDate = paymentDate.plusMonths(1);

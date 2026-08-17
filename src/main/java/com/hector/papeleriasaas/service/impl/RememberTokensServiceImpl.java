@@ -44,7 +44,6 @@ public class RememberTokensServiceImpl implements RememberTokensService {
             UserConfig.set("remember.token", token);
 
             return token;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -60,7 +59,6 @@ public class RememberTokensServiceImpl implements RememberTokensService {
             }
 
             return dtoRememberOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -70,7 +68,6 @@ public class RememberTokensServiceImpl implements RememberTokensService {
     public void updateLastUsedAt(String token) throws ServiceException {
         try {
             daoRememberTokens.updateLastUsedAt(token);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -80,7 +77,6 @@ public class RememberTokensServiceImpl implements RememberTokensService {
     public void deleteByToken(String token) throws ServiceException {
         try {
             daoRememberTokens.deleteByToken(token);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -90,7 +86,6 @@ public class RememberTokensServiceImpl implements RememberTokensService {
     public void deleteByUser(Integer userId) throws ServiceException {
         try {
             daoRememberTokens.deleteByUser(userId);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -100,7 +95,6 @@ public class RememberTokensServiceImpl implements RememberTokensService {
     public void deleteExpiredTokens() throws ServiceException {
         try {
             daoRememberTokens.deleteExpiredTokens();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

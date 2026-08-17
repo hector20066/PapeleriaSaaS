@@ -89,9 +89,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
             throw new ServicePersistenceException("No fue posible registrar la compra.", e);
         } catch (ServiceException e) {
-            if (connection != null) {
-                rollback(connection);
-            }
+            rollback(connection);
             throw e;
         } finally {
             if (connection != null) {

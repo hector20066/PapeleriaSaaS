@@ -19,7 +19,9 @@ public interface UserService {
 
     int add(Integer identification, String name, String user, String passwd, Roles role, Status status) throws ServiceException;
     int add(Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws ServiceException;
-    int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws ServiceException;
+    int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status,
+            Integer companyId) throws ServiceException;
+
     DTOUserDetails findByIdentification(Integer identification) throws ServiceException;
     DTOUserDetails findById(Integer id) throws ServiceException;
     DTOUserDetails findByUser(String user) throws ServiceException;

@@ -14,7 +14,9 @@ import java.util.List;
  */
 public interface SaleService {
 
-    int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid, BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws ServiceException;
+    int registerSale(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
+                     BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws ServiceException;
+
     String checkLowStock() throws ServiceException;
     List<DTOSaleDetails> findById(int id) throws ServiceException;
     List<DTOSaleDetails> findById(Connection connection, int id) throws ServiceException;

@@ -49,7 +49,7 @@ public class DebtsServiceImpl implements DebtsService {
     @Override
     public List<DTODebtDetails> findByStatus(PaymentStatus status) throws ServiceException {
         try {
-            return daoDebts.findByStatus(status, 1);
+            return daoDebts.findByStatus(status, session.getCompanyId());
 
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);

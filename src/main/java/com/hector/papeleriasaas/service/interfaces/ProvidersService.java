@@ -12,7 +12,9 @@ import java.util.List;
  */
 public interface ProvidersService {
 
-    int registerProviderPurchase(Connection connection, int nit, String rSocial, String address, String phone, String email) throws ServiceException;
+    int registerProviderPurchase(Connection connection, int nit, String rSocial, String address, String phone,
+                                 String email) throws ServiceException;
+
     DTOProvider findByName(String name) throws ServiceException;
     DTOProvider findById(int id) throws ServiceException;
     List<DTOProvider> findByAll() throws ServiceException;

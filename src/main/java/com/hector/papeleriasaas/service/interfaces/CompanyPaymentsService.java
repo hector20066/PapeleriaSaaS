@@ -15,7 +15,9 @@ import java.util.List;
  */
 public interface CompanyPaymentsService {
 
-    void add(int companyId, int planId, BigDecimal amountPaid, String paymentReference, String observations, PaymentStatus paymentStatus) throws ServiceException;
+    void add(int companyId, int planId, BigDecimal amountPaid, String paymentReference, String observations,
+             PaymentStatus paymentStatus) throws ServiceException;
+
     DTOPaymentDetails findById(int id, int companyId) throws ServiceException;
     List<DTOPaymentCompanyDetails> findByCompany(int companyId) throws ServiceException;
     List<DTOPaymentSimpleDetails> findByAll() throws ServiceException;

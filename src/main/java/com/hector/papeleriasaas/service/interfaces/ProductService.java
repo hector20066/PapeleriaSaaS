@@ -23,7 +23,9 @@ public interface ProductService {
     DTOProductBestSelling bestSelling() throws ServiceException;
     List<DTOProductDetails> findByAll() throws ServiceException;
     void modify(String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice, int id) throws ServiceException;
-    void modify(Connection connection, String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice, int id) throws ServiceException;
+    void modify(Connection connection, String description, int amount, BigDecimal salePrice, BigDecimal purchasePrice,
+                int id) throws ServiceException;
+
     void delete(int id) throws ServiceException;
     int countRecords() throws ServiceException;
 

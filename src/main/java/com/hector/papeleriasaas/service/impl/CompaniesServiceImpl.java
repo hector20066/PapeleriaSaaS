@@ -33,7 +33,8 @@ public class CompaniesServiceImpl implements CompaniesService {
     private final UserService userService;
     private final ConnectionProvider connectionProvider;
 
-    public CompaniesServiceImpl(DAOCompanies daoCompanies, PlansService plansService, UserService userService, ConnectionProvider connectionProvider) {
+    public CompaniesServiceImpl(DAOCompanies daoCompanies, PlansService plansService, UserService userService,
+                                ConnectionProvider connectionProvider) {
         this.daoCompanies = daoCompanies;
         this.plansService = plansService;
         this.userService = userService;
@@ -65,7 +66,8 @@ public class CompaniesServiceImpl implements CompaniesService {
                 throw new PersistenceException("Ha ocurrido un error en el registro de la empresa");
             }
 
-            userService.add(connection, dtoUserCreate.getIdentification(), dtoUserCreate.getName(), dtoUserCreate.getUser(), dtoUserCreate.getPasswd(), dtoUserCreate.getRole(), dtoUserCreate.getStatus(), companyId);
+            userService.add(connection, dtoUserCreate.getIdentification(), dtoUserCreate.getName(), dtoUserCreate.getUser(),
+                    dtoUserCreate.getPasswd(), dtoUserCreate.getRole(), dtoUserCreate.getStatus(), companyId);
 
             connection.commit();
         } catch (SQLException | DAOException e) {
@@ -75,10 +77,7 @@ public class CompaniesServiceImpl implements CompaniesService {
 
             throw new ServicePersistenceException("No fue posible registrar la empresa.", e);
         } catch (ServiceException e) {
-            if (connection != null) {
-                rollback(connection);
-            }
-
+            rollback(connection);
             throw e;
         } finally {
             if (connection != null) {
@@ -101,7 +100,8 @@ public class CompaniesServiceImpl implements CompaniesService {
         }
     }
 
-    private int add(Connection connection, Integer nit, String name, String address, String phone, String email, Status status, int planId) throws DAOException, ServiceException {
+    private int add(Connection connection, Integer nit, String name, String address, String phone, String email,
+                    Status status, int planId) throws DAOException, ServiceException {
         if (name.isBlank()) {
             throw new ServicePersistenceException("El nombre de la empresa es requerido");
         }

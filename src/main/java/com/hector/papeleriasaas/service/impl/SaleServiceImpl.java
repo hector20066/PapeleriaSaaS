@@ -3,7 +3,6 @@ package com.hector.papeleriasaas.service.impl;
 import com.hector.papeleriasaas.auth.Session;
 import com.hector.papeleriasaas.database.ConnectionProvider;
 import com.hector.papeleriasaas.exception.dao.DAOException;
-import com.hector.papeleriasaas.exception.dao.notfound.SaleDetailsNotFoundException;
 import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
 import com.hector.papeleriasaas.exception.service.ServicePersistenceException;
@@ -37,7 +36,9 @@ public class SaleServiceImpl implements SaleService {
 
     private final Session session;
 
-    public SaleServiceImpl(DAOSales daoSales, CustomerService customerService, SaleDetailsService saleDetailsService, InvoicesService invoicesService, ProductService productService, ConnectionProvider connectionProvider, Session session) {
+    public SaleServiceImpl(DAOSales daoSales, CustomerService customerService, SaleDetailsService saleDetailsService,
+                           InvoicesService invoicesService, ProductService productService, ConnectionProvider connectionProvider,
+                           Session session) {
         this.daoSales = daoSales;
         this.customerService = customerService;
         this.saleDetailsService = saleDetailsService;
@@ -92,11 +93,13 @@ public class SaleServiceImpl implements SaleService {
             if (connection != null) {
                 rollback(connection);
             }
+
             throw new ServicePersistenceException("No fue posible registrar la venta.", e);
         } catch (ServiceException e) {
             if (connection != null) {
                 rollback(connection);
             }
+
             throw e;
         } finally {
             if (connection != null) {
@@ -136,15 +139,15 @@ public class SaleServiceImpl implements SaleService {
         StringBuilder productsOutOfStock = new StringBuilder();
         List<DTOProductDetails> products = productService.findByAll();
 
-            products.stream()
-                    .filter(product -> product.getAmount() < 5)
-                    .map(DTOProductDetails::getDescription)
-                    .distinct()
-                    .forEach(p -> productsOutOfStock.append(p).append(", "));
+        products.stream()
+                .filter(product -> product.getAmount() < 5)
+                .map(DTOProductDetails::getDescription)
+                .distinct()
+                .forEach(p -> productsOutOfStock.append(p).append(", "));
 
-            if (!productsOutOfStock.isEmpty()) {
-                productsOutOfStock.setLength(productsOutOfStock.length() - 2);
-            }
+        if (!productsOutOfStock.isEmpty()) {
+            productsOutOfStock.setLength(productsOutOfStock.length() - 2);
+        }
 
         return productsOutOfStock.toString();
     }
@@ -159,7 +162,6 @@ public class SaleServiceImpl implements SaleService {
             }
 
             return list;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -169,7 +171,6 @@ public class SaleServiceImpl implements SaleService {
     public List<DTOSaleDetails> findById(Connection connection, int id) throws ServiceException {
         try {
             return daoSales.findById(connection, id, session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -179,7 +180,6 @@ public class SaleServiceImpl implements SaleService {
     public List<DTOSaleDetails> findByAll() throws ServiceException {
         try {
             return daoSales.findByAll(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -202,7 +202,6 @@ public class SaleServiceImpl implements SaleService {
             dto.setCompanyId(session.getCompanyId());
 
             daoSales.modify(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -217,7 +216,6 @@ public class SaleServiceImpl implements SaleService {
             dto.setCompanyId(session.getCompanyId());
 
             daoSales.modify(connection, dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -227,7 +225,6 @@ public class SaleServiceImpl implements SaleService {
     public int countRecords() throws ServiceException {
         try {
             return daoSales.countRecords(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

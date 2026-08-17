@@ -5,7 +5,6 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
 import com.hector.papeleriasaas.exception.service.ServicePersistenceException;
-import com.hector.papeleriasaas.exception.dao.DataNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOUsers;
 import com.hector.papeleriasaas.model.dto.user.*;
 import com.hector.papeleriasaas.model.enums.Roles;
@@ -44,14 +43,14 @@ public class UserServiceImpl implements UserService {
                     .build();
 
             return daoUsers.add(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
     }
 
     @Override
-    public int add(Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws ServiceException {
+    public int add(Integer identification, String name, String user, String passwd, Roles role, Status status,
+                   Integer companyId) throws ServiceException {
         try {
             DTOUserCreate dto = new DTOUserCreate.Builder()
                     .identification(identification)
@@ -64,14 +63,14 @@ public class UserServiceImpl implements UserService {
                     .build();
 
             return daoUsers.add(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
     }
 
     @Override
-    public int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role, Status status, Integer companyId) throws ServiceException {
+    public int add(Connection connection, Integer identification, String name, String user, String passwd, Roles role,
+                   Status status, Integer companyId) throws ServiceException {
         try {
             DTOUserCreate dto = new DTOUserCreate.Builder()
                     .identification(identification)
@@ -84,7 +83,6 @@ public class UserServiceImpl implements UserService {
                     .build();
 
             return daoUsers.add(connection, dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -104,7 +102,6 @@ public class UserServiceImpl implements UserService {
             }
 
             return userDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -120,7 +117,6 @@ public class UserServiceImpl implements UserService {
             }
 
             return userDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -136,7 +132,6 @@ public class UserServiceImpl implements UserService {
             }
 
             return userDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -152,7 +147,6 @@ public class UserServiceImpl implements UserService {
             }
 
             return list;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -168,7 +162,6 @@ public class UserServiceImpl implements UserService {
             }
 
             return list;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -178,7 +171,6 @@ public class UserServiceImpl implements UserService {
     public Optional<DTOAuthentication> findByNitAndUser(String user, int companyNit) throws ServiceException {
         try {
             return daoUsers.findByNitAndUser(user, companyNit);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -188,7 +180,6 @@ public class UserServiceImpl implements UserService {
     public Optional<DTOAuthenticationRoot> findAuthenticationRoot(String user) throws ServiceException {
         try {
             return daoUsers.findAuthenticationRoot(user);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -207,7 +198,6 @@ public class UserServiceImpl implements UserService {
                     .build();
 
             daoUsers.modify(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -217,9 +207,7 @@ public class UserServiceImpl implements UserService {
     public void modifyPassword(String passwd, int id) throws ServiceException {
         try {
             DTOUserUpdatePasswd dto = new DTOUserUpdatePasswd(passwd, id);
-
             daoUsers.modifyPassword(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -231,7 +219,6 @@ public class UserServiceImpl implements UserService {
             DTOUserUpdatePasswdCompany dto = new DTOUserUpdatePasswdCompany(passwd, id, session.getCompanyId());
 
             daoUsers.modifyPasswordCompany(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -241,7 +228,6 @@ public class UserServiceImpl implements UserService {
     public void delete(int id) throws ServiceException {
         try {
             daoUsers.delete(id);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

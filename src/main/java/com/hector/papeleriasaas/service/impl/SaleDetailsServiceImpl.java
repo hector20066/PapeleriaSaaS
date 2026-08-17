@@ -32,7 +32,6 @@ public class SaleDetailsServiceImpl implements SaleDetailsService {
             dto.setUnitPrice(unitPrice);
 
             daoSaleDetails.add(connection, dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
