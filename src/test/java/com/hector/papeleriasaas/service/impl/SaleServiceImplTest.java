@@ -70,7 +70,7 @@ class SaleServiceImplTest {
         when(provider.getConnection()).thenReturn(connection);
 
         saleService.registerSale(1066726477, "Hector Acevedo", "3137762626",
-                new BigDecimal("25000.00"), new BigDecimal("25000.00"), List.of(createSaleDTO()));
+                "hlacevedo@gmail.com", new BigDecimal("25000.00"), new BigDecimal("25000.00"), List.of(createSaleDTO()));
 
         verify(connection).setAutoCommit(false);
         verify(connection).commit();
@@ -88,13 +88,14 @@ class SaleServiceImplTest {
         DTOSaleDetailsCreate dto = createSaleDTO();
 
         int invoiceNumber = saleService.registerSale(1066726477, "Hector Acevedo",
-                "3137762626", new BigDecimal("25000.00"), new BigDecimal("25000.00"), List.of(createSaleDTO()));
+                "3137762626", "hlacevedo@gmail.com", new BigDecimal("25000.00"),
+                new BigDecimal("25000.00"), List.of(createSaleDTO()));
 
         assertEquals(5, invoiceNumber, () -> "El numero de la venta no es el esperado");
 
         verify(customersFacade).findById(connection, 1066726477);
-        verify(customersFacade).add(connection, 1066726477, "Hector Acevedo", "3137762626");
-        verify(customersFacade, never()).modify(connection, "3137762626", 1066726477);
+        verify(customersFacade).add(connection, 1066726477, "Hector Acevedo", "3137762626", "hlacevedo@gmail.com");
+        verify(customersFacade, never()).modify(connection, "Hector Acevedo", "3137762626", "hlacevedo@gmail.com", 1066726477);
         verify(daoSales).add(any(Connection.class), any(DTOSaleCreate.class));
         verify(saleDetailsFacade).add(connection, invoiceNumber, dto.getProductId(), dto.getAmount(), dto.getUnitPrice());
         verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
@@ -108,13 +109,13 @@ class SaleServiceImplTest {
         DTOSaleDetailsCreate dto = createSaleDTO();
 
         int invoiceNumber = saleService.registerSale(1066726477, "Hector Acevedo", "3137762626",
-                new BigDecimal("25000.00"), new BigDecimal("25000.00"), List.of(createSaleDTO()));
+                "hlacevedo@gmail.com", new BigDecimal("25000.00"), new BigDecimal("25000.00"), List.of(createSaleDTO()));
 
         assertEquals(5, invoiceNumber, () -> "El numero de la venta no es el esperado");
 
         verify(customersFacade).findById(connection, 1066726477);
-        verify(customersFacade).modify(connection, "3137762626", 1066726477);
-        verify(customersFacade, never()).add(connection, 1066726477, "Hector", "3137762626");
+        verify(customersFacade).modify(connection, "Hector Acevedo", "3137762626", "hlacevedo@gmail.com", 1066726477);
+        verify(customersFacade, never()).add(connection, 1066726477, "Hector", "3137762626", "hlacevedo@gmail.com");
         verify(daoSales).add(any(Connection.class), any(DTOSaleCreate.class));
         verify(saleDetailsFacade).add(connection, invoiceNumber, dto.getProductId(), dto.getAmount(), dto.getUnitPrice());
         verify(invoicesFacade).add(any(Connection.class), any(DTOInvoiceCreate.class));
@@ -135,7 +136,7 @@ class SaleServiceImplTest {
         configureSuccessfulSale();
 
         int numSale = saleService.registerSale(null, null, null,
-                new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList());
+                null, new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList());
 
         assertEquals(5, numSale, () -> "El numero de la venta no es el esperado");
 
@@ -153,13 +154,14 @@ class SaleServiceImplTest {
         when(customersFacade.findById(any(Connection.class), anyInt())).thenReturn(new DTOCustomerDetails.Builder().build());
 
         int numSale = saleService.registerSale(1066726477, "Hector Acevedo",
-                "3137762626", new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList());
+                "3137762626", "hlacevedo@gmail.com", new BigDecimal("25000.00"),
+                new BigDecimal("25000.00"), Collections.emptyList());
 
         assertEquals(5, numSale, () -> "El numero de la venta no es el esperado");
 
         verify(customersFacade).findById(connection, 1066726477);
-        verify(customersFacade).modify(connection, "3137762626", 1066726477);
-        verify(customersFacade, never()).add(connection, 1066726477, "Hector Acevedo", "3137762626");
+        verify(customersFacade).modify(connection, "Hector Acevedo","3137762626", "hlacevedo@gmail.com", 1066726477);
+        verify(customersFacade, never()).add(connection, 1066726477, "Hector Acevedo", "3137762626", "hlacevedo@gmail.com");
         verify(daoSales).add(any(Connection.class), any(DTOSaleCreate.class));
 
         verify(saleDetailsFacade, never()).add(any(Connection.class), anyInt(), anyInt(), anyInt(), any(BigDecimal.class));
@@ -184,7 +186,7 @@ class SaleServiceImplTest {
         ServiceDataNotFoundException ex = assertThrows(
                 ServiceDataNotFoundException.class,
                 () -> saleService.registerSale(1066726477, "Hector Acevedo", "3137762626",
-                        new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList()),
+                        "hlacevedo@gmail.com",new BigDecimal("25000.00"), new BigDecimal("25000.00"), Collections.emptyList()),
                 () -> "La excepción lanzada no es la esperada"
         );
 
