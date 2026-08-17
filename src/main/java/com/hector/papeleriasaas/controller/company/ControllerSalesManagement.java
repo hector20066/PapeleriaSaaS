@@ -77,6 +77,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 "Nombre"));
         salesManagement.setControllerTxt_customerPhoneFocus(SwingUtils.addFocusListener(salesManagement.getTxt_customerPhone(),
                 "Telefono"));
+        salesManagement.setControllerTxt_email(SwingUtils.addFocusListener(salesManagement.getTxt_customerEmail(), "Correo"));
         salesManagement.setControllerTxt_amountPaidFocus(SwingUtils.addFocusListener(salesManagement.getTxt_amountPaid(), "0.00"));
         salesManagement.setControllerTxt_searchDocument(documentListenerEvent());
     }
@@ -162,6 +163,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
             String customerName = salesManagement.getTxt_customerName().getText().trim();
             String customerPhone = salesManagement.getTxt_customerPhone().getText().trim();
             String customerId = salesManagement.getTxt_customerId().getText().trim();
+            String customerEmail = salesManagement.getTxt_customerEmail().getText().trim();
             String totalSale = salesManagement.getJlb_totalSale().getText().trim();
             String amountPaid = salesManagement.getTxt_amountPaid().getText().trim();
             List<DTOSaleDetailsCreate> list = SalesManagementMapper.listProductDetails(this.orderList);
@@ -185,6 +187,10 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                 if (ValidationUtils.isInvalidInput(customerPhone, "Telefono")) {
                     customerPhone = null;
                 }
+
+                if (ValidationUtils.isInvalidInput(customerEmail, "Correo")) {
+                    customerEmail = null;
+                }
             }
 
             Integer customerIdInt = customerId != null
@@ -192,7 +198,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
                     : null;
 
             prepareUI();
-            doInBackground(customerIdInt, customerName, customerPhone, amountPaidValue, totalSaleValue, list);
+            doInBackground(customerIdInt, customerName, customerPhone, customerEmail, amountPaidValue, totalSaleValue, list);
         } catch (InvalidInputException e) {
             MessageUtils.errorMessage(MessageUtils.userMessage(e), salesManagement);
         }
@@ -203,11 +209,12 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         salesManagement.getBtn_sale().setText("Registrando venta...");
     }
 
-    private void doInBackground(Integer customerId, String customerName, String customerPhone, BigDecimal amountPaid,
-                                BigDecimal totalSale, List<DTOSaleDetailsCreate> list) {
+    private void doInBackground(Integer customerId, String customerName, String customerPhone, String customerEmail,
+                                BigDecimal amountPaid, BigDecimal totalSale, List<DTOSaleDetailsCreate> list) {
         BackgroundExecutor.execute(() -> {
             try {
-                int invoiceNumber = saleService.registerSale(customerId, customerName, customerPhone, amountPaid, totalSale, list);
+                int invoiceNumber = saleService.registerSale(customerId, customerName, customerPhone, customerEmail,
+                        amountPaid, totalSale, list);
                 String lowStock = saleService.checkLowStock();
 
                 SwingUtilities.invokeLater(() -> generateInvoice(invoiceNumber, customerName, customerId, totalSale, lowStock, amountPaid));
@@ -336,6 +343,7 @@ public class ControllerSalesManagement implements Observer, ProductPanelListener
         salesManagement.getTxt_customerName().setText("Nombre");
         salesManagement.getTxt_customerPhone().setText("Telefono");
         salesManagement.getTxt_customerId().setText("Cedula");
+        salesManagement.getTxt_customerEmail().setText("Correo");
 
         this.orderList.clear();
 
