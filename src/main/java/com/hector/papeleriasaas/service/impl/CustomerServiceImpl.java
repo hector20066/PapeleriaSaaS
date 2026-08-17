@@ -5,7 +5,6 @@ import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
 import com.hector.papeleriasaas.exception.service.ServicePersistenceException;
-import com.hector.papeleriasaas.exception.dao.notfound.CustomerNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOCustomers;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerCreate;
 import com.hector.papeleriasaas.model.dto.customer.DTOCustomerDetails;
@@ -30,17 +29,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public int add(Connection connection, int id, String name, String phone) throws ServiceException {
+    public int add(Connection connection, int id, String name, String phone, String email) throws ServiceException {
         try {
             DTOCustomerCreate dto = new DTOCustomerCreate.Builder()
                     .identification(id)
                     .name(name)
                     .phone(phone)
+                    .email(email)
                     .companyId(session.getCompanyId())
                     .build();
 
             return daoCustomers.add(connection, dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -56,7 +55,6 @@ public class CustomerServiceImpl implements CustomerService {
             }
 
             return customerOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -72,7 +70,6 @@ public class CustomerServiceImpl implements CustomerService {
             }
 
             return customerOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -84,8 +81,6 @@ public class CustomerServiceImpl implements CustomerService {
             Optional<DTOCustomerDetails> customerOptional = daoCustomers.findById(connection, id);
 
             return customerOptional.orElse(null);
-
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -95,23 +90,23 @@ public class CustomerServiceImpl implements CustomerService {
     public List<DTOCustomerDetails> findByAll() throws ServiceException {
         try {
             return daoCustomers.findByAll(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
     }
 
     @Override
-    public void modify(Connection connection, String phone, int id) throws ServiceException {
+    public void modify(Connection connection, String name, String phone, String email, int id) throws ServiceException {
         try {
             DTOCustomerCreate dto = new DTOCustomerCreate.Builder()
+                    .name(name)
                     .phone(phone)
+                    .email(email)
                     .identification(id)
                     .companyId(session.getCompanyId())
                     .build();
 
             daoCustomers.modify(connection, dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -121,7 +116,6 @@ public class CustomerServiceImpl implements CustomerService {
     public int countRecords() throws ServiceException {
         try {
             return daoCustomers.countRecords(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

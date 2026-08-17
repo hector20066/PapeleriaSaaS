@@ -49,8 +49,8 @@ public class SaleServiceImpl implements SaleService {
     }
 
     @Override
-    public int registerSale(Integer customerIdentification, String customerName, String customerPhone, BigDecimal amountPaid,
-                            BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws ServiceException {
+    public int registerSale(Integer customerIdentification, String customerName, String customerPhone, String customerEmail,
+                            BigDecimal amountPaid, BigDecimal totalSale, List<DTOSaleDetailsCreate> products) throws ServiceException {
         Connection connection = null;
         int invoiceNumber;
 
@@ -73,9 +73,9 @@ public class SaleServiceImpl implements SaleService {
                 DTOCustomerDetails dtoCustomerDetails = customerService.findById(connection, customerIdentification);
 
                 if (dtoCustomerDetails == null) {
-                    customerId = customerService.add(connection, customerIdentification, customerName, customerPhone);
+                    customerId = customerService.add(connection, customerIdentification, customerName, customerPhone, customerEmail);
                 } else {
-                    customerService.modify(connection, customerPhone, customerIdentification);
+                    customerService.modify(connection, customerName, customerPhone, customerEmail, customerIdentification);
                     customerId = dtoCustomerDetails.getId();
                 }
             }
