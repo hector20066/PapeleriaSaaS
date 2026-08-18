@@ -10,11 +10,18 @@ import java.math.BigDecimal;
 
 public class PurchaseProductMapper {
 
-    public static DTOProvider getDTOProvider(String nit, String rSocial, String address, String phone, String email) throws InvalidInputException {
-        PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email);
+    public static DTOProvider getDTOProvider(String nitStr, String rSocial, String address, String phoneStr, String emailStr) throws InvalidInputException {
+        PurchaseProductValidator.registerPurchaseValidation(nitStr, rSocial, address, phoneStr, emailStr);
+
+        Integer nit = nitStr.equalsIgnoreCase("NIT") || nitStr.isBlank()
+                ? null
+                : ParserUtils.parseInteger(nitStr, "nit del proveedor");
+
+        String phone = phoneStr.equalsIgnoreCase("Telefono") || phoneStr.isBlank() ? null : phoneStr;
+        String email = emailStr.equalsIgnoreCase("Correo") || emailStr.isBlank() ? null : emailStr;
 
         return new DTOProvider.Builder()
-                .nit(ParserUtils.parseInteger(nit, "nit del proveedor"))
+                .nit(nit)
                 .rSocial(rSocial)
                 .address(address)
                 .phone(phone)
