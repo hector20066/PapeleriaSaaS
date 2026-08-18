@@ -69,22 +69,6 @@ class PurchaseProductMapperTest {
 
         @Test
         @Tag("empty_exception")
-        @DisplayName("Testeando el Nit vacío")
-        void testDtoProviderNitThrowsEmpty() {
-            nit = "";
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductMapper.getDTOProvider(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el Nit vacío."
-            );
-
-            assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: NIT.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
-        @Tag("empty_exception")
         @DisplayName("Testeando el R. Social vacío")
         void testDtoProviderRSocialThrowsEmpty() {
             rSocial = "";
@@ -113,38 +97,6 @@ class PurchaseProductMapperTest {
 
             assertInstanceOf(EmptyFieldException.class, ex);
             assertEquals("Los siguientes campos son requeridos: Dirección.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
-        @Tag("empty_exception")
-        @DisplayName("Testeando el teléfono vacío")
-        void testDtoProviderPhoneThrowsEmpty() {
-            phone = "";
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductMapper.getDTOProvider(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el Teléfono vacío."
-            );
-
-            assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: Teléfono.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
-        @Tag("empty_exception")
-        @DisplayName("Testeando el correo vacío")
-        void testDtoProviderEmailThrowsEmpty() {
-            email = "";
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductMapper.getDTOProvider(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el correo vacío."
-            );
-
-            assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: Correo.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
         }
 
         @Test

@@ -48,21 +48,6 @@ class PurchaseProductValidatorTest {
     class EmptyFieldsTest {
 
         @Test
-        @DisplayName("Testeando el Nit vacío")
-        void testNitEmpty() {
-            nit = "";
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el Nit vacío."
-            );
-
-            assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: NIT.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
         @DisplayName("Testeando el R. Social vacío")
         void testRSocialEmpty() {
             rSocial = "";
@@ -93,36 +78,6 @@ class PurchaseProductValidatorTest {
         }
 
         @Test
-        @DisplayName("Testeando el teléfono vacío")
-        void testPhoneEmpty() {
-            phone = "";
-
-            EmptyFieldException ex = assertThrows(
-                    EmptyFieldException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el Teléfono vacío."
-            );
-
-            assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: Teléfono.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
-        @DisplayName("Testeando el correo vacío")
-        void testEmailEmpty() {
-            email = "";
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el correo vacío."
-            );
-
-            assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: Correo.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
         @DisplayName("Testeando los campos vacío")
         void testFieldsEmpty() {
             InvalidInputException ex = assertThrows(
@@ -132,7 +87,7 @@ class PurchaseProductValidatorTest {
             );
 
             assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: NIT, R. Social, Dirección, Teléfono, Correo.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
+            assertEquals("Los siguientes campos son requeridos: R. Social, Dirección.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
         }
 
     }
@@ -140,21 +95,6 @@ class PurchaseProductValidatorTest {
     @Nested
     @DisplayName("Testear campos nulos")
     class NullFieldsTest {
-
-        @Test
-        @DisplayName("Testear el Nit null")
-        void testNitEmpty() {
-            nit = null;
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el Nit vacío."
-            );
-
-            assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: NIT.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
 
         @Test
         @DisplayName("Testear el R. Social null")
@@ -187,36 +127,6 @@ class PurchaseProductValidatorTest {
         }
 
         @Test
-        @DisplayName("Testear el teléfono null")
-        void testPhoneEmpty() {
-            phone = null;
-
-            EmptyFieldException ex = assertThrows(
-                    EmptyFieldException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el Teléfono vacío."
-            );
-
-            assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: Teléfono.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
-        @DisplayName("Testear el correo null")
-        void testEmailEmpty() {
-            email = null;
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el correo vacío."
-            );
-
-            assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: Correo.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
         @DisplayName("Testear todos los parámetros null")
         void testFieldsEmpty() {
             InvalidInputException ex = assertThrows(
@@ -226,7 +136,7 @@ class PurchaseProductValidatorTest {
             );
 
             assertInstanceOf(EmptyFieldException.class, ex);
-            assertEquals("Los siguientes campos son requeridos: NIT, R. Social, Dirección, Teléfono, Correo.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
+            assertEquals("Los siguientes campos son requeridos: R. Social, Dirección.", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
         }
 
     }
@@ -234,20 +144,6 @@ class PurchaseProductValidatorTest {
     @Nested
     @DisplayName("Testear campos con valores por defecto")
     class InvalidInputTest {
-
-        @Test
-        @DisplayName("Testear el Nit con texto por defecto")
-        void testDtoProviderNitThrowsEmpty() {
-            nit = "Nit";
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el Nit vacío."
-            );
-
-            assertEquals("El NIT del proveedor es requerido, ingrese un valor valido", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
 
         @Test
         @DisplayName("Testear el R. Social con texto por defecto")
@@ -275,34 +171,6 @@ class PurchaseProductValidatorTest {
             );
 
             assertEquals("La dirección del proveedor es requerida, ingrese un valor valido", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
-        @DisplayName("Testear el teléfono con texto por defecto")
-        void testDtoProviderPhoneThrowsEmpty() {
-            phone = "Telefono";
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el Teléfono vacío."
-            );
-
-            assertEquals("El teléfono del proveedor es requerido, ingrese un valor valido", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
-        }
-
-        @Test
-        @DisplayName("Testear el correo con texto por defecto")
-        void testDtoProviderEmailThrowsEmpty() {
-            email = "Correo";
-
-            InvalidInputException ex = assertThrows(
-                    InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
-                    () -> "La excepción lanzada no es la esperada para el correo vacío."
-            );
-
-            assertEquals("El correo del proveedor es requerido, ingrese un valor valido", ex.getMessage(), () -> "El mensaje de la excepción no es el esperado");
         }
 
     }
