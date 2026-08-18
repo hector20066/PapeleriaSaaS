@@ -1,8 +1,9 @@
 UPDATE providers
 SET
+    nit = ?,
     rSocial = ?,
     address = ?,
     phone = ?,
     email = ?
-WHERE nit = ?
+WHERE id = ?
   AND id_company = ?;
