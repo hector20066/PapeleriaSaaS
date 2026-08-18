@@ -81,7 +81,6 @@ public class ControllerPurchaseProducts implements Observer {
         ObserverExecutor.execute(() -> {
             try {
                 List<DTOProductDetails> productsList = productService.findByAll();
-
                 SwingUtilities.invokeLater(() -> loadData(productsList));
             } catch (ServiceException e) {
                 SwingUtilities.invokeLater(() -> MessageUtils.errorMessage(e.getMessage(), productManagement));
