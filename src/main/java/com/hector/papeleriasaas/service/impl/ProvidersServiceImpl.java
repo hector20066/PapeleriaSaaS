@@ -1,12 +1,10 @@
 package com.hector.papeleriasaas.service.impl;
 
 import com.hector.papeleriasaas.auth.Session;
-import com.hector.papeleriasaas.auth.SessionImpl;
 import com.hector.papeleriasaas.exception.dao.DAOException;
 import com.hector.papeleriasaas.exception.service.ServiceException;
 import com.hector.papeleriasaas.exception.service.ServiceDataNotFoundException;
 import com.hector.papeleriasaas.exception.service.ServicePersistenceException;
-import com.hector.papeleriasaas.exception.dao.notfound.SupplierNotFoundException;
 import com.hector.papeleriasaas.model.dao.interfaces.DAOProviders;
 import com.hector.papeleriasaas.model.dto.provider.DTOProvider;
 import com.hector.papeleriasaas.service.interfaces.ProvidersService;
@@ -48,12 +46,12 @@ public class ProvidersServiceImpl implements ProvidersService {
             if (dtoProvider.isEmpty()) {
                 providerId = daoProviders.add(connection, dto);
             } else {
+                dto.setId(dtoProvider.get().getId());
                 daoProviders.modify(connection, dto);
                 providerId = dtoProvider.get().getId();
             }
 
             return providerId;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -69,7 +67,6 @@ public class ProvidersServiceImpl implements ProvidersService {
             }
 
             return dtoProvider.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -85,7 +82,6 @@ public class ProvidersServiceImpl implements ProvidersService {
             }
 
             return dtoProvider.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -95,7 +91,6 @@ public class ProvidersServiceImpl implements ProvidersService {
     public List<DTOProvider> findByAll() throws ServiceException {
         try {
             return daoProviders.findByAll(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -105,7 +100,6 @@ public class ProvidersServiceImpl implements ProvidersService {
     public void delete(int id) throws ServiceException {
         try {
             daoProviders.delete(id, session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -115,7 +109,6 @@ public class ProvidersServiceImpl implements ProvidersService {
     public int countRecords() throws ServiceException {
         try {
             return daoProviders.countRecords(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
