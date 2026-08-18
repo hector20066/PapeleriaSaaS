@@ -29,7 +29,12 @@ public class DAOProvidersImpl implements DAOProviders {
         String sql = SQLRepository.get("sql/provider/insert.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            st.setInt(1, dto.getNit());
+            if (dto.getNit() == null) {
+                st.setNull(1, Types.INTEGER);
+            } else {
+                st.setInt(1, dto.getNit());
+            }
+
             st.setString(2, dto.getRSocial());
             st.setString(3, dto.getAddress());
             st.setString(4, dto.getPhone());
@@ -148,12 +153,18 @@ public class DAOProvidersImpl implements DAOProviders {
         String sql = SQLRepository.get("sql/provider/modify.sql");
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, dto.getRSocial());
-            st.setString(2, dto.getAddress());
-            st.setString(3, dto.getPhone());
-            st.setString(4, dto.getEmail());
-            st.setInt(5, dto.getNit());
-            st.setInt(6, dto.getCompanyId());
+            if (dto.getNit() == null) {
+                st.setNull(1, Types.INTEGER);
+            } else {
+                st.setInt(1, dto.getNit());
+            }
+
+            st.setString(2, dto.getRSocial());
+            st.setString(3, dto.getAddress());
+            st.setString(4, dto.getPhone());
+            st.setString(5, dto.getEmail());
+            st.setInt(6, dto.getId());
+            st.setInt(7, dto.getCompanyId());
 
             if (st.executeUpdate() == 0) {
                 throw new SQLException("proveedor no existe con nit: " + dto.getNit());
