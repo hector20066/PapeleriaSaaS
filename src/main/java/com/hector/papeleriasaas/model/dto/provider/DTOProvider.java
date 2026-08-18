@@ -28,6 +28,10 @@ public class DTOProvider {
         this.companyId = builder.companyId;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
