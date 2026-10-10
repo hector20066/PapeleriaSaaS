@@ -40,7 +40,6 @@ public class PlansServiceImpl implements PlansService {
             dto.setBillingCycle(billingCycle);
 
             return daoPlans.add(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -49,11 +48,7 @@ public class PlansServiceImpl implements PlansService {
     @Override
     public DTOPlanDetails findById(int id) throws ServiceException {
         try {
-            Optional<DTOPlanDetails> dtoPlanDetailsOptional = daoPlans.findById(id);
-
-            return dtoPlanDetailsOptional.orElse(null);
-
-
+            return daoPlans.findById(id).orElse(null);
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -62,10 +57,7 @@ public class PlansServiceImpl implements PlansService {
     @Override
     public DTOPlanDetails findByName(String planName) throws ServiceException {
         try {
-            Optional<DTOPlanDetails> dtoPlanDetailsOptional = daoPlans.findByName(planName);
-
-            return dtoPlanDetailsOptional.orElse(null);
-
+            return daoPlans.findByName(planName).orElse(null);
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -74,10 +66,7 @@ public class PlansServiceImpl implements PlansService {
     @Override
     public DTOPlanDetails findByName(Connection connection, String planName) throws ServiceException {
         try {
-            Optional<DTOPlanDetails> dtoPlanDetailsOptional = daoPlans.findByName(connection, planName);
-
-            return dtoPlanDetailsOptional.orElse(null);
-
+            return daoPlans.findByName(connection, planName).orElse(null);
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -93,7 +82,6 @@ public class PlansServiceImpl implements PlansService {
             }
 
             return list;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -111,7 +99,6 @@ public class PlansServiceImpl implements PlansService {
                     .build();
 
             daoPlans.modify(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -121,7 +108,6 @@ public class PlansServiceImpl implements PlansService {
     public void delete(int id) throws ServiceException {
         try {
             daoPlans.delete(id);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

@@ -49,7 +49,6 @@ public class CompanyPaymentsServiceImpl implements CompanyPaymentsService {
                     .build();
 
             daoCompanyPayments.add(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -65,7 +64,6 @@ public class CompanyPaymentsServiceImpl implements CompanyPaymentsService {
             }
 
             return dtoPaymentDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -75,7 +73,6 @@ public class CompanyPaymentsServiceImpl implements CompanyPaymentsService {
     public List<DTOPaymentCompanyDetails> findByCompany(int companyId) throws ServiceException {
         try {
             return daoCompanyPayments.findByCompany(companyId);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -85,7 +82,6 @@ public class CompanyPaymentsServiceImpl implements CompanyPaymentsService {
     public List<DTOPaymentSimpleDetails> findByAll() throws ServiceException {
         try {
             return daoCompanyPayments.findByAll();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

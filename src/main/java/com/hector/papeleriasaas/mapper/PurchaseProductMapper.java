@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class PurchaseProductMapper {
 
     public static DTOProvider getDTOProvider(String nitStr, String rSocial, String address, String phoneStr, String emailStr) throws InvalidInputException {
-        PurchaseProductValidator.registerPurchaseValidation(nitStr, rSocial, address, phoneStr, emailStr);
+        PurchaseProductValidator.registerPurchaseValidation(nitStr, rSocial, address);
 
         Integer nit = nitStr.equalsIgnoreCase("NIT") || nitStr.isBlank()
                 ? null

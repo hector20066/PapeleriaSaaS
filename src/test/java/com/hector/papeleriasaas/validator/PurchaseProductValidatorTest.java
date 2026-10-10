@@ -54,7 +54,7 @@ class PurchaseProductValidatorTest {
 
             InvalidInputException ex = assertThrows(
                     InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
+                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address),
                     () -> "La excepción lanzada no es la esperada para la Razón Social vacía."
             );
 
@@ -69,7 +69,7 @@ class PurchaseProductValidatorTest {
 
             InvalidInputException ex = assertThrows(
                     InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
+                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address),
                     () -> "La excepción lanzada no es la esperada para la Dirección vacío."
             );
 
@@ -82,7 +82,7 @@ class PurchaseProductValidatorTest {
         void testFieldsEmpty() {
             InvalidInputException ex = assertThrows(
                     InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation("", "", "", "", ""),
+                    () -> PurchaseProductValidator.registerPurchaseValidation("", "", ""),
                     () -> "La excepción lanzada no es la esperada para el correo vacío."
             );
 
@@ -103,7 +103,7 @@ class PurchaseProductValidatorTest {
 
             InvalidInputException ex = assertThrows(
                     InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
+                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address),
                     () -> "La excepción lanzada no es la esperada para la Razón Social vacía."
             );
 
@@ -118,7 +118,7 @@ class PurchaseProductValidatorTest {
 
             InvalidInputException ex = assertThrows(
                     InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
+                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address),
                     () -> "La excepción lanzada no es la esperada para la Dirección vacío."
             );
 
@@ -131,7 +131,7 @@ class PurchaseProductValidatorTest {
         void testFieldsEmpty() {
             InvalidInputException ex = assertThrows(
                     InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation("", "", "", "", ""),
+                    () -> PurchaseProductValidator.registerPurchaseValidation("", "", ""),
                     () -> "La excepción lanzada no es la esperada para el correo vacío."
             );
 
@@ -152,7 +152,7 @@ class PurchaseProductValidatorTest {
 
             InvalidInputException ex = assertThrows(
                     InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
+                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address),
                     () -> "La excepción lanzada no es la esperada para la Razón Social vacía."
             );
 
@@ -166,7 +166,7 @@ class PurchaseProductValidatorTest {
 
             InvalidInputException ex = assertThrows(
                     InvalidInputException.class,
-                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address, phone, email),
+                    () -> PurchaseProductValidator.registerPurchaseValidation(nit, rSocial, address),
                     () -> "La excepción lanzada no es la esperada para la Dirección vacío."
             );
 

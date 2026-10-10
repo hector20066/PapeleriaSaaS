@@ -103,10 +103,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public DTOProductDetails findById(Connection connection, int id) throws ServiceException {
         try {
-            Optional<DTOProductDetails> dtoProductDetailsOptional = daoProducts.findById(connection, id, session.getCompanyId());
-
-            return dtoProductDetailsOptional.orElse(null);
-
+            return daoProducts.findById(connection, id, session.getCompanyId()).orElse(null);
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -128,7 +125,6 @@ public class ProductServiceImpl implements ProductService {
             }
 
             return bestSelling;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -138,7 +134,6 @@ public class ProductServiceImpl implements ProductService {
     public List<DTOProductDetails> findByAll() throws ServiceException {
         try {
             return daoProducts.findByAll(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -165,7 +160,6 @@ public class ProductServiceImpl implements ProductService {
                     .build();
 
             daoProducts.modify(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -193,7 +187,6 @@ public class ProductServiceImpl implements ProductService {
                     .build();
 
             daoProducts.modify(connection, dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -203,7 +196,6 @@ public class ProductServiceImpl implements ProductService {
     public void delete(int id) throws ServiceException {
         try {
             daoProducts.delete(id, session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -213,7 +205,6 @@ public class ProductServiceImpl implements ProductService {
     public int countRecords() throws ServiceException {
         try {
             return daoProducts.countRecords(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

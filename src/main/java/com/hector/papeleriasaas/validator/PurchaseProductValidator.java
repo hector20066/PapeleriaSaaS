@@ -14,7 +14,7 @@ import java.util.Map;
 
 public final class PurchaseProductValidator {
 
-    public static void registerPurchaseValidation(String nit, String rSocial, String address, String phone, String email) throws InvalidInputException {
+    public static void registerPurchaseValidation(String nit, String rSocial, String address) throws InvalidInputException {
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put("R. Social", rSocial);
         fields.put("Dirección", address);
@@ -27,7 +27,7 @@ public final class PurchaseProductValidator {
 
         invalidInputValidation(rSocial, address);
 
-        if (!nit.isBlank()) {
+        if (!nit.isBlank() && !nit.equalsIgnoreCase("Nit")) {
             if (!ValidationUtils.isNumeric(nit)) {
                 throw new InvalidNumberInputException("NIT del proveedor");
             }

@@ -40,7 +40,6 @@ public class DebtsServiceImpl implements DebtsService {
             }
 
             return list;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -50,7 +49,6 @@ public class DebtsServiceImpl implements DebtsService {
     public List<DTODebtDetails> findByStatus(PaymentStatus status) throws ServiceException {
         try {
             return daoDebts.findByStatus(status, session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -66,7 +64,6 @@ public class DebtsServiceImpl implements DebtsService {
             }
 
             return debtDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -82,7 +79,6 @@ public class DebtsServiceImpl implements DebtsService {
             }
 
             return debtDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -92,7 +88,6 @@ public class DebtsServiceImpl implements DebtsService {
     public List<DTODebtDetails> findByAll() throws ServiceException {
         try {
             return daoDebts.findByAll(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -102,7 +97,6 @@ public class DebtsServiceImpl implements DebtsService {
     public int countRecords() throws ServiceException {
         try {
             return daoDebts.countRecords(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

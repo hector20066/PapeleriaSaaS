@@ -25,7 +25,6 @@ public class InvoicesServiceImpl implements InvoicesService {
     public int add(Connection connection, DTOInvoiceCreate dto) throws ServiceException {
         try {
             return daoInvoices.add(connection, dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

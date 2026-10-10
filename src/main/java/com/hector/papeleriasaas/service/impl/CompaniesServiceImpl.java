@@ -134,7 +134,6 @@ public class CompaniesServiceImpl implements CompaniesService {
             }
 
             return dtoCompanySimpleDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -150,7 +149,6 @@ public class CompaniesServiceImpl implements CompaniesService {
             }
 
             return dtoCompanySimpleDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -166,7 +164,6 @@ public class CompaniesServiceImpl implements CompaniesService {
             }
 
             return dtoCompanySimpleDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -182,7 +179,6 @@ public class CompaniesServiceImpl implements CompaniesService {
             }
 
             return dtoCompanyDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -198,7 +194,6 @@ public class CompaniesServiceImpl implements CompaniesService {
             }
 
             return dtoCompanyDetailsOptional.get();
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -214,7 +209,6 @@ public class CompaniesServiceImpl implements CompaniesService {
             }
 
             return list;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -232,7 +226,6 @@ public class CompaniesServiceImpl implements CompaniesService {
                     .build();
 
             daoCompanies.modify(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -244,7 +237,6 @@ public class CompaniesServiceImpl implements CompaniesService {
             DTOCompanyUpdatePlan dto = new DTOCompanyUpdatePlan(id, planId);
 
             daoCompanies.modifyPlan(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -256,7 +248,6 @@ public class CompaniesServiceImpl implements CompaniesService {
             DTOCompanyUpdateStatus dto = new DTOCompanyUpdateStatus(id, status);
 
             daoCompanies.modifyStatus(dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -266,7 +257,6 @@ public class CompaniesServiceImpl implements CompaniesService {
     public void delete(int id) throws ServiceException {
         try {
             daoCompanies.delete(id);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

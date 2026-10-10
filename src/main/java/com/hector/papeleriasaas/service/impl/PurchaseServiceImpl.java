@@ -131,7 +131,6 @@ public class PurchaseServiceImpl implements PurchaseService {
             }
 
             return list;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -147,7 +146,6 @@ public class PurchaseServiceImpl implements PurchaseService {
             }
 
             return list;
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -157,7 +155,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<DTOPurchaseDetails> findByAll() throws ServiceException {
         try {
             return daoPurchases.findByAll(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -167,7 +164,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     public void delete(int id) throws ServiceException {
         try {
             daoPurchases.delete(id, session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -177,7 +173,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     public int countRecords() throws ServiceException {
         try {
             return daoPurchases.countRecords(session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

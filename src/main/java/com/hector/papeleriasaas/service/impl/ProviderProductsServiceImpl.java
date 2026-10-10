@@ -25,7 +25,6 @@ public class ProviderProductsServiceImpl implements ProviderProductsService {
     public void add(Connection connection, Integer providerId, Integer productId) throws ServiceException {
         try {
             daoProviderProducts.add(connection, providerId, productId);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
@@ -35,7 +34,6 @@ public class ProviderProductsServiceImpl implements ProviderProductsService {
     public Optional<DTOProviderDetails> findProviderProducts(Integer productId) throws ServiceException {
         try {
             return daoProviderProducts.findProviderProducts(productId, session.getCompanyId());
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }

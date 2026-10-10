@@ -32,7 +32,6 @@ public class PurchaseDetailsServiceImpl implements PurchaseDetailsService {
             dto.setUnitPrice(unitPrice);
 
             daoPurchaseDetails.add(connection, dto);
-
         } catch (DAOException e) {
             throw new ServicePersistenceException("No fue posible completar la operación.", e);
         }
