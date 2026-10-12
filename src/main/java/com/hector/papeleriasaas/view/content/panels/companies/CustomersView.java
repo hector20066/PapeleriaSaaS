@@ -210,11 +210,13 @@ public class CustomersView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void updatePanel(DTOCustomerDetails dto) {
-        int id = dto.getIdentification();
+        int id = dto.getId();
+        int identification = dto.getIdentification();
         String name = dto.getName();
         String phone = dto.getPhone();
+        String email = dto.getEmail();
 
-        Object[] data = new Object[]{id, name, phone};
+        Object[] data = new Object[]{id, identification, name, phone, email};
         model.addRow(data);
     }
 
