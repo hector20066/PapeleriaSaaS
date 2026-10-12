@@ -131,6 +131,7 @@ public class DAOCustomersImpl implements DAOCustomers {
 
     private DTOCustomerDetails getDTOCustomer(ResultSet rs) throws SQLException {
         return new DTOCustomerDetails.Builder()
+                .id(rs.getInt("id"))
                 .identification(rs.getInt("identification"))
                 .name(rs.getString("name"))
                 .phone(rs.getString("phone"))
