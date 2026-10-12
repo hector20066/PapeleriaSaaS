@@ -339,7 +339,7 @@ DELIMITER ;
 CREATE VIEW vw_customers_debts AS
 SELECT 
     d.id,
-    c.id AS customer_id,
+    c.identification AS customer_id,
     c.name AS customer_name,
     c.phone,
     s.sale_number,
