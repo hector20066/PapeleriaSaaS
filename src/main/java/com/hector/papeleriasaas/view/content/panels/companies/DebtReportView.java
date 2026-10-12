@@ -147,7 +147,7 @@ public class DebtReportView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID Cliente", "Cliente", "Telefono", "Num. Venta", "Fecha", "Total a pagar", "Cant. Pagada", "Deuda actual", "Estado"
+                "Cedula Cliente", "Cliente", "Telefono", "Num. Venta", "Fecha", "Total a pagar", "Cant. Pagada", "Deuda actual", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
